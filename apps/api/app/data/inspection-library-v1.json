@@ -1,0 +1,5092 @@
+{
+  "revision": "proposed-comprehensive-v1",
+  "status": "draft_requires_company_approval",
+  "source": "Original proposed reference content; not the unpublished Arihant 151-point SOP. No mechanical tolerances are asserted.",
+  "items": [
+    {
+      "id": "registration",
+      "title": "Registration plate and actual car",
+      "titleHi": "नंबर प्लेट और वास्तविक कार",
+      "instruction": "Photograph and inspect: registration plate and actual car. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: नंबर प्लेट और वास्तविक कार। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 1,
+      "required": true,
+      "zone": "identity",
+      "componentId": "vehicle",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "vin",
+      "title": "Physical chassis/VIN marking",
+      "titleHi": "चेसिस / VIN नंबर",
+      "instruction": "Photograph and inspect: physical chassis/vin marking. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: चेसिस / VIN नंबर। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 2,
+      "required": true,
+      "zone": "identity",
+      "componentId": "vehicle",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "vin-document",
+      "title": "Chassis and registration document match",
+      "titleHi": "चेसिस और दस्तावेज़ का मिलान",
+      "instruction": "Photograph the reference and record discrepancies: chassis and registration document match. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "दस्तावेज़ की फोटो लें और अंतर दर्ज करें: चेसिस और दस्तावेज़ का मिलान। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 3,
+      "required": true,
+      "zone": "identity",
+      "componentId": "vehicle",
+      "method": "document",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "manufacture-label",
+      "title": "Manufacturing label and year",
+      "titleHi": "निर्माण लेबल और साल",
+      "instruction": "Photograph and inspect: manufacturing label and year. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: निर्माण लेबल और साल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 4,
+      "required": true,
+      "zone": "identity",
+      "componentId": "vehicle",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "odometer-reading",
+      "title": "Odometer reading",
+      "titleHi": "किलोमीटर रीडिंग",
+      "instruction": "Photograph the instrument and enter the reading: odometer reading. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "उपकरण की फोटो लें और रीडिंग दर्ज करें: किलोमीटर रीडिंग। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 5,
+      "required": true,
+      "zone": "identity",
+      "componentId": "vehicle",
+      "method": "measurement",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": "km",
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "service-history",
+      "title": "Service history and odometer observations",
+      "titleHi": "सर्विस इतिहास और किलोमीटर रिकॉर्ड",
+      "instruction": "Photograph the reference and record discrepancies: service history and odometer observations. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "दस्तावेज़ की फोटो लें और अंतर दर्ज करें: सर्विस इतिहास और किलोमीटर रिकॉर्ड। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 6,
+      "required": true,
+      "zone": "identity",
+      "componentId": "vehicle",
+      "method": "document",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "ownership-record",
+      "title": "Ownership document reference",
+      "titleHi": "मालिकाना दस्तावेज़",
+      "instruction": "Photograph the reference and record discrepancies: ownership document reference. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "दस्तावेज़ की फोटो लें और अंतर दर्ज करें: मालिकाना दस्तावेज़। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 7,
+      "required": true,
+      "zone": "identity",
+      "componentId": "vehicle",
+      "method": "document",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "insurance-record",
+      "title": "Insurance and disclosed claim references",
+      "titleHi": "बीमा और बताए गए क्लेम",
+      "instruction": "Photograph the reference and record discrepancies: insurance and disclosed claim references. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "दस्तावेज़ की फोटो लें और अंतर दर्ज करें: बीमा और बताए गए क्लेम। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 8,
+      "required": true,
+      "zone": "identity",
+      "componentId": "vehicle",
+      "method": "document",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "loan-reference",
+      "title": "Finance or loan clearance reference",
+      "titleHi": "लोन या फाइनेंस की जानकारी",
+      "instruction": "Photograph the reference and record discrepancies: finance or loan clearance reference. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "दस्तावेज़ की फोटो लें और अंतर दर्ज करें: लोन या फाइनेंस की जानकारी। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 9,
+      "required": true,
+      "zone": "identity",
+      "componentId": "vehicle",
+      "method": "document",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "keys-received",
+      "title": "Keys received and key count",
+      "titleHi": "मिली चाबियाँ और उनकी गिनती",
+      "instruction": "Photograph and inspect: keys received and key count. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: मिली चाबियाँ और उनकी गिनती। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 10,
+      "required": true,
+      "zone": "identity",
+      "componentId": "vehicle",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "accessories-received",
+      "title": "Accessories and tool kit received",
+      "titleHi": "मिला सामान और टूल किट",
+      "instruction": "Photograph and inspect: accessories and tool kit received. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: मिला सामान और टूल किट। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 11,
+      "required": true,
+      "zone": "identity",
+      "componentId": "vehicle",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "fuel-observation",
+      "title": "Fuel or charge level on arrival",
+      "titleHi": "आते समय ईंधन या चार्ज",
+      "instruction": "Photograph and inspect: fuel or charge level on arrival. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: आते समय ईंधन या चार्ज। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 12,
+      "required": true,
+      "zone": "identity",
+      "componentId": "vehicle",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "body-front_bumper",
+      "title": "Front bumper",
+      "titleHi": "आगे का बंपर",
+      "instruction": "Photograph and inspect: front bumper. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: आगे का बंपर। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 13,
+      "required": true,
+      "zone": "exterior",
+      "componentId": "body.front_bumper",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "body-rear_bumper",
+      "title": "Rear bumper",
+      "titleHi": "पीछे का बंपर",
+      "instruction": "Photograph and inspect: rear bumper. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: पीछे का बंपर। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 14,
+      "required": true,
+      "zone": "exterior",
+      "componentId": "body.rear_bumper",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "body-bonnet",
+      "title": "Bonnet outer surface",
+      "titleHi": "बोनट की बाहरी सतह",
+      "instruction": "Photograph and inspect: bonnet outer surface. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: बोनट की बाहरी सतह। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 15,
+      "required": true,
+      "zone": "exterior",
+      "componentId": "body.bonnet",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "body-tailgate",
+      "title": "Boot or tailgate outer surface",
+      "titleHi": "डिक्की की बाहरी सतह",
+      "instruction": "Photograph and inspect: boot or tailgate outer surface. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: डिक्की की बाहरी सतह। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 16,
+      "required": true,
+      "zone": "exterior",
+      "componentId": "body.tailgate",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "body-roof",
+      "title": "Roof panel",
+      "titleHi": "छत का पैनल",
+      "instruction": "Photograph and inspect: roof panel. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: छत का पैनल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 17,
+      "required": true,
+      "zone": "exterior",
+      "componentId": "body.roof",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "body-fender_front_left",
+      "title": "Front-left fender",
+      "titleHi": "आगे का बायाँ फेंडर",
+      "instruction": "Photograph and inspect: front-left fender. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: आगे का बायाँ फेंडर। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 18,
+      "required": true,
+      "zone": "exterior",
+      "componentId": "body.fender_front_left",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "body-fender_front_right",
+      "title": "Front-right fender",
+      "titleHi": "आगे का दायाँ फेंडर",
+      "instruction": "Photograph and inspect: front-right fender. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: आगे का दायाँ फेंडर। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 19,
+      "required": true,
+      "zone": "exterior",
+      "componentId": "body.fender_front_right",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "body-quarter_rear_left",
+      "title": "Rear-left quarter panel",
+      "titleHi": "पीछे का बायाँ पैनल",
+      "instruction": "Photograph and inspect: rear-left quarter panel. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: पीछे का बायाँ पैनल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 20,
+      "required": true,
+      "zone": "exterior",
+      "componentId": "body.quarter_rear_left",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "body-quarter_rear_right",
+      "title": "Rear-right quarter panel",
+      "titleHi": "पीछे का दायाँ पैनल",
+      "instruction": "Photograph and inspect: rear-right quarter panel. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: पीछे का दायाँ पैनल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 21,
+      "required": true,
+      "zone": "exterior",
+      "componentId": "body.quarter_rear_right",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "body-sill_left",
+      "title": "Left sill",
+      "titleHi": "बाईं सिल",
+      "instruction": "Photograph and inspect: left sill. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: बाईं सिल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 22,
+      "required": true,
+      "zone": "exterior",
+      "componentId": "body.sill_left",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "body-sill_right",
+      "title": "Right sill",
+      "titleHi": "दाईं सिल",
+      "instruction": "Photograph and inspect: right sill. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: दाईं सिल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 23,
+      "required": true,
+      "zone": "exterior",
+      "componentId": "body.sill_right",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "door-front-left-surface",
+      "title": "Front left door panel",
+      "titleHi": "आगे का बायाँ दरवाज़े का पैनल",
+      "instruction": "Photograph and inspect: front left door panel. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: आगे का बायाँ दरवाज़े का पैनल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 24,
+      "required": true,
+      "zone": "exterior",
+      "componentId": "door.front_left",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "door-front-left-hinge",
+      "title": "Front left door hinge and latch",
+      "titleHi": "आगे का बायाँ दरवाज़े का कब्ज़ा और कुंडी",
+      "instruction": "Photograph and inspect: front left door hinge and latch. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: आगे का बायाँ दरवाज़े का कब्ज़ा और कुंडी। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 25,
+      "required": true,
+      "zone": "exterior",
+      "componentId": "door.front_left",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "door-front-left-seal",
+      "title": "Front left door seal",
+      "titleHi": "आगे का बायाँ दरवाज़े की रबर",
+      "instruction": "Photograph and inspect: front left door seal. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: आगे का बायाँ दरवाज़े की रबर। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 26,
+      "required": true,
+      "zone": "exterior",
+      "componentId": "door.front_left",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "door-rear-left-surface",
+      "title": "Rear left door panel",
+      "titleHi": "पीछे का बायाँ दरवाज़े का पैनल",
+      "instruction": "Photograph and inspect: rear left door panel. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: पीछे का बायाँ दरवाज़े का पैनल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 27,
+      "required": true,
+      "zone": "exterior",
+      "componentId": "door.rear_left",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "door-rear-left-hinge",
+      "title": "Rear left door hinge and latch",
+      "titleHi": "पीछे का बायाँ दरवाज़े का कब्ज़ा और कुंडी",
+      "instruction": "Photograph and inspect: rear left door hinge and latch. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: पीछे का बायाँ दरवाज़े का कब्ज़ा और कुंडी। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 28,
+      "required": true,
+      "zone": "exterior",
+      "componentId": "door.rear_left",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "door-rear-left-seal",
+      "title": "Rear left door seal",
+      "titleHi": "पीछे का बायाँ दरवाज़े की रबर",
+      "instruction": "Photograph and inspect: rear left door seal. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: पीछे का बायाँ दरवाज़े की रबर। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 29,
+      "required": true,
+      "zone": "exterior",
+      "componentId": "door.rear_left",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "pillar-a-left",
+      "title": "Left A-pillar condition",
+      "titleHi": "बायाँ A पिलर की हालत",
+      "instruction": "Photograph and inspect: left a-pillar condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: बायाँ A पिलर की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 30,
+      "required": true,
+      "zone": "exterior",
+      "componentId": "body.pillar_left",
+      "method": "visual",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "pillar-b-left",
+      "title": "Left B-pillar condition",
+      "titleHi": "बायाँ B पिलर की हालत",
+      "instruction": "Photograph and inspect: left b-pillar condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: बायाँ B पिलर की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 31,
+      "required": true,
+      "zone": "exterior",
+      "componentId": "body.pillar_left",
+      "method": "visual",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "pillar-c-left",
+      "title": "Left C-pillar condition",
+      "titleHi": "बायाँ C पिलर की हालत",
+      "instruction": "Photograph and inspect: left c-pillar condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: बायाँ C पिलर की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 32,
+      "required": true,
+      "zone": "exterior",
+      "componentId": "body.pillar_left",
+      "method": "visual",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "structure-apron-left",
+      "title": "Left apron condition",
+      "titleHi": "बायाँ अप्रन की हालत",
+      "instruction": "Photograph and inspect: left apron condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: बायाँ अप्रन की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 33,
+      "required": true,
+      "zone": "underbody",
+      "componentId": "underbody",
+      "method": "visual",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "structure-front_rail-left",
+      "title": "Left front rail condition",
+      "titleHi": "बायाँ आगे की चेसिस रेल की हालत",
+      "instruction": "Photograph and inspect: left front rail condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: बायाँ आगे की चेसिस रेल की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 34,
+      "required": true,
+      "zone": "underbody",
+      "componentId": "underbody",
+      "method": "visual",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "structure-rear_rail-left",
+      "title": "Left rear rail condition",
+      "titleHi": "बायाँ पीछे की चेसिस रेल की हालत",
+      "instruction": "Photograph and inspect: left rear rail condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: बायाँ पीछे की चेसिस रेल की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 35,
+      "required": true,
+      "zone": "underbody",
+      "componentId": "underbody",
+      "method": "visual",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "door-front-right-surface",
+      "title": "Front right door panel",
+      "titleHi": "आगे का दायाँ दरवाज़े का पैनल",
+      "instruction": "Photograph and inspect: front right door panel. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: आगे का दायाँ दरवाज़े का पैनल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 36,
+      "required": true,
+      "zone": "exterior",
+      "componentId": "door.front_right",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "door-front-right-hinge",
+      "title": "Front right door hinge and latch",
+      "titleHi": "आगे का दायाँ दरवाज़े का कब्ज़ा और कुंडी",
+      "instruction": "Photograph and inspect: front right door hinge and latch. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: आगे का दायाँ दरवाज़े का कब्ज़ा और कुंडी। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 37,
+      "required": true,
+      "zone": "exterior",
+      "componentId": "door.front_right",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "door-front-right-seal",
+      "title": "Front right door seal",
+      "titleHi": "आगे का दायाँ दरवाज़े की रबर",
+      "instruction": "Photograph and inspect: front right door seal. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: आगे का दायाँ दरवाज़े की रबर। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 38,
+      "required": true,
+      "zone": "exterior",
+      "componentId": "door.front_right",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "door-rear-right-surface",
+      "title": "Rear right door panel",
+      "titleHi": "पीछे का दायाँ दरवाज़े का पैनल",
+      "instruction": "Photograph and inspect: rear right door panel. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: पीछे का दायाँ दरवाज़े का पैनल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 39,
+      "required": true,
+      "zone": "exterior",
+      "componentId": "door.rear_right",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "door-rear-right-hinge",
+      "title": "Rear right door hinge and latch",
+      "titleHi": "पीछे का दायाँ दरवाज़े का कब्ज़ा और कुंडी",
+      "instruction": "Photograph and inspect: rear right door hinge and latch. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: पीछे का दायाँ दरवाज़े का कब्ज़ा और कुंडी। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 40,
+      "required": true,
+      "zone": "exterior",
+      "componentId": "door.rear_right",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "door-rear-right-seal",
+      "title": "Rear right door seal",
+      "titleHi": "पीछे का दायाँ दरवाज़े की रबर",
+      "instruction": "Photograph and inspect: rear right door seal. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: पीछे का दायाँ दरवाज़े की रबर। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 41,
+      "required": true,
+      "zone": "exterior",
+      "componentId": "door.rear_right",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "pillar-a-right",
+      "title": "Right A-pillar condition",
+      "titleHi": "दायाँ A पिलर की हालत",
+      "instruction": "Photograph and inspect: right a-pillar condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: दायाँ A पिलर की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 42,
+      "required": true,
+      "zone": "exterior",
+      "componentId": "body.pillar_right",
+      "method": "visual",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "pillar-b-right",
+      "title": "Right B-pillar condition",
+      "titleHi": "दायाँ B पिलर की हालत",
+      "instruction": "Photograph and inspect: right b-pillar condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: दायाँ B पिलर की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 43,
+      "required": true,
+      "zone": "exterior",
+      "componentId": "body.pillar_right",
+      "method": "visual",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "pillar-c-right",
+      "title": "Right C-pillar condition",
+      "titleHi": "दायाँ C पिलर की हालत",
+      "instruction": "Photograph and inspect: right c-pillar condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: दायाँ C पिलर की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 44,
+      "required": true,
+      "zone": "exterior",
+      "componentId": "body.pillar_right",
+      "method": "visual",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "structure-apron-right",
+      "title": "Right apron condition",
+      "titleHi": "दायाँ अप्रन की हालत",
+      "instruction": "Photograph and inspect: right apron condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: दायाँ अप्रन की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 45,
+      "required": true,
+      "zone": "underbody",
+      "componentId": "underbody",
+      "method": "visual",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "structure-front_rail-right",
+      "title": "Right front rail condition",
+      "titleHi": "दायाँ आगे की चेसिस रेल की हालत",
+      "instruction": "Photograph and inspect: right front rail condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: दायाँ आगे की चेसिस रेल की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 46,
+      "required": true,
+      "zone": "underbody",
+      "componentId": "underbody",
+      "method": "visual",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "structure-rear_rail-right",
+      "title": "Right rear rail condition",
+      "titleHi": "दायाँ पीछे की चेसिस रेल की हालत",
+      "instruction": "Photograph and inspect: right rear rail condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: दायाँ पीछे की चेसिस रेल की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 47,
+      "required": true,
+      "zone": "underbody",
+      "componentId": "underbody",
+      "method": "visual",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "panel-gaps",
+      "title": "Panel alignment and gaps",
+      "titleHi": "पैनल का मिलान और गैप",
+      "instruction": "Photograph and inspect: panel alignment and gaps. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: पैनल का मिलान और गैप। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 48,
+      "required": true,
+      "zone": "exterior",
+      "componentId": "body",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "welds",
+      "title": "Visible welds and repair marks",
+      "titleHi": "दिखने वाले वेल्ड और मरम्मत के निशान",
+      "instruction": "Photograph and inspect: visible welds and repair marks. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: दिखने वाले वेल्ड और मरम्मत के निशान। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 49,
+      "required": true,
+      "zone": "exterior",
+      "componentId": "body",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "corrosion",
+      "title": "Visible body corrosion",
+      "titleHi": "बॉडी पर जंग",
+      "instruction": "Photograph and inspect: visible body corrosion. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: बॉडी पर जंग। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 50,
+      "required": true,
+      "zone": "exterior",
+      "componentId": "body",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "water-traces",
+      "title": "Water-entry or flood indicators",
+      "titleHi": "पानी घुसने के निशान",
+      "instruction": "Photograph and inspect: water-entry or flood indicators. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: पानी घुसने के निशान। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 51,
+      "required": true,
+      "zone": "exterior",
+      "componentId": "body",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "paint-finish",
+      "title": "Paint finish and repaint observations",
+      "titleHi": "पेंट की हालत और दोबारा पेंट के निशान",
+      "instruction": "Photograph and inspect: paint finish and repaint observations. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: पेंट की हालत और दोबारा पेंट के निशान। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 52,
+      "required": true,
+      "zone": "exterior",
+      "componentId": "body",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "glass-windscreen",
+      "title": "Windscreen",
+      "titleHi": "आगे का शीशा",
+      "instruction": "Photograph and inspect: windscreen. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: आगे का शीशा। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 53,
+      "required": true,
+      "zone": "visibility",
+      "componentId": "glass.windscreen",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "glass-rear_glass",
+      "title": "Rear glass",
+      "titleHi": "पीछे का शीशा",
+      "instruction": "Photograph and inspect: rear glass. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: पीछे का शीशा। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 54,
+      "required": true,
+      "zone": "visibility",
+      "componentId": "glass.rear_glass",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "glass-mirror_left",
+      "title": "Left mirror",
+      "titleHi": "बायाँ शीशा",
+      "instruction": "Photograph and inspect: left mirror. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: बायाँ शीशा। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 55,
+      "required": true,
+      "zone": "visibility",
+      "componentId": "glass.mirror_left",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "glass-mirror_right",
+      "title": "Right mirror",
+      "titleHi": "दायाँ शीशा",
+      "instruction": "Photograph and inspect: right mirror. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: दायाँ शीशा। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 56,
+      "required": true,
+      "zone": "visibility",
+      "componentId": "glass.mirror_right",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "glass-front-left",
+      "title": "Front left window glass",
+      "titleHi": "आगे की बाईं खिड़की का शीशा",
+      "instruction": "Photograph and inspect: front left window glass. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: आगे की बाईं खिड़की का शीशा। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 57,
+      "required": true,
+      "zone": "visibility",
+      "componentId": "door.front_left",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "glass-rear-left",
+      "title": "Rear left window glass",
+      "titleHi": "पीछे की बाईं खिड़की का शीशा",
+      "instruction": "Photograph and inspect: rear left window glass. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: पीछे की बाईं खिड़की का शीशा। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 58,
+      "required": true,
+      "zone": "visibility",
+      "componentId": "door.rear_left",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "glass-front-right",
+      "title": "Front right window glass",
+      "titleHi": "आगे की दाईं खिड़की का शीशा",
+      "instruction": "Photograph and inspect: front right window glass. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: आगे की दाईं खिड़की का शीशा। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 59,
+      "required": true,
+      "zone": "visibility",
+      "componentId": "door.front_right",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "glass-rear-right",
+      "title": "Rear right window glass",
+      "titleHi": "पीछे की दाईं खिड़की का शीशा",
+      "instruction": "Photograph and inspect: rear right window glass. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: पीछे की दाईं खिड़की का शीशा। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 60,
+      "required": true,
+      "zone": "visibility",
+      "componentId": "door.rear_right",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "front-wipers",
+      "title": "Front wipers",
+      "titleHi": "आगे के वाइपर",
+      "instruction": "Demonstrate operation and record its condition: front wipers. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: आगे के वाइपर। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 61,
+      "required": true,
+      "zone": "visibility",
+      "componentId": "glass.windscreen",
+      "method": "function",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "washer",
+      "title": "Windscreen washer",
+      "titleHi": "शीशे का वॉशर",
+      "instruction": "Demonstrate operation and record its condition: windscreen washer. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: शीशे का वॉशर। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 62,
+      "required": true,
+      "zone": "visibility",
+      "componentId": "glass.windscreen",
+      "method": "function",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "demister",
+      "title": "Windscreen demisting",
+      "titleHi": "शीशे की धुंध हटाना",
+      "instruction": "Demonstrate operation and record its condition: windscreen demisting. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: शीशे की धुंध हटाना। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 63,
+      "required": true,
+      "zone": "visibility",
+      "componentId": "glass.windscreen",
+      "method": "function",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "front_left-size",
+      "title": "Front-left tyre size and markings",
+      "titleHi": "आगे का बायाँ टायर का आकार और लेबल",
+      "instruction": "Photograph and inspect: front-left tyre size and markings. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: आगे का बायाँ टायर का आकार और लेबल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 64,
+      "required": true,
+      "zone": "wheels",
+      "componentId": "wheel.front_left",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "front_left-sidewall",
+      "title": "Front-left tyre sidewall condition",
+      "titleHi": "आगे का बायाँ टायर का किनारा",
+      "instruction": "Photograph and inspect: front-left tyre sidewall condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: आगे का बायाँ टायर का किनारा। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 65,
+      "required": true,
+      "zone": "wheels",
+      "componentId": "wheel.front_left",
+      "method": "visual",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "front_left-tread",
+      "title": "Front-left minimum measured tread depth",
+      "titleHi": "आगे का बायाँ टायर की मापी गई गहराई",
+      "instruction": "Photograph the instrument and enter the reading: front-left minimum measured tread depth. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "उपकरण की फोटो लें और रीडिंग दर्ज करें: आगे का बायाँ टायर की मापी गई गहराई। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 66,
+      "required": true,
+      "zone": "wheels",
+      "componentId": "wheel.front_left",
+      "method": "measurement",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": "mm",
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "front_left-age",
+      "title": "Front-left tyre date marking",
+      "titleHi": "आगे का बायाँ टायर का तारीख लेबल",
+      "instruction": "Photograph and inspect: front-left tyre date marking. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: आगे का बायाँ टायर का तारीख लेबल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 67,
+      "required": true,
+      "zone": "wheels",
+      "componentId": "wheel.front_left",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "front_left-rim",
+      "title": "Front-left wheel rim condition",
+      "titleHi": "आगे का बायाँ पहिए की रिम",
+      "instruction": "Photograph and inspect: front-left wheel rim condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: आगे का बायाँ पहिए की रिम। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 68,
+      "required": true,
+      "zone": "wheels",
+      "componentId": "wheel.front_left",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "front_left-pressure",
+      "title": "Front-left tyre pressure",
+      "titleHi": "आगे का बायाँ टायर का दबाव",
+      "instruction": "Photograph the instrument and enter the reading: front-left tyre pressure. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "उपकरण की फोटो लें और रीडिंग दर्ज करें: आगे का बायाँ टायर का दबाव। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 69,
+      "required": true,
+      "zone": "wheels",
+      "componentId": "wheel.front_left",
+      "method": "measurement",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": "psi",
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "front_left-fasteners",
+      "title": "Front-left wheel fasteners",
+      "titleHi": "आगे का बायाँ पहिए के नट",
+      "instruction": "Photograph and inspect: front-left wheel fasteners. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: आगे का बायाँ पहिए के नट। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 70,
+      "required": true,
+      "zone": "wheels",
+      "componentId": "wheel.front_left",
+      "method": "visual",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "front_left-damper",
+      "title": "Front-left damper condition",
+      "titleHi": "आगे का बायाँ शॉक एब्जॉर्बर की हालत",
+      "instruction": "Photograph and inspect: front-left damper condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: आगे का बायाँ शॉक एब्जॉर्बर की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 71,
+      "required": true,
+      "zone": "underbody",
+      "componentId": "wheel.front_left",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "front_left-spring",
+      "title": "Front-left spring condition",
+      "titleHi": "आगे का बायाँ स्प्रिंग की हालत",
+      "instruction": "Photograph and inspect: front-left spring condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: आगे का बायाँ स्प्रिंग की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 72,
+      "required": true,
+      "zone": "underbody",
+      "componentId": "wheel.front_left",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "front_left-joints",
+      "title": "Front-left suspension joint and boot condition",
+      "titleHi": "आगे का बायाँ सस्पेंशन जोड़ और रबर की हालत",
+      "instruction": "Photograph and inspect: front-left suspension joint and boot condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: आगे का बायाँ सस्पेंशन जोड़ और रबर की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 73,
+      "required": true,
+      "zone": "underbody",
+      "componentId": "wheel.front_left",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "front_left-brake-disc",
+      "title": "Front-left accessible brake disc or drum condition",
+      "titleHi": "आगे का बायाँ दिखने वाली ब्रेक डिस्क या ड्रम",
+      "instruction": "Photograph and inspect: front-left accessible brake disc or drum condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: आगे का बायाँ दिखने वाली ब्रेक डिस्क या ड्रम। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 74,
+      "required": true,
+      "zone": "underbody",
+      "componentId": "wheel.front_left",
+      "method": "visual",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "front_left-brake-lining",
+      "title": "Front-left accessible brake pad or lining observation",
+      "titleHi": "आगे का बायाँ दिखने वाला ब्रेक पैड या लाइनिंग",
+      "instruction": "Photograph and inspect: front-left accessible brake pad or lining observation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: आगे का बायाँ दिखने वाला ब्रेक पैड या लाइनिंग। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 75,
+      "required": true,
+      "zone": "underbody",
+      "componentId": "wheel.front_left",
+      "method": "visual",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "front_right-size",
+      "title": "Front-right tyre size and markings",
+      "titleHi": "आगे का दायाँ टायर का आकार और लेबल",
+      "instruction": "Photograph and inspect: front-right tyre size and markings. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: आगे का दायाँ टायर का आकार और लेबल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 76,
+      "required": true,
+      "zone": "wheels",
+      "componentId": "wheel.front_right",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "front_right-sidewall",
+      "title": "Front-right tyre sidewall condition",
+      "titleHi": "आगे का दायाँ टायर का किनारा",
+      "instruction": "Photograph and inspect: front-right tyre sidewall condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: आगे का दायाँ टायर का किनारा। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 77,
+      "required": true,
+      "zone": "wheels",
+      "componentId": "wheel.front_right",
+      "method": "visual",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "front_right-tread",
+      "title": "Front-right minimum measured tread depth",
+      "titleHi": "आगे का दायाँ टायर की मापी गई गहराई",
+      "instruction": "Photograph the instrument and enter the reading: front-right minimum measured tread depth. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "उपकरण की फोटो लें और रीडिंग दर्ज करें: आगे का दायाँ टायर की मापी गई गहराई। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 78,
+      "required": true,
+      "zone": "wheels",
+      "componentId": "wheel.front_right",
+      "method": "measurement",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": "mm",
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "front_right-age",
+      "title": "Front-right tyre date marking",
+      "titleHi": "आगे का दायाँ टायर का तारीख लेबल",
+      "instruction": "Photograph and inspect: front-right tyre date marking. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: आगे का दायाँ टायर का तारीख लेबल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 79,
+      "required": true,
+      "zone": "wheels",
+      "componentId": "wheel.front_right",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "front_right-rim",
+      "title": "Front-right wheel rim condition",
+      "titleHi": "आगे का दायाँ पहिए की रिम",
+      "instruction": "Photograph and inspect: front-right wheel rim condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: आगे का दायाँ पहिए की रिम। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 80,
+      "required": true,
+      "zone": "wheels",
+      "componentId": "wheel.front_right",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "front_right-pressure",
+      "title": "Front-right tyre pressure",
+      "titleHi": "आगे का दायाँ टायर का दबाव",
+      "instruction": "Photograph the instrument and enter the reading: front-right tyre pressure. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "उपकरण की फोटो लें और रीडिंग दर्ज करें: आगे का दायाँ टायर का दबाव। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 81,
+      "required": true,
+      "zone": "wheels",
+      "componentId": "wheel.front_right",
+      "method": "measurement",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": "psi",
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "front_right-fasteners",
+      "title": "Front-right wheel fasteners",
+      "titleHi": "आगे का दायाँ पहिए के नट",
+      "instruction": "Photograph and inspect: front-right wheel fasteners. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: आगे का दायाँ पहिए के नट। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 82,
+      "required": true,
+      "zone": "wheels",
+      "componentId": "wheel.front_right",
+      "method": "visual",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "front_right-damper",
+      "title": "Front-right damper condition",
+      "titleHi": "आगे का दायाँ शॉक एब्जॉर्बर की हालत",
+      "instruction": "Photograph and inspect: front-right damper condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: आगे का दायाँ शॉक एब्जॉर्बर की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 83,
+      "required": true,
+      "zone": "underbody",
+      "componentId": "wheel.front_right",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "front_right-spring",
+      "title": "Front-right spring condition",
+      "titleHi": "आगे का दायाँ स्प्रिंग की हालत",
+      "instruction": "Photograph and inspect: front-right spring condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: आगे का दायाँ स्प्रिंग की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 84,
+      "required": true,
+      "zone": "underbody",
+      "componentId": "wheel.front_right",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "front_right-joints",
+      "title": "Front-right suspension joint and boot condition",
+      "titleHi": "आगे का दायाँ सस्पेंशन जोड़ और रबर की हालत",
+      "instruction": "Photograph and inspect: front-right suspension joint and boot condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: आगे का दायाँ सस्पेंशन जोड़ और रबर की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 85,
+      "required": true,
+      "zone": "underbody",
+      "componentId": "wheel.front_right",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "front_right-brake-disc",
+      "title": "Front-right accessible brake disc or drum condition",
+      "titleHi": "आगे का दायाँ दिखने वाली ब्रेक डिस्क या ड्रम",
+      "instruction": "Photograph and inspect: front-right accessible brake disc or drum condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: आगे का दायाँ दिखने वाली ब्रेक डिस्क या ड्रम। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 86,
+      "required": true,
+      "zone": "underbody",
+      "componentId": "wheel.front_right",
+      "method": "visual",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "front_right-brake-lining",
+      "title": "Front-right accessible brake pad or lining observation",
+      "titleHi": "आगे का दायाँ दिखने वाला ब्रेक पैड या लाइनिंग",
+      "instruction": "Photograph and inspect: front-right accessible brake pad or lining observation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: आगे का दायाँ दिखने वाला ब्रेक पैड या लाइनिंग। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 87,
+      "required": true,
+      "zone": "underbody",
+      "componentId": "wheel.front_right",
+      "method": "visual",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear_left-size",
+      "title": "Rear-left tyre size and markings",
+      "titleHi": "पीछे का बायाँ टायर का आकार और लेबल",
+      "instruction": "Photograph and inspect: rear-left tyre size and markings. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: पीछे का बायाँ टायर का आकार और लेबल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 88,
+      "required": true,
+      "zone": "wheels",
+      "componentId": "wheel.rear_left",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear_left-sidewall",
+      "title": "Rear-left tyre sidewall condition",
+      "titleHi": "पीछे का बायाँ टायर का किनारा",
+      "instruction": "Photograph and inspect: rear-left tyre sidewall condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: पीछे का बायाँ टायर का किनारा। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 89,
+      "required": true,
+      "zone": "wheels",
+      "componentId": "wheel.rear_left",
+      "method": "visual",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear_left-tread",
+      "title": "Rear-left minimum measured tread depth",
+      "titleHi": "पीछे का बायाँ टायर की मापी गई गहराई",
+      "instruction": "Photograph the instrument and enter the reading: rear-left minimum measured tread depth. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "उपकरण की फोटो लें और रीडिंग दर्ज करें: पीछे का बायाँ टायर की मापी गई गहराई। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 90,
+      "required": true,
+      "zone": "wheels",
+      "componentId": "wheel.rear_left",
+      "method": "measurement",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": "mm",
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear_left-age",
+      "title": "Rear-left tyre date marking",
+      "titleHi": "पीछे का बायाँ टायर का तारीख लेबल",
+      "instruction": "Photograph and inspect: rear-left tyre date marking. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: पीछे का बायाँ टायर का तारीख लेबल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 91,
+      "required": true,
+      "zone": "wheels",
+      "componentId": "wheel.rear_left",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear_left-rim",
+      "title": "Rear-left wheel rim condition",
+      "titleHi": "पीछे का बायाँ पहिए की रिम",
+      "instruction": "Photograph and inspect: rear-left wheel rim condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: पीछे का बायाँ पहिए की रिम। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 92,
+      "required": true,
+      "zone": "wheels",
+      "componentId": "wheel.rear_left",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear_left-pressure",
+      "title": "Rear-left tyre pressure",
+      "titleHi": "पीछे का बायाँ टायर का दबाव",
+      "instruction": "Photograph the instrument and enter the reading: rear-left tyre pressure. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "उपकरण की फोटो लें और रीडिंग दर्ज करें: पीछे का बायाँ टायर का दबाव। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 93,
+      "required": true,
+      "zone": "wheels",
+      "componentId": "wheel.rear_left",
+      "method": "measurement",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": "psi",
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear_left-fasteners",
+      "title": "Rear-left wheel fasteners",
+      "titleHi": "पीछे का बायाँ पहिए के नट",
+      "instruction": "Photograph and inspect: rear-left wheel fasteners. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: पीछे का बायाँ पहिए के नट। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 94,
+      "required": true,
+      "zone": "wheels",
+      "componentId": "wheel.rear_left",
+      "method": "visual",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear_left-damper",
+      "title": "Rear-left damper condition",
+      "titleHi": "पीछे का बायाँ शॉक एब्जॉर्बर की हालत",
+      "instruction": "Photograph and inspect: rear-left damper condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: पीछे का बायाँ शॉक एब्जॉर्बर की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 95,
+      "required": true,
+      "zone": "underbody",
+      "componentId": "wheel.rear_left",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear_left-spring",
+      "title": "Rear-left spring condition",
+      "titleHi": "पीछे का बायाँ स्प्रिंग की हालत",
+      "instruction": "Photograph and inspect: rear-left spring condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: पीछे का बायाँ स्प्रिंग की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 96,
+      "required": true,
+      "zone": "underbody",
+      "componentId": "wheel.rear_left",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear_left-joints",
+      "title": "Rear-left suspension joint and boot condition",
+      "titleHi": "पीछे का बायाँ सस्पेंशन जोड़ और रबर की हालत",
+      "instruction": "Photograph and inspect: rear-left suspension joint and boot condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: पीछे का बायाँ सस्पेंशन जोड़ और रबर की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 97,
+      "required": true,
+      "zone": "underbody",
+      "componentId": "wheel.rear_left",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear_left-brake-disc",
+      "title": "Rear-left accessible brake disc or drum condition",
+      "titleHi": "पीछे का बायाँ दिखने वाली ब्रेक डिस्क या ड्रम",
+      "instruction": "Photograph and inspect: rear-left accessible brake disc or drum condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: पीछे का बायाँ दिखने वाली ब्रेक डिस्क या ड्रम। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 98,
+      "required": true,
+      "zone": "underbody",
+      "componentId": "wheel.rear_left",
+      "method": "visual",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear_left-brake-lining",
+      "title": "Rear-left accessible brake pad or lining observation",
+      "titleHi": "पीछे का बायाँ दिखने वाला ब्रेक पैड या लाइनिंग",
+      "instruction": "Photograph and inspect: rear-left accessible brake pad or lining observation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: पीछे का बायाँ दिखने वाला ब्रेक पैड या लाइनिंग। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 99,
+      "required": true,
+      "zone": "underbody",
+      "componentId": "wheel.rear_left",
+      "method": "visual",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear_right-size",
+      "title": "Rear-right tyre size and markings",
+      "titleHi": "पीछे का दायाँ टायर का आकार और लेबल",
+      "instruction": "Photograph and inspect: rear-right tyre size and markings. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: पीछे का दायाँ टायर का आकार और लेबल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 100,
+      "required": true,
+      "zone": "wheels",
+      "componentId": "wheel.rear_right",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear_right-sidewall",
+      "title": "Rear-right tyre sidewall condition",
+      "titleHi": "पीछे का दायाँ टायर का किनारा",
+      "instruction": "Photograph and inspect: rear-right tyre sidewall condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: पीछे का दायाँ टायर का किनारा। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 101,
+      "required": true,
+      "zone": "wheels",
+      "componentId": "wheel.rear_right",
+      "method": "visual",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear_right-tread",
+      "title": "Rear-right minimum measured tread depth",
+      "titleHi": "पीछे का दायाँ टायर की मापी गई गहराई",
+      "instruction": "Photograph the instrument and enter the reading: rear-right minimum measured tread depth. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "उपकरण की फोटो लें और रीडिंग दर्ज करें: पीछे का दायाँ टायर की मापी गई गहराई। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 102,
+      "required": true,
+      "zone": "wheels",
+      "componentId": "wheel.rear_right",
+      "method": "measurement",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": "mm",
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear_right-age",
+      "title": "Rear-right tyre date marking",
+      "titleHi": "पीछे का दायाँ टायर का तारीख लेबल",
+      "instruction": "Photograph and inspect: rear-right tyre date marking. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: पीछे का दायाँ टायर का तारीख लेबल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 103,
+      "required": true,
+      "zone": "wheels",
+      "componentId": "wheel.rear_right",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear_right-rim",
+      "title": "Rear-right wheel rim condition",
+      "titleHi": "पीछे का दायाँ पहिए की रिम",
+      "instruction": "Photograph and inspect: rear-right wheel rim condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: पीछे का दायाँ पहिए की रिम। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 104,
+      "required": true,
+      "zone": "wheels",
+      "componentId": "wheel.rear_right",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear_right-pressure",
+      "title": "Rear-right tyre pressure",
+      "titleHi": "पीछे का दायाँ टायर का दबाव",
+      "instruction": "Photograph the instrument and enter the reading: rear-right tyre pressure. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "उपकरण की फोटो लें और रीडिंग दर्ज करें: पीछे का दायाँ टायर का दबाव। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 105,
+      "required": true,
+      "zone": "wheels",
+      "componentId": "wheel.rear_right",
+      "method": "measurement",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": "psi",
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear_right-fasteners",
+      "title": "Rear-right wheel fasteners",
+      "titleHi": "पीछे का दायाँ पहिए के नट",
+      "instruction": "Photograph and inspect: rear-right wheel fasteners. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: पीछे का दायाँ पहिए के नट। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 106,
+      "required": true,
+      "zone": "wheels",
+      "componentId": "wheel.rear_right",
+      "method": "visual",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear_right-damper",
+      "title": "Rear-right damper condition",
+      "titleHi": "पीछे का दायाँ शॉक एब्जॉर्बर की हालत",
+      "instruction": "Photograph and inspect: rear-right damper condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: पीछे का दायाँ शॉक एब्जॉर्बर की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 107,
+      "required": true,
+      "zone": "underbody",
+      "componentId": "wheel.rear_right",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear_right-spring",
+      "title": "Rear-right spring condition",
+      "titleHi": "पीछे का दायाँ स्प्रिंग की हालत",
+      "instruction": "Photograph and inspect: rear-right spring condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: पीछे का दायाँ स्प्रिंग की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 108,
+      "required": true,
+      "zone": "underbody",
+      "componentId": "wheel.rear_right",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear_right-joints",
+      "title": "Rear-right suspension joint and boot condition",
+      "titleHi": "पीछे का दायाँ सस्पेंशन जोड़ और रबर की हालत",
+      "instruction": "Photograph and inspect: rear-right suspension joint and boot condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: पीछे का दायाँ सस्पेंशन जोड़ और रबर की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 109,
+      "required": true,
+      "zone": "underbody",
+      "componentId": "wheel.rear_right",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear_right-brake-disc",
+      "title": "Rear-right accessible brake disc or drum condition",
+      "titleHi": "पीछे का दायाँ दिखने वाली ब्रेक डिस्क या ड्रम",
+      "instruction": "Photograph and inspect: rear-right accessible brake disc or drum condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: पीछे का दायाँ दिखने वाली ब्रेक डिस्क या ड्रम। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 110,
+      "required": true,
+      "zone": "underbody",
+      "componentId": "wheel.rear_right",
+      "method": "visual",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear_right-brake-lining",
+      "title": "Rear-right accessible brake pad or lining observation",
+      "titleHi": "पीछे का दायाँ दिखने वाला ब्रेक पैड या लाइनिंग",
+      "instruction": "Photograph and inspect: rear-right accessible brake pad or lining observation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: पीछे का दायाँ दिखने वाला ब्रेक पैड या लाइनिंग। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 111,
+      "required": true,
+      "zone": "underbody",
+      "componentId": "wheel.rear_right",
+      "method": "visual",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "spare-condition",
+      "title": "Spare wheel and tyre condition",
+      "titleHi": "अतिरिक्त पहिए और टायर की हालत",
+      "instruction": "Photograph and inspect: spare wheel and tyre condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: अतिरिक्त पहिए और टायर की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 112,
+      "required": true,
+      "zone": "wheels",
+      "componentId": "body.tailgate",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": "spare_wheel"
+      }
+    },
+    {
+      "id": "jack",
+      "title": "Jack and wheel tools",
+      "titleHi": "जैक और पहिए के औज़ार",
+      "instruction": "Photograph and inspect: jack and wheel tools. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: जैक और पहिए के औज़ार। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 113,
+      "required": true,
+      "zone": "wheels",
+      "componentId": "body.tailgate",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": "spare_wheel"
+      }
+    },
+    {
+      "id": "spare-mount",
+      "title": "Spare wheel mounting",
+      "titleHi": "अतिरिक्त पहिए की फिटिंग",
+      "instruction": "Photograph and inspect: spare wheel mounting. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: अतिरिक्त पहिए की फिटिंग। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 114,
+      "required": true,
+      "zone": "wheels",
+      "componentId": "body.tailgate",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": "spare_wheel"
+      }
+    },
+    {
+      "id": "tpms",
+      "title": "Tyre pressure monitoring indication",
+      "titleHi": "टायर दबाव चेतावनी",
+      "instruction": "Demonstrate operation and record its condition: tyre pressure monitoring indication. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: टायर दबाव चेतावनी। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 115,
+      "required": true,
+      "zone": "wheels",
+      "componentId": "system.wheels",
+      "method": "function",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": "tpms"
+      }
+    },
+    {
+      "id": "engine-number",
+      "title": "Engine identification marking",
+      "titleHi": "इंजन पहचान नंबर",
+      "instruction": "Photograph and inspect: engine identification marking. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: इंजन पहचान नंबर। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 116,
+      "required": true,
+      "zone": "powertrain",
+      "componentId": "engine_bay",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [
+          "petrol",
+          "diesel",
+          "cng",
+          "lpg",
+          "hybrid"
+        ],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "oil-level",
+      "title": "Engine oil level observation",
+      "titleHi": "इंजन तेल की मात्रा",
+      "instruction": "Photograph and inspect: engine oil level observation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: इंजन तेल की मात्रा। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 117,
+      "required": true,
+      "zone": "powertrain",
+      "componentId": "engine_bay",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [
+          "petrol",
+          "diesel",
+          "cng",
+          "lpg",
+          "hybrid"
+        ],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "oil-condition",
+      "title": "Engine oil visible condition",
+      "titleHi": "इंजन तेल की दिखने वाली हालत",
+      "instruction": "Photograph and inspect: engine oil visible condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: इंजन तेल की दिखने वाली हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 118,
+      "required": true,
+      "zone": "powertrain",
+      "componentId": "engine_bay",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [
+          "petrol",
+          "diesel",
+          "cng",
+          "lpg",
+          "hybrid"
+        ],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "coolant-level",
+      "title": "Coolant reservoir level",
+      "titleHi": "कूलेंट टैंक की मात्रा",
+      "instruction": "Photograph and inspect: coolant reservoir level. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: कूलेंट टैंक की मात्रा। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 119,
+      "required": true,
+      "zone": "powertrain",
+      "componentId": "engine_bay",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [
+          "petrol",
+          "diesel",
+          "cng",
+          "lpg",
+          "hybrid"
+        ],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "coolant-traces",
+      "title": "Coolant leakage traces",
+      "titleHi": "कूलेंट रिसाव के निशान",
+      "instruction": "Photograph and inspect: coolant leakage traces. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: कूलेंट रिसाव के निशान। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 120,
+      "required": true,
+      "zone": "powertrain",
+      "componentId": "engine_bay",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [
+          "petrol",
+          "diesel",
+          "cng",
+          "lpg",
+          "hybrid"
+        ],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "oil-leaks",
+      "title": "Engine oil leakage traces",
+      "titleHi": "इंजन तेल रिसाव के निशान",
+      "instruction": "Photograph and inspect: engine oil leakage traces. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: इंजन तेल रिसाव के निशान। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 121,
+      "required": true,
+      "zone": "powertrain",
+      "componentId": "engine_bay",
+      "method": "visual",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [
+          "petrol",
+          "diesel",
+          "cng",
+          "lpg",
+          "hybrid"
+        ],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "fuel-leaks",
+      "title": "Fuel leak indicators",
+      "titleHi": "ईंधन रिसाव के निशान",
+      "instruction": "Photograph and inspect: fuel leak indicators. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: ईंधन रिसाव के निशान। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 122,
+      "required": true,
+      "zone": "powertrain",
+      "componentId": "engine_bay",
+      "method": "visual",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [
+          "petrol",
+          "diesel",
+          "cng",
+          "lpg",
+          "hybrid"
+        ],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "hoses",
+      "title": "Accessible hoses and connections",
+      "titleHi": "दिखने वाली पाइप और जोड़",
+      "instruction": "Photograph and inspect: accessible hoses and connections. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: दिखने वाली पाइप और जोड़। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 123,
+      "required": true,
+      "zone": "powertrain",
+      "componentId": "engine_bay",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [
+          "petrol",
+          "diesel",
+          "cng",
+          "lpg",
+          "hybrid"
+        ],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "belts",
+      "title": "Accessible belt condition",
+      "titleHi": "दिखने वाली बेल्ट की हालत",
+      "instruction": "Photograph and inspect: accessible belt condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: दिखने वाली बेल्ट की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 124,
+      "required": true,
+      "zone": "powertrain",
+      "componentId": "engine_bay",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [
+          "petrol",
+          "diesel",
+          "cng",
+          "lpg",
+          "hybrid"
+        ],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "mounts",
+      "title": "Visible engine mount condition",
+      "titleHi": "इंजन माउंट की दिखने वाली हालत",
+      "instruction": "Photograph and inspect: visible engine mount condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: इंजन माउंट की दिखने वाली हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 125,
+      "required": true,
+      "zone": "powertrain",
+      "componentId": "engine_bay",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [
+          "petrol",
+          "diesel",
+          "cng",
+          "lpg",
+          "hybrid"
+        ],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "air-intake",
+      "title": "Air intake and filter housing",
+      "titleHi": "हवा की पाइप और फिल्टर का बॉक्स",
+      "instruction": "Photograph and inspect: air intake and filter housing. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: हवा की पाइप और फिल्टर का बॉक्स। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 126,
+      "required": true,
+      "zone": "powertrain",
+      "componentId": "engine_bay",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [
+          "petrol",
+          "diesel",
+          "cng",
+          "lpg",
+          "hybrid"
+        ],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "exhaust",
+      "title": "Visible exhaust condition",
+      "titleHi": "दिखने वाले एग्जॉस्ट की हालत",
+      "instruction": "Photograph and inspect: visible exhaust condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: दिखने वाले एग्जॉस्ट की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 127,
+      "required": true,
+      "zone": "powertrain",
+      "componentId": "engine_bay",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [
+          "petrol",
+          "diesel",
+          "cng",
+          "lpg",
+          "hybrid"
+        ],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "radiator",
+      "title": "Radiator visible condition",
+      "titleHi": "रेडिएटर की दिखने वाली हालत",
+      "instruction": "Photograph and inspect: radiator visible condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: रेडिएटर की दिखने वाली हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 128,
+      "required": true,
+      "zone": "powertrain",
+      "componentId": "engine_bay",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [
+          "petrol",
+          "diesel",
+          "cng",
+          "lpg",
+          "hybrid"
+        ],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "reservoir-caps",
+      "title": "Reservoir caps and labels",
+      "titleHi": "टैंक के ढक्कन और लेबल",
+      "instruction": "Photograph and inspect: reservoir caps and labels. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: टैंक के ढक्कन और लेबल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 129,
+      "required": true,
+      "zone": "powertrain",
+      "componentId": "engine_bay",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [
+          "petrol",
+          "diesel",
+          "cng",
+          "lpg",
+          "hybrid"
+        ],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "cold-start",
+      "title": "Cold-start observation",
+      "titleHi": "ठंडे इंजन को चालू करने की जाँच",
+      "instruction": "Demonstrate operation and record its condition: cold-start observation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: ठंडे इंजन को चालू करने की जाँच। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 130,
+      "required": true,
+      "zone": "powertrain",
+      "componentId": "engine_bay",
+      "method": "function",
+      "critical": false,
+      "requiresClip": true,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [
+          "petrol",
+          "diesel",
+          "cng",
+          "lpg",
+          "hybrid"
+        ],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "idle",
+      "title": "Idle operation",
+      "titleHi": "खड़ी कार में इंजन की चाल",
+      "instruction": "Demonstrate operation and record its condition: idle operation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: खड़ी कार में इंजन की चाल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 131,
+      "required": true,
+      "zone": "powertrain",
+      "componentId": "engine_bay",
+      "method": "function",
+      "critical": false,
+      "requiresClip": true,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [
+          "petrol",
+          "diesel",
+          "cng",
+          "lpg",
+          "hybrid"
+        ],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "exhaust-observation",
+      "title": "Observed exhaust at idle",
+      "titleHi": "खड़ी कार के एग्जॉस्ट का निरीक्षण",
+      "instruction": "Demonstrate operation and record its condition: observed exhaust at idle. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: खड़ी कार के एग्जॉस्ट का निरीक्षण। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 132,
+      "required": true,
+      "zone": "powertrain",
+      "componentId": "engine_bay",
+      "method": "function",
+      "critical": false,
+      "requiresClip": true,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [
+          "petrol",
+          "diesel",
+          "cng",
+          "lpg",
+          "hybrid"
+        ],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "battery-case",
+      "title": "Auxiliary battery casing and mounting",
+      "titleHi": "सहायक बैटरी का बॉक्स और फिटिंग",
+      "instruction": "Photograph and inspect: auxiliary battery casing and mounting. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: सहायक बैटरी का बॉक्स और फिटिंग। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 133,
+      "required": true,
+      "zone": "electrical",
+      "componentId": "engine_bay",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "terminals",
+      "title": "Battery terminals",
+      "titleHi": "बैटरी के टर्मिनल",
+      "instruction": "Photograph and inspect: battery terminals. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: बैटरी के टर्मिनल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 134,
+      "required": true,
+      "zone": "electrical",
+      "componentId": "engine_bay",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "wiring",
+      "title": "Accessible wiring condition",
+      "titleHi": "दिखने वाली वायरिंग की हालत",
+      "instruction": "Photograph and inspect: accessible wiring condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: दिखने वाली वायरिंग की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 135,
+      "required": true,
+      "zone": "electrical",
+      "componentId": "engine_bay",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "aux-voltage",
+      "title": "Auxiliary battery measured voltage",
+      "titleHi": "सहायक बैटरी का मापा वोल्टेज",
+      "instruction": "Photograph the instrument and enter the reading: auxiliary battery measured voltage. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "उपकरण की फोटो लें और रीडिंग दर्ज करें: सहायक बैटरी का मापा वोल्टेज। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 136,
+      "required": true,
+      "zone": "electrical",
+      "componentId": "engine_bay",
+      "method": "measurement",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": "V",
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "clutch-pedal",
+      "title": "Clutch pedal operation",
+      "titleHi": "क्लच पैडल की चाल",
+      "instruction": "Demonstrate operation and record its condition: clutch pedal operation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: क्लच पैडल की चाल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 137,
+      "required": true,
+      "zone": "powertrain",
+      "componentId": "system.transmission",
+      "method": "function",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [
+          "manual"
+        ],
+        "feature": null
+      }
+    },
+    {
+      "id": "manual-selection",
+      "title": "Manual gear selection",
+      "titleHi": "मैनुअल गियर चुनना",
+      "instruction": "Demonstrate operation and record its condition: manual gear selection. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: मैनुअल गियर चुनना। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 138,
+      "required": true,
+      "zone": "powertrain",
+      "componentId": "system.transmission",
+      "method": "function",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [
+          "manual"
+        ],
+        "feature": null
+      }
+    },
+    {
+      "id": "clutch-observation",
+      "title": "Clutch engagement observation",
+      "titleHi": "क्लच लगने की जाँच",
+      "instruction": "Demonstrate operation and record its condition: clutch engagement observation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: क्लच लगने की जाँच। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 139,
+      "required": true,
+      "zone": "powertrain",
+      "componentId": "system.transmission",
+      "method": "function",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [
+          "manual"
+        ],
+        "feature": null
+      }
+    },
+    {
+      "id": "auto-selection",
+      "title": "Automatic selector operation",
+      "titleHi": "ऑटोमैटिक गियर चयन",
+      "instruction": "Demonstrate operation and record its condition: automatic selector operation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: ऑटोमैटिक गियर चयन। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 140,
+      "required": true,
+      "zone": "powertrain",
+      "componentId": "system.transmission",
+      "method": "function",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [
+          "automatic",
+          "amt",
+          "cvt",
+          "dct"
+        ],
+        "feature": null
+      }
+    },
+    {
+      "id": "auto-engagement",
+      "title": "Automatic engagement observation",
+      "titleHi": "ऑटोमैटिक गियर लगने की जाँच",
+      "instruction": "Demonstrate operation and record its condition: automatic engagement observation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: ऑटोमैटिक गियर लगने की जाँच। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 141,
+      "required": true,
+      "zone": "powertrain",
+      "componentId": "system.transmission",
+      "method": "function",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [
+          "automatic",
+          "amt",
+          "cvt",
+          "dct"
+        ],
+        "feature": null
+      }
+    },
+    {
+      "id": "auto-warning",
+      "title": "Transmission warning indication",
+      "titleHi": "गियरबॉक्स चेतावनी",
+      "instruction": "Demonstrate operation and record its condition: transmission warning indication. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: गियरबॉक्स चेतावनी। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 142,
+      "required": true,
+      "zone": "powertrain",
+      "componentId": "system.transmission",
+      "method": "function",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [
+          "automatic",
+          "amt",
+          "cvt",
+          "dct"
+        ],
+        "feature": null
+      }
+    },
+    {
+      "id": "gearbox-leaks",
+      "title": "Visible gearbox leakage",
+      "titleHi": "दिखने वाला गियरबॉक्स रिसाव",
+      "instruction": "Photograph and inspect: visible gearbox leakage. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: दिखने वाला गियरबॉक्स रिसाव। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 143,
+      "required": true,
+      "zone": "underbody",
+      "componentId": "underbody",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "drive-boots",
+      "title": "Driveshaft joint boots",
+      "titleHi": "ड्राइव शाफ्ट जोड़ की रबर",
+      "instruction": "Photograph and inspect: driveshaft joint boots. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: ड्राइव शाफ्ट जोड़ की रबर। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 144,
+      "required": true,
+      "zone": "underbody",
+      "componentId": "underbody",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "drive-mounts",
+      "title": "Visible driveline mountings",
+      "titleHi": "ड्राइवलाइन की दिखने वाली फिटिंग",
+      "instruction": "Photograph and inspect: visible driveline mountings. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: ड्राइवलाइन की दिखने वाली फिटिंग। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 145,
+      "required": true,
+      "zone": "underbody",
+      "componentId": "underbody",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "floor-condition",
+      "title": "Floor and underbody condition",
+      "titleHi": "फर्श और नीचे के हिस्से की हालत",
+      "instruction": "Photograph and inspect: floor and underbody condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: फर्श और नीचे के हिस्से की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 146,
+      "required": true,
+      "zone": "underbody",
+      "componentId": "underbody",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "underbody-leaks",
+      "title": "Underbody leak observations",
+      "titleHi": "नीचे के हिस्से के रिसाव",
+      "instruction": "Photograph and inspect: underbody leak observations. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: नीचे के हिस्से के रिसाव। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 147,
+      "required": true,
+      "zone": "underbody",
+      "componentId": "underbody",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "steering-boots",
+      "title": "Steering joint boots",
+      "titleHi": "स्टीयरिंग जोड़ की रबर",
+      "instruction": "Photograph and inspect: steering joint boots. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: स्टीयरिंग जोड़ की रबर। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 148,
+      "required": true,
+      "zone": "underbody",
+      "componentId": "underbody",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "brake-lines",
+      "title": "Accessible brake lines",
+      "titleHi": "दिखने वाली ब्रेक पाइप",
+      "instruction": "Photograph and inspect: accessible brake lines. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: दिखने वाली ब्रेक पाइप। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 149,
+      "required": true,
+      "zone": "underbody",
+      "componentId": "underbody",
+      "method": "visual",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "brake-reservoir",
+      "title": "Brake fluid reservoir observation",
+      "titleHi": "ब्रेक तेल टैंक की जाँच",
+      "instruction": "Photograph and inspect: brake fluid reservoir observation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: ब्रेक तेल टैंक की जाँच। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 150,
+      "required": true,
+      "zone": "underbody",
+      "componentId": "underbody",
+      "method": "visual",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "parking-brake",
+      "title": "Parking brake function",
+      "titleHi": "पार्किंग ब्रेक की जाँच",
+      "instruction": "Demonstrate operation and record its condition: parking brake function. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: पार्किंग ब्रेक की जाँच। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 151,
+      "required": true,
+      "zone": "underbody",
+      "componentId": "underbody",
+      "method": "function",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "front-left-lamp",
+      "title": "Front left lamp assembly condition",
+      "titleHi": "आगे की बाईं लाइट के बॉक्स की हालत",
+      "instruction": "Photograph and inspect: front left lamp assembly condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: आगे की बाईं लाइट के बॉक्स की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 152,
+      "required": true,
+      "zone": "electrical",
+      "componentId": "light.front_left",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "front-left-indicator",
+      "title": "Front left indicator operation",
+      "titleHi": "आगे की बाईं इंडिकेटर की चाल",
+      "instruction": "Demonstrate operation and record its condition: front left indicator operation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: आगे की बाईं इंडिकेटर की चाल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 153,
+      "required": true,
+      "zone": "electrical",
+      "componentId": "light.front_left",
+      "method": "function",
+      "critical": false,
+      "requiresClip": true,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "front-left-light",
+      "title": "Front left main light operation",
+      "titleHi": "आगे की बाईं मुख्य लाइट की चाल",
+      "instruction": "Demonstrate operation and record its condition: front left main light operation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: आगे की बाईं मुख्य लाइट की चाल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 154,
+      "required": true,
+      "zone": "electrical",
+      "componentId": "light.front_left",
+      "method": "function",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear-left-lamp",
+      "title": "Rear left lamp assembly condition",
+      "titleHi": "पीछे की बाईं लाइट के बॉक्स की हालत",
+      "instruction": "Photograph and inspect: rear left lamp assembly condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: पीछे की बाईं लाइट के बॉक्स की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 155,
+      "required": true,
+      "zone": "electrical",
+      "componentId": "light.rear_left",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear-left-indicator",
+      "title": "Rear left indicator operation",
+      "titleHi": "पीछे की बाईं इंडिकेटर की चाल",
+      "instruction": "Demonstrate operation and record its condition: rear left indicator operation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: पीछे की बाईं इंडिकेटर की चाल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 156,
+      "required": true,
+      "zone": "electrical",
+      "componentId": "light.rear_left",
+      "method": "function",
+      "critical": false,
+      "requiresClip": true,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear-left-light",
+      "title": "Rear left main light operation",
+      "titleHi": "पीछे की बाईं मुख्य लाइट की चाल",
+      "instruction": "Demonstrate operation and record its condition: rear left main light operation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: पीछे की बाईं मुख्य लाइट की चाल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 157,
+      "required": true,
+      "zone": "electrical",
+      "componentId": "light.rear_left",
+      "method": "function",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "front-right-lamp",
+      "title": "Front right lamp assembly condition",
+      "titleHi": "आगे की दाईं लाइट के बॉक्स की हालत",
+      "instruction": "Photograph and inspect: front right lamp assembly condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: आगे की दाईं लाइट के बॉक्स की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 158,
+      "required": true,
+      "zone": "electrical",
+      "componentId": "light.front_right",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "front-right-indicator",
+      "title": "Front right indicator operation",
+      "titleHi": "आगे की दाईं इंडिकेटर की चाल",
+      "instruction": "Demonstrate operation and record its condition: front right indicator operation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: आगे की दाईं इंडिकेटर की चाल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 159,
+      "required": true,
+      "zone": "electrical",
+      "componentId": "light.front_right",
+      "method": "function",
+      "critical": false,
+      "requiresClip": true,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "front-right-light",
+      "title": "Front right main light operation",
+      "titleHi": "आगे की दाईं मुख्य लाइट की चाल",
+      "instruction": "Demonstrate operation and record its condition: front right main light operation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: आगे की दाईं मुख्य लाइट की चाल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 160,
+      "required": true,
+      "zone": "electrical",
+      "componentId": "light.front_right",
+      "method": "function",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear-right-lamp",
+      "title": "Rear right lamp assembly condition",
+      "titleHi": "पीछे की दाईं लाइट के बॉक्स की हालत",
+      "instruction": "Photograph and inspect: rear right lamp assembly condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: पीछे की दाईं लाइट के बॉक्स की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 161,
+      "required": true,
+      "zone": "electrical",
+      "componentId": "light.rear_right",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear-right-indicator",
+      "title": "Rear right indicator operation",
+      "titleHi": "पीछे की दाईं इंडिकेटर की चाल",
+      "instruction": "Demonstrate operation and record its condition: rear right indicator operation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: पीछे की दाईं इंडिकेटर की चाल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 162,
+      "required": true,
+      "zone": "electrical",
+      "componentId": "light.rear_right",
+      "method": "function",
+      "critical": false,
+      "requiresClip": true,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear-right-light",
+      "title": "Rear right main light operation",
+      "titleHi": "पीछे की दाईं मुख्य लाइट की चाल",
+      "instruction": "Demonstrate operation and record its condition: rear right main light operation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: पीछे की दाईं मुख्य लाइट की चाल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 163,
+      "required": true,
+      "zone": "electrical",
+      "componentId": "light.rear_right",
+      "method": "function",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "hazards",
+      "title": "Hazard lights",
+      "titleHi": "चारों इंडिकेटर",
+      "instruction": "Demonstrate operation and record its condition: hazard lights. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: चारों इंडिकेटर। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 164,
+      "required": true,
+      "zone": "electrical",
+      "componentId": "system.electrical",
+      "method": "function",
+      "critical": false,
+      "requiresClip": true,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "brake-lights",
+      "title": "Brake light operation",
+      "titleHi": "ब्रेक लाइट की चाल",
+      "instruction": "Demonstrate operation and record its condition: brake light operation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: ब्रेक लाइट की चाल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 165,
+      "required": true,
+      "zone": "electrical",
+      "componentId": "system.electrical",
+      "method": "function",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "reverse-lights",
+      "title": "Reverse light operation",
+      "titleHi": "रिवर्स लाइट की चाल",
+      "instruction": "Demonstrate operation and record its condition: reverse light operation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: रिवर्स लाइट की चाल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 166,
+      "required": true,
+      "zone": "electrical",
+      "componentId": "system.electrical",
+      "method": "function",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "horn",
+      "title": "Horn operation",
+      "titleHi": "हॉर्न की चाल",
+      "instruction": "Demonstrate operation and record its condition: horn operation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: हॉर्न की चाल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 167,
+      "required": true,
+      "zone": "electrical",
+      "componentId": "system.electrical",
+      "method": "function",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "cabin-lights",
+      "title": "Cabin lights",
+      "titleHi": "केबिन की लाइट",
+      "instruction": "Demonstrate operation and record its condition: cabin lights. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: केबिन की लाइट। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 168,
+      "required": true,
+      "zone": "electrical",
+      "componentId": "system.electrical",
+      "method": "function",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "front_left-seat",
+      "title": "Front-left seat and trim condition",
+      "titleHi": "आगे की बाईं सीट और कपड़े की हालत",
+      "instruction": "Photograph and inspect: front-left seat and trim condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: आगे की बाईं सीट और कपड़े की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 169,
+      "required": true,
+      "zone": "cabin",
+      "componentId": "cabin",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "front_left-belt",
+      "title": "Front-left seatbelt and buckle operation",
+      "titleHi": "आगे की बाईं सीट बेल्ट और बकल की चाल",
+      "instruction": "Demonstrate operation and record its condition: front-left seatbelt and buckle operation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: आगे की बाईं सीट बेल्ट और बकल की चाल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 170,
+      "required": true,
+      "zone": "safety",
+      "componentId": "cabin",
+      "method": "function",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "front_right-seat",
+      "title": "Front-right seat and trim condition",
+      "titleHi": "आगे की दाईं सीट और कपड़े की हालत",
+      "instruction": "Photograph and inspect: front-right seat and trim condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: आगे की दाईं सीट और कपड़े की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 171,
+      "required": true,
+      "zone": "cabin",
+      "componentId": "cabin",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "front_right-belt",
+      "title": "Front-right seatbelt and buckle operation",
+      "titleHi": "आगे की दाईं सीट बेल्ट और बकल की चाल",
+      "instruction": "Demonstrate operation and record its condition: front-right seatbelt and buckle operation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: आगे की दाईं सीट बेल्ट और बकल की चाल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 172,
+      "required": true,
+      "zone": "safety",
+      "componentId": "cabin",
+      "method": "function",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear_left-seat",
+      "title": "Rear-left seat and trim condition",
+      "titleHi": "पीछे की बाईं सीट और कपड़े की हालत",
+      "instruction": "Photograph and inspect: rear-left seat and trim condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: पीछे की बाईं सीट और कपड़े की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 173,
+      "required": true,
+      "zone": "cabin",
+      "componentId": "cabin",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear_left-belt",
+      "title": "Rear-left seatbelt and buckle operation",
+      "titleHi": "पीछे की बाईं सीट बेल्ट और बकल की चाल",
+      "instruction": "Demonstrate operation and record its condition: rear-left seatbelt and buckle operation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: पीछे की बाईं सीट बेल्ट और बकल की चाल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 174,
+      "required": true,
+      "zone": "safety",
+      "componentId": "cabin",
+      "method": "function",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear_center-seat",
+      "title": "Rear-centre seat and trim condition",
+      "titleHi": "पीछे की बीच की सीट और कपड़े की हालत",
+      "instruction": "Photograph and inspect: rear-centre seat and trim condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: पीछे की बीच की सीट और कपड़े की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 175,
+      "required": true,
+      "zone": "cabin",
+      "componentId": "cabin",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear_center-belt",
+      "title": "Rear-centre seatbelt and buckle operation",
+      "titleHi": "पीछे की बीच की सीट बेल्ट और बकल की चाल",
+      "instruction": "Demonstrate operation and record its condition: rear-centre seatbelt and buckle operation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: पीछे की बीच की सीट बेल्ट और बकल की चाल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 176,
+      "required": true,
+      "zone": "safety",
+      "componentId": "cabin",
+      "method": "function",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear_right-seat",
+      "title": "Rear-right seat and trim condition",
+      "titleHi": "पीछे की दाईं सीट और कपड़े की हालत",
+      "instruction": "Photograph and inspect: rear-right seat and trim condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: पीछे की दाईं सीट और कपड़े की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 177,
+      "required": true,
+      "zone": "cabin",
+      "componentId": "cabin",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear_right-belt",
+      "title": "Rear-right seatbelt and buckle operation",
+      "titleHi": "पीछे की दाईं सीट बेल्ट और बकल की चाल",
+      "instruction": "Demonstrate operation and record its condition: rear-right seatbelt and buckle operation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: पीछे की दाईं सीट बेल्ट और बकल की चाल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 178,
+      "required": true,
+      "zone": "safety",
+      "componentId": "cabin",
+      "method": "function",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "third-row-left-seat",
+      "title": "Third-row seat condition · left",
+      "titleHi": "बाईं तीसरी कतार की सीट की हालत",
+      "instruction": "Photograph and inspect: third-row seat condition · left. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: बाईं तीसरी कतार की सीट की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 179,
+      "required": true,
+      "zone": "cabin",
+      "componentId": "cabin",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": "third_row"
+      }
+    },
+    {
+      "id": "third-row-left-belt",
+      "title": "Third-row belt operation · left",
+      "titleHi": "बाईं तीसरी कतार की बेल्ट की चाल",
+      "instruction": "Demonstrate operation and record its condition: third-row belt operation · left. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: बाईं तीसरी कतार की बेल्ट की चाल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 180,
+      "required": true,
+      "zone": "cabin",
+      "componentId": "cabin",
+      "method": "function",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": "third_row"
+      }
+    },
+    {
+      "id": "third-row-right-seat",
+      "title": "Third-row seat condition · right",
+      "titleHi": "दाईं तीसरी कतार की सीट की हालत",
+      "instruction": "Photograph and inspect: third-row seat condition · right. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: दाईं तीसरी कतार की सीट की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 181,
+      "required": true,
+      "zone": "cabin",
+      "componentId": "cabin",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": "third_row"
+      }
+    },
+    {
+      "id": "third-row-right-belt",
+      "title": "Third-row belt operation · right",
+      "titleHi": "दाईं तीसरी कतार की बेल्ट की चाल",
+      "instruction": "Demonstrate operation and record its condition: third-row belt operation · right. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: दाईं तीसरी कतार की बेल्ट की चाल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 182,
+      "required": true,
+      "zone": "cabin",
+      "componentId": "cabin",
+      "method": "function",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": "third_row"
+      }
+    },
+    {
+      "id": "front-left-window",
+      "title": "Front left window operation",
+      "titleHi": "आगे की बाईं खिड़की की चाल",
+      "instruction": "Demonstrate operation and record its condition: front left window operation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: आगे की बाईं खिड़की की चाल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 183,
+      "required": true,
+      "zone": "cabin",
+      "componentId": "door.front_left",
+      "method": "function",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "front-left-lock",
+      "title": "Front left lock operation",
+      "titleHi": "आगे की बाईं लॉक की चाल",
+      "instruction": "Demonstrate operation and record its condition: front left lock operation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: आगे की बाईं लॉक की चाल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 184,
+      "required": true,
+      "zone": "cabin",
+      "componentId": "door.front_left",
+      "method": "function",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "front-left-handle",
+      "title": "Front left door handle operation",
+      "titleHi": "आगे की बाईं दरवाज़े के हैंडल की चाल",
+      "instruction": "Demonstrate operation and record its condition: front left door handle operation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: आगे की बाईं दरवाज़े के हैंडल की चाल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 185,
+      "required": true,
+      "zone": "cabin",
+      "componentId": "door.front_left",
+      "method": "function",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear-left-window",
+      "title": "Rear left window operation",
+      "titleHi": "पीछे की बाईं खिड़की की चाल",
+      "instruction": "Demonstrate operation and record its condition: rear left window operation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: पीछे की बाईं खिड़की की चाल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 186,
+      "required": true,
+      "zone": "cabin",
+      "componentId": "door.rear_left",
+      "method": "function",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear-left-lock",
+      "title": "Rear left lock operation",
+      "titleHi": "पीछे की बाईं लॉक की चाल",
+      "instruction": "Demonstrate operation and record its condition: rear left lock operation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: पीछे की बाईं लॉक की चाल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 187,
+      "required": true,
+      "zone": "cabin",
+      "componentId": "door.rear_left",
+      "method": "function",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear-left-handle",
+      "title": "Rear left door handle operation",
+      "titleHi": "पीछे की बाईं दरवाज़े के हैंडल की चाल",
+      "instruction": "Demonstrate operation and record its condition: rear left door handle operation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: पीछे की बाईं दरवाज़े के हैंडल की चाल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 188,
+      "required": true,
+      "zone": "cabin",
+      "componentId": "door.rear_left",
+      "method": "function",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "front-right-window",
+      "title": "Front right window operation",
+      "titleHi": "आगे की दाईं खिड़की की चाल",
+      "instruction": "Demonstrate operation and record its condition: front right window operation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: आगे की दाईं खिड़की की चाल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 189,
+      "required": true,
+      "zone": "cabin",
+      "componentId": "door.front_right",
+      "method": "function",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "front-right-lock",
+      "title": "Front right lock operation",
+      "titleHi": "आगे की दाईं लॉक की चाल",
+      "instruction": "Demonstrate operation and record its condition: front right lock operation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: आगे की दाईं लॉक की चाल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 190,
+      "required": true,
+      "zone": "cabin",
+      "componentId": "door.front_right",
+      "method": "function",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "front-right-handle",
+      "title": "Front right door handle operation",
+      "titleHi": "आगे की दाईं दरवाज़े के हैंडल की चाल",
+      "instruction": "Demonstrate operation and record its condition: front right door handle operation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: आगे की दाईं दरवाज़े के हैंडल की चाल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 191,
+      "required": true,
+      "zone": "cabin",
+      "componentId": "door.front_right",
+      "method": "function",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear-right-window",
+      "title": "Rear right window operation",
+      "titleHi": "पीछे की दाईं खिड़की की चाल",
+      "instruction": "Demonstrate operation and record its condition: rear right window operation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: पीछे की दाईं खिड़की की चाल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 192,
+      "required": true,
+      "zone": "cabin",
+      "componentId": "door.rear_right",
+      "method": "function",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear-right-lock",
+      "title": "Rear right lock operation",
+      "titleHi": "पीछे की दाईं लॉक की चाल",
+      "instruction": "Demonstrate operation and record its condition: rear right lock operation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: पीछे की दाईं लॉक की चाल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 193,
+      "required": true,
+      "zone": "cabin",
+      "componentId": "door.rear_right",
+      "method": "function",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "rear-right-handle",
+      "title": "Rear right door handle operation",
+      "titleHi": "पीछे की दाईं दरवाज़े के हैंडल की चाल",
+      "instruction": "Demonstrate operation and record its condition: rear right door handle operation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: पीछे की दाईं दरवाज़े के हैंडल की चाल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 194,
+      "required": true,
+      "zone": "cabin",
+      "componentId": "door.rear_right",
+      "method": "function",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "dashboard",
+      "title": "Dashboard and trim",
+      "titleHi": "डैशबोर्ड और ट्रिम",
+      "instruction": "Photograph and inspect: dashboard and trim. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: डैशबोर्ड और ट्रिम। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 195,
+      "required": true,
+      "zone": "cabin",
+      "componentId": "cabin",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "cluster",
+      "title": "Instrument display",
+      "titleHi": "मीटर की स्क्रीन",
+      "instruction": "Photograph and inspect: instrument display. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: मीटर की स्क्रीन। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 196,
+      "required": true,
+      "zone": "cabin",
+      "componentId": "cabin",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "steering-control",
+      "title": "Steering wheel and controls",
+      "titleHi": "स्टीयरिंग और बटन",
+      "instruction": "Photograph and inspect: steering wheel and controls. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: स्टीयरिंग और बटन। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 197,
+      "required": true,
+      "zone": "cabin",
+      "componentId": "cabin",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "headlining",
+      "title": "Headlining",
+      "titleHi": "छत का अंदर का कपड़ा",
+      "instruction": "Photograph and inspect: headlining. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: छत का अंदर का कपड़ा। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 198,
+      "required": true,
+      "zone": "cabin",
+      "componentId": "cabin",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "carpets",
+      "title": "Carpets and floor mats",
+      "titleHi": "कालीन और मैट",
+      "instruction": "Photograph and inspect: carpets and floor mats. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: कालीन और मैट। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 199,
+      "required": true,
+      "zone": "cabin",
+      "componentId": "cabin",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "boot-trim",
+      "title": "Boot interior trim",
+      "titleHi": "डिक्की के अंदर की हालत",
+      "instruction": "Photograph and inspect: boot interior trim. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: डिक्की के अंदर की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 200,
+      "required": true,
+      "zone": "cabin",
+      "componentId": "cabin",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "ac-cooling",
+      "title": "AC cooling observation",
+      "titleHi": "एसी की ठंडक",
+      "instruction": "Demonstrate operation and record its condition: ac cooling observation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: एसी की ठंडक। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 201,
+      "required": true,
+      "zone": "cabin",
+      "componentId": "cabin",
+      "method": "function",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "blower",
+      "title": "Blower speed operation",
+      "titleHi": "ब्लोअर की गति",
+      "instruction": "Demonstrate operation and record its condition: blower speed operation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: ब्लोअर की गति। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 202,
+      "required": true,
+      "zone": "cabin",
+      "componentId": "cabin",
+      "method": "function",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "airflow",
+      "title": "Vent airflow selection",
+      "titleHi": "हवा की दिशा चुनना",
+      "instruction": "Demonstrate operation and record its condition: vent airflow selection. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: हवा की दिशा चुनना। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 203,
+      "required": true,
+      "zone": "cabin",
+      "componentId": "cabin",
+      "method": "function",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "ac-controls",
+      "title": "HVAC control operation",
+      "titleHi": "एसी के बटन",
+      "instruction": "Demonstrate operation and record its condition: hvac control operation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: एसी के बटन। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 204,
+      "required": true,
+      "zone": "cabin",
+      "componentId": "cabin",
+      "method": "function",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "infotainment",
+      "title": "Infotainment operation",
+      "titleHi": "म्यूज़िक स्क्रीन की चाल",
+      "instruction": "Demonstrate operation and record its condition: infotainment operation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: म्यूज़िक स्क्रीन की चाल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 205,
+      "required": true,
+      "zone": "cabin",
+      "componentId": "cabin",
+      "method": "function",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "usb-power",
+      "title": "Available power outlets",
+      "titleHi": "मौजूद बिजली और USB पोर्ट",
+      "instruction": "Demonstrate operation and record its condition: available power outlets. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: मौजूद बिजली और USB पोर्ट। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 206,
+      "required": true,
+      "zone": "cabin",
+      "componentId": "cabin",
+      "method": "function",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "restraint-warning",
+      "title": "Airbag/restraint warning observation",
+      "titleHi": "एयरबैग चेतावनी की जाँच",
+      "instruction": "Demonstrate operation and record its condition: airbag/restraint warning observation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: एयरबैग चेतावनी की जाँच। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 207,
+      "required": true,
+      "zone": "safety",
+      "componentId": "cabin",
+      "method": "function",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "abs-warning",
+      "title": "ABS/brake warning observation",
+      "titleHi": "ABS और ब्रेक चेतावनी",
+      "instruction": "Demonstrate operation and record its condition: abs/brake warning observation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: ABS और ब्रेक चेतावनी। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 208,
+      "required": true,
+      "zone": "safety",
+      "componentId": "cabin",
+      "method": "function",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "warning-lamps",
+      "title": "Other warning lamp observations",
+      "titleHi": "अन्य चेतावनी लाइट",
+      "instruction": "Demonstrate operation and record its condition: other warning lamp observations. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: अन्य चेतावनी लाइट। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 209,
+      "required": true,
+      "zone": "safety",
+      "componentId": "cabin",
+      "method": "function",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "child-lock",
+      "title": "Fitted child-lock operation",
+      "titleHi": "मौजूद चाइल्ड लॉक की चाल",
+      "instruction": "Demonstrate operation and record its condition: fitted child-lock operation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: मौजूद चाइल्ड लॉक की चाल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 210,
+      "required": true,
+      "zone": "safety",
+      "componentId": "cabin",
+      "method": "function",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "restraint-traces",
+      "title": "Visible restraint repair or damage indicators",
+      "titleHi": "सुरक्षा बेल्ट या एयरबैग मरम्मत के दिखने वाले निशान",
+      "instruction": "Photograph and inspect: visible restraint repair or damage indicators. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: सुरक्षा बेल्ट या एयरबैग मरम्मत के दिखने वाले निशान। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 211,
+      "required": true,
+      "zone": "safety",
+      "componentId": "cabin",
+      "method": "visual",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "scan-identity",
+      "title": "Diagnostic scan vehicle identity",
+      "titleHi": "डायग्नोस्टिक स्कैन में कार की पहचान",
+      "instruction": "Have a trained person record the instrument result: diagnostic scan vehicle identity. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "प्रशिक्षित व्यक्ति से उपकरण का नतीजा दर्ज करवाएँ: डायग्नोस्टिक स्कैन में कार की पहचान। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 212,
+      "required": true,
+      "zone": "road_test",
+      "componentId": "system.diagnostics",
+      "method": "diagnostic",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "fault-codes",
+      "title": "Diagnostic fault-code report",
+      "titleHi": "डायग्नोस्टिक खराबी कोड रिपोर्ट",
+      "instruction": "Have a trained person record the instrument result: diagnostic fault-code report. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "प्रशिक्षित व्यक्ति से उपकरण का नतीजा दर्ज करवाएँ: डायग्नोस्टिक खराबी कोड रिपोर्ट। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 213,
+      "required": true,
+      "zone": "road_test",
+      "componentId": "system.diagnostics",
+      "method": "diagnostic",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "scan-warnings",
+      "title": "Scan warnings and incomplete tests",
+      "titleHi": "स्कैन चेतावनी और अधूरी जाँच",
+      "instruction": "Have a trained person record the instrument result: scan warnings and incomplete tests. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "प्रशिक्षित व्यक्ति से उपकरण का नतीजा दर्ज करवाएँ: स्कैन चेतावनी और अधूरी जाँच। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 214,
+      "required": true,
+      "zone": "road_test",
+      "componentId": "system.diagnostics",
+      "method": "diagnostic",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "test-start",
+      "title": "Road-test start odometer",
+      "titleHi": "रोड टेस्ट शुरू होने के किलोमीटर",
+      "instruction": "Photograph the instrument and enter the reading: road-test start odometer. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "उपकरण की फोटो लें और रीडिंग दर्ज करें: रोड टेस्ट शुरू होने के किलोमीटर। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 215,
+      "required": true,
+      "zone": "road_test",
+      "componentId": "vehicle",
+      "method": "measurement",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": "km",
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "test-end",
+      "title": "Road-test end odometer",
+      "titleHi": "रोड टेस्ट के बाद के किलोमीटर",
+      "instruction": "Photograph the instrument and enter the reading: road-test end odometer. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "उपकरण की फोटो लें और रीडिंग दर्ज करें: रोड टेस्ट के बाद के किलोमीटर। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 216,
+      "required": true,
+      "zone": "road_test",
+      "componentId": "vehicle",
+      "method": "measurement",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": "km",
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "road-steering",
+      "title": "Steering and straight-line observation",
+      "titleHi": "स्टीयरिंग और सीधी चाल",
+      "instruction": "Have a qualified driver perform the approved test; record proof while stopped: steering and straight-line observation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "योग्य चालक से स्वीकृत जाँच करवाएँ; गाड़ी रोककर प्रमाण दर्ज करें: स्टीयरिंग और सीधी चाल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 217,
+      "required": true,
+      "zone": "road_test",
+      "componentId": "vehicle",
+      "method": "road_test",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "road-braking",
+      "title": "Controlled braking observation",
+      "titleHi": "नियंत्रित ब्रेक की जाँच",
+      "instruction": "Have a qualified driver perform the approved test; record proof while stopped: controlled braking observation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "योग्य चालक से स्वीकृत जाँच करवाएँ; गाड़ी रोककर प्रमाण दर्ज करें: नियंत्रित ब्रेक की जाँच। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 218,
+      "required": true,
+      "zone": "road_test",
+      "componentId": "vehicle",
+      "method": "road_test",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "road-shift",
+      "title": "Gear change observation",
+      "titleHi": "गियर बदलने की जाँच",
+      "instruction": "Have a qualified driver perform the approved test; record proof while stopped: gear change observation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "योग्य चालक से स्वीकृत जाँच करवाएँ; गाड़ी रोककर प्रमाण दर्ज करें: गियर बदलने की जाँच। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 219,
+      "required": true,
+      "zone": "road_test",
+      "componentId": "vehicle",
+      "method": "road_test",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "road-acceleration",
+      "title": "Acceleration observation",
+      "titleHi": "रफ्तार बढ़ाने की जाँच",
+      "instruction": "Have a qualified driver perform the approved test; record proof while stopped: acceleration observation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "योग्य चालक से स्वीकृत जाँच करवाएँ; गाड़ी रोककर प्रमाण दर्ज करें: रफ्तार बढ़ाने की जाँच। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 220,
+      "required": true,
+      "zone": "road_test",
+      "componentId": "vehicle",
+      "method": "road_test",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "road-noise",
+      "title": "Noise and vibration observation",
+      "titleHi": "आवाज़ और कंपन की जाँच",
+      "instruction": "Have a qualified driver perform the approved test; record proof while stopped: noise and vibration observation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "योग्य चालक से स्वीकृत जाँच करवाएँ; गाड़ी रोककर प्रमाण दर्ज करें: आवाज़ और कंपन की जाँच। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 221,
+      "required": true,
+      "zone": "road_test",
+      "componentId": "vehicle",
+      "method": "road_test",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "road-temperature",
+      "title": "Temperature indication after test",
+      "titleHi": "टेस्ट के बाद तापमान का संकेत",
+      "instruction": "Have a qualified driver perform the approved test; record proof while stopped: temperature indication after test. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "योग्य चालक से स्वीकृत जाँच करवाएँ; गाड़ी रोककर प्रमाण दर्ज करें: टेस्ट के बाद तापमान का संकेत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 222,
+      "required": true,
+      "zone": "road_test",
+      "componentId": "vehicle",
+      "method": "road_test",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "road-post-test",
+      "title": "Post-test warnings and new leak observations",
+      "titleHi": "टेस्ट के बाद चेतावनी और नया रिसाव",
+      "instruction": "Have a qualified driver perform the approved test; record proof while stopped: post-test warnings and new leak observations. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "योग्य चालक से स्वीकृत जाँच करवाएँ; गाड़ी रोककर प्रमाण दर्ज करें: टेस्ट के बाद चेतावनी और नया रिसाव। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 223,
+      "required": true,
+      "zone": "road_test",
+      "componentId": "vehicle",
+      "method": "road_test",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "ev-charge-port",
+      "title": "Charge port visible condition",
+      "titleHi": "चार्ज पोर्ट की दिखने वाली हालत",
+      "instruction": "Photograph and inspect: charge port visible condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: चार्ज पोर्ट की दिखने वाली हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 224,
+      "required": true,
+      "zone": "powertrain",
+      "componentId": "system.electric",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [
+          "electric",
+          "hybrid"
+        ],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "ev-charge-lead",
+      "title": "Charge lead and accessories",
+      "titleHi": "चार्ज केबल और सामान",
+      "instruction": "Photograph and inspect: charge lead and accessories. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: चार्ज केबल और सामान। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 225,
+      "required": true,
+      "zone": "powertrain",
+      "componentId": "system.electric",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [
+          "electric",
+          "hybrid"
+        ],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "ev-pack-exterior",
+      "title": "Battery enclosure visible condition",
+      "titleHi": "बैटरी के बाहरी बॉक्स की हालत",
+      "instruction": "Photograph and inspect: battery enclosure visible condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: बैटरी के बाहरी बॉक्स की हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 226,
+      "required": true,
+      "zone": "powertrain",
+      "componentId": "system.electric",
+      "method": "visual",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [
+          "electric",
+          "hybrid"
+        ],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "ev-hv-labels",
+      "title": "High-voltage labels and visible cable condition",
+      "titleHi": "हाई वोल्टेज लेबल और दिखने वाली तार",
+      "instruction": "Photograph and inspect: high-voltage labels and visible cable condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: हाई वोल्टेज लेबल और दिखने वाली तार। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 227,
+      "required": true,
+      "zone": "powertrain",
+      "componentId": "system.electric",
+      "method": "visual",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [
+          "electric",
+          "hybrid"
+        ],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "ev-charge-display",
+      "title": "Charging display and observed session",
+      "titleHi": "चार्जिंग स्क्रीन और सत्र की जाँच",
+      "instruction": "Photograph and inspect: charging display and observed session. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: चार्जिंग स्क्रीन और सत्र की जाँच। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 228,
+      "required": true,
+      "zone": "powertrain",
+      "componentId": "system.electric",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [
+          "electric",
+          "hybrid"
+        ],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "ev-soc",
+      "title": "State-of-charge display",
+      "titleHi": "चार्ज प्रतिशत की स्क्रीन",
+      "instruction": "Photograph and inspect: state-of-charge display. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: चार्ज प्रतिशत की स्क्रीन। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 229,
+      "required": true,
+      "zone": "powertrain",
+      "componentId": "system.electric",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [
+          "electric",
+          "hybrid"
+        ],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "ev-ev-warning",
+      "title": "EV system warnings",
+      "titleHi": "EV सिस्टम की चेतावनी",
+      "instruction": "Photograph and inspect: ev system warnings. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: EV सिस्टम की चेतावनी। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 230,
+      "required": true,
+      "zone": "powertrain",
+      "componentId": "system.electric",
+      "method": "visual",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [
+          "electric",
+          "hybrid"
+        ],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "ev-ev-report",
+      "title": "Qualified battery diagnostic report",
+      "titleHi": "योग्य व्यक्ति की बैटरी जाँच रिपोर्ट",
+      "instruction": "Have a trained person record the instrument result: qualified battery diagnostic report. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "प्रशिक्षित व्यक्ति से उपकरण का नतीजा दर्ज करवाएँ: योग्य व्यक्ति की बैटरी जाँच रिपोर्ट। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 231,
+      "required": true,
+      "zone": "powertrain",
+      "componentId": "system.electric",
+      "method": "diagnostic",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [
+          "electric",
+          "hybrid"
+        ],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "gas-cylinder-label",
+      "title": "Gas cylinder identification and date references",
+      "titleHi": "गैस सिलेंडर पहचान और तारीख",
+      "instruction": "Photograph and inspect: gas cylinder identification and date references. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: गैस सिलेंडर पहचान और तारीख। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 232,
+      "required": true,
+      "zone": "powertrain",
+      "componentId": "system.gas",
+      "method": "visual",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [
+          "cng",
+          "lpg"
+        ],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "gas-mounting",
+      "title": "Gas cylinder mounting visible condition",
+      "titleHi": "गैस सिलेंडर की दिखने वाली फिटिंग",
+      "instruction": "Photograph and inspect: gas cylinder mounting visible condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: गैस सिलेंडर की दिखने वाली फिटिंग। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 233,
+      "required": true,
+      "zone": "powertrain",
+      "componentId": "system.gas",
+      "method": "visual",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [
+          "cng",
+          "lpg"
+        ],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "gas-pipe",
+      "title": "Gas pipe visible condition",
+      "titleHi": "गैस पाइप की दिखने वाली हालत",
+      "instruction": "Photograph and inspect: gas pipe visible condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: गैस पाइप की दिखने वाली हालत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 234,
+      "required": true,
+      "zone": "powertrain",
+      "componentId": "system.gas",
+      "method": "visual",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [
+          "cng",
+          "lpg"
+        ],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "gas-fuel-mode",
+      "title": "Fuel-mode indicator and operation",
+      "titleHi": "ईंधन मोड का संकेत और चाल",
+      "instruction": "Photograph and inspect: fuel-mode indicator and operation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: ईंधन मोड का संकेत और चाल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 235,
+      "required": true,
+      "zone": "powertrain",
+      "componentId": "system.gas",
+      "method": "visual",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [
+          "cng",
+          "lpg"
+        ],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "gas-endorsement",
+      "title": "Gas installation endorsement reference",
+      "titleHi": "गैस फिटिंग की दस्तावेज़ जानकारी",
+      "instruction": "Photograph the reference and record discrepancies: gas installation endorsement reference. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "दस्तावेज़ की फोटो लें और अंतर दर्ज करें: गैस फिटिंग की दस्तावेज़ जानकारी। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 236,
+      "required": true,
+      "zone": "powertrain",
+      "componentId": "system.gas",
+      "method": "document",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [
+          "cng",
+          "lpg"
+        ],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "gas-gas-report",
+      "title": "Qualified gas-system inspection record",
+      "titleHi": "योग्य व्यक्ति की गैस सिस्टम जाँच",
+      "instruction": "Photograph the reference and record discrepancies: qualified gas-system inspection record. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "दस्तावेज़ की फोटो लें और अंतर दर्ज करें: योग्य व्यक्ति की गैस सिस्टम जाँच। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 237,
+      "required": true,
+      "zone": "powertrain",
+      "componentId": "system.gas",
+      "method": "document",
+      "critical": true,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [
+          "cng",
+          "lpg"
+        ],
+        "transmissions": [],
+        "feature": null
+      }
+    },
+    {
+      "id": "sunroof-surface",
+      "title": "Sunroof glass and seal",
+      "titleHi": "सनरूफ के शीशे और रबर",
+      "instruction": "Photograph and inspect: sunroof glass and seal. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: सनरूफ के शीशे और रबर। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 238,
+      "required": true,
+      "zone": "exterior",
+      "componentId": "body.roof",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": "sunroof"
+      }
+    },
+    {
+      "id": "sunroof-operation",
+      "title": "Sunroof operation",
+      "titleHi": "सनरूफ की चाल",
+      "instruction": "Demonstrate operation and record its condition: sunroof operation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: सनरूफ की चाल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 239,
+      "required": true,
+      "zone": "exterior",
+      "componentId": "body.roof",
+      "method": "function",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": "sunroof"
+      }
+    },
+    {
+      "id": "camera-view",
+      "title": "Parking camera view",
+      "titleHi": "पार्किंग कैमरे का दृश्य",
+      "instruction": "Demonstrate operation and record its condition: parking camera view. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: पार्किंग कैमरे का दृश्य। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 240,
+      "required": true,
+      "zone": "cabin",
+      "componentId": "cabin",
+      "method": "function",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": "parking_camera"
+      }
+    },
+    {
+      "id": "adas-warning",
+      "title": "ADAS warning and availability indications",
+      "titleHi": "ADAS चेतावनी और उपलब्धता",
+      "instruction": "Photograph and inspect: adas warning and availability indications. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: ADAS चेतावनी और उपलब्धता। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 241,
+      "required": true,
+      "zone": "cabin",
+      "componentId": "cabin",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": "adas"
+      }
+    },
+    {
+      "id": "adas-sensor",
+      "title": "Visible ADAS sensor and mounting condition",
+      "titleHi": "दिखने वाले ADAS सेंसर और फिटिंग",
+      "instruction": "Photograph and inspect: visible adas sensor and mounting condition. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: दिखने वाले ADAS सेंसर और फिटिंग। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 242,
+      "required": true,
+      "zone": "exterior",
+      "componentId": "glass.windscreen",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": "adas"
+      }
+    },
+    {
+      "id": "adas-record",
+      "title": "Qualified ADAS diagnostic/calibration references",
+      "titleHi": "योग्य व्यक्ति की ADAS जाँच रिपोर्ट",
+      "instruction": "Photograph and inspect: qualified adas diagnostic/calibration references. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: योग्य व्यक्ति की ADAS जाँच रिपोर्ट। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 243,
+      "required": true,
+      "zone": "exterior",
+      "componentId": "system.diagnostics",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": "adas"
+      }
+    },
+    {
+      "id": "4wd-indication",
+      "title": "4WD controls and indication",
+      "titleHi": "4WD के बटन और संकेत",
+      "instruction": "Photograph and inspect: 4wd controls and indication. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "फोटो लें और जाँचें: 4WD के बटन और संकेत। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 244,
+      "required": true,
+      "zone": "cabin",
+      "componentId": "cabin",
+      "method": "visual",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": "four_wheel_drive"
+      }
+    },
+    {
+      "id": "seat-power",
+      "title": "Powered seat adjustment",
+      "titleHi": "बिजली से सीट की चाल",
+      "instruction": "Demonstrate operation and record its condition: powered seat adjustment. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: बिजली से सीट की चाल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 245,
+      "required": true,
+      "zone": "cabin",
+      "componentId": "cabin",
+      "method": "function",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": "electric_seats"
+      }
+    },
+    {
+      "id": "tailgate-power",
+      "title": "Powered tailgate operation",
+      "titleHi": "बिजली से डिक्की की चाल",
+      "instruction": "Demonstrate operation and record its condition: powered tailgate operation. Record observed facts. Ask for help if access or equipment is unavailable.",
+      "instructionHi": "चलाकर जाँचें और हालत दर्ज करें: बिजली से डिक्की की चाल। जो दिखा वही दर्ज करें। जगह या उपकरण न मिले तो मदद माँगें।",
+      "order": 246,
+      "required": true,
+      "zone": "exterior",
+      "componentId": "body.tailgate",
+      "method": "function",
+      "critical": false,
+      "requiresClip": false,
+      "measurementUnit": null,
+      "applicability": {
+        "fuels": [],
+        "transmissions": [],
+        "feature": "powered_tailgate"
+      }
+    }
+  ]
+}

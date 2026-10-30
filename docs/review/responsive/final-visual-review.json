@@ -1,0 +1,24 @@
+{
+  "reportTabsOneRow": true,
+  "compactHindiProofLabel": "सबूत",
+  "reviewedScreens": [
+    "settings",
+    "reports",
+    "team",
+    "Hindi proof/filters",
+    "work cards",
+    "intake",
+    "catalogue with keyboard",
+    "home",
+    "bounded landscape tablet proof"
+  ],
+  "languageRestored": "en",
+  "displayRestored": {
+    "size": "Physical size: 1080x2424",
+    "density": "Physical density: 420",
+    "fontScale": "1.0"
+  },
+  "physicalOrIosAcceptance": false,
+  "verifiedAt": "2026-10-30T04:55:05.517025+00:00",
+  "photoAndVideoActionsVisible": true
+}

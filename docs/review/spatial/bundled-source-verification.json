@@ -1,0 +1,35 @@
+{
+  "checkedAt": "2026-10-30T04:19:10.863Z",
+  "checks": [
+    {
+      "file": "apps/mobile/src/screens/task.tsx",
+      "current": true,
+      "sha256": "81be7fbbd8bc8a643972e8ccbcdc4cbb943d5d634313f4187e45fa3a5c9ceda8"
+    },
+    {
+      "file": "apps/mobile/src/components/inspection-car.tsx",
+      "current": true,
+      "sha256": "9619cc556e8f950174c3bb453bf38ea9d582c2cb2f17f63de749910e17c0a0c6"
+    },
+    {
+      "file": "apps/mobile/src/components/inspection-car-scene.tsx",
+      "current": true,
+      "sha256": "88ab7e0f36b800795f020ca77f456f4e94211d77650a12d5573db6cb6855fabe"
+    },
+    {
+      "file": "apps/mobile/src/components/inspection-navigation.tsx",
+      "current": true,
+      "sha256": "56f2e703064b5640ee03db2956482cbcd8df7dc4be80217d98ed434159a16c52"
+    },
+    {
+      "file": "apps/mobile/src/components/inspection-sections.tsx",
+      "current": true,
+      "sha256": "b3e59263b50dc8ba956526cf8f70bf188997fd4f8e86be5a38d57ed3c966aa08"
+    },
+    {
+      "file": "apps/mobile/src/application/inspection-spatial.ts",
+      "current": true,
+      "sha256": "ce15c7f1748312dcbbe2cc928b64e6977810e849b4009dbb7151bc0d35d3f003"
+    }
+  ]
+}

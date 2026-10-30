@@ -1,0 +1,17 @@
+name: arihant-operations
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: arihant
+      POSTGRES_USER: arihant
+      POSTGRES_PASSWORD: arihant_local_only
+    ports: ["127.0.0.1:55438:5432"]
+    volumes: ["arihant_pg:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U arihant -d arihant"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+volumes:
+  arihant_pg:

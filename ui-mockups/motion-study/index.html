@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Arihant Cars · Motion studio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="studio-header">
+    <a class="brand" href="#" aria-label="Arihant Cars motion studio"><img src="assets/arihant-logo.png" alt="Arihant Cars"><span>THE GARAGE<br><b>MOTION STUDY / 01</b></span></a>
+    <div class="studio-options"><span class="preview-label">INTERACTIVE PREVIEW</span><label class="motion-toggle"><input type="checkbox" id="reduce-motion"><span aria-hidden="true"></span>Less motion</label></div>
+  </header>
+  <main class="studio">
+    <section class="direction" aria-labelledby="concept-title">
+      <p class="eyebrow">ARIHANT, WITH FEELING.</p>
+      <h1>Every move<br>has a reason<span>.</span></h1>
+      <p class="intro">Three different interactions. One familiar garage. Tap a concept, then try it on the screen.</p>
+      <div class="concepts" role="tablist" aria-label="Motion concepts">
+        <button class="concept active" id="concept-0" role="tab" aria-selected="true" aria-controls="demo-panel" data-concept="0"><span class="concept-number">01</span><span><strong>Stay with the car</strong><small>A card becomes the workspace.</small></span><span class="concept-arrow" aria-hidden="true">↗</span></button>
+        <button class="concept" id="concept-1" role="tab" aria-selected="false" aria-controls="demo-panel" data-concept="1" tabindex="-1"><span class="concept-number">02</span><span><strong>At your fingertips</strong><small>Tabs move. The car stays put.</small></span><span class="concept-arrow" aria-hidden="true">↗</span></button>
+        <button class="concept" id="concept-2" role="tab" aria-selected="false" aria-controls="demo-panel" data-concept="2" tabindex="-1"><span class="concept-number">03</span><span><strong>A moment to remember</strong><small>A quiet signature on delivery.</small></span><span class="concept-arrow" aria-hidden="true">↗</span></button>
+      </div>
+      <div class="concept-note"><span class="note-line"></span><div><p id="concept-purpose">Keep your place as you move from the garage into a car. The photo leads; the details follow.</p><div class="specs"><span id="timing">360 MS · OPEN / CLOSE</span><span>NO SOUND</span></div></div></div>
+      <p class="review-note">Sample data only. These controls do not update your app.</p>
+    </section>
+    <section class="stage" aria-label="Interactive device preview">
+      <div class="stage-top"><span><i></i> LIVE MOTION</span><div class="device-switch" role="group" aria-label="Preview size"><button aria-pressed="true" data-device="phone">Phone</button><button aria-pressed="false" data-device="tablet">Tablet</button></div></div>
+      <div class="device-wrap">
+        <div class="device" id="device">
+          <div class="status-bar" aria-hidden="true"><b>9:41</b><span class="island"></span><span>▰ ▮▮</span></div>
+          <div class="app-header"><img src="assets/arihant-logo.png" alt="Arihant Cars"><span>THE GARAGE</span><span class="avatar" aria-label="Owner preview">P</span></div>
+          <div id="demo-panel" class="demo-panel" role="tabpanel" aria-labelledby="concept-0"></div>
+          <div class="app-nav" aria-hidden="true"><span class="selected"><b>▦</b>Garage</span><span><b>✓</b>My work</span><span><b>▱</b>Cars</span><span><b>◈</b>Decisions</span></div>
+          <div class="home-indicator" aria-hidden="true"></div>
+        </div>
+      </div>
+      <div class="stage-bottom"><p id="try-instruction">TRY IT <span>Open either car, then go back.</span></p><button id="reset" class="reset">↻ <span>Reset demo</span></button></div>
+    </section>
+  </main>
+  <footer class="studio-footer"><span>ORIGINAL ARIHANT IDENTITY · SELECTED GARAGE DIRECTION</span><span>Designed for touch. Optional motion. No waiting.</span></footer>
+  <div class="sr-only" id="announcement" role="status" aria-live="polite"></div>
+  <script src="motion.js"></script>
+</body>
+</html>

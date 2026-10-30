@@ -1,0 +1,9 @@
+{
+  "scope": "Actual bundled Android appointment picker draft QA using explicitly synthetic contact",
+  "dateSelected": "31 October 2026",
+  "hourSelected": "9 am",
+  "minuteSelected": "15",
+  "appointmentCount": 0,
+  "syntheticContactClosedFromFollowUp": true,
+  "noExternalMessageSent": true
+}

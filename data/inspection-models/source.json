@@ -1,0 +1,17 @@
+{
+  "creator": "Quaternius",
+  "sourceUrl": "https://quaternius.itch.io/lowpoly-cars",
+  "archive": "Realistic Car Pack - Nov 2018.zip",
+  "archiveSha256": "af8f45d6e2135cc53870e5d0882cc41ca329bd87b9923b4773d471f161d2bdc7",
+  "license": "CC0-1.0",
+  "obtainedAt": "2026-10-30",
+  "files": {
+    "NormalCar1.obj": "02fc7baaa6ea489a1f05c02fd5ef712e78e727f41761ede446cc19d300b442d5",
+    "NormalCar1.mtl": "e8a236ff366cdc3a10451b37de1b64ac34df4c65e072760a90b3145cfff22032",
+    "NormalCar2.obj": "e845d737c7ff467c55910d68b8fd853578e5de23a2f7f978e1bede3417d95d7e",
+    "NormalCar2.mtl": "a3561392d9b7cc4e1f59ed489f5e2f136bf7c4a93ed011f55fbe6b69e16772f6",
+    "SUV.obj": "411a23e66d905b861c3d9957ae364fa2711fe9a4ac0c1e9f77920d800fbbf4dd",
+    "SUV.mtl": "fc6f72a057c881856377eca8d7888e9566397b52e457266d55ed631171edc7fa",
+    "License.txt": "83d8959f9fc56353ed571fbe2dc52e4bcd64508e2399501cd45ac2ce3df0bf8c"
+  }
+}

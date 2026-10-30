@@ -1,0 +1,39 @@
+name: Foundation checks
+on: [push, pull_request]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: arihant
+          POSTGRES_USER: arihant
+          POSTGRES_PASSWORD: arihant_local_only
+        ports: ["55438:5432"]
+        options: >-
+          --health-cmd "pg_isready -U arihant -d arihant"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.13"
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - run: npm ci
+      - run: uv sync --locked --project apps/api
+      - run: npm run setup
+      - run: npm run db:migrate
+      - run: npm run db:seed
+      - run: npm run check
+      - run: npm run test:integration
+      - run: npm run contracts:generate
+      - run: git diff --exit-code -- packages/contracts/openapi.json packages/contracts/src/generated.ts
+      - run: npm run format:check
+      - run: npm run mobile:export
+      - run: npm run web:build

@@ -1,0 +1,384 @@
+/* Arihant in motion: one website identity, three automotive workspaces. */
+:root { font-family: var(--brand-font); color: var(--brand-white); background: var(--brand-black); }
+body { background: var(--brand-black); }
+button, input { font-family: var(--brand-font); }
+button:focus-visible, a:focus-visible { outline-color: #e6555b; }
+.studio-header { max-width: 1440px; height: 111px; border-color: #333; padding: 0 48px; }
+.studio-brand { gap: 23px; color: #fff; font-size: 11px; letter-spacing: 2px; }
+.studio-brand small { color: #a9a9a9; font-size: 8px; letter-spacing: 2px; margin-top: 7px; }
+.studio-logo-image { display: block; width: 98px; height: auto; object-fit: contain; flex-shrink: 0; }
+.preview-badge { color: #bdbdbd; font-size: 9px; letter-spacing: 1px; }
+.preview-badge>span { background: var(--brand-red); width: 7px; height: 7px; }
+.preview-badge i { color: #999; }
+main { max-width: 1440px; padding: 0 48px 100px; }
+.intro { padding: 51px 0 42px; align-items: flex-end; }
+.eyebrow { font-size: 9px; letter-spacing: 1.8px; color: #a8a8a8; display: flex; gap: 10px; align-items: center; }
+.collection-line { width: 28px; height: 2px; background: var(--brand-red); }
+.intro h1 { font-family: var(--brand-font); font-size: clamp(68px, 7vw, 104px); font-weight: 700; line-height: .99; letter-spacing: -6px; margin: 23px 0 22px; }
+.intro h1 em { font-style: normal; color: #e44850; }
+.intro p { color: #adadad; font-size: 13px; line-height: 1.7; }
+.intro-note { align-items: flex-start; gap: 18px; padding-bottom: 5px; }
+.intro-note p { font-size: 12px; line-height: 1.8; }
+.intro-note strong { font-weight: 500; color: #fff; }
+.intro-note small { display: block; color: #888; font-size: 10px; margin-top: 10px; }
+.brand-swatches { display: flex; padding-top: 6px; }
+.brand-swatches span { width: 17px; height: 17px; border-radius: 50%; border: 1px solid #666; margin-left: -3px; background: #fff; }
+.brand-swatches span:first-child { background: var(--brand-red); border-color: var(--brand-red); margin-left: 0; }
+.brand-swatches span:nth-child(2) { background: var(--brand-black); }
+
+/* A scroll-driven road using the same car illustration as Arihant's website. */
+.drive-story { height: 115vh; min-height: 860px; position: relative; margin: 0 0 61px; }
+.drive-scene { position: sticky; top: 20px; border: 1px solid #373636; background: radial-gradient(ellipse at 50% 18%, #303030 0%, #141414 64%); border-radius: 24px; overflow: hidden; padding: 27px 32px 22px; }
+.drive-scene-top { display: flex; justify-content: space-between; font-size: 9px; color: #bbb; letter-spacing: 1.7px; gap: 16px; }
+.scroll-cue { color: #e7e7e7; white-space: nowrap; }
+.scroll-cue span { margin-left: 12px; font-size: 16px; color: #ec6b70; }
+.drive-road { height: 232px; position: relative; margin: 5px 0 9px; }
+.drive-road>svg { width: 100%; height: 100%; overflow: visible; }
+#road-shadow { fill: none; stroke: #373636; stroke-width: 52px; stroke-linecap: round; }
+#road-surface { fill: none; stroke: #151515; stroke-width: 48px; stroke-linecap: round; }
+#road-centre { fill: none; stroke: #ffffff5c; stroke-width: 2px; stroke-dasharray: 10 14; }
+#road-stops circle { fill: #222; stroke: #777; stroke-width: 2px; }
+#road-stops circle.passed { fill: var(--brand-red); stroke: #ff8a90; }
+#journey-car { position: absolute; width: 46px; height: auto; left: 6%; top: 50%; transform: translate(-50%, -50%) rotate(-90deg); filter: drop-shadow(0 10px 6px #0008); will-change: left, top, transform; }
+.drive-story-copy { display: grid; grid-template-columns: 68px 1.3fr 1fr; gap: 23px; align-items: center; padding: 5px 0 26px; min-height: 150px; }
+.drive-stage-number { font-size: 64px; font-weight: 500; letter-spacing: -5px; align-self: start; color: #e44850; line-height: 1; padding-top: 15px; }
+.drive-stage-kicker { font-size: 9px; color: #bdbdbd; letter-spacing: 2px; }
+.drive-story-copy h2 { font: 600 clamp(26px,3.2vw,42px)/1.08 var(--brand-font); letter-spacing: -1.7px; margin: 10px 0 0; }
+.drive-story-copy p { color: #b4b4b4; font-size: 13px; line-height: 1.9; padding: 0 0 0 25px; border-left: 1px solid #444; margin: 0; max-width: 330px; }
+.drive-stage-controls { display: grid; grid-template-columns: repeat(5, 1fr); border-top: 1px solid #454545; gap: 5px; }
+.drive-stage-controls button { display: flex; align-items: center; gap: 9px; background: transparent; color: #adadad; min-height: 55px; padding: 13px 6px 0; font-size: 11px; position: relative; text-align: left; }
+.drive-stage-controls button small { color: #888; font-size: 9px; }
+.drive-stage-controls button[aria-pressed=true] { color: #fff; font-weight: 650; }
+.drive-stage-controls button[aria-pressed=true]:before { content: ''; height: 3px; position: absolute; left: 0; right: 0; top: -2px; background: var(--brand-red); }
+.drive-stage-controls button[aria-pressed=true] small { color: #f1777d; }
+.mockup-intro { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 27px; gap: 20px; }
+.mockup-intro h2 { margin: 14px 0 0; font-size: 35px; font-weight: 600; letter-spacing: -1.5px; }
+.mockup-intro p { font-size: 12px; line-height: 1.8; color: #aaa; margin: 0 0 3px; }
+.preview-toolbar { border-color: #383838; padding: 15px 0; margin-bottom: 35px; }
+.control-label { color: #b5b5b5; }
+.segmented { background: #222; border: 1px solid #444; border-radius: 30px; padding: 3px; }
+.segmented button { border-radius: 30px; padding: 8px 22px; color: #c1c1c1; min-height: 38px; }
+.segmented button[aria-pressed=true] { background: #fff; color: var(--brand-black); box-shadow: none; }
+.concept-control button { color: #bcbcbc; min-height: 38px; }
+.concept-control button.active { background: #373636; color: #fff; }
+.language-control { border-color: #444; }
+.language-control button { color: #aaa; min-height: 38px; }
+.language-control button[aria-pressed=true] { color: #fff; }
+.design-grid { gap: 42px; }
+.design-grid[data-focus]:not([data-focus=all]) { grid-template-columns: minmax(0, 400px); }
+.direction-header { min-height: 51px; margin: 0 0 21px; gap: 13px; }
+.direction-number { font: 600 37px/1 var(--brand-font); color: #df4e55; letter-spacing: -2px; }
+.direction-title { font-family: var(--brand-font); font-size: 21px; font-weight: 600; letter-spacing: -.8px; color: #fff; }
+.direction-caption { font-size: 9px; color: #a1a1a1; }
+.direction-tag { border-color: #484848; color: #d1d1d1; font-size: 7px; border-radius: 30px; letter-spacing: .8px; padding: 7px 8px; }
+.phone { border: 7px solid #343434; background: #343434; border-radius: 45px; height: 790px; box-shadow: 0 0 0 1px #777, 0 25px 50px -20px #000; }
+.phone:before { background: #070707; }
+.screen { border-radius: 37px; }
+.direction-description { color: #a5a5a5; font-size: 12px; line-height: 1.8; margin: 24px 2px 18px; }
+.direction-description strong { color: #f2f2f2; font-weight: 550; }
+.choose-button { color: #eee; border-color: #555; min-height: 48px; border-radius: 30px; }
+.choose-button:hover { background: #fff; color: #070707; border-color: #fff; }
+.choose-button.selected { color: #fff; background: var(--brand-red); border-color: var(--brand-red); }
+.expand-button { border-radius: 50%; color: #ddd; background: #303030; }
+.studio-footer { border-color: #373636; color: #a0a0a0; }
+.studio-footer button { color: #c0c0c0; }
+.footer-dot { background: var(--brand-red); }
+.selection-bar { border-color: #666; background: #202020; color: #fff; box-shadow: 0 10px 40px #0008; }
+.selection-bar svg { color: #fff; }
+.selection-bar span small { color: #bbb; }
+.selection-bar button { background: #373636; border-color: #777; color: #fff; }
+.studio-toast { background: #fff; color: #070707; }
+
+/* Shared branded mobile system. Logo is unmodified, at less than half native width. */
+.everyday, .saathi { --accent: var(--brand-red); --soft: var(--red-soft); --surface: #f6f6f6; --ink: var(--brand-black); --muted: var(--text-muted); --line: var(--line-light); --card: var(--brand-white); --button-ink: var(--brand-white); --positive: #a91b22; }
+.focus { --accent: var(--brand-red); --soft: #352124; --surface: var(--dark-surface); --ink: #fff; --muted: var(--dark-muted); --line: var(--dark-line); --card: var(--dark-card); --button-ink: #fff; --positive: #fff; }
+.screen, .screen h2, .screen h3, .screen strong { font-family: var(--brand-font); }
+.statusbar { background: var(--brand-black); color: #fff; padding-left: 22px; padding-right: 22px; }
+.app-header, .saathi .app-header, .focus .app-header { background: var(--brand-black); color: #fff; padding: 8px 18px 13px; border: 0; margin: 0; }
+.app-brand { gap: 15px; min-width: 0; }
+.app-logo-image { width: 76px; height: auto; max-width: none; aspect-ratio: 196 / 126; object-fit: contain; display: block; flex-shrink: 0; }
+.app-name { font-size: 13px; letter-spacing: -.2px; font-weight: 650; }
+.app-subtitle { color: #b5b5b5; font-size: 10px; margin-top: 5px; letter-spacing: 0; }
+.avatar, .focus .avatar { background: #252525; border: 1px solid #666; color: #fff; width: 35px; height: 35px; }
+.app-content, .focus .app-content { padding: 20px 19px 22px; }
+.tiny-label, .focus .tiny-label { font-size: 9px; letter-spacing: 1px; color: var(--muted); }
+.greeting { margin-top: 8px; }
+.greeting h2, .saathi .greeting h2, .focus .greeting h2 { font-family: var(--brand-font); font-size: 29px; letter-spacing: -1.3px; font-weight: 650; line-height: 1.2; }
+.subtext { margin-top: 9px; }
+.icon-button, .focus .icon-button { width: 44px; height: 44px; color: var(--ink); background: var(--card); border: 1px solid var(--line); }
+.section-row { margin: 18px 0 11px; }
+.section-row b { font-size: 12px; font-weight: 650; }
+.text-button { font-size: 11px; min-height: 35px; padding: 7px; }
+.primary-button, .saathi .primary-button { border-radius: 12px; background: var(--brand-red); color: #fff; min-height: 59px; padding: 14px 16px; }
+.primary-button>svg:last-child { margin-left: auto; }
+.quick-action { min-height: 72px; font-weight: 550; border-radius: 12px; }
+.quick-action svg { color: var(--accent); }
+.app-nav, .saathi .app-nav, .focus .app-nav { background: var(--card); border-color: var(--line); height: 70px; padding-bottom: 14px; }
+.app-nav button { min-height: 48px; font-size: 10px; }
+.app-nav button.active { color: var(--ink); }
+.app-nav button.active svg { color: var(--accent); stroke-width: 2; }
+.focus .app-nav button.active svg { color: #fff; background: var(--brand-red); border-radius: 6px; box-shadow: 0 0 0 3px var(--brand-red); }
+.owner-scopes { border-radius: 30px; padding: 3px; margin: 17px 0; background: var(--card); gap: 2px; }
+.owner-scopes button { min-height: 38px; border-radius: 30px; padding: 5px 4px; font-size: 10px; }
+.owner-scopes button.active { background: var(--brand-black); color: #fff; font-weight: 600; }
+.focus .owner-scopes button.active { background: var(--brand-red); color: #fff; }
+.attention-card { border-radius: 12px; padding: 13px; }
+.attention-top { font-size: 11px; }
+.attention-card p { font-size: 12px; line-height: 1.6; }
+.badge { font-size: 9px; }
+.badge.warning { color: var(--status-amber); background: var(--status-amber-soft); }
+.ask-button { min-height: 52px; font-size: 12px; color: var(--ink); border: 1px solid var(--line); background: var(--card); }
+.ask-button>svg:first-child { color: var(--brand-red); }
+.tyre-panel>svg { filter: grayscale(1); }
+.tyre-panel { background: #e4e4e4; color: #333; }
+.tyre-panel .example-label { color: #555; }
+.frame-corner { border-color: #999; }
+.voice-strip { color: var(--muted); }
+.back-button { width: 44px; height: 44px; }
+.phone-toast { background: #252525; border-color: #777; color: #fff; }
+.next-task { font-size: 12px; min-height: 42px; }
+.screen[lang=hi] .greeting h2 { font-size: 27px; line-height: 1.4; letter-spacing: -.6px; }
+.screen[lang=hi] .primary-button { font-size: 15px; }
+.screen[lang=hi] .owner-scopes button { font-size: 11px; }
+
+/* 01. The Drive: photography, progress, and a connected car story. */
+.everyday .phone { box-shadow: 0 0 0 1px #7a7a7a, 0 25px 65px -20px #8b1d2726; }
+.everyday .vehicle-card { border: 0; border-radius: 15px; background: #fff; box-shadow: 0 5px 20px #0000000b; }
+.everyday .vehicle-image { height: 203px; }
+.everyday .vehicle-image:after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, #0001 25%, #000b); pointer-events: none; }
+.everyday .vehicle-image img { object-position: center 48%; }
+.everyday .image-pill { z-index: 1; border-radius: 30px; color: #fff; background: var(--brand-red); top: 13px; left: 13px; padding: 7px 9px; font-size: 8px; }
+.overview-car-index { position: absolute; right: 14px; top: 20px; color: #fff; z-index: 1; font-size: 9px; letter-spacing: 1px; }
+.overview-photo-title { position: absolute; bottom: 18px; left: 16px; color: #fff; z-index: 1; }
+.overview-photo-title h3 { margin: 0 0 6px; font-size: 29px; font-weight: 600; letter-spacing: -1.4px; }
+.overview-photo-title .registration { color: #e4e4e4; font-size: 10px; letter-spacing: 1px; }
+.photo-detail { display: grid; place-items: center; position: absolute; bottom: 19px; right: 14px; width: 44px; height: 44px; border: 1px solid #ffffff80; border-radius: 50%; color: #fff; background: #ffffff12; z-index: 2; backdrop-filter: blur(8px); }
+.everyday .vehicle-body { padding: 15px; }
+.overview-progress { display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
+.overview-progress strong { font-size: 21px; font-weight: 650; letter-spacing: -.7px; }
+.overview-progress small { font-size: 11px; font-weight: 500; color: var(--muted); }
+.everyday .progress-track { height: 4px; margin: 10px 0 15px; }
+.everyday .quick-action { background: #fff; border-color: #e5e5e5; }
+.overview-owner-card { background: var(--brand-black); border-radius: 15px; color: #fff; overflow: hidden; position: relative; }
+.overview-owner-card:before { content: ''; position: absolute; left: 0; top: 0; width: 5px; height: 100%; background: var(--brand-red); }
+.overview-main-stat { padding: 18px 21px 13px; text-align: left; width: 100%; color: inherit; background: transparent; }
+.overview-main-stat .tiny-label { color: #bfbfbf; font-size: 8px; }
+.overview-stock-number { display: flex; gap: 23px; align-items: center; }
+.overview-stock-number>strong { font-size: 82px; line-height: 1.2; letter-spacing: -6px; font-weight: 600; font-style: italic; }
+.overview-stock-number>span { font-size: 12px; color: #c6c6c6; line-height: 1.6; max-width: 110px; }
+.overview-stock-number svg { display: block; margin-top: 9px; color: #fff; }
+.overview-mini-stats { display: grid; grid-template-columns: repeat(3, 1fr); background: #252525; padding: 15px 9px; border-top: 1px solid #444; }
+.overview-mini-stats button { text-align: center; color: #fff; background: transparent; border-right: 1px solid #555; }
+.overview-mini-stats button:last-child { border: 0; }
+.overview-mini-stats strong { display: block; font-size: 25px; font-weight: 500; }
+.overview-mini-stats span { display: block; font-size: 9px; margin-top: 5px; line-height: 1.4; color: #c4c4c4; }
+
+/* 02. Pit Lane: a voice-led pit board, with clear tools within reach. */
+.saathi .screen { --surface: #f4f4f4; }
+.guided-day { min-height: 14px; }
+.saathi .owner-greeting h2 { font-family: var(--brand-font); font-size: 28px; font-weight: 650; }
+.guided-voice { position: relative; overflow: hidden; background: var(--brand-black); border: 0; border-radius: 20px 20px 20px 5px; color: #fff; margin: 22px 0 20px; min-height: 108px; padding: 22px 16px; gap: 14px; text-align: left; }
+.guided-voice:before { content: ''; position: absolute; inset: 0 auto 0 0; width: 4px; background: var(--brand-red); }
+.guided-voice .guided-listen-icon { display: grid; place-items: center; flex-shrink: 0; width: 52px; height: 52px; border-radius: 50%; background: var(--brand-red); color: #fff; box-shadow: 0 0 0 5px #c7212826; }
+.guided-voice .guided-listen-copy { display: block; flex: 1; }
+.guided-listen-copy strong { display: block; max-width: 160px; font-size: 15px; line-height: 1.4; font-weight: 550; }
+.guided-listen-copy small { display: block; color: #bfbfbf; margin-top: 6px; font-size: 10px; line-height: 1.4; }
+.guided-voice .waveform { position: absolute; bottom: 11px; right: 14px; color: #d76165; opacity: .8; }
+.saathi .section-row b { font-size: 11px; }
+.saathi .saathi-car { display: grid; grid-template-columns: 105px minmax(0, 1fr); border-radius: 16px; border: 1px solid #dedede; background: #fff; min-height: 127px; }
+.saathi .saathi-photo { height: 127px; margin: 0; border-radius: 15px 0 0 15px; }
+.saathi .saathi-photo img { object-position: center; }
+.saathi .saathi-car-details { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; padding: 15px 13px 10px; }
+.saathi .saathi-car-details h3 { font-size: 18px; letter-spacing: -.6px; }
+.saathi .saathi-car-details .registration { font-size: 9px; letter-spacing: .3px; color: #626262; }
+.saathi .round-arrow { width: 44px; height: 44px; align-self: flex-end; background: #f0f0f0; color: #070707; }
+.saathi .primary-button { margin-top: 15px; min-height: 60px; border-radius: 30px; padding-left: 19px; padding-right: 19px; }
+.saathi .quick-actions { gap: 11px; margin-top: 16px; }
+.saathi .quick-action, .saathi .quick-action:first-child { border: 1px solid #ddd; background: #fff; border-radius: 16px; min-height: 91px; flex-direction: column; gap: 9px; }
+.saathi .quick-action:first-child svg { color: var(--brand-red); }
+.saathi .voice-strip { color: #373636; min-height: 44px; margin-top: 14px; }
+.saathi .brief-card { background: var(--brand-black); color: #fff; border-radius: 20px 20px 20px 5px; padding: 22px 18px 18px; position: relative; border-left: 4px solid var(--brand-red); }
+.saathi .brief-card .tiny-label { color: #bbb; font-size: 8px; }
+.saathi .brief-heading { margin: 14px 0 12px; }
+.saathi .brief-heading strong { font-size: 30px; line-height: 1.12; letter-spacing: -1.3px; font-weight: 550; }
+.saathi .brief-card p { color: #c6c6c6; font-size: 12px; line-height: 1.7; margin: 12px 0 18px; }
+.saathi .brief-card button { min-height: 48px; background: var(--brand-red); color: #fff; border-radius: 30px; font-size: 12px; }
+.saathi .saathi-summary { border: 0; padding: 0; gap: 8px; margin: 14px 0 4px; }
+.saathi-summary button { border: 1px solid #e0e0e0; background: #fff; border-radius: 13px; padding: 14px 4px; min-height: 85px; }
+.saathi-summary button:first-child { background: var(--brand-red); border-color: var(--brand-red); color: #fff; }
+.saathi-summary strong { font-size: 31px; font-weight: 600; }
+.saathi-summary small { display: block; margin-top: 4px; font-size: 9px; line-height: 1.3; }
+.saathi-summary button:first-child small { color: #fff; }
+.saathi .agenda-item { padding: 13px 0; }
+.saathi .agenda-icon { width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0; color: var(--brand-red); background: #fceced; }
+.saathi .agenda-item strong { font-size: 12px; }
+.saathi .agenda-item small { font-size: 10px; line-height: 1.4; }
+.saathi .agenda-item>svg { color: #666; }
+
+/* 03. Garage: carbon surfaces and a camera-first inspection station. */
+.focus .greeting h2 { font-size: 27px; font-weight: 550; }
+.command-check-heading { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+.command-check-heading .greeting { margin-top: 9px; }
+.command-check-heading h2 { max-width: 210px; }
+.command-step { font-size: 47px; font-weight: 600; letter-spacing: -3px; line-height: .94; display: flex; flex-direction: column; gap: 7px; text-align: right; color: #fff; }
+.command-step small { font-size: 10px; letter-spacing: 1px; color: #bbb; }
+.focus .step-dots { margin: 19px 0 16px; gap: 4px; }
+.focus .step-dots i { height: 4px; background: #414141; }
+.focus .step-dots i.done { background: var(--brand-red); }
+.command-viewfinder { position: relative; }
+.focus .command-viewfinder .tyre-panel { background: radial-gradient(ellipse at center, #454545, #252525); height: 215px; border: 1px solid #555; border-radius: 12px; }
+.focus .command-viewfinder .tyre-panel:before { content: ''; width: 175px; height: 175px; border-radius: 50%; border: 1px solid #ffffff25; box-shadow: 0 0 0 23px #ffffff04, 0 0 0 46px #ffffff03; position: absolute; }
+.focus .command-viewfinder .tyre-panel>svg { height: 188px; position: relative; filter: grayscale(1) contrast(1.06); }
+.focus .command-viewfinder .example-label { color: #ddd; font-size: 9px; }
+.focus .command-viewfinder .frame-corner { border-color: #ee5d65; border-width: 2px 0 0 2px; width: 24px; height: 24px; }
+.focus .command-viewfinder .icon-button { position: absolute; top: 12px; right: 12px; width: 41px; height: 41px; background: #070707cc; border-color: #777; color: #fff; }
+.viewfinder-code { position: absolute; bottom: 11px; right: 13px; color: #bbb; font-size: 8px; letter-spacing: 1px; }
+.focus .instruction { color: #ccc; font-size: 14px; line-height: 1.5; margin: 13px 0 15px; }
+.focus .current-car { background: transparent; border-color: #444; border-radius: 10px; margin: 0 0 15px; padding: 8px; }
+.focus .current-car img { width: 53px; height: 42px; border-radius: 5px; }
+.focus .current-car strong { font-size: 13px; }
+.focus .current-car .registration { font-size: 9px; color: #bbb; }
+.focus .primary-button { min-height: 61px; border-radius: 11px; }
+.focus .quick-actions { margin-top: 12px; }
+.focus .quick-action { min-height: 68px; background: #202020; border-color: #4c4c4c; border-radius: 11px; }
+.focus .quick-action svg { color: #fff; }
+.focus .focus-metrics { display: block; margin: 17px 0; padding: 18px; border: 1px solid #505050; border-radius: 13px; background: linear-gradient(140deg, #373636, #1a1a1a); position: relative; overflow: hidden; }
+.focus .focus-metrics:before { content: ''; position: absolute; width: 100px; height: 250px; background: #c721281f; transform: rotate(26deg); top: -60px; right: 20px; border-left: 2px solid #c7212877; border-right: 2px solid #c7212844; }
+.focus .focus-metrics strong { position: relative; display: flex; justify-content: space-between; align-items: center; font-size: 88px; font-weight: 550; letter-spacing: -7px; line-height: 1; color: #fff; }
+.focus .focus-metrics strong svg { color: #ddd; }
+.focus .focus-metrics div>span { display: block; position: relative; color: #c6c6c6; font-size: 11px; margin: 9px 0 17px; }
+.focus .focus-metrics button { position: relative; width: 100%; display: flex; align-items: center; gap: 8px; background: var(--brand-red); color: #fff; min-height: 41px; padding: 9px 10px; border: 0; border-radius: 7px; font-size: 11px; }
+.focus .focus-metrics button svg:last-child { margin-left: auto; }
+.focus .filter-chips button { font-size: 10px; border-radius: 30px; padding: 8px 11px; }
+.focus .filter-chips button.active { background: #fff; color: #070707; border-color: #fff; }
+.focus .stock-row { background: #202020; padding: 9px; border-radius: 10px; border: 1px solid #444; margin-bottom: 9px; }
+.focus .stock-row img { width: 69px; height: 69px; border-radius: 6px; }
+.focus .stock-row .registration { color: #bbb; }
+.focus .badge { background: #303030; color: #eee; }
+.focus .badge.warning { background: #49351c; color: #ffdb9a; }
+.focus .ask-button { background: #202020; color: #fff; border-color: #555; }
+.focus .ask-button>svg:first-child { color: #fff; }
+.focus .screen-overlay .tyre-panel { background: #d6d6d6; }
+
+/* A car's actual workflow remains independent of scrolling through the preview. */
+.car-journey { margin: 20px 0 8px; padding: 14px 11px 11px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; }
+.car-journey .tiny-label { font-size: 9px; }
+.car-journey ol { margin: 16px 0 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(5, 1fr); }
+.car-journey li { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 7px; color: var(--muted); }
+.car-journey li:before { content: ''; position: absolute; height: 2px; background: var(--line); top: 14px; left: 50%; width: 100%; }
+.car-journey li:last-child:before { display: none; }
+.car-journey li>span { position: relative; z-index: 1; display: grid; place-items: center; width: 29px; height: 29px; border: 1px solid var(--line); border-radius: 50%; background: var(--card); }
+.car-journey li.complete>span { background: var(--ink); color: var(--card); border-color: var(--ink); }
+.car-journey li.current>span { background: var(--brand-red); color: #fff; border-color: var(--brand-red); }
+.car-journey li.current strong { color: var(--ink); }
+.car-journey li strong { font-size: 9px; font-weight: 550; }
+.car-journey li small { font-size: 7px; line-height: 1.3; }
+.screen-overlay .overlay-header h2 { font-size: 16px; line-height: 1.35; }
+.screen-overlay .overlay-content h3 { line-height: 1.25; }
+.screen-overlay .result-options button { min-height: 79px; }
+.screen[data-audience=employee] .listen-banner.guided-voice { min-height: 108px; }
+.screen[lang=hi] .guided-listen-copy small { font-size: 12px; }
+.screen[lang=hi] .overview-photo-title h3 { font-size: 25px; }
+.screen[lang=hi] .command-step { flex-shrink: 0; }
+
+@media (min-width: 1550px) { .phone { height: 815px; } .everyday .vehicle-image { height: 220px; } .focus .command-viewfinder .tyre-panel { height: 235px; } }
+@media (max-width: 1200px) and (min-width: 901px) {
+ .design-grid { gap: 25px; }
+ .app-content, .focus .app-content { padding-left: 15px; padding-right: 15px; }
+ .app-header, .saathi .app-header, .focus .app-header { padding-left: 15px; padding-right: 15px; }
+ .app-brand { gap: 10px; }
+ .app-logo-image { width: 68px; }
+ .direction-tag { display: none; }
+ .greeting h2, .saathi .greeting h2 { font-size: 25px; }
+ .saathi .owner-greeting h2 { font-size: 24px; }
+ .saathi .saathi-car { grid-template-columns: 85px minmax(0, 1fr); }
+ .saathi .saathi-car-details { padding-left: 10px; padding-right: 10px; }
+ .saathi .saathi-car-details h3 { font-size: 17px; }
+ .guided-voice { padding-left: 14px; padding-right: 14px; gap: 11px; }
+ .guided-voice .guided-listen-icon { width: 43px; height: 43px; }
+ .guided-listen-copy strong { font-size: 14px; }
+ .focus .greeting h2 { font-size: 23px; }
+ .command-step { font-size: 42px; }
+ .screen[data-audience=employee] .quick-action { font-size: 12px; }
+ .screen[data-audience=employee] .primary-button { font-size: 14px; }
+ .focus .filter-chips button { font-size: 9px; padding-left: 8px; padding-right: 8px; }
+}
+@media (max-width: 900px) {
+ .studio-header { height: 101px; padding: 0 24px; }
+ main { padding: 0 24px 110px; }
+ .intro { padding: 35px 0 31px; }
+ .intro h1 { font-size: 78px; letter-spacing: -4.5px; max-width: none; }
+ .intro-note { display: none; }
+ .intro p { font-size: 12px; }
+ .drive-story { min-height: 920px; height: 135vh; margin-bottom: 48px; }
+ .drive-scene { padding: 24px 20px 18px; top: 14px; }
+ .drive-road { height: 200px; }
+ .drive-story-copy { grid-template-columns: 53px 1fr; gap: 15px; padding-bottom: 24px; }
+ .drive-stage-number { font-size: 52px; letter-spacing: -3px; }
+ .drive-story-copy h2 { font-size: 32px; }
+ .drive-story-copy p { grid-column: 2; border: 0; padding: 0; font-size: 12px; line-height: 1.8; margin-top: 0; min-height: 66px; }
+ .drive-scene-top { font-size: 8px; letter-spacing: 1px; }
+ .drive-stage-controls button { justify-content: center; gap: 4px; flex-direction: column; font-size: 10px; min-height: 64px; padding: 12px 0 0; }
+ .mockup-intro h2 { font-size: 29px; }
+ .mockup-intro p { display: none; }
+ .preview-toolbar { flex-wrap: wrap; gap: 14px; }
+ .design-grid, .design-grid[data-focus]:not([data-focus=all]) { grid-template-columns: minmax(0, 390px); justify-content: center; gap: 54px; }
+ .phone { height: 800px; }
+ .direction-tag { display: block; }
+ .direction-description { min-height: 0; }
+ .everyday .vehicle-image { height: 218px; }
+ .studio-footer { margin-top: 40px; }
+}
+@media (max-width: 520px) {
+ .studio-header { padding: 0 20px; height: 94px; }
+ main { padding-left: 20px; padding-right: 20px; }
+ .studio-brand { gap: 14px; font-size: 9px; letter-spacing: 1.3px; }
+ .studio-brand small { font-size: 7px; letter-spacing: 1px; }
+ .studio-logo-image { width: 84px; }
+ .preview-badge { font-size: 7px; max-width: 98px; line-height: 1.7; letter-spacing: .8px; }
+ .preview-badge>span { flex-shrink: 0; width: 5px; height: 5px; }
+ .preview-badge i { display: none; }
+ .intro h1 { font-size: 66px; letter-spacing: -4px; margin-top: 23px; }
+ .eyebrow { font-size: 7px; letter-spacing: 1.1px; gap: 8px; }
+ .intro p { font-size: 11px; max-width: 310px; }
+ .drive-scene { padding: 20px 16px 14px; border-radius: 18px; }
+ .drive-story { height: 130vh; min-height: 930px; }
+ .drive-road { height: 145px; margin-top: 15px; margin-bottom: 18px; }
+ #journey-car { width: 32px; }
+ .drive-scene-top { font-size: 7px; letter-spacing: .7px; }
+ .scroll-cue span { margin-left: 4px; }
+ .drive-stage-number { font-size: 45px; padding-top: 19px; }
+ .drive-story-copy { grid-template-columns: 42px 1fr; gap: 12px; }
+ .drive-story-copy h2 { font-size: 29px; letter-spacing: -1.2px; }
+ .drive-stage-kicker { font-size: 8px; }
+ .drive-story-copy p { font-size: 11px; min-height: 76px; }
+ .drive-stage-controls button { font-size: 9px; }
+ .drive-stage-controls button small { font-size: 8px; }
+ .role-control { width: 100%; justify-content: space-between; }
+ .view-controls { width: 100%; justify-content: space-between; }
+ .concept-control button { min-width: 34px; }
+ .phone { height: 790px; border-width: 6px; }
+ .direction-title { font-size: 21px; }
+ .direction-caption { font-size: 9px; }
+ .direction-number { font-size: 34px; }
+ .direction-tag { font-size: 7px; }
+ .everyday .vehicle-image { height: 203px; }
+ .focus .greeting h2 { font-size: 25px; }
+ .focus .command-viewfinder .tyre-panel { height: 208px; }
+}
+@media (max-width: 370px) {
+ main { padding-left: 14px; padding-right: 14px; }
+ .intro h1 { font-size: 59px; }
+ .app-content, .focus .app-content { padding-left: 15px; padding-right: 15px; }
+ .app-header, .saathi .app-header, .focus .app-header { padding-left: 15px; padding-right: 15px; }
+ .app-brand { gap: 10px; }
+ .app-logo-image { width: 70px; }
+ .greeting h2, .saathi .greeting h2 { font-size: 26px; }
+ .screen[data-audience=employee] .primary-button { font-size: 14px; }
+ .screen[data-audience=employee] .quick-action { font-size: 12px; }
+ .saathi .saathi-car { grid-template-columns: 92px minmax(0, 1fr); }
+ .focus .greeting h2 { font-size: 22px; }
+ .command-step { font-size: 40px; }
+ .drive-story-copy h2 { font-size: 25px; }
+}
+@media (prefers-reduced-motion: reduce) { #journey-car { will-change: auto; } .scroll-cue span { display: none; } }

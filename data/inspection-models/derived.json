@@ -1,0 +1,29 @@
+{
+  "sedan": {
+    "source": "NormalCar1",
+    "file": "apps/mobile/assets/inspection-models/sedan.json",
+    "bytes": 412954,
+    "sha256": "2879df536c745233bafb0c4013ba8cbe6d2e65bbc0b3d49513abe83235bc5041",
+    "length": 4.3,
+    "height": 1.42,
+    "frontPositiveZ": true
+  },
+  "hatchback": {
+    "source": "NormalCar2",
+    "file": "apps/mobile/assets/inspection-models/hatchback.json",
+    "bytes": 436743,
+    "sha256": "6a6c2f7e75a65acdb7657401b4ec004e7532f5130b8c9e08c4343e7b28b6da02",
+    "length": 4.3,
+    "height": 1.48,
+    "frontPositiveZ": true
+  },
+  "suv": {
+    "source": "SUV",
+    "file": "apps/mobile/assets/inspection-models/suv.json",
+    "bytes": 459898,
+    "sha256": "0282cc7d28a9b56c7f30d371b5ec528ff212128e07a280a37c9ecab3773f40ed",
+    "length": 4.3,
+    "height": 1.68,
+    "frontPositiveZ": true
+  }
+}

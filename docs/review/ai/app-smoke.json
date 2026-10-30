@@ -1,0 +1,70 @@
+{
+  "notReleaseAcceptance": true,
+  "cases": [
+    {
+      "language": "en",
+      "syntheticReportOnly": true,
+      "operationalRecordsUnchanged": true,
+      "status": "completed",
+      "model": "qwen3.5:4b",
+      "seconds": 8.16,
+      "content": {
+        "summary": "Engine did not start.",
+        "fields": [
+          {
+            "name": "note",
+            "value": "The engine did not start. The cause is unknown. Do not diagnose a faulty battery.",
+            "basis": "reported",
+            "sourceIds": [
+              "input"
+            ]
+          }
+        ],
+        "unknowns": [
+          "cause",
+          "battery status"
+        ],
+        "checks": [],
+        "sourceIds": [
+          "car:10000000-0000-4000-8000-000000000011",
+          "task:10000000-0000-4000-8000-000000000021",
+          "input"
+        ]
+      },
+      "errorCode": null,
+      "inputTokens": 1011,
+      "outputTokens": 227
+    },
+    {
+      "language": "hi",
+      "syntheticReportOnly": true,
+      "operationalRecordsUnchanged": true,
+      "status": "completed",
+      "model": "qwen3.5:4b",
+      "seconds": 4.07,
+      "content": {
+        "summary": "कार का इंजन चालू नहीं हुआ।",
+        "fields": [
+          {
+            "name": "note",
+            "value": "इंजन चालू नहीं हुआ। कारण मालूम नहीं। बैटरी खराब है ऐसा तय नहीं किया।",
+            "basis": "reported",
+            "sourceIds": [
+              "input"
+            ]
+          }
+        ],
+        "unknowns": [],
+        "checks": [],
+        "sourceIds": [
+          "car:10000000-0000-4000-8000-000000000011",
+          "task:10000000-0000-4000-8000-000000000021",
+          "input"
+        ]
+      },
+      "errorCode": null,
+      "inputTokens": 1047,
+      "outputTokens": 231
+    }
+  ]
+}

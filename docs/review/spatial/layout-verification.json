@@ -1,0 +1,61 @@
+{
+  "trainingOnly": true,
+  "kind": "Android phone-emulator window overrides, not physical tablet or iOS acceptance",
+  "original": {
+    "size": "Physical size: 1080x2424",
+    "density": "Physical density: 420",
+    "font": "1.0"
+  },
+  "restored": {
+    "size": "Physical size: 1080x2424",
+    "density": "Physical density: 420",
+    "font": "1.0"
+  },
+  "checked": [
+    "1067 x 1707 dp portrait sections and 3D car",
+    "1707 x 1067 dp landscape 3D car",
+    "Landscape rear-wheel dot opens seven scoped checks",
+    "Portrait-landscape-portrait canvas recreation",
+    "150 percent font-scale phone sections (earlier same-code layout check)"
+  ],
+  "orientationFix": {
+    "initialIssue": "Stale GL buffer clipped landscape car to a one-pixel right margin",
+    "resolution": "Remount scene using measured viewport dimensions",
+    "finalSilverBodyBounds": [
+      {
+        "name": "car-tablet-portrait",
+        "canvas": [
+          319,
+          563,
+          987,
+          1007
+        ],
+        "leftMargin": 93,
+        "rightMargin": 99
+      },
+      {
+        "name": "car-tablet-landscape",
+        "canvas": [
+          492,
+          507,
+          1495,
+          951
+        ],
+        "leftMargin": 260,
+        "rightMargin": 266
+      },
+      {
+        "name": "car-tablet-portrait-return",
+        "canvas": [
+          319,
+          563,
+          987,
+          1007
+        ],
+        "leftMargin": 93,
+        "rightMargin": 99
+      }
+    ]
+  },
+  "settingsRestored": true
+}

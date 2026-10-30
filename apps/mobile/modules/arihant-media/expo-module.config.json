@@ -1,0 +1,5 @@
+{
+  "platforms": ["apple", "android"],
+  "apple": { "modules": ["ArihantMediaModule"] },
+  "android": { "modules": ["com.arihantcars.media.ArihantMediaModule"] }
+}

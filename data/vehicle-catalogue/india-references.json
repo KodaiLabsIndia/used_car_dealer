@@ -1,0 +1,258 @@
+[
+  {
+    "make": "Maruti Suzuki",
+    "model": "S-Presso",
+    "bodyType": "hatchback",
+    "sourceUrl": "https://www.marutisuzuki.com/arena/car-manuals",
+    "observedAt": "2026-10-30",
+    "scope": "Name/body reference only; years, variants, equipment and current availability are not certified."
+  },
+  {
+    "make": "Maruti Suzuki",
+    "model": "Alto K10",
+    "bodyType": "hatchback",
+    "sourceUrl": "https://www.marutisuzuki.com/arena/car-manuals",
+    "observedAt": "2026-10-30",
+    "scope": "Name/body reference only; years, variants, equipment and current availability are not certified."
+  },
+  {
+    "make": "Maruti Suzuki",
+    "model": "Celerio",
+    "bodyType": "hatchback",
+    "sourceUrl": "https://www.marutisuzuki.com/arena/car-manuals",
+    "observedAt": "2026-10-30",
+    "scope": "Name/body reference only; years, variants, equipment and current availability are not certified."
+  },
+  {
+    "make": "Maruti Suzuki",
+    "model": "WagonR",
+    "bodyType": "hatchback",
+    "sourceUrl": "https://www.marutisuzuki.com/arena/car-manuals",
+    "observedAt": "2026-10-30",
+    "scope": "Name/body reference only; years, variants, equipment and current availability are not certified."
+  },
+  {
+    "make": "Maruti Suzuki",
+    "model": "Eeco",
+    "bodyType": "van",
+    "sourceUrl": "https://www.marutisuzuki.com/arena/car-manuals",
+    "observedAt": "2026-10-30",
+    "scope": "Name/body reference only; years, variants, equipment and current availability are not certified."
+  },
+  {
+    "make": "Maruti Suzuki",
+    "model": "Swift",
+    "bodyType": "hatchback",
+    "sourceUrl": "https://www.marutisuzuki.com/arena/car-manuals",
+    "observedAt": "2026-10-30",
+    "scope": "Name/body reference only; years, variants, equipment and current availability are not certified."
+  },
+  {
+    "make": "Maruti Suzuki",
+    "model": "Dzire",
+    "bodyType": "sedan",
+    "sourceUrl": "https://www.marutisuzuki.com/arena/car-manuals",
+    "observedAt": "2026-10-30",
+    "scope": "Name/body reference only; years, variants, equipment and current availability are not certified."
+  },
+  {
+    "make": "Maruti Suzuki",
+    "model": "Brezza",
+    "bodyType": "suv",
+    "sourceUrl": "https://www.marutisuzuki.com/arena/car-manuals",
+    "observedAt": "2026-10-30",
+    "scope": "Name/body reference only; years, variants, equipment and current availability are not certified."
+  },
+  {
+    "make": "Maruti Suzuki",
+    "model": "Ertiga",
+    "bodyType": "mpv",
+    "sourceUrl": "https://www.marutisuzuki.com/arena/car-manuals",
+    "observedAt": "2026-10-30",
+    "scope": "Name/body reference only; years, variants, equipment and current availability are not certified."
+  },
+  {
+    "make": "Maruti Suzuki",
+    "model": "Victoris",
+    "bodyType": "suv",
+    "sourceUrl": "https://www.marutisuzuki.com/arena/car-manuals",
+    "observedAt": "2026-10-30",
+    "scope": "Name/body reference only; years, variants, equipment and current availability are not certified."
+  },
+  {
+    "make": "Mahindra",
+    "model": "XUV 3XO",
+    "bodyType": "suv",
+    "sourceUrl": "https://auto.mahindra.com/suv",
+    "observedAt": "2026-10-30",
+    "scope": "Name/body reference only; years, variants, equipment and current availability are not certified."
+  },
+  {
+    "make": "Mahindra",
+    "model": "Thar OG",
+    "bodyType": "suv",
+    "sourceUrl": "https://auto.mahindra.com/suv",
+    "observedAt": "2026-10-30",
+    "scope": "Name/body reference only; years, variants, equipment and current availability are not certified."
+  },
+  {
+    "make": "Mahindra",
+    "model": "Scorpio-N",
+    "bodyType": "suv",
+    "sourceUrl": "https://auto.mahindra.com/suv",
+    "observedAt": "2026-10-30",
+    "scope": "Name/body reference only; years, variants, equipment and current availability are not certified."
+  },
+  {
+    "make": "Mahindra",
+    "model": "XUV 7XO",
+    "bodyType": "suv",
+    "sourceUrl": "https://auto.mahindra.com/suv",
+    "observedAt": "2026-10-30",
+    "scope": "Name/body reference only; years, variants, equipment and current availability are not certified."
+  },
+  {
+    "make": "Mahindra",
+    "model": "Thar ROXX",
+    "bodyType": "suv",
+    "sourceUrl": "https://auto.mahindra.com/suv",
+    "observedAt": "2026-10-30",
+    "scope": "Name/body reference only; years, variants, equipment and current availability are not certified."
+  },
+  {
+    "make": "Mahindra",
+    "model": "Scorpio Classic",
+    "bodyType": "suv",
+    "sourceUrl": "https://auto.mahindra.com/suv",
+    "observedAt": "2026-10-30",
+    "scope": "Name/body reference only; years, variants, equipment and current availability are not certified."
+  },
+  {
+    "make": "Mahindra",
+    "model": "Bolero Neo",
+    "bodyType": "suv",
+    "sourceUrl": "https://auto.mahindra.com/suv",
+    "observedAt": "2026-10-30",
+    "scope": "Name/body reference only; years, variants, equipment and current availability are not certified."
+  },
+  {
+    "make": "Mahindra",
+    "model": "Bolero",
+    "bodyType": "suv",
+    "sourceUrl": "https://auto.mahindra.com/suv",
+    "observedAt": "2026-10-30",
+    "scope": "Name/body reference only; years, variants, equipment and current availability are not certified."
+  },
+  {
+    "make": "Mahindra",
+    "model": "Bolero Neo Plus",
+    "bodyType": "suv",
+    "sourceUrl": "https://auto.mahindra.com/suv",
+    "observedAt": "2026-10-30",
+    "scope": "Name/body reference only; years, variants, equipment and current availability are not certified."
+  },
+  {
+    "make": "Mahindra",
+    "model": "XUV400",
+    "bodyType": "suv",
+    "sourceUrl": "https://auto.mahindra.com/suv",
+    "observedAt": "2026-10-30",
+    "scope": "Name/body reference only; years, variants, equipment and current availability are not certified."
+  },
+  {
+    "make": "Mahindra",
+    "model": "XUV3XO EV",
+    "bodyType": "suv",
+    "sourceUrl": "https://auto.mahindra.com/suv",
+    "observedAt": "2026-10-30",
+    "scope": "Name/body reference only; years, variants, equipment and current availability are not certified."
+  },
+  {
+    "make": "Kia",
+    "model": "Sonet",
+    "bodyType": "suv",
+    "sourceUrl": "https://www.arihantcars.com/",
+    "observedAt": "2026-10-30",
+    "scope": "Name/body reference only; years, variants, equipment and current availability are not certified."
+  },
+  {
+    "make": "Kia",
+    "model": "Seltos",
+    "bodyType": "suv",
+    "sourceUrl": "https://www.arihantcars.com/",
+    "observedAt": "2026-10-30",
+    "scope": "Name/body reference only; years, variants, equipment and current availability are not certified."
+  },
+  {
+    "make": "Ford",
+    "model": "Endeavour",
+    "bodyType": "suv",
+    "sourceUrl": "https://www.arihantcars.com/",
+    "observedAt": "2026-10-30",
+    "scope": "Name/body reference only; years, variants, equipment and current availability are not certified."
+  },
+  {
+    "make": "MG",
+    "model": "Hector",
+    "bodyType": "suv",
+    "sourceUrl": "https://www.arihantcars.com/",
+    "observedAt": "2026-10-30",
+    "scope": "Name/body reference only; years, variants, equipment and current availability are not certified."
+  },
+  {
+    "make": "MG",
+    "model": "Majestor",
+    "bodyType": "suv",
+    "sourceUrl": "https://www.arihantcars.com/",
+    "observedAt": "2026-10-30",
+    "scope": "Name/body reference only; years, variants, equipment and current availability are not certified."
+  },
+  {
+    "make": "Jaguar",
+    "model": "F-Pace",
+    "bodyType": "suv",
+    "sourceUrl": "https://www.arihantcars.com/",
+    "observedAt": "2026-10-30",
+    "scope": "Name/body reference only; years, variants, equipment and current availability are not certified."
+  },
+  {
+    "make": "Audi",
+    "model": "A4",
+    "bodyType": "sedan",
+    "sourceUrl": "https://www.arihantcars.com/",
+    "observedAt": "2026-10-30",
+    "scope": "Name/body reference only; years, variants, equipment and current availability are not certified."
+  },
+  {
+    "make": "BMW",
+    "model": "5 Series",
+    "bodyType": "sedan",
+    "sourceUrl": "https://www.arihantcars.com/",
+    "observedAt": "2026-10-30",
+    "scope": "Name/body reference only; years, variants, equipment and current availability are not certified."
+  },
+  {
+    "make": "Toyota",
+    "model": "Fortuner",
+    "bodyType": "suv",
+    "sourceUrl": "https://www.arihantcars.com/",
+    "observedAt": "2026-10-30",
+    "scope": "Name/body reference only; years, variants, equipment and current availability are not certified."
+  },
+  {
+    "make": "Hyundai",
+    "model": "Creta",
+    "bodyType": "suv",
+    "sourceUrl": "https://www.arihantcars.com/",
+    "observedAt": "2026-10-30",
+    "scope": "Name/body reference only; years, variants, equipment and current availability are not certified."
+  },
+  {
+    "make": "Tata",
+    "model": "Nexon",
+    "bodyType": "suv",
+    "sourceUrl": "https://www.arihantcars.com/",
+    "observedAt": "2026-10-30",
+    "scope": "Name/body reference only; years, variants, equipment and current availability are not certified."
+  }
+]

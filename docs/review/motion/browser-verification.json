@@ -1,0 +1,24 @@
+{
+  "checkedAt": "2026-10-30T03:21:39.537Z",
+  "target": "Isolated HTML motion study; production app unchanged",
+  "browser": "Chrome CDP",
+  "viewports": [
+    "1440×1040",
+    "1024×768",
+    "430×932",
+    "360×800"
+  ],
+  "checks": [
+    "original assets",
+    "both vehicle identity transitions",
+    "focus return",
+    "evidence survives tabs",
+    "inspection result not implied by media",
+    "usable record during delivery animation",
+    "manual reduced motion",
+    "OS reduced motion",
+    "horizontal overflow all concepts",
+    "runtime errors"
+  ],
+  "errors": []
+}

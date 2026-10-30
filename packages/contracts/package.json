@@ -1,0 +1,18 @@
+{
+  "name": "@arihant/contracts",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": "./src/index.ts",
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "generate": "openapi-typescript openapi.json -o src/generated.ts && prettier --write openapi.json src/generated.ts"
+  },
+  "dependencies": {
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "openapi-typescript": "7.13.0",
+    "typescript": "5.9.3"
+  }
+}

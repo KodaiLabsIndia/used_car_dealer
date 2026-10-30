@@ -1,0 +1,182 @@
+{
+  "checkedAt": "2026-10-30T03:23:14.411Z",
+  "mode": "file URL with HTTP/HTTPS blocked",
+  "checks": [
+    "embedded original assets",
+    "both dynamic car images",
+    "interrupted transition",
+    "keyboard tabs",
+    "all concept actions fit vertically in all preview sizes"
+  ],
+  "heights": [
+    {
+      "label": "desktop",
+      "device": "phone",
+      "concept": 1,
+      "height": 443,
+      "content": 443
+    },
+    {
+      "label": "desktop",
+      "device": "phone",
+      "concept": 2,
+      "height": 443,
+      "content": 443
+    },
+    {
+      "label": "desktop",
+      "device": "phone",
+      "concept": 3,
+      "height": 443,
+      "content": 443
+    },
+    {
+      "label": "desktop",
+      "device": "tablet",
+      "concept": 1,
+      "height": 449,
+      "content": 449
+    },
+    {
+      "label": "desktop",
+      "device": "tablet",
+      "concept": 2,
+      "height": 449,
+      "content": 449
+    },
+    {
+      "label": "desktop",
+      "device": "tablet",
+      "concept": 3,
+      "height": 449,
+      "content": 449
+    },
+    {
+      "label": "ipad",
+      "device": "phone",
+      "concept": 1,
+      "height": 443,
+      "content": 443
+    },
+    {
+      "label": "ipad",
+      "device": "phone",
+      "concept": 2,
+      "height": 443,
+      "content": 443
+    },
+    {
+      "label": "ipad",
+      "device": "phone",
+      "concept": 3,
+      "height": 443,
+      "content": 443
+    },
+    {
+      "label": "ipad",
+      "device": "tablet",
+      "concept": 1,
+      "height": 449,
+      "content": 449
+    },
+    {
+      "label": "ipad",
+      "device": "tablet",
+      "concept": 2,
+      "height": 449,
+      "content": 449
+    },
+    {
+      "label": "ipad",
+      "device": "tablet",
+      "concept": 3,
+      "height": 449,
+      "content": 449
+    },
+    {
+      "label": "phone",
+      "device": "phone",
+      "concept": 1,
+      "height": 443,
+      "content": 443
+    },
+    {
+      "label": "phone",
+      "device": "phone",
+      "concept": 2,
+      "height": 443,
+      "content": 443
+    },
+    {
+      "label": "phone",
+      "device": "phone",
+      "concept": 3,
+      "height": 443,
+      "content": 443
+    },
+    {
+      "label": "phone",
+      "device": "tablet",
+      "concept": 1,
+      "height": 449,
+      "content": 449
+    },
+    {
+      "label": "phone",
+      "device": "tablet",
+      "concept": 2,
+      "height": 449,
+      "content": 449
+    },
+    {
+      "label": "phone",
+      "device": "tablet",
+      "concept": 3,
+      "height": 449,
+      "content": 449
+    },
+    {
+      "label": "small-phone",
+      "device": "phone",
+      "concept": 1,
+      "height": 443,
+      "content": 443
+    },
+    {
+      "label": "small-phone",
+      "device": "phone",
+      "concept": 2,
+      "height": 443,
+      "content": 443
+    },
+    {
+      "label": "small-phone",
+      "device": "phone",
+      "concept": 3,
+      "height": 443,
+      "content": 443
+    },
+    {
+      "label": "small-phone",
+      "device": "tablet",
+      "concept": 1,
+      "height": 449,
+      "content": 449
+    },
+    {
+      "label": "small-phone",
+      "device": "tablet",
+      "concept": 2,
+      "height": 449,
+      "content": 449
+    },
+    {
+      "label": "small-phone",
+      "device": "tablet",
+      "concept": 3,
+      "height": 449,
+      "content": 449
+    }
+  ],
+  "errors": []
+}

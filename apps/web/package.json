@@ -1,0 +1,22 @@
+{
+  "name": "@arihant/web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 5174",
+    "build": "tsc -p tsconfig.json && vite build",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@arihant/contracts": "0.1.0",
+    "@arihant/api-client": "0.1.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "vite": "^8.0.0",
+    "@types/react": "~19.3.0",
+    "@types/react-dom": "^19.2.0"
+  }
+}

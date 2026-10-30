@@ -1,0 +1,487 @@
+{
+  "at": "2026-10-30T04:39:38.711Z",
+  "mode": "Local Chrome viewport and page zoom simulation",
+  "evidence": [
+    {
+      "width": 320,
+      "height": 740,
+      "zoom": 1,
+      "page": "today",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 320,
+      "height": 740,
+      "zoom": 1,
+      "page": "decisions",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 320,
+      "height": 740,
+      "zoom": 1,
+      "page": "stock",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 320,
+      "height": 740,
+      "zoom": 1,
+      "page": "work",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 320,
+      "height": 740,
+      "zoom": 1,
+      "page": "service",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 320,
+      "height": 740,
+      "zoom": 1,
+      "page": "enquiries",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 320,
+      "height": 740,
+      "zoom": 1,
+      "page": "business",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 320,
+      "height": 740,
+      "zoom": 1,
+      "page": "reports",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 320,
+      "height": 740,
+      "zoom": 1,
+      "page": "checklists",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 320,
+      "height": 740,
+      "zoom": 1,
+      "page": "inbox",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "zoom": 1,
+      "page": "today",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "zoom": 1,
+      "page": "decisions",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "zoom": 1,
+      "page": "stock",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "zoom": 1,
+      "page": "work",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "zoom": 1,
+      "page": "service",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "zoom": 1,
+      "page": "enquiries",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "zoom": 1,
+      "page": "business",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "zoom": 1,
+      "page": "reports",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "zoom": 1,
+      "page": "checklists",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "zoom": 1,
+      "page": "inbox",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "zoom": 1,
+      "page": "today",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "zoom": 1,
+      "page": "decisions",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "zoom": 1,
+      "page": "stock",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "zoom": 1,
+      "page": "work",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "zoom": 1,
+      "page": "service",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "zoom": 1,
+      "page": "enquiries",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "zoom": 1,
+      "page": "business",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "zoom": 1,
+      "page": "reports",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "zoom": 1,
+      "page": "checklists",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "zoom": 1,
+      "page": "inbox",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "zoom": 1,
+      "page": "today",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "zoom": 1,
+      "page": "decisions",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "zoom": 1,
+      "page": "stock",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "zoom": 1,
+      "page": "work",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "zoom": 1,
+      "page": "service",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "zoom": 1,
+      "page": "enquiries",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "zoom": 1,
+      "page": "business",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "zoom": 1,
+      "page": "reports",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "zoom": 1,
+      "page": "checklists",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "zoom": 1,
+      "page": "inbox",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 1440,
+      "height": 1040,
+      "zoom": 1,
+      "page": "today",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 1440,
+      "height": 1040,
+      "zoom": 1,
+      "page": "decisions",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 1440,
+      "height": 1040,
+      "zoom": 1,
+      "page": "stock",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 1440,
+      "height": 1040,
+      "zoom": 1,
+      "page": "work",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 1440,
+      "height": 1040,
+      "zoom": 1,
+      "page": "service",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 1440,
+      "height": 1040,
+      "zoom": 1,
+      "page": "enquiries",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 1440,
+      "height": 1040,
+      "zoom": 1,
+      "page": "business",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 1440,
+      "height": 1040,
+      "zoom": 1,
+      "page": "reports",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 1440,
+      "height": 1040,
+      "zoom": 1,
+      "page": "checklists",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 1440,
+      "height": 1040,
+      "zoom": 1,
+      "page": "inbox",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 320,
+      "height": 740,
+      "zoom": 2,
+      "page": "today",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 320,
+      "height": 740,
+      "zoom": 2,
+      "page": "decisions",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 320,
+      "height": 740,
+      "zoom": 2,
+      "page": "stock",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 320,
+      "height": 740,
+      "zoom": 2,
+      "page": "work",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 320,
+      "height": 740,
+      "zoom": 2,
+      "page": "service",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 320,
+      "height": 740,
+      "zoom": 2,
+      "page": "enquiries",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 320,
+      "height": 740,
+      "zoom": 2,
+      "page": "business",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 320,
+      "height": 740,
+      "zoom": 2,
+      "page": "reports",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 320,
+      "height": 740,
+      "zoom": 2,
+      "page": "checklists",
+      "fits": true,
+      "overflow": 0
+    },
+    {
+      "width": 320,
+      "height": 740,
+      "zoom": 2,
+      "page": "inbox",
+      "fits": true,
+      "overflow": 0
+    }
+  ],
+  "errors": []
+}

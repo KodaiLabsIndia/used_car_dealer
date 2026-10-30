@@ -1,0 +1,38 @@
+{
+  "checkedAt": "2026-10-30T04:38:20.030Z",
+  "trainingOnly": true,
+  "checks": [
+    "Full 229-check task opened",
+    "Search reaches individual measured check",
+    "All checks accessible",
+    "No page width overflow",
+    "Bounded review navigation on phone"
+  ],
+  "viewports": [
+    {
+      "label": "desktop",
+      "width": 1440,
+      "height": 1040,
+      "fits": true,
+      "navHeight": 780,
+      "buttons": 229
+    },
+    {
+      "label": "tablet",
+      "width": 1024,
+      "height": 768,
+      "fits": true,
+      "navHeight": 576,
+      "buttons": 229
+    },
+    {
+      "label": "phone",
+      "width": 430,
+      "height": 932,
+      "fits": true,
+      "navHeight": 326,
+      "buttons": 229
+    }
+  ],
+  "errors": []
+}

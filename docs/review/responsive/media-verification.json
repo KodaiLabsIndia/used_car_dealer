@@ -1,0 +1,37 @@
+{
+  "syntheticOnly": true,
+  "taskId": "d6caef21-6c2d-440c-8b0c-daa61a4df853",
+  "registration": "AC3DTRAINING",
+  "itemId": "front_left-tread",
+  "existingPhotoRetained": true,
+  "clip": {
+    "id": "ff860fd6-4b9b-4cbd-bb64-e4eff295b777",
+    "taskId": "d6caef21-6c2d-440c-8b0c-daa61a4df853",
+    "itemId": "front_left-tread",
+    "width": 720,
+    "height": 1280,
+    "durationMs": 4152,
+    "bytes": 2226778,
+    "sha256": "cdc988c2afd8905b6db8b89579425b146de4b0733ed74e2f5d9f25038743f57a",
+    "profile": "video-720-v1",
+    "recordedByName": "Owner",
+    "createdAt": "2026-10-30T04:41:03.691660Z"
+  },
+  "downloadedVideo": {
+    "codec_name": "h264",
+    "width": 1280,
+    "height": 720,
+    "r_frame_rate": "120/1",
+    "avg_frame_rate": "10440000/357527",
+    "duration": "3.972522",
+    "side_data_list": [
+      {
+        "side_data_type": "Display Matrix",
+        "displaymatrix": "\n00000000:            0       65536           0\n00000001:       -65536           0           0\n00000002:            0           0  1073741824\n",
+        "rotation": -90
+      }
+    ]
+  },
+  "taskStatus": "in_progress",
+  "inspectionSubmitted": false
+}

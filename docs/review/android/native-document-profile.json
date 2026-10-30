@@ -1,0 +1,15 @@
+{
+  "scope": "Actual Android camera to mobile JPEG normalization to native multipart upload to API admission; synthetic scene only",
+  "category": "other",
+  "title": "Training capture QA - not a real document",
+  "width": 1080,
+  "height": 1720,
+  "actualDecodedSize": [
+    1080,
+    1720
+  ],
+  "bytes": 17527,
+  "profile": "photo-fhd-v1",
+  "sha256Matches": true,
+  "unreviewed": true
+}

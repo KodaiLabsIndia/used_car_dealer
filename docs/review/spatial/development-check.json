@@ -1,0 +1,21 @@
+{
+  "trainingOnly": true,
+  "registration": "AC3DTRAINING",
+  "carId": "78ca48ad-a121-4443-bee2-d582d0beb713",
+  "taskId": "d6caef21-6c2d-440c-8b0c-daa61a4df853",
+  "checkCount": 229,
+  "configuration": {
+    "bodyType": "suv",
+    "fuel": "diesel",
+    "transmission": "automatic",
+    "features": {}
+  },
+  "catalogueCoverage": {
+    "makes": 96,
+    "models": 1857,
+    "indiaReferences": 32,
+    "variantsVerified": 0,
+    "complete": false,
+    "scope": "Name references only. India availability, generations, variants and fitted equipment require verification."
+  }
+}

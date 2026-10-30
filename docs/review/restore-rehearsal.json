@@ -1,0 +1,29 @@
+{
+  "at": "20261030T021255Z",
+  "scope": "isolated synthetic purchase-to-delivery journey",
+  "allTableContentsMatch": true,
+  "sourceUnmodified": true,
+  "isolatedRestoreDropped": true,
+  "rowCounts": {
+    "companies": 1,
+    "users": 2,
+    "stock_cycles": 3,
+    "tasks": 5,
+    "task_submissions": 3,
+    "evidence": 31,
+    "purchases": 1,
+    "purchase_payments": 1,
+    "sale_bookings": 1,
+    "sale_deliveries": 1,
+    "vehicle_ledger": 1,
+    "repair_invoices": 0,
+    "documents": 1,
+    "video_clips": 0,
+    "task_reviews": 3,
+    "ownership_transfers": 1,
+    "warranty_claims": 0,
+    "audit_events": 83
+  },
+  "mediaFilesVerified": 32,
+  "notProductionRecoveryAcceptance": true
+}

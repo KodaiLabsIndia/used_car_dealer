@@ -1,0 +1,23 @@
+{
+  "trainingOnly": true,
+  "installedBundledPreview": true,
+  "rotationChangedViewportFraction": 0.2096,
+  "frontResetDifferenceFraction": 0.0,
+  "checked": [
+    "Drag changes actual 3D orientation without opening checks",
+    "Front button resets after a manual rotation from Front",
+    "Red grouped point opens all nearby parts",
+    "Choosing Bonnet opens scoped real bonnet check",
+    "Complete list search reaches check 66 of 229",
+    "Section and part progress reflect saved proof",
+    "Drag beginning on a red group does not trigger the part picker"
+  ],
+  "notVerified": [
+    "Pinch gesture on a physical device",
+    "Native iOS runtime",
+    "Physical tablets",
+    "TalkBack/VoiceOver and staff comprehension",
+    "Complete SOP acceptance"
+  ],
+  "checkedAt": "2026-10-30T04:19:46.041885+00:00"
+}

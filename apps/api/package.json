@@ -1,0 +1,17 @@
+{
+  "name": "@arihant/api",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": ".venv/bin/uvicorn app.main:app --host 0.0.0.0 --port 4100 --reload",
+    "start": ".venv/bin/uvicorn app.main:app --host 0.0.0.0 --port 4100",
+    "db:migrate": ".venv/bin/python -m app.migrate",
+    "db:seed": ".venv/bin/python -m app.seed",
+    "test": ".venv/bin/pytest tests/test_domain.py tests/test_architecture.py -q",
+    "test:integration": ".venv/bin/pytest tests --ignore=tests/test_domain.py --ignore=tests/test_architecture.py -q",
+    "openapi": ".venv/bin/python -m app.export_openapi",
+    "lint": ".venv/bin/ruff check app tests",
+    "format:check": ".venv/bin/ruff format --check app tests alembic",
+    "worker": ".venv/bin/python -m app.worker"
+  }
+}

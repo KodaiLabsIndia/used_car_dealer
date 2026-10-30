@@ -1,0 +1,42 @@
+{
+  "name": "arihant-operations",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "setup": "node scripts/setup.mjs",
+    "dev:mobile": "npm run start -w @arihant/mobile",
+    "dev:api": "npm run dev -w @arihant/api",
+    "db:up": "node scripts/compose.mjs up -d db",
+    "db:migrate": "npm run db:migrate -w @arihant/api",
+    "db:seed": "npm run db:seed -w @arihant/api",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "test:integration": "npm run test:integration -w @arihant/api",
+    "check": "npm run lint && npm run typecheck && npm test",
+    "mobile:export": "npm run export -w @arihant/mobile",
+    "lint": "npm run lint --workspaces --if-present",
+    "contracts:generate": "npm run openapi -w @arihant/api && npm run generate -w @arihant/contracts",
+    "format:check": "prettier --check \"apps/web/**/*.{ts,tsx,css,json,html}\" \"apps/mobile/**/*.{ts,tsx,json}\" \"packages/**/*.{ts,json}\" \"scripts/*.mjs\" package.json tsconfig.base.json && npm run format:check -w @arihant/api",
+    "dev:worker": "npm run worker -w @arihant/api",
+    "dev:web": "npm run dev -w @arihant/web",
+    "web:build": "npm run build -w @arihant/web",
+    "android:build": "node scripts/build-android-dev.mjs",
+    "android:install": "node scripts/build-android-dev.mjs --install",
+    "dev:native": "npm run start:dev -w @arihant/mobile",
+    "android:preview": "node scripts/build-android-dev.mjs --preview",
+    "android:preview:install": "node scripts/build-android-dev.mjs --preview --install"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "prettier": "3.9.10",
+    "tsx": "4.23.15",
+    "typescript": "6.0.3"
+  }
+}

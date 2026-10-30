@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#070707" />
+    <meta name="description" content="Three interactive design directions for the Arihant Cars operations app." />
+    <title>Arihant Cars · Design preview</title>
+    <link rel="icon" href="assets/arihant-logo.png" type="image/png" />
+    <link rel="stylesheet" href="brand-tokens.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="collection.css" />
+    <script src="app.js" defer></script>
+    <script src="drive-story.js" defer></script>
+  </head>
+  <body>
+    <header class="studio-header">
+      <a class="studio-brand" href="./preview.html" aria-label="Arihant Cars design preview home"><img class="studio-logo-image" src="assets/arihant-logo.png" alt="Arihant Cars" width="196" height="126" /><span>OPERATIONS<small>DESIGN PREVIEW</small></span></a>
+      <div class="preview-badge"><span></span> ARIHANT’S WEBSITE IDENTITY <i>01 / 02 / 03</i></div>
+    </header>
+    <main>
+      <section class="intro">
+        <div><div class="eyebrow"><span class="collection-line"></span> THE ARIHANT OPERATIONS EXPERIENCE</div><h1>Arihant.<br><em>In motion.</em></h1><p>Every car has a journey. Put the whole team in the driving seat.</p></div>
+        <div class="intro-note"><div class="brand-swatches" aria-label="Website palette: red, black and white"><span></span><span></span><span></span></div><p>Original logo. Website colours.<br><strong>A little more automotive.</strong><small>Scroll to follow the car. Then take the app for a spin.</small></p></div>
+      </section>
+      <section class="drive-story" id="drive-story" aria-label="Explore a car’s journey through Arihant">
+        <div class="drive-scene">
+          <div class="drive-scene-top"><span>THE LIFE OF A CAR AT ARIHANT</span><span class="scroll-cue">SCROLL TO DRIVE <span aria-hidden="true">↓</span></span></div>
+          <div class="drive-road" aria-hidden="true"><svg viewBox="0 0 1000 280" preserveAspectRatio="none"><path id="road-shadow"/><path id="road-surface"/><path id="road-centre"/><g id="road-stops"></g></svg><img id="journey-car" src="assets/journey-car.png" alt="" width="145" height="251" /></div>
+          <div class="drive-story-copy"><div class="drive-stage-number" id="drive-stage-number">01</div><div><div class="drive-stage-kicker" id="drive-stage-kicker">INSPECTION</div><h2 id="drive-stage-title">Look closer.<br>Know the car.</h2></div><p id="drive-stage-description">A clear photo. A spoken note. Every check attached to the right car.</p></div>
+          <div class="drive-stage-controls" id="drive-stage-controls" aria-label="Explore workflow stages"></div>
+        </div>
+      </section>
+      <div class="mockup-intro"><div><span class="eyebrow">SAME ARIHANT. THREE APP EXPERIENCES.</span><h2>Now, take the wheel.</h2></div><p>Real tasks. Employee and owner views.<br>Tap through the three directions below.</p></div>
+      <section class="preview-toolbar" aria-label="Preview controls">
+        <div class="role-control"><span class="control-label">PREVIEW AS</span><div class="segmented" id="role-control"><button data-role="employee" aria-pressed="true">Employee</button><button data-role="owner" aria-pressed="false">Owner</button></div></div>
+        <div class="view-controls"><div class="concept-control" aria-label="Filter design directions"><button data-focus="all" class="active" aria-pressed="true">Compare all</button><button data-focus="everyday" aria-pressed="false">01</button><button data-focus="saathi" aria-pressed="false">02</button><button data-focus="focus" aria-pressed="false">03</button></div><div class="language-control" aria-label="Preview language"><button data-lang="en" aria-pressed="true">EN</button><button data-lang="hi" lang="hi" aria-pressed="false">हिंदी</button></div></div>
+      </section>
+      <section class="design-grid" id="designs" aria-label="Three app designs"></section>
+      <footer class="studio-footer"><p><span class="footer-dot"></span> Interactive mockups · Sample operational data · No files captured or uploaded</p><button id="reset-demo">Reset preview</button></footer>
+    </main>
+    <div class="selection-bar" id="selection-bar" hidden aria-live="polite"></div>
+    <div class="studio-toast" id="studio-toast" role="status" aria-live="polite"></div>
+  </body>
+</html>

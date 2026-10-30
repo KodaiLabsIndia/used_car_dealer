@@ -1,0 +1,8 @@
+{
+  "scope": "Known local training Sonet fixture only",
+  "previousIllustrativeFlag": "booked",
+  "correctedFlag": "available",
+  "recordedBookingCount": 0,
+  "bookingOrFinancialRecordsChanged": false,
+  "correctionRecordedAsSystemEvent": true
+}

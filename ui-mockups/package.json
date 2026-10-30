@@ -1,0 +1,10 @@
+{
+  "name": "arihant-design-preview",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Standalone interactive UI concepts, isolated from the production app.",
+  "scripts": {
+    "dev": "python3 -m http.server 5173 --bind 127.0.0.1",
+    "check": "node --check app.js && node --check drive-story.js"
+  }
+}

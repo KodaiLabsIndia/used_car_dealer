@@ -1,0 +1,53 @@
+{
+  "expo": {
+    "name": "Arihant Cars",
+    "slug": "arihant-operations",
+    "version": "0.1.0",
+    "icon": "./assets/app-icon.png",
+    "backgroundColor": "#0c0c0c",
+    "primaryColor": "#c81e29",
+    "orientation": "default",
+    "userInterfaceStyle": "dark",
+    "scheme": "arihant-ops",
+    "ios": {
+      "supportsTablet": true,
+      "requireFullScreen": false,
+      "bundleIdentifier": "com.arihantcars.operations"
+    },
+    "android": {
+      "package": "com.arihantcars.operations",
+      "allowBackup": false,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0c0c0c"
+      }
+    },
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Photograph the car and inspection evidence.",
+          "recordAudioAndroid": true,
+          "microphonePermission": "Record short inspection explanations and car sounds."
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Choose a photo for this car inspection.",
+          "cameraPermission": "Photograph inspection evidence.",
+          "microphonePermission": "Record short inspection explanations and car sounds."
+        }
+      ],
+      "expo-secure-store",
+      "expo-sqlite",
+      "expo-font",
+      "expo-video",
+      "./plugins/with-gl-release.cjs",
+      "./plugins/with-internal-preview.cjs"
+    ],
+    "experiments": {
+      "typedRoutes": false
+    }
+  }
+}

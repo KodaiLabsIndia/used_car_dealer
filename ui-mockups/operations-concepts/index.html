@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#070707">
+  <title>Arihant · Four ways to work</title>
+  <link rel="stylesheet" href="concepts.css">
+  <script src="concepts.js" defer></script>
+</head>
+<body>
+  <div class="board">
+    <aside class="board-sidebar">
+      <a class="brand" href="#collection" aria-label="Arihant concept preview"><img src="../assets/arihant-logo.png" width="98" height="63" alt="Arihant Cars"></a>
+      <div class="board-title"><span class="eyebrow">OPERATIONS / DESIGN STUDY 02</span><h1>Four ways<br>to work.</h1><p>The same Arihant.<br>A different rhythm for every job.</p></div>
+      <nav id="concept-nav" aria-label="Screen concepts"></nav>
+      <div class="sidebar-foot"><span class="sample-dot"></span> Interactive concept · sample data<p>Separate preview. Working app unchanged.</p></div>
+    </aside>
+    <main class="board-main">
+      <header class="board-toolbar">
+        <div><span class="eyebrow" id="concept-index">01 / OWNER OVERVIEW</span><h2 id="concept-title">The Collection</h2></div>
+        <div class="toolbar-actions"><div class="device-switch" role="group" aria-label="Preview device"><button type="button" data-device="phone" aria-pressed="true">Phone</button><button type="button" data-device="tablet" aria-pressed="false">Tablet</button></div><button type="button" id="notes-toggle" class="quiet-button" aria-expanded="false">Design notes <span>↗</span></button></div>
+      </header>
+      <div class="preview-layout">
+        <div class="device-stage"><div class="device-shell phone" id="device-shell"><div id="app" class="app" aria-label="Interactive app concept"></div></div><p class="stage-caption"><span class="sample-dot"></span> Try the controls · all changes stay in this preview</p></div>
+        <aside class="design-notes" id="design-notes" aria-label="Concept explanation"></aside>
+      </div>
+      <footer class="board-foot"><span>ARIHANT CARS <i>×</i> EVERYDAY OPERATIONS</span><span>Original identity. Purpose-built workspaces.</span></footer>
+    </main>
+  </div>
+  <dialog id="preview-dialog"><div class="dialog-content" id="dialog-content"></div></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

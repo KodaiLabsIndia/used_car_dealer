@@ -1,0 +1,12 @@
+plugins {
+  id 'com.android.library'
+  id 'expo-module-gradle-plugin'
+}
+group = 'com.arihantcars'
+version = '0.1.0'
+android { namespace 'com.arihantcars.media' }
+dependencies {
+  implementation 'androidx.media3:media3-transformer:1.11.1'
+  implementation 'androidx.media3:media3-effect:1.11.1'
+  implementation 'androidx.media3:media3-common:1.11.1'
+}

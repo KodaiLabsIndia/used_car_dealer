@@ -1,0 +1,16 @@
+{
+  "model": "qwen3.5:4b",
+  "syntheticOnly": true,
+  "notReleaseAcceptance": true,
+  "cases": [
+    {
+      "case": "vision-exact",
+      "valid": false,
+      "seconds": 59.01,
+      "errorType": "BusinessError",
+      "code": "AI_UNAVAILABLE",
+      "cause": "Incomplete model output",
+      "syntheticAccuracyPassed": false
+    }
+  ]
+}

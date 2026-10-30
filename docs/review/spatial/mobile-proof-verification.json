@@ -1,0 +1,24 @@
+{
+  "trainingOnly": true,
+  "registration": "AC3DTRAINING",
+  "taskId": "d6caef21-6c2d-440c-8b0c-daa61a4df853",
+  "checks": 229,
+  "answers": 1,
+  "answer": {
+    "itemId": "front_left-tread",
+    "result": "ok",
+    "note": "Synthetic emulator QA only. No actual tyre measured. 4.2 is a test reading.",
+    "evidenceId": "bfdd047f-a459-4140-9e0d-35b64ecef39b",
+    "reading": 4.2,
+    "applicabilityConfirmed": false
+  },
+  "verifiedDownloadedPhoto": {
+    "format": "JPEG",
+    "width": 1080,
+    "height": 1720,
+    "bytes": 17431,
+    "sha256": "dcce5ae9486c7deba3d104f066afcf67496cbd4d0febb3a1a74b4d3cb96ebd98"
+  },
+  "inspectionSubmitted": false,
+  "scope": "Synthetic emulator capture and test reading; no real tyre inspection or mechanical certification."
+}
