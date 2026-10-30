@@ -1,11 +1,11 @@
 # Development verification — 30 October 2026
 
-These are local development results, not full-release acceptance. The initial repository commit passed hosted CI. This batch has local verification; no production deployment or physical iOS/tablet acceptance has occurred.
+These are local development results, not full-release acceptance. The initial repository and company configuration commits passed hosted CI. The review follow-up has local verification; no production deployment or physical iOS/tablet acceptance has occurred.
 
 | Check | Latest result |
 | --- | --- |
 | npm run check | Passed: Ruff, native literal-text placement lint, TypeScript in all client workspaces, 14 Python domain/architecture tests and 13 mobile logic tests |
-| npm run test:integration | **77 passed** against real PostgreSQL in isolated random schemas; includes configuration-resolved comprehensive snapshots, measurements, reasoned exceptions, fresh required clips, urgent critical findings and catalogue import/search |
+| npm run test:integration | **80 passed** against real PostgreSQL in isolated random schemas; includes configuration-resolved comprehensive snapshots, measurements, reasoned exceptions, fresh required clips, urgent critical findings and catalogue import/search |
 | Contracts | Python OpenAPI regenerated; shared validators/generated types pass compile-time parity |
 | Android native | Development and bundled internal-preview APKs built/installed; local Media3 module compiles; camera/mic/import/720p preparation, native document upload and verified video upload exercised |
 | iOS source | Swift syntax parses; no native compile/device run because full Xcode is absent |
@@ -77,7 +77,7 @@ Shared mobile actions, paired fields, car cards, tabs, modal lists, calendar hea
 See [the implementation review](company-configuration/README.md) for two-tier
 financial authority, continuation during pending review, richer owner inspection
 rules, reviewed-document policy snapshots and per-sale warranty duration/coverage.
-The final full integration suite passed 77 tests, including the private-work
-access guard after all role/readiness changes. Local lint/types, 14 Python tests,
+The final full integration suite passed 80 tests, including the private-work
+access guard and three finalized/open legacy-stage regressions. Local lint/types, 14 Python tests,
 13 mobile tests, both platform JavaScript exports and web/native Android builds
 passed. Marathi remains partial and physical-device/staff acceptance remains open.

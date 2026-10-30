@@ -29,6 +29,8 @@ export function DocumentRequirements({
     "purchase" | "intake" | "sale" | "delivery"
   >("purchase");
   const [linking, setLinking] = useState("");
+  // Saved responses from the previous app version do not include this field.
+  const assignableStages = data.assignableStages ?? [];
   const status = {
     missing: tr("Missing", "नहीं मिला", "नाही"),
     pending: tr("Awaiting review", "समीक्षा बाकी", "तपासणी बाकी"),
@@ -51,7 +53,7 @@ export function DocumentRequirements({
         ]}
         onChange={(id) => setStage(id as typeof stage)}
       />
-      {!data.sets.length ? (
+      {!data.sets.length && assignableStages.length ? (
         <Text>
           {tr(
             "Assign the current company checklist to this car.",
@@ -60,29 +62,42 @@ export function DocumentRequirements({
           )}
         </Text>
       ) : null}
-      {(["purchase", "intake"] as const)
-        .filter((stage) => !data.sets.some((s) => s.stage === stage))
-        .map((stage) => (
-          <Button
-            key={stage}
-            secondary
-            disabled={busy}
-            label={
-              stage === "purchase"
-                ? tr(
-                    "Assign purchase documents",
-                    "खरीद की सूची दें",
-                    "खरेदीची यादी द्या",
-                  )
-                : tr(
-                    "Assign intake documents",
-                    "प्राप्ति की सूची दें",
-                    "गाडी ताब्यात घेण्याची यादी द्या",
-                  )
-            }
-            onPress={() => void onAssign(stage)}
-          />
-        ))}
+      {assignableStages.map((stage) => (
+        <Button
+          key={stage}
+          secondary
+          disabled={busy}
+          label={
+            stage === "purchase"
+              ? tr(
+                  "Assign purchase documents",
+                  "खरीद की सूची दें",
+                  "खरेदीची यादी द्या",
+                )
+              : tr(
+                  "Assign intake documents",
+                  "प्राप्ति की सूची दें",
+                  "गाडी ताब्यात घेण्याची यादी द्या",
+                )
+          }
+          onPress={() => void onAssign(stage)}
+        />
+      ))}
+      {!data.sets.length && !assignableStages.length ? (
+        <Text>
+          {data.assignableStages
+            ? tr(
+                "Completed stages retain their original requirements. Later pages can be added as support documents.",
+                "पूरे चरण की मूल सूची सुरक्षित है। बाद के पेज सहायक दस्तावेज़ में जोड़ें।",
+                "पूर्ण टप्प्यांच्या मूळ अटी कायम राहतात. नंतरची पाने सहाय्यक कागदपत्रे म्हणून जोडा.",
+              )
+            : tr(
+                "Refresh when connected to see which stages can receive a checklist.",
+                "किस चरण को सूची दे सकते हैं, देखने के लिए इंटरनेट आने पर ताज़ा करें।",
+                "कोणत्या टप्प्याला यादी देता येईल हे पाहण्यासाठी जोडणी आल्यावर पुन्हा लोड करा.",
+              )}
+        </Text>
+      ) : null}
       {data.sets
         .filter((set) => set.stage === stage)
         .map((set) => (

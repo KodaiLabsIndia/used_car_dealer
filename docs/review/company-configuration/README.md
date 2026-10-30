@@ -52,7 +52,7 @@ Implemented from the [confirmed company decisions](../../COMPANY_DECISIONS.md):
 
 Verification:
 
-- Full PostgreSQL suite: **77 passed**, including catalogue-only versus assigned
+- Full PostgreSQL suite: **80 passed**, including catalogue-only versus assigned
   work access, concurrent approval, immutable rule snapshots, reviewed-document
   gates and warranty issuance.
 - `npm run check`: lint/types and **14 Python + 13 mobile tests** passed.
@@ -85,3 +85,8 @@ acceptance remain open.
 The global emulator error log retains an earlier UIAutomator registration conflict
 from overlapping inspection tools; it contains no Arihant application fatal trace.
 The app-process runtime error log is recorded separately.
+
+The follow-up [commit review](COMMIT_REVIEW.md) corrects finalized-stage assignment
+and stale owner-draft recovery. Three new PostgreSQL regressions bring the full
+suite to 80 tests. The original implementation commit passed hosted CI; the
+review follow-up records its own run separately.

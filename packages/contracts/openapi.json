@@ -4971,11 +4971,19 @@
             },
             "type": "array",
             "title": "Sets"
+          },
+          "assignableStages": {
+            "items": {
+              "type": "string",
+              "enum": ["purchase", "intake"]
+            },
+            "type": "array",
+            "title": "Assignablestages"
           }
         },
         "additionalProperties": false,
         "type": "object",
-        "required": ["sets"],
+        "required": ["sets", "assignableStages"],
         "title": "CarRequirements"
       },
       "CarsPage": {

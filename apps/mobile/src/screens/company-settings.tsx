@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ActivityIndicator, Alert, View } from "react-native";
 import { randomUUID } from "expo-crypto";
 import type { DocumentPolicy, DocumentRule } from "@arihant/contracts";
@@ -36,6 +36,7 @@ export function CompanySettingsScreen() {
     [busy, setBusy] = useState(false),
     [error, setError] = useState(""),
     [section, setSection] = useState<"policy" | "edit">("policy");
+  const draftWrites = useRef<Promise<void>>(Promise.resolve());
   useEffect(() => {
     let active = true;
     void loadLocal<Draft>(session!.actor.id, "company-document-policy-draft")
@@ -50,11 +51,12 @@ export function CompanySettingsScreen() {
   function update(next: Draft) {
     next = { ...next, commandId: randomUUID() };
     setDraft(next);
-    void saveLocal(
-      session!.actor.id,
-      "company-document-policy-draft",
-      next,
-    ).catch((e) => setError(e.message));
+    draftWrites.current = draftWrites.current
+      .catch(() => {})
+      .then(() =>
+        saveLocal(session!.actor.id, "company-document-policy-draft", next),
+      );
+    void draftWrites.current.catch((e) => setError(e.message));
   }
   function edit(policy: DocumentPolicy) {
     update({
@@ -95,10 +97,28 @@ export function CompanySettingsScreen() {
         rules: draft.rules,
         reason: draft.reason,
       });
+      await draftWrites.current.catch(() => {});
       await deleteLocal(session!.actor.id, "company-document-policy-draft");
       setDraft(null);
       setSection("policy");
       changed();
+    } catch (e) {
+      setError((e as Error).message);
+    } finally {
+      setBusy(false);
+    }
+  }
+  async function discard() {
+    setBusy(true);
+    setError("");
+    try {
+      // Finish older saves before deleting, so they cannot restore a stale draft.
+      await draftWrites.current.catch(() => {});
+      await deleteLocal(session!.actor.id, "company-document-policy-draft");
+      setDraft(null);
+      setIndex(0);
+      setSection("policy");
+      resource.refresh();
     } catch (e) {
       setError((e as Error).message);
     } finally {
@@ -166,6 +186,53 @@ export function CompanySettingsScreen() {
             message={error || resource.error}
             retry={resource.refresh}
           />
+        ) : null}
+        {draft ? (
+          <View style={{ gap: 10 }}>
+            {resource.data && draft.version !== resource.data.version ? (
+              <Text style={s.muted}>
+                {tr(
+                  "The published rules changed. Discard this draft to start again from the latest version.",
+                  "जारी नियम बदल गए हैं। नया संस्करण लेने के लिए यह ड्राफ्ट हटाकर फिर शुरू करें।",
+                  "प्रकाशित नियम बदलले आहेत. नवीन आवृत्तीपासून सुरू करण्यासाठी हा मसुदा काढा.",
+                )}
+              </Text>
+            ) : null}
+            <Button
+              secondary
+              disabled={busy}
+              label={tr("Discard draft", "ड्राफ्ट हटाएँ", "मसुदा काढा")}
+              onPress={() =>
+                Alert.alert(
+                  tr(
+                    "Discard this draft?",
+                    "यह ड्राफ्ट हटाएँ?",
+                    "हा मसुदा काढायचा?",
+                  ),
+                  tr(
+                    "Your unpublished changes will be removed. Published rules and assigned checklists stay saved.",
+                    "बिना जारी किए बदलाव हटेंगे। जारी नियम और सौंपी गई सूची सुरक्षित रहेंगे।",
+                    "अप्रकाशित बदल काढले जातील. प्रकाशित नियम आणि नेमलेल्या याद्या जतन राहतील.",
+                  ),
+                  [
+                    {
+                      text: tr(
+                        "Keep editing",
+                        "बदलना जारी रखें",
+                        "बदल सुरू ठेवा",
+                      ),
+                      style: "cancel",
+                    },
+                    {
+                      text: tr("Discard", "हटाएँ", "काढा"),
+                      style: "destructive",
+                      onPress: () => void discard(),
+                    },
+                  ],
+                )
+              }
+            />
+          </View>
         ) : null}
         {!resource.data ? (
           <ActivityIndicator color="#fff" />

@@ -1700,6 +1700,8 @@ export interface components {
     CarRequirements: {
       /** Sets */
       sets: components["schemas"]["RequirementSet"][];
+      /** Assignablestages */
+      assignableStages: ("purchase" | "intake")[];
     };
     /** CarsPage */
     CarsPage: {

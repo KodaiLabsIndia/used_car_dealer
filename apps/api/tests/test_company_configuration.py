@@ -14,6 +14,7 @@ from test_purchases import approve as approve_purchase
 from test_roles import roles
 from test_service_finance import finance_command, new_job, quote
 
+from app.adapters.company import CompanyStore
 from app.domain.warranty import add_months
 from app.seed import IDS
 
@@ -261,3 +262,100 @@ def test_catalogue_visibility_does_not_grant_private_work_records(workspace):
     assert client.get(f"/v1/cars/{car_id}/document-requirements", headers=employee).status_code == 404
     document = checked(upload(client, owner, car_id), 201)
     assert client.get(f"/v1/documents/{document['id']}/file", headers=employee).status_code == 404
+
+
+@pytest.mark.parametrize("stage", ["purchase", "intake"])
+def test_legacy_finalized_stage_cannot_receive_new_document_gates(workspace, monkeypatch, stage):
+    client, _, owner, _ = workspace
+    # Simulate a transaction completed by the pre-policy application: real work
+    # and payments are recorded, but it never assigned document requirement sets.
+    with monkeypatch.context() as legacy:
+        legacy.setattr(CompanyStore, "assign_in_transaction", lambda *args, **kwargs: None)
+        current = acquired(client, owner)
+    checked(
+        publish(
+            client,
+            owner,
+            rules=[
+                {
+                    "id": "proof",
+                    "stage": stage,
+                    "title": "Proof",
+                    "titleHi": "सबूत",
+                    "titleMr": "पुरावा",
+                    "required": True,
+                }
+            ],
+        )[0]
+    )
+    path = f"/v1/cars/{current['car']['id']}/document-requirements"
+    response = client.post(path, headers=owner, json={"commandId": str(uuid4()), "stage": stage})
+    assert response.status_code == 409 and response.json()["error"]["code"] == "DOCUMENTS_FROZEN"
+    requirements = checked(client.get(path, headers=owner))
+    assert requirements["sets"] == [] and requirements["assignableStages"] == []
+    fresh = business(client, owner, current["car"]["id"])
+    assert next(r for r in fresh["readiness"] if r["id"] == "document_requirements")["clear"]
+
+
+def test_legacy_open_intake_can_receive_requirements_and_complete_normally(workspace, monkeypatch):
+    client, _, owner, _ = workspace
+    with monkeypatch.context() as legacy:
+        legacy.setattr(CompanyStore, "assign_in_transaction", lambda *args, **kwargs: None)
+        purchase, _ = prepare(client, owner)
+        purchase = approve_purchase(client, owner, purchase)
+        purchase = checked(purchase_command(client, owner, purchase, "documents", documents=DOCUMENTS))
+        purchase = checked(purchase_command(client, owner, purchase, "acquire", agreementReference="OLD-AGR"))
+    checked(
+        publish(
+            client,
+            owner,
+            rules=[
+                {
+                    "id": "arrival",
+                    "stage": "intake",
+                    "title": "Arrival page",
+                    "titleHi": "प्राप्ति",
+                    "titleMr": "ताबा",
+                    "required": True,
+                }
+            ],
+        )[0]
+    )
+    car_id = purchase["carId"]
+    path = f"/v1/cars/{car_id}/document-requirements"
+    assert checked(client.get(path, headers=owner))["assignableStages"] == ["intake"]
+    assigned = checked(client.post(path, headers=owner, json={"commandId": str(uuid4()), "stage": "intake"}))
+    assert assigned["assignableStages"] == [] and not assigned["sets"][0]["locked"]
+    intake = next(
+        t for t in checked(client.get("/v1/checklists", headers=owner))["items"] if t["kind"] == "intake"
+    )
+    receipt = {
+        "location": "Yard",
+        "odometerKm": 42010,
+        "fuel": "half",
+        "keyCount": 2,
+        "accessories": "Toolkit",
+        "conditionNote": "",
+        "hasNewIssue": False,
+        "handoverReference": "OLD-RECEIPT",
+        "templateId": intake["id"],
+        "assignedTo": str(IDS["owner"]),
+    }
+    blocked = purchase_command(client, owner, purchase, "receive", receipt=receipt)
+    assert blocked.status_code == 409 and blocked.json()["error"]["code"] == "DOCUMENT_REQUIREMENTS_PENDING"
+    document = checked(upload(client, owner, car_id), 201)
+    checked(
+        client.post(
+            f"{path}/{assigned['sets'][0]['id']}/links",
+            headers=owner,
+            json={
+                "commandId": str(uuid4()),
+                "requirementId": "arrival",
+                "documentId": document["id"],
+            },
+        )
+    )
+    checked(review(client, owner, document))
+    checked(purchase_command(client, owner, purchase, "receive", receipt=receipt))
+    final = checked(client.get(path, headers=owner))
+    assert final["assignableStages"] == [] and final["sets"][0]["locked"] and final["sets"][0]["clear"]

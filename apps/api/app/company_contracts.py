@@ -55,6 +55,7 @@ class RequirementSet(Contract):
 
 class CarRequirements(Contract):
     sets: list[RequirementSet]
+    assignable_stages: list[Literal["purchase", "intake"]] = Field(default_factory=list)
 
 
 class AssignRequirements(Contract):

@@ -1,0 +1,9 @@
+{
+  "package": "com.arihantcars.operations",
+  "device": "Pixel_9a emulator",
+  "cancelPreservedDraft": true,
+  "discardClearedUnpublishedQaDraft": true,
+  "restartDidNotRestoreDiscardedDraft": true,
+  "freshDraftAvailable": true,
+  "companyPolicyPublishedDuringReview": false
+}

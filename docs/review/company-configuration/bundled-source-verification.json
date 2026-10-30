@@ -8,7 +8,7 @@
     {
       "file": "apps/mobile/src/screens/company-settings.tsx",
       "current": true,
-      "sha256": "8ef0f61dca981d77f6893a094078947a5c201a0bc93334abb98ae00e037c12be"
+      "sha256": "b2206db9e5454eaa415ed225131954dfaeb2ad4e23a992e8c6b461608381df0d"
     },
     {
       "file": "apps/mobile/src/state/app-context.tsx",
@@ -163,7 +163,7 @@
     {
       "file": "apps/mobile/src/components/document-requirements.tsx",
       "current": true,
-      "sha256": "c5ffca809c0bce4705eababbc8cff501e07e0421fdc54eb996bd9ef72b9937b6"
+      "sha256": "235052a8f649d355b8788763804cdf334fdcc8bf72a312c4d35665bf042b8b45"
     },
     {
       "file": "apps/mobile/src/components/business-form.tsx",

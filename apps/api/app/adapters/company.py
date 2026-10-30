@@ -189,7 +189,15 @@ class CompanyStore:
                     clear=all(not i.rule.required or i.status == "accepted" for i in items),
                 )
             )
-        return CarRequirements(sets=sets)
+        assigned_stages = {record["stage"] for record in records}
+        purchase = purchases[0] if purchases else None
+        assignable = []
+        if car.stage != "delivered":
+            if "purchase" not in assigned_stages and (not purchase or purchase["status"] != "acquired"):
+                assignable.append("purchase")
+            if "intake" not in assigned_stages and (not purchase or purchase["received_at"] is None):
+                assignable.append("intake")
+        return CarRequirements(sets=sets, assignable_stages=assignable)
 
     def assign(self, actor, car_id, body: AssignRequirements):
         def execute(conn):
@@ -204,6 +212,17 @@ class CompanyStore:
                 raise BusinessError(
                     "INVALID_SCOPE", "Purchase and intake requirements belong to the stock cycle."
                 )
+            if body.stage in ("purchase", "intake"):
+                current = self.requirements(actor, car_id, conn)
+                if (
+                    not any(assigned.stage == body.stage for assigned in current.sets)
+                    and body.stage not in current.assignable_stages
+                ):
+                    raise BusinessError(
+                        "DOCUMENTS_FROZEN",
+                        "This stage is finalized. Add later pages as support documents without changing its requirements.",
+                        409,
+                    )
             self.assign_in_transaction(conn, actor, car_id, body.stage, body.booking_id)
             return self.requirements(actor, car_id, conn)
 

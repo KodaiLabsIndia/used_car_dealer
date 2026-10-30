@@ -133,3 +133,10 @@ export type ChecklistRevisionParity = Assert<
 export type ChecklistApproveParity = Assert<
   Equal<ApproveChecklist, Schema["ApproveChecklist"]>
 >;
+
+export type DocumentPolicyParity = Assert<
+  Equal<import("./index").DocumentPolicy, Schema["DocumentPolicy"]>
+>;
+export type CarRequirementsParity = Assert<
+  Equal<import("./index").CarRequirements, Schema["CarRequirements"]>
+>;

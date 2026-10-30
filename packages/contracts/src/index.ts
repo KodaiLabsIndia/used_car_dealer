@@ -1145,6 +1145,7 @@ export const documentPolicySchema = z.object({
   reason: z.string(),
 });
 export const carRequirementsSchema = z.object({
+  assignableStages: z.array(z.enum(["purchase", "intake"])).default([]),
   sets: z.array(
     z.object({
       id: z.uuid(),

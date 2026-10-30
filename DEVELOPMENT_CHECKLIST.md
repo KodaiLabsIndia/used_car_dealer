@@ -43,7 +43,7 @@ References: [operations plan](ARIHANT_OPERATIONS_PLAN.md) · [AI and mobile prop
 - [ ] DEC-08 Define repair budget approval, quote revisions, extra work, QC acceptance, owner self-review attribution, and permitted non-safety exceptions.
 - [ ] DEC-09 Define availability, reservation expiry, booking deposits, discounts, cancellations/refunds, pre-readiness booking, and customer promises.
 - [ ] DEC-10 Define delivery clearance, required payment/document checks, ownership-transfer follow-up, and when outstanding obligations are closed.
-- [ ] DEC-11 Record issued warranty terms. Confirmed: duration (initially 3, 6 or 12 months) and coverage/exclusions are configurable per car by Owner/Supervisor, retained in the sale's issued snapshot. Complete configuration implementation; confirm kilometre rules, provider/payer, claim review, goodwill, reimbursements and complaint escalation; see [company decisions](docs/COMPANY_DECISIONS.md).
+- [ ] DEC-11 Record issued warranty terms. Confirmed: duration (initially 3, 6 or 12 months) and coverage/exclusions are configurable per car by Owner/Supervisor, retained in the sale's issued snapshot. Duration/coverage configuration and issued snapshots are implemented; confirm kilometre rules, provider/payer, claim review, goodwill, reimbursements and complaint escalation; see [company decisions](docs/COMPANY_DECISIONS.md).
 - [ ] DEC-12 Agree cost categories, currency/rounding, taxes/charges, deposits/advances, contributions, warranty reserve treatment, and reconciliation with accounts.
 - [ ] DEC-13 Support exactly Hindi, Marathi and English as confirmed. Complete Marathi UI/checklist editing and spoken/visual guidance alongside existing English/Hindi. Android phones/tablets and iPhone/iPad remain in scope; confirm minimum OS/hardware, browsers, offline audio packs and assisted enrollment; see [company decisions](docs/COMPANY_DECISIONS.md).
 - [ ] DEC-14 Agree release acceptance targets for response time, upload reliability, AI correction rates/latency, low-reading task comprehension/completion, accessibility, recovery, expected load, and AI spending limits.
@@ -379,7 +379,7 @@ These are the final completion conditions. Check them against working release-ca
 
 | IDs | Status and evidence |
 | --- | --- |
-| ENG-02/03 | Done: mobile/web/API/worker/shared contracts, 21 migrations, reproducible commands, formatting/lint/type checks, automated suite and CI configuration. Hosted CI passed for the initial repository commit; subsequent batches need their own run. |
+| ENG-02/03 | Done: mobile/web/API/worker/shared contracts, 21 migrations, reproducible commands, formatting/lint/type checks, automated suite and CI configuration. Hosted CI passed for the initial repository and company configuration commits; review follow-ups need their own run. |
 | ENG-07/10, ARC-04/08/09 | Done for implemented commands: domain/import tests, PostgreSQL transactions/locks/constraints, durable receipts, current-version decisions, append-only history, transactional outbox/worker. |
 | IAM-05/07/08/09/12 | Done: one-account owner actions, explicit self-review, current-fact approvals, server-side object/action/media/document/export/AI/inbox scope; tests in identity, roles, integration, commercial, documents, assistant and reports. |
 | CAP-05/11/16/19 | Done: immutable normalized masters, required-photo/result gates, mobile JPEG normalization including document pages, actual-byte photo/video admission. Android native video evidence is linked in status. Cross-platform hardware and retention acceptance remain open. |
