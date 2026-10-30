@@ -15,6 +15,7 @@ export type BusinessField = {
     "text" | "money" | "number" | "date" | "datetime" | "choice" | "select";
   initial?: string | undefined;
   detail?: string;
+  multiline?: boolean;
   options?: { id: string; label: string }[];
 };
 export type BusinessFormSpec = {
@@ -220,6 +221,7 @@ export function BusinessForm({
             label={f.label}
             value={draft.values[f.key] ?? ""}
             placeholder={f.detail}
+            multiline={f.multiline}
             keyboardType={
               f.kind === "money"
                 ? "decimal-pad"

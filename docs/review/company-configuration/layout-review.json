@@ -1,0 +1,21 @@
+{
+  "device": "Pixel_9a emulator",
+  "package": "com.arihantcars.operations",
+  "reviewed": [
+    "Company settings navigation",
+    "Owner inspection rule editor",
+    "Owner document rules",
+    "Marathi account labels",
+    "320dp width at 200% system text",
+    "1280dp landscape tablet window"
+  ],
+  "restoredDisplaySize": "Physical size: 1080x2424",
+  "restoredDensity": "Physical density: 420",
+  "restoredFontScale": "1.0",
+  "restoredAppLanguage": "en",
+  "runtimeLogProcessId": "12624",
+  "limitations": [
+    "Emulated layouts, not tablet hardware or native iOS acceptance",
+    "Global emulator log retains an earlier concurrent UIAutomator registration failure; no application fatal exception in the reviewed log"
+  ]
+}

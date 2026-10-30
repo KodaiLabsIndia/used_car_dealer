@@ -294,7 +294,13 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
     task && item ? (
       phase === "map" || phase === "sections" ? (
         <Button
-          label={language === "hi" ? "जाँच जारी रखें" : "Continue inspection"}
+          label={
+            language === "mr"
+              ? "तपासणी पुढे करा"
+              : language === "hi"
+                ? "जाँच जारी रखें"
+                : "Continue inspection"
+          }
           icon="camera-outline"
           onPress={() => setPhase("photo")}
         />
@@ -302,7 +308,13 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
         <ActionRow>
           {!readOnly ? (
             <Button
-              label={language === "hi" ? "गैलरी" : "Gallery"}
+              label={
+                language === "mr"
+                  ? "गॅलरी"
+                  : language === "hi"
+                    ? "गैलरी"
+                    : "Gallery"
+              }
               accessibilityLabel={t("choosePhoto")}
               icon="images-outline"
               secondary
@@ -312,7 +324,13 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
             />
           ) : null}
           <Button
-            label={language === "hi" ? "नतीजा" : "Result"}
+            label={
+              language === "mr"
+                ? "निष्कर्ष"
+                : language === "hi"
+                  ? "नतीजा"
+                  : "Result"
+            }
             icon="arrow-forward-outline"
             disabled={busy || (!readOnly && !preview)}
             onPress={() => setPhase("result")}
@@ -402,7 +420,12 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
         items={[
           {
             id: "sections",
-            label: language === "hi" ? "हिस्से" : "Sections",
+            label:
+              language === "mr"
+                ? "विभाग"
+                : language === "hi"
+                  ? "हिस्से"
+                  : "Sections",
             icon: "grid-outline",
           },
           {
@@ -412,12 +435,22 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
           },
           {
             id: "photo",
-            label: language === "hi" ? "सबूत" : "Proof",
+            label:
+              language === "mr"
+                ? "पुरावा"
+                : language === "hi"
+                  ? "सबूत"
+                  : "Proof",
             icon: "camera-outline",
           },
           {
             id: "result",
-            label: language === "hi" ? "नतीजा" : "Result",
+            label:
+              language === "mr"
+                ? "निष्कर्ष"
+                : language === "hi"
+                  ? "नतीजा"
+                  : "Result",
             icon: "checkbox-outline",
           },
         ]}
@@ -451,7 +484,11 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
                   >
                     <Icon name="help-circle-outline" />
                     <Text style={{ fontSize: 11, lineHeight: 17 }}>
-                      {language === "hi" ? "मदद" : "Help"}
+                      {language === "mr"
+                        ? "मदत"
+                        : language === "hi"
+                          ? "मदद"
+                          : "Help"}
                     </Text>
                   </Pressable>
                 ) : null}
@@ -503,7 +540,11 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
                       fontWeight: "600",
                     }}
                   >
-                    {language === "hi" ? item.titleHi : item.title}
+                    {language === "mr" && item.titleMr
+                      ? item.titleMr
+                      : language === "hi"
+                        ? item.titleHi
+                        : item.title}
                   </Text>
 
                   <Text style={s.muted}>
@@ -661,7 +702,11 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
                       >
                         <Icon name="information-circle-outline" size={20} />
                         <Text style={{ flex: 1, color: colors.muted }}>
-                          {language === "hi" ? "कैसे जाँचें" : "How to inspect"}
+                          {language === "mr"
+                            ? "कसे तपासायचे"
+                            : language === "hi"
+                              ? "कैसे जाँचें"
+                              : "How to inspect"}
                         </Text>
                         <Icon
                           name={
@@ -678,11 +723,18 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
                         onPress={() => {
                           void Speech.stop();
                           Speech.speak(
-                            language === "hi"
-                              ? item.instructionHi
-                              : item.instruction,
+                            language === "mr" && item.instructionMr
+                              ? item.instructionMr
+                              : language === "hi"
+                                ? item.instructionHi
+                                : item.instruction,
                             {
-                              language: language === "hi" ? "hi-IN" : "en-IN",
+                              language:
+                                language === "mr" && item.instructionMr
+                                  ? "mr-IN"
+                                  : language === "hi"
+                                    ? "hi-IN"
+                                    : "en-IN",
                               rate: 0.85,
                             },
                           );
@@ -694,9 +746,11 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
                     </View>
                     {instructionsOpen ? (
                       <Text style={{ fontSize: 15, lineHeight: 24 }}>
-                        {language === "hi"
-                          ? item.instructionHi
-                          : item.instruction}
+                        {language === "mr" && item.instructionMr
+                          ? item.instructionMr
+                          : language === "hi"
+                            ? item.instructionHi
+                            : item.instruction}
                       </Text>
                     ) : null}
                   </View>
@@ -771,7 +825,11 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
                       />
                       <View style={{ flex: 1 }}>
                         <Text style={{ fontWeight: "600" }}>
-                          {language === "hi" ? item.titleHi : item.title}
+                          {language === "mr" && item.titleMr
+                            ? item.titleMr
+                            : language === "hi"
+                              ? item.titleHi
+                              : item.title}
                         </Text>
                         <Text style={s.muted}>
                           {draft?.synced ? t("received") : t("savedPhone")}
@@ -945,7 +1003,11 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
                     }
                   />
                   <Text style={{ fontSize: 19, fontWeight: "600" }}>
-                    {language === "hi" ? item.titleHi : item.title}
+                    {language === "mr" && item.titleMr
+                      ? item.titleMr
+                      : language === "hi"
+                        ? item.titleHi
+                        : item.title}
                   </Text>
                   {answer ? (
                     <Text>

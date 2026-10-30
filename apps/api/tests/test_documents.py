@@ -20,7 +20,7 @@ def test_document_admission_private_access_and_retry_safety(workspace):
     client, _, owner, employee = workspace
     car_id = IDS["sonet"]
     id = uuid4()
-    assert upload(client, employee, car_id).status_code == 403
+    assert upload(client, employee, car_id).status_code == 404
     assert upload(client, owner, car_id, data=jpeg(4000, 3000)).json()["error"]["code"] == "INVALID_MEDIA"
     document = checked(upload(client, owner, car_id, id), 201)
     assert document["width"] == 1080 and document["height"] == 1920 and document["status"] == "uploaded"
@@ -29,7 +29,7 @@ def test_document_admission_private_access_and_retry_safety(workspace):
         upload(client, owner, car_id, id, title="Changed metadata").json()["error"]["code"]
         == "IDEMPOTENCY_CONFLICT"
     )
-    assert client.get(f"/v1/documents/{id}/file", headers=employee).status_code == 403
+    assert client.get(f"/v1/documents/{id}/file", headers=employee).status_code == 404
     response = client.get(f"/v1/documents/{id}/file", headers=owner)
     assert response.status_code == 200 and response.headers["cache-control"] == "private, no-store"
     assert response.content == jpeg(1080, 1920)

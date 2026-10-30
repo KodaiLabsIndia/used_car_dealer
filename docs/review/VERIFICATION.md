@@ -1,16 +1,16 @@
 # Development verification — 30 October 2026
 
-These are local development results, not full-release acceptance. No hosted CI, production deployment or physical iOS/tablet acceptance has occurred.
+These are local development results, not full-release acceptance. The initial repository commit passed hosted CI. This batch has local verification; no production deployment or physical iOS/tablet acceptance has occurred.
 
 | Check | Latest result |
 | --- | --- |
 | npm run check | Passed: Ruff, native literal-text placement lint, TypeScript in all client workspaces, 14 Python domain/architecture tests and 13 mobile logic tests |
-| npm run test:integration | **69 passed** against real PostgreSQL in isolated random schemas; includes configuration-resolved comprehensive snapshots, measurements, reasoned exceptions, fresh required clips, urgent critical findings and catalogue import/search |
+| npm run test:integration | **77 passed** against real PostgreSQL in isolated random schemas; includes configuration-resolved comprehensive snapshots, measurements, reasoned exceptions, fresh required clips, urgent critical findings and catalogue import/search |
 | Contracts | Python OpenAPI regenerated; shared validators/generated types pass compile-time parity |
 | Android native | Development and bundled internal-preview APKs built/installed; local Media3 module compiles; camera/mic/import/720p preparation, native document upload and verified video upload exercised |
 | iOS source | Swift syntax parses; no native compile/device run because full Xcode is absent |
 | JavaScript/web bundles | Android/iOS Expo exports and Vite build passed, including final mobile source changes |
-| Migration | Local Alembic schema is at 0020; clean-schema integration tests apply all 20 SQL migrations |
+| Migration | Local Alembic schema is at 0021; clean-schema integration tests apply all 21 SQL migrations |
 | Restore rehearsal | Source left intact; isolated restored DB dropped; 18 table content digests and 32 referenced private files matched |
 | Dependency advisory check | 8 findings: 5 low, 3 high, through Expo/development tooling; none critical; no forced incompatible override applied |
 
@@ -70,3 +70,14 @@ The Python suite emits one installed Starlette/httpx test-client deprecation war
 Shared mobile actions, paired fields, car cards, tabs, modal lists, calendar headings and capture controls now reflow with available width and system text. Inspection Photo/Video entry is visible on each check. The follow-up review replaced oversized check navigation, shortened media labels with descriptive accessibility labels, bounded tablet proof content, and moved narrow/large-text footers into the content scroll. Instructions expand and remain directly available through speech.
 
 [Responsive review evidence](responsive/README.md) includes the six-profile Android emulator matrix, final narrow-phone rechecks, all-ten-page web viewport/zoom matrix, and decoded synthetic clip verification. The existing Full-HD-limited photo and the new 720p clip coexist on AC3DTRAINING check `front_left-tread`; the inspection remains unsubmitted. Final lint, TypeScript, unit tests, formatting, Android/iOS JS exports, web build and Android preview build passed. Physical phone/tablet, native iOS/iPad, accessibility and staff acceptance are still open.
+
+
+## Company configuration batch
+
+See [the implementation review](company-configuration/README.md) for two-tier
+financial authority, continuation during pending review, richer owner inspection
+rules, reviewed-document policy snapshots and per-sale warranty duration/coverage.
+The final full integration suite passed 77 tests, including the private-work
+access guard after all role/readiness changes. Local lint/types, 14 Python tests,
+13 mobile tests, both platform JavaScript exports and web/native Android builds
+passed. Marathi remains partial and physical-device/staff acceptance remains open.

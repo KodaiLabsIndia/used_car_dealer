@@ -1,4 +1,4 @@
-const names: Record<string, [string, string]> = {
+export const inspectionParts: Record<string, [string, string]> = {
   vehicle: ["Vehicle identity & documents", "गाड़ी की पहचान और कागज़"],
   body: ["Body & structure", "बॉडी और ढाँचा"],
   "body.bonnet": ["Bonnet", "बोनट"],
@@ -47,5 +47,7 @@ const names: Record<string, [string, string]> = {
   ],
 };
 export function inspectionPartName(id: string, hi: boolean) {
-  return names[id]?.[hi ? 1 : 0] || (hi ? "अन्य जाँच" : "Other checks");
+  return (
+    inspectionParts[id]?.[hi ? 1 : 0] || (hi ? "अन्य जाँच" : "Other checks")
+  );
 }

@@ -11,8 +11,10 @@ class ChecklistItemInput(ChecklistItem):
     id: str = Field(pattern=r"^[a-zA-Z0-9_-]{1,80}$")
     title: str = Field(min_length=1, max_length=160)
     title_hi: str = Field(min_length=1, max_length=160)
+    title_mr: str = Field(default="", max_length=160)
     instruction: str = Field(min_length=1, max_length=1000)
     instruction_hi: str = Field(min_length=1, max_length=1000)
+    instruction_mr: str = Field(default="", max_length=1000)
     order: int = Field(ge=1, le=1000)
 
 

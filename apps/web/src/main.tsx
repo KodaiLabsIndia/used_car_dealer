@@ -1,3 +1,4 @@
+import { can, workingLevel } from "@arihant/contracts";
 import { checkState, inspectionProgress } from "@arihant/contracts";
 import { Checklists } from "./checklists";
 import { DecisionBoard } from "./decisions";
@@ -121,22 +122,21 @@ function App() {
         <nav aria-label="Main navigation">
           {[
             ["today", "Today"],
-            ...(session.actor.role === "owner" ||
-            session.actor.workRoles.some((v) =>
-              ["supervisor", "coordinator", "manager"].includes(v),
-            )
+            ...(can(session.actor, "overview")
               ? [["decisions", "Decisions"]]
               : []),
             ["stock", "All cars"],
             ["work", "Inspections"],
             ["service", "Workshop"],
             ["enquiries", "Enquiries"],
-            ...(session.actor.role === "owner"
+            ...(can(session.actor, "finance")
               ? [
                   ["business", "Sales & support"],
                   ["reports", "Reports"],
-                  ["checklists", "Checklists"],
                 ]
+              : []),
+            ...(session.actor.role === "owner"
+              ? [["checklists", "Checklists"]]
               : []),
             ["inbox", "Updates"],
           ].map(([id, label]) => (
@@ -159,7 +159,7 @@ function App() {
           <p>
             {session.actor.role === "owner"
               ? "Owner · full business access"
-              : session.actor.workRoles.map(human).join(", ")}
+              : human(workingLevel(session.actor))}
           </p>
           <button
             onClick={() =>
@@ -206,7 +206,7 @@ function App() {
             key={selected}
             api={api}
             id={selected}
-            owner={session.actor.role === "owner"}
+            owner={can(session.actor, "finance")}
             revision={revision}
             openTask={setTaskId}
             onBack={() => setSelected(null)}
@@ -1178,11 +1178,7 @@ function TaskReview({
   }
   const item = task?.items[index],
     answer = task?.answers.find((v) => v.itemId === item?.id),
-    canReview =
-      session.actor.role === "owner" ||
-      session.actor.workRoles.some((v) =>
-        ["supervisor", "manager"].includes(v),
-      );
+    canReview = can(session.actor, "review_inspection");
   return (
     <>
       <button className="quiet" onClick={onBack}>
@@ -1315,7 +1311,7 @@ function TaskReview({
               </div>
             </article>
           ) : null}
-          {session.actor.role === "owner" &&
+          {can(session.actor, "assign_inspection") &&
           task.assignedTo !== session.actor.id &&
           !["submitted", "completed"].includes(task.status) ? (
             <button

@@ -1,3 +1,4 @@
+import { languageNames } from "../state/copy";
 import { ContentScroll } from "../components/layout";
 import React, { useEffect, useState } from "react";
 import {

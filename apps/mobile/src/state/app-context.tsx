@@ -10,7 +10,7 @@ import React, {
 import * as SecureStore from "expo-secure-store";
 import { sessionSchema, type Session } from "@arihant/contracts";
 import { ApiClient } from "../adapters/api";
-import { words, type Language } from "./copy";
+import { words, isLanguage, type Language } from "./copy";
 type AppState = {
   session: Session | null;
   booting: boolean;
@@ -65,7 +65,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
           SecureStore.getItemAsync("arihant.session"),
           SecureStore.getItemAsync("arihant.language"),
         ]);
-        if (active && lang === "hi") setLanguageState("hi");
+        if (active && isLanguage(lang)) setLanguageState(lang);
         if (saved) {
           const parsed = sessionSchema.safeParse(JSON.parse(saved));
           if (
@@ -75,6 +75,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
           ) {
             activeToken.current = parsed.data.token;
             setSession(parsed.data);
+            const preference = await SecureStore.getItemAsync(
+              `arihant.language.${parsed.data.actor.id}`,
+            );
+            if (active)
+              setLanguageState(isLanguage(preference) ? preference : "en");
           } else await persistSession(null);
         }
       } catch {
@@ -118,6 +123,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
     activeToken.current = next.token;
     try {
       await persistSession(next);
+      const preference = await SecureStore.getItemAsync(
+        `arihant.language.${next.actor.id}`,
+      );
+      setLanguageState(isLanguage(preference) ? preference : "en");
       setSession(next);
     } catch (error) {
       activeToken.current = null;
@@ -145,7 +154,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }
   function setLanguage(l: Language) {
     setLanguageState(l);
-    void SecureStore.setItemAsync("arihant.language", l);
+    void SecureStore.setItemAsync(
+      session ? `arihant.language.${session.actor.id}` : "arihant.language",
+      l,
+    );
   }
   return (
     <Context.Provider

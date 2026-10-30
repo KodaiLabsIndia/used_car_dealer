@@ -9,9 +9,9 @@ from app.adapters.command_transaction import CommandTransaction
 from app.adapters.operations import rows
 from app.adapters.workflows import WorkflowStore
 from app.contracts import Actor
+from app.domain.access import require
 from app.domain.errors import BusinessError
 from app.domain.purchase_policy import PurchasePlan, contribution, documents_clear, validate_terms
-from app.domain.workshop_policy import require_owner
 from app.purchase_contracts import (
     CreatePurchase,
     InspectionStamp,
@@ -46,7 +46,6 @@ class PurchaseStore:
         ]
 
     def get(self, actor: Actor, purchase_id: UUID, conn: Connection | None = None) -> Purchase:
-        require_owner(actor)
         if conn is None:
             with self.engine.connect() as c:
                 return self.get(actor, purchase_id, c)
@@ -60,6 +59,7 @@ class PurchaseStore:
         if not records:
             raise BusinessError("NOT_FOUND", "This purchase is unavailable.", 404)
         data = records[0]
+        self.ops.work_car(actor, data["cycle_id"], conn)
         params = {"id": purchase_id, "company": actor.company_id}
         terms = PurchaseTerms.model_validate(data["terms"])
         documents = PurchaseDocuments.model_validate(data["documents"])
@@ -112,7 +112,7 @@ class PurchaseStore:
             id=data["id"],
             company_id=data["company_id"],
             car_id=data["cycle_id"],
-            car=self.ops.car(actor, data["cycle_id"], conn),
+            car=self.ops.work_car(actor, data["cycle_id"], conn),
             status=data["status"],
             version=data["version"],
             terms_version=data["terms_version"],
@@ -149,9 +149,8 @@ class PurchaseStore:
         )
 
     def for_car(self, actor: Actor, car_id: UUID) -> Purchase | None:
-        require_owner(actor)
         with self.engine.connect() as conn:
-            self.ops.car(actor, car_id, conn)
+            self.ops.work_car(actor, car_id, conn)
             data = rows(
                 conn,
                 "SELECT id FROM purchases WHERE cycle_id=:car AND company_id=:company",
@@ -160,7 +159,7 @@ class PurchaseStore:
             return self.get(actor, data[0]["id"], conn) if data else None
 
     def list(self, actor: Actor, decisions: bool = False) -> list[Purchase]:
-        require_owner(actor)
+        require(actor, "finance")
         with self.engine.connect() as conn:
             records = rows(
                 conn,
@@ -184,11 +183,10 @@ class PurchaseStore:
         )
 
     def create(self, actor: Actor, car_id: UUID, body: CreatePurchase) -> Purchase:
-        require_owner(actor)
         validate_terms(body.terms)
 
         def execute(conn):
-            car = self.ops.car(actor, car_id, conn)
+            car = self.ops.work_car(actor, car_id, conn)
             if car.version != body.expected_version:
                 raise BusinessError(
                     "VERSION_CONFLICT", "This car changed. Refresh before preparing the purchase.", 409
@@ -217,6 +215,9 @@ class PurchaseStore:
                     "actor": actor.id,
                 },
             )
+            from app.adapters.company import CompanyStore
+
+            CompanyStore(self.workflows).assign_in_transaction(conn, actor, car_id, "purchase")
             self.revision(conn, actor, purchase_id, 1, body.terms)
             self.workflows.event(
                 conn,
@@ -235,7 +236,10 @@ class PurchaseStore:
             body,
             Purchase,
             execute,
-            lambda conn: self.workflows.lock_car(conn, actor, car_id),
+            lambda conn: (
+                self.workflows.lock_car(conn, actor, car_id),
+                self.ops.work_car(actor, car_id, conn),
+            ),
         )
 
     def execute(
@@ -245,7 +249,9 @@ class PurchaseStore:
         command: PurchaseCommand,
         planner: Callable[[Purchase], PurchasePlan],
     ) -> Purchase:
-        require_owner(actor)
+
+        if command.action in ("review", "payment", "reverse_payment", "acquire"):
+            require(actor, "finance")
 
         def authorize(conn):
             current = self.get(actor, purchase_id, conn)
@@ -264,6 +270,12 @@ class PurchaseStore:
                     409,
                 )
             plan = planner(current)
+            if command.action in ("acquire", "receive"):
+                from app.adapters.company import CompanyStore
+
+                CompanyStore(self.workflows).require_clear(
+                    conn, actor, current.car_id, {"purchase"} if command.action == "acquire" else {"intake"}
+                )
             params = {"id": purchase_id, "company": actor.company_id, "actor": actor.id}
             if plan.revise:
                 self.revision(conn, actor, purchase_id, current.terms_version + 1, command.terms)

@@ -1,4 +1,11 @@
 import {
+  documentPolicySchema,
+  carRequirementsSchema,
+  type PublishDocumentPolicy,
+  type AssignRequirements,
+  type LinkRequirement,
+} from "@arihant/contracts";
+import {
   cataloguePageSchema,
   type VehicleConfiguration,
   managedChecklistsSchema,
@@ -252,6 +259,44 @@ export class ApiClient {
       method: "POST",
       body: JSON.stringify({ through, notificationId: notificationId ?? null }),
     });
+  }
+  async documentPolicy() {
+    return documentPolicySchema.parse(
+      await this.request("/company/document-policy"),
+    );
+  }
+  async publishDocumentPolicy(body: PublishDocumentPolicy) {
+    return documentPolicySchema.parse(
+      await this.request("/company/document-policy", {
+        method: "POST",
+        body: JSON.stringify(body),
+      }),
+    );
+  }
+  async documentRequirements(carId: string) {
+    return carRequirementsSchema.parse(
+      await this.request(`/cars/${carId}/document-requirements`),
+    );
+  }
+  async assignDocumentRequirements(carId: string, body: AssignRequirements) {
+    return carRequirementsSchema.parse(
+      await this.request(`/cars/${carId}/document-requirements`, {
+        method: "POST",
+        body: JSON.stringify(body),
+      }),
+    );
+  }
+  async linkDocumentRequirement(
+    carId: string,
+    setId: string,
+    body: LinkRequirement,
+  ) {
+    return carRequirementsSchema.parse(
+      await this.request(
+        `/cars/${carId}/document-requirements/${setId}/links`,
+        { method: "POST", body: JSON.stringify(body) },
+      ),
+    );
   }
   async documents(carId: string, offset = 0) {
     return documentsSchema.parse(

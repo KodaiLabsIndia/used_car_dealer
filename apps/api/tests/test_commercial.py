@@ -93,10 +93,16 @@ def book(client, owner, current, **extra):
     )
 
 
-def delivered(client, owner, current, warranty=True):
+def delivered(client, owner, current, warranty=True, configuration=None):
     current = checked(change(client, owner, current, "mark_ready", acknowledgeDraftChecklist=True))
     current = book(client, owner, current)
     booking = current["bookings"][0]
+    if configuration:
+        current = checked(
+            change(
+                client, owner, current, "configure_warranty", bookingId=booking["id"], warranty=configuration
+            )
+        )
     current = checked(
         change(
             client,

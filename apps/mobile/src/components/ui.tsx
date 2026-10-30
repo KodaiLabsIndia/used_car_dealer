@@ -3,6 +3,7 @@ import {
   ActivityIndicator,
   Image,
   Pressable,
+  Platform,
   StyleSheet,
   Text as NativeText,
   View,
@@ -21,9 +22,19 @@ export const stockImages = {
 export const logo = require("../../assets/arihant-logo.png");
 export const journeyCar = require("../../assets/journey-car.png");
 export type IconName = React.ComponentProps<typeof Ionicons>["name"];
+function hasDevanagari(value: ReactNode): boolean {
+  return React.Children.toArray(value).some((child) =>
+    typeof child === "string"
+      ? /[\u0900-\u097f]/u.test(child)
+      : React.isValidElement<{ children?: ReactNode }>(child)
+        ? hasDevanagari(child.props.children)
+        : false,
+  );
+}
 export function Text({ style, ...props }: TextProps) {
   const typography = StyleSheet.flatten(style);
   const fontSize = typography?.fontSize ?? 14;
+  const devanagari = hasDevanagari(props.children);
   return (
     <NativeText
       {...props}
@@ -35,8 +46,17 @@ export function Text({ style, ...props }: TextProps) {
           lineHeight: typography?.lineHeight ?? Math.ceil(fontSize * 1.5),
         },
         style,
+        // Jakarta has no Devanagari glyphs; use native Hindi/Marathi metrics.
+        devanagari && {
+          fontFamily: Platform.OS === "ios" ? "System" : "sans-serif",
+        },
       ]}
-    />
+    >
+      {props.children}
+      {/* Android can omit the final shaped word despite measuring its width.
+          A trailing space avoids this upstream bug (react-native#57110). */}
+      {devanagari && Platform.OS === "android" ? " " : null}
+    </NativeText>
   );
 }
 export function Icon({

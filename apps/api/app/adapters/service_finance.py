@@ -7,9 +7,9 @@ from sqlalchemy.exc import IntegrityError
 from app.adapters.operations import rows
 from app.adapters.workflows import WorkflowStore
 from app.contracts import Actor
+from app.domain.access import require
 from app.domain.errors import BusinessError
 from app.domain.service_finance import validate_service_finance
-from app.domain.workshop_policy import require_owner
 from app.service_finance_contracts import ServiceFinance, ServiceFinanceCommand
 
 
@@ -19,7 +19,6 @@ class ServiceFinanceStore:
         self.engine = workflows.engine
 
     def get(self, actor: Actor, job_id: UUID, conn=None) -> ServiceFinance:
-        require_owner(actor)
         if conn is None:
             with self.engine.connect() as connection:
                 return self.get(actor, job_id, connection)
@@ -66,7 +65,8 @@ class ServiceFinanceStore:
         )
 
     def run(self, actor: Actor, job_id: UUID, command: ServiceFinanceCommand):
-        require_owner(actor)
+        if command.action != "quote":
+            require(actor, "finance")
 
         def authorize(conn):
             job = self.workflows.job(actor, job_id, conn)

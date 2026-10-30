@@ -1,3 +1,4 @@
+import { can } from "../application/access";
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, Alert, View } from "react-native";
 import type { ServiceFinanceCommand } from "@arihant/contracts";
@@ -45,6 +46,7 @@ type QuoteDraft = {
 export function ServiceFinanceScreen({ route }: ScreenProps<"ServiceFinance">) {
   const { api, session, language, changed } = useApp(),
     hi = language === "hi",
+    reviewer = can(session!.actor, "finance"),
     tr = (en: string, hindi: string) => (hi ? hindi : en);
   const resource = useResource(`job-finance:${route.params.jobId}`, () =>
       api.serviceFinance(route.params.jobId),
@@ -321,7 +323,7 @@ export function ServiceFinanceScreen({ route }: ScreenProps<"ServiceFinance">) {
         <FocusPage
           scrollKey={section}
           footer={
-            data ? (
+            data && (reviewer || section === "quotes") ? (
               <Button
                 label={
                   section === "quotes"
@@ -410,7 +412,9 @@ export function ServiceFinanceScreen({ route }: ScreenProps<"ServiceFinance">) {
                           {q.approvedByName} · {q.reason}
                         </Text>
                       ) : null}
-                      {q.id === quote?.id && q.decision === "pending" ? (
+                      {reviewer &&
+                      q.id === quote?.id &&
+                      q.decision === "pending" ? (
                         <ActionRow>
                           <Button
                             label={tr("Approve", "मंज़ूर")}
@@ -423,7 +427,7 @@ export function ServiceFinanceScreen({ route }: ScreenProps<"ServiceFinance">) {
                                   quoteId: q.id,
                                   decision: "approved",
                                   reason: tr(
-                                    "Owner approved this exact quote revision",
+                                    "Owner / supervisor approved this exact quote revision",
                                     "मालिक ने इस कोटेशन संस्करण को मंज़ूर किया",
                                   ),
                                 },
@@ -484,7 +488,7 @@ export function ServiceFinanceScreen({ route }: ScreenProps<"ServiceFinance">) {
                           <Pill
                             label={tr("Corrected entry", "सुधारा गया रिकॉर्ड")}
                           />
-                        ) : (
+                        ) : reviewer ? (
                           <Button
                             secondary
                             disabled={busy}
@@ -494,7 +498,7 @@ export function ServiceFinanceScreen({ route }: ScreenProps<"ServiceFinance">) {
                             )}
                             onPress={() => setCorrecting(p.id)}
                           />
-                        )}
+                        ) : null}
                       </Panel>
                     ))}
               {!(section === "quotes"
@@ -528,6 +532,7 @@ function QuoteEditor({
 }) {
   const { session, language } = useApp(),
     hi = language === "hi",
+    reviewer = can(session!.actor, "finance"),
     tr = (en: string, hindi: string) => (hi ? hindi : en),
     key = `quote-draft:${jobId}`;
   const [draft, setDraft] = useState<QuoteDraft | null>(null),

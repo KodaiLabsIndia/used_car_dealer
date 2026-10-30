@@ -8,12 +8,18 @@ const options: Intl.DateTimeFormatOptions = {
 const formats = {
   en: new Intl.DateTimeFormat("en-IN", options),
   hi: new Intl.DateTimeFormat("hi-IN", options),
+  mr: new Intl.DateTimeFormat("mr-IN", options),
 };
-export function formatDateTime(value: string, language: "en" | "hi"): string {
+export function formatDateTime(
+  value: string,
+  language: "en" | "hi" | "mr",
+): string {
   const date = new Date(value);
   return Number.isNaN(date.getTime())
-    ? language === "hi"
-      ? "तारीख की जाँच करें"
-      : "Date needs review"
+    ? language === "mr"
+      ? "तारीख तपासा"
+      : language === "hi"
+        ? "तारीख की जाँच करें"
+        : "Date needs review"
     : formats[language].format(date);
 }

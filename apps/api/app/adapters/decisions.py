@@ -33,7 +33,7 @@ QUERY = """WITH pending AS (
 def params(actor: Actor):
     return {
         "company": actor.company_id,
-        "owner": actor.role == "owner",
+        "owner": can(actor, "finance"),
         "review": can(actor, "review_inspection"),
         "service": can(actor, "service"),
     }

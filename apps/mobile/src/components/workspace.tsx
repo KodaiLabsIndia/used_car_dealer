@@ -211,7 +211,6 @@ export function Workspace<T extends string>({
               <Text style={{ flex: 1, fontWeight: "600" }}>
                 {items.find((i) => i.id === selected)?.label}
               </Text>
-              <Text style={s.muted}>{hi ? "सभी हिस्से" : "Sections"}</Text>
               <Icon name="chevron-down-outline" />
             </Pressable>
           ) : (

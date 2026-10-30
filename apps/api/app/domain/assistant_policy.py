@@ -90,11 +90,11 @@ def system_prompt(capability: str, language: str) -> str:
         "Use only supplied source IDs. Distinguish a user report from an observed image value. Unknown values must remain null. "
         "Never perform actions, invent facts, decide safety/coverage/valuation or claim an approval. Every output needs human review. "
         "Images follow imageSourceIds order. Any observed image field must cite its corresponding image source, not the user report. Keep amounts, registration numbers and dates exact. No hidden reasoning. Short plain sentences, no jargon. "
-        + (
-            "Write explanations in Hindi. Keep identifiers unchanged. "
-            if language == "hi"
-            else "Write explanations in plain English. "
-        )
+        + {
+            "hi": "Write explanations in Hindi. Keep identifiers unchanged. ",
+            "mr": "Write explanations in Marathi. Keep identifiers unchanged. ",
+            "en": "Write explanations in plain English. ",
+        }[language]
         + INSTRUCTIONS[capability]
         + " Allowed field names: "
         + ",".join(sorted(FIELDS[capability]))

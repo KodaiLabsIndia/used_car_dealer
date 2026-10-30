@@ -70,7 +70,20 @@ class ChecklistStore:
             )
         if not any(i.required for i in body.items):
             raise BusinessError("INVALID_CHECKLIST", "Include at least one required check.", 400)
+        if len({i.order for i in body.items}) != len(body.items):
+            raise BusinessError("INVALID_CHECKLIST", "Each check needs a distinct position.")
         for item in body.items:
+            if item.method == "measurement" and item.measurement_unit is None:
+                raise BusinessError("INVALID_CHECKLIST", "Measurement checks need a measurement unit.")
+            if not set(item.applicability.fuels) <= {
+                "petrol",
+                "diesel",
+                "cng",
+                "lpg",
+                "hybrid",
+                "electric",
+            } or not set(item.applicability.transmissions) <= {"manual", "automatic", "amt", "cvt", "dct"}:
+                raise BusinessError("INVALID_CHECKLIST", "Choose supported fuel and transmission rules.")
             if not all(v.strip() for v in [item.title, item.title_hi, item.instruction, item.instruction_hi]):
                 raise BusinessError(
                     "INVALID_CHECKLIST",

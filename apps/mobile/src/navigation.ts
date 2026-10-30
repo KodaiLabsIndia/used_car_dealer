@@ -27,6 +27,7 @@ export type RootStack = {
   Decisions: undefined;
   Reports: undefined;
   Checklists: undefined;
+  CompanySettings: undefined;
   Inbox: undefined;
   Assistant:
     | {

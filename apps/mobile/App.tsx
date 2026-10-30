@@ -1,3 +1,4 @@
+import { CompanySettingsScreen } from "./src/screens/company-settings";
 import { ChecklistsScreen } from "./src/screens/checklists";
 import { DecisionsScreen } from "./src/screens/decisions";
 import { ReportsScreen } from "./src/screens/reports";
@@ -92,6 +93,10 @@ function AuthenticatedRoutes({ ownerId }: { ownerId: string }) {
         <Stack.Screen name="Clips" component={ClipsScreen} />
         <Stack.Screen name="Decisions" component={DecisionsScreen} />
         <Stack.Screen name="Reports" component={ReportsScreen} />
+        <Stack.Screen
+          name="CompanySettings"
+          component={CompanySettingsScreen}
+        />
         <Stack.Screen name="Checklists" component={ChecklistsScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Cars" component={CarsScreen} />

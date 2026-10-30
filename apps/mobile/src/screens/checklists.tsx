@@ -1,4 +1,5 @@
 import { formatDateTime } from "../components/date-format";
+import { ChecklistRulesEditor } from "../components/checklist-rules-editor";
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, Alert, View } from "react-native";
 import { randomUUID } from "expo-crypto";
@@ -84,6 +85,9 @@ export function ChecklistsScreen(_: ScreenProps<"Checklists">) {
       setError((e as Error).message);
     }
   }
+  const [wordingLanguage, setWordingLanguage] = useState<"en" | "hi" | "mr">(
+    "en",
+  );
   const item = draft?.items[step];
   const kinds = [
     { id: "pre_purchase", label: tr("Before purchase", "खरीद से पहले") },
@@ -555,31 +559,57 @@ export function ChecklistsScreen(_: ScreenProps<"Checklists">) {
             <Text style={s.title}>
               {tr("Check", "जाँच")} {step + 1} / {draft.items.length}
             </Text>
+            <ActionRow>
+              {(["en", "hi", "mr"] as const).map((id) => (
+                <Button
+                  key={id}
+                  secondary={wordingLanguage !== id}
+                  selected={wordingLanguage === id}
+                  label={
+                    id === "en" ? "English" : id === "hi" ? "हिंदी" : "मराठी"
+                  }
+                  onPress={() => setWordingLanguage(id)}
+                />
+              ))}
+            </ActionRow>
             {(
               [
                 ["title", "Short title · English"],
                 ["titleHi", "छोटा नाम · हिंदी"],
+                ["titleMr", "लहान नाव · मराठी"],
                 ["instruction", "What to check and photograph · English"],
                 ["instructionHi", "क्या जाँचना और फोटो लेना है · हिंदी"],
+                [
+                  "instructionMr",
+                  "काय तपासायचे आणि फोटो कशाचा घ्यायचा · मराठी",
+                ],
               ] as const
-            ).map(([key, label]) => (
-              <Field
-                key={key}
-                label={label}
-                value={item[key]}
-                editable={!busy}
-                multiline={key.startsWith("instruction")}
-                maxLength={key.startsWith("instruction") ? 1000 : 160}
-                onChangeText={(text) =>
-                  void update({
-                    ...draft,
-                    items: draft.items.map((check, n) =>
-                      n === step ? { ...check, [key]: text } : check,
-                    ),
-                  })
-                }
-              />
-            ))}
+            )
+              .filter(([key]) =>
+                wordingLanguage === "hi"
+                  ? key.endsWith("Hi")
+                  : wordingLanguage === "mr"
+                    ? key.endsWith("Mr")
+                    : !key.endsWith("Hi") && !key.endsWith("Mr"),
+              )
+              .map(([key, label]) => (
+                <Field
+                  key={key}
+                  label={label}
+                  value={item[key] ?? ""}
+                  editable={!busy}
+                  multiline={key.startsWith("instruction")}
+                  maxLength={key.startsWith("instruction") ? 1000 : 160}
+                  onChangeText={(text) =>
+                    void update({
+                      ...draft,
+                      items: draft.items.map((check, n) =>
+                        n === step ? { ...check, [key]: text } : check,
+                      ),
+                    })
+                  }
+                />
+              ))}
             <Choice
               label={tr("Photo and result required", "फोटो और परिणाम ज़रूरी")}
               selected={item.required}
@@ -595,6 +625,43 @@ export function ChecklistsScreen(_: ScreenProps<"Checklists">) {
                   });
               }}
             />
+            <ChecklistRulesEditor
+              item={item}
+              disabled={busy}
+              onChange={(patch) =>
+                void update({
+                  ...draft,
+                  items: draft.items.map((check, n) =>
+                    n === step ? { ...check, ...patch } : check,
+                  ),
+                })
+              }
+            />
+            <ActionRow>
+              {[-1, 1].map((dir) => (
+                <Button
+                  key={dir}
+                  secondary
+                  label={
+                    dir === -1
+                      ? tr("Move check up", "जाँच ऊपर करें")
+                      : tr("Move check down", "जाँच नीचे करें")
+                  }
+                  disabled={
+                    busy || step + dir < 0 || step + dir >= draft.items.length
+                  }
+                  onPress={() => {
+                    const items = [...draft.items];
+                    [items[step], items[step + dir]] = [
+                      items[step + dir]!,
+                      items[step]!,
+                    ];
+                    void update({ ...draft, items });
+                    setStep(step + dir);
+                  }}
+                />
+              ))}
+            </ActionRow>
             <Button
               secondary
               label={tr("Add another check", "एक और जाँच जोड़ें")}

@@ -21,7 +21,7 @@ AICapability = Literal[
 class AssistantInput(Contract):
     command_id: UUID
     capability: AICapability
-    language: Literal["en", "hi"] = "en"
+    language: Literal["en", "hi", "mr"] = "en"
     text: str = Field(default="", max_length=4000)
     car_id: UUID | None = None
     task_id: UUID | None = None

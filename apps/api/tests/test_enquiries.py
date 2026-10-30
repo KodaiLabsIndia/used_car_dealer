@@ -140,9 +140,8 @@ def test_visits_license_checks_future_completion_and_immutable_outcomes(workspac
 
 def test_enquiry_retry_conflict_and_ineligible_assignee(workspace):
     client, _, owner, employee = workspace
-    assert (
-        create(client, owner, assigned=IDS["employee"]).json()["error"]["code"] == "RESPONSIBILITY_REQUIRED"
-    )
+    # Employees now share one working tier and can own assigned enquiries.
+    checked(create(client, owner, assigned=IDS["employee"]), 201)
     key = uuid4()
     due = (datetime.now(UTC) + timedelta(days=1)).isoformat()
     a = checked(create(client, owner, key=key, nextFollowUpAt=due), 201)

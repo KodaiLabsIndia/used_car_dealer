@@ -1,3 +1,6 @@
+import { can } from "../application/access";
+import { randomUUID } from "expo-crypto";
+import { DocumentRequirements } from "../components/document-requirements";
 import { formatDateTime } from "../components/date-format";
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, Alert, Image, Pressable, View } from "react-native";
@@ -52,7 +55,9 @@ export function DocumentsScreen({ route }: ScreenProps<"Documents">) {
     hi = language === "hi",
     tr = (en: string, h: string) => (hi ? h : en),
     key = `document-photo:${route.params.carId}`;
-  const [section, setSection] = useState<"pages" | "add">("pages"),
+  const [section, setSection] = useState<"pages" | "add" | "requirements">(
+      "pages",
+    ),
     [offset, setOffset] = useState(0),
     [photo, setPhoto] = useState<PhotoDraft | null>(null),
     [camera, setCamera] = useState(false),
@@ -64,6 +69,27 @@ export function DocumentsScreen({ route }: ScreenProps<"Documents">) {
     `documents:${route.params.carId}:${offset}`,
     () => api.documents(route.params.carId, offset),
   );
+  const requirements = useResource(
+    `document-requirements:${route.params.carId}`,
+    () => api.documentRequirements(route.params.carId),
+  );
+  const [binding, setBinding] = useState("");
+  async function link(setId: string, ruleId: string, documentId: string) {
+    setBusy(true);
+    setError("");
+    try {
+      await api.linkDocumentRequirement(route.params.carId, setId, {
+        commandId: randomUUID(),
+        requirementId: ruleId,
+        documentId,
+      });
+      changed();
+    } catch (e) {
+      setError((e as Error).message);
+    } finally {
+      setBusy(false);
+    }
+  }
   useEffect(() => {
     let active = true;
     void loadLocal<PhotoDraft>(session!.actor.id, key)
@@ -123,6 +149,11 @@ export function DocumentsScreen({ route }: ScreenProps<"Documents">) {
       busy={busy || labeling || !!review}
       onChange={setSection}
       items={[
+        {
+          id: "requirements",
+          label: tr("Checklist", "ज़रूरी सूची"),
+          icon: "checkbox-outline",
+        },
         { id: "pages", label: tr("Pages", "पेज"), icon: "documents-outline" },
         {
           id: "add",
@@ -199,9 +230,9 @@ export function DocumentsScreen({ route }: ScreenProps<"Documents">) {
         />
       ) : labeling && photo ? (
         <BusinessForm
-          key={photo.id}
+          key={`${photo.id}:${binding}`}
           spec={{
-            key: `document-label:${photo.id}`,
+            key: `document-label:${photo.id}:${binding}`,
             title: tr("Label this page", "इस पेज का नाम दें"),
             submitLabel: tr("Upload prepared page", "तैयार पेज भेजें"),
             steps: [
@@ -218,6 +249,29 @@ export function DocumentsScreen({ route }: ScreenProps<"Documents">) {
                       id,
                       label: hi ? hindi[i]! : label,
                     })),
+                  },
+                  {
+                    key: "requirement",
+                    label: tr(
+                      "Document requirement · optional",
+                      "ज़रूरी सूची से जोड़ें · वैकल्पिक",
+                    ),
+                    kind: "select",
+                    initial: binding,
+                    options: [
+                      {
+                        id: "",
+                        label: tr("General document", "सामान्य दस्तावेज़"),
+                      },
+                      ...(requirements.data?.sets
+                        .filter((set) => !set.locked)
+                        .flatMap((set) =>
+                          set.items.map((item) => ({
+                            id: `${set.id}::${item.rule.id}`,
+                            label: `${set.stage} · ${language === "mr" ? item.rule.titleMr : hi ? item.rule.titleHi : item.rule.title}`,
+                          })),
+                        ) ?? []),
+                    ],
                   },
                   {
                     key: "reference",
@@ -240,6 +294,16 @@ export function DocumentsScreen({ route }: ScreenProps<"Documents">) {
               category: v.category || "other",
               reference: v.reference || "",
             });
+            if (v.requirement) {
+              const [setId, requirementId] = v.requirement.split("::");
+              if (setId && requirementId)
+                await api.linkDocumentRequirement(route.params.carId, setId, {
+                  commandId: photo.id,
+                  requirementId,
+                  documentId: photo.id,
+                });
+            }
+            setBinding("");
             await deleteLocal(session!.actor.id, key);
             void FileSystem.deleteAsync(photo.uri, { idempotent: true }).catch(
               () => {},
@@ -306,7 +370,42 @@ export function DocumentsScreen({ route }: ScreenProps<"Documents">) {
           {resource.loading && !resource.data ? (
             <ActivityIndicator color="#fff" />
           ) : null}
-          {section === "add" ? (
+          {section === "requirements" ? (
+            requirements.data ? (
+              <DocumentRequirements
+                data={requirements.data}
+                pages={resource.data?.items ?? []}
+                busy={busy}
+                onLink={link}
+                onAdd={(value) => {
+                  setBinding(value);
+                  setSection("add");
+                }}
+                onAssign={async (stage) => {
+                  setBusy(true);
+                  setError("");
+                  try {
+                    await api.assignDocumentRequirements(route.params.carId, {
+                      commandId: randomUUID(),
+                      stage,
+                    });
+                    changed();
+                  } catch (e) {
+                    setError((e as Error).message);
+                  } finally {
+                    setBusy(false);
+                  }
+                }}
+              />
+            ) : requirements.error ? (
+              <ErrorNotice
+                message={requirements.error}
+                retry={requirements.refresh}
+              />
+            ) : (
+              <ActivityIndicator color="#fff" />
+            )
+          ) : section === "add" ? (
             <>
               <Text style={s.title}>
                 {tr(
@@ -376,13 +475,13 @@ export function DocumentsScreen({ route }: ScreenProps<"Documents">) {
                         ? ` · ${tr("same person reviewed", "उसी व्यक्ति ने समीक्षा की")}`
                         : ""}
                     </Text>
-                  ) : (
+                  ) : can(session!.actor, "finance") ? (
                     <Button
                       secondary
                       label={tr("Review page", "पेज की समीक्षा करें")}
                       onPress={() => setReview(d)}
                     />
-                  )}
+                  ) : null}
                 </Panel>
               ))}
               {!resource.loading &&

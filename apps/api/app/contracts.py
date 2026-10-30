@@ -80,8 +80,10 @@ class ChecklistItem(Contract):
     id: str
     title: str
     title_hi: str
+    title_mr: str = ""
     instruction: str
     instruction_hi: str
+    instruction_mr: str = ""
     order: int
     required: bool
     zone: Literal[

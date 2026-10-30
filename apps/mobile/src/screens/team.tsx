@@ -1,7 +1,8 @@
+import { workingLevel } from "../application/access";
 import React, { useState } from "react";
 import { ActivityIndicator, Alert, View } from "react-native";
 import { randomUUID } from "expo-crypto";
-import type { Member, WorkRole } from "@arihant/contracts";
+import type { Member } from "@arihant/contracts";
 import type { ScreenProps } from "../navigation";
 import { useApp } from "../state/app-context";
 import { useResource } from "../state/use-resource";
@@ -10,6 +11,7 @@ import { Field } from "../components/forms";
 import { Button, ErrorNotice, Panel, Pill, Text, s } from "../components/ui";
 import { CardGrid } from "../components/layout";
 
+type StaffLevel = "inspector" | "supervisor";
 export function TeamScreen({ navigation }: ScreenProps<"Team">) {
   const { api, session, language, changed } = useApp(),
     hi = language === "hi";
@@ -22,7 +24,7 @@ export function TeamScreen({ navigation }: ScreenProps<"Team">) {
     [error, setError] = useState(""),
     [notice, setNotice] = useState(""),
     [commandId, setCommandId] = useState(randomUUID());
-  const [roles, setRoles] = useState<WorkRole[]>(["inspector"]);
+  const [roles, setRoles] = useState<StaffLevel[]>(["inspector"]);
   const [rolesFor, setRolesFor] = useState<Member | null>(null);
   const [resetFor, setResetFor] = useState<Member | null>(null);
   const tr = (en: string, hindi: string) => (hi ? hindi : en);
@@ -261,7 +263,9 @@ export function TeamScreen({ navigation }: ScreenProps<"Team">) {
                 {member.role !== "owner" ? (
                   <>
                     <Text style={s.muted}>
-                      {member.workRoles.map((role) => role).join(" · ")}
+                      {workingLevel(member) === "supervisor"
+                        ? tr("Supervisor", "सुपरवाइज़र")
+                        : tr("Employee", "कर्मचारी")}
                     </Text>
                     <Button
                       secondary
@@ -269,7 +273,11 @@ export function TeamScreen({ navigation }: ScreenProps<"Team">) {
                       label={tr("Responsibilities", "ज़िम्मेदारियाँ")}
                       onPress={() => {
                         setRolesFor(member);
-                        setRoles(member.workRoles);
+                        setRoles([
+                          workingLevel(member) === "supervisor"
+                            ? "supervisor"
+                            : "inspector",
+                        ]);
                         setCommandId(randomUUID());
                         setSecret("");
                       }}
@@ -383,66 +391,43 @@ function RolePicker({
   onChange,
   hi,
 }: {
-  value: WorkRole[];
-  onChange: (value: WorkRole[]) => void;
+  value: StaffLevel[];
+  onChange: (value: StaffLevel[]) => void;
   hi: boolean;
 }) {
-  const options: [WorkRole, string, string, string, string][] = [
+  const options: [StaffLevel, string, string, string, string][] = [
     [
       "inspector",
-      "Inspector",
-      "जाँच कर्मचारी",
-      "Assigned inspections and repairs",
-      "सौंपी हुई जाँच और मरम्मत",
-    ],
-    [
-      "coordinator",
-      "Service coordinator",
-      "सर्विस समन्वयक",
-      "All cars, workshops and repair assignment",
-      "सभी गाड़ियाँ, वर्कशॉप और मरम्मत सौंपना",
+      "Employee",
+      "कर्मचारी",
+      "Log assigned work, evidence and approval requests",
+      "सौंपा काम, सबूत और मंज़ूरी के अनुरोध दर्ज करें",
     ],
     [
       "supervisor",
       "Supervisor",
       "सुपरवाइज़र",
-      "Assign and review inspections; coordinate repairs",
-      "जाँच सौंपना, समीक्षा और मरम्मत समन्वय",
-    ],
-    [
-      "manager",
-      "Operations manager",
-      "संचालन प्रबंधक",
-      "All operations and car intake",
-      "सभी संचालन और गाड़ी का प्रवेश",
-    ],
-    [
-      "sales",
-      "Sales / enquiries",
-      "बिक्री / पूछताछ",
-      "Assigned buyer and seller enquiries and visits",
-      "सौंपी हुई ग्राहक पूछताछ और मुलाकात",
+      "Oversee all work and approve spending. Company policy remains with the owner.",
+      "सभी काम देखें और खर्च मंज़ूर करें। कंपनी के नियम मालिक तय करते हैं।",
     ],
   ];
   return (
     <View style={{ gap: 10 }}>
       <Text style={s.muted}>
         {hi
-          ? "एक से अधिक ज़िम्मेदारी चुन सकते हैं। वित्त और लोगों का प्रबंधन मालिक के पास है।"
-          : "Select one or more responsibilities. Financial records and staff administration remain with the owner."}
+          ? "कर्मचारी या सुपरवाइज़र चुनें। हर व्यक्ति की अलग पहचान और काम का इतिहास रहेगा।"
+          : "Choose Employee or Supervisor. Everyone keeps their own login and attributed history."}
       </Text>
       {options.map(([id, en, hindi, desc, descHi]) => (
         <Panel key={id} style={{ gap: 8 }}>
           <Button
-            secondary={!value.includes(id)}
-            label={`${value.includes(id) ? "✓ " : ""}${hi ? hindi : en}`}
-            onPress={() =>
-              onChange(
-                value.includes(id)
-                  ? value.filter((v) => v !== id)
-                  : [...value, id],
-              )
+            secondary={
+              !(id === "supervisor"
+                ? value.some((r) => r === "supervisor")
+                : !value.some((r) => r === "supervisor"))
             }
+            label={`${(id === "supervisor" ? value.some((r) => r === "supervisor") : !value.some((r) => r === "supervisor")) ? "✓ " : ""}${hi ? hindi : en}`}
+            onPress={() => onChange([id])}
           />
           <Text style={s.muted}>{hi ? descHi : desc}</Text>
         </Panel>

@@ -2311,6 +2311,233 @@
         }
       }
     },
+    "/v1/company/document-policy": {
+      "get": {
+        "summary": "Policy",
+        "operationId": "policy_v1_company_document_policy_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentPolicy"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      },
+      "post": {
+        "summary": "Publish",
+        "operationId": "publish_v1_company_document_policy_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublishDocumentPolicy"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentPolicy"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/v1/cars/{car_id}/document-requirements": {
+      "get": {
+        "summary": "Requirements",
+        "operationId": "requirements_v1_cars__car_id__document_requirements_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "car_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Car Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CarRequirements"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Assign",
+        "operationId": "assign_v1_cars__car_id__document_requirements_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "car_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Car Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignRequirements"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CarRequirements"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/cars/{car_id}/document-requirements/{set_id}/links": {
+      "post": {
+        "summary": "Link",
+        "operationId": "link_v1_cars__car_id__document_requirements__set_id__links_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "car_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Car Id"
+            }
+          },
+          {
+            "name": "set_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Set Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LinkRequirement"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CarRequirements"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/assistant/options": {
       "get": {
         "summary": "Options",
@@ -2654,6 +2881,9 @@
                     "$ref": "#/components/schemas/CheckSaleDocuments"
                   },
                   {
+                    "$ref": "#/components/schemas/ConfigureWarranty"
+                  },
+                  {
                     "$ref": "#/components/schemas/DeliverVehicle"
                   },
                   {
@@ -2681,6 +2911,7 @@
                     "sale_receipt": "#/components/schemas/SaleMoney",
                     "sale_refund": "#/components/schemas/SaleMoney",
                     "sale_documents": "#/components/schemas/CheckSaleDocuments",
+                    "configure_warranty": "#/components/schemas/ConfigureWarranty",
                     "deliver": "#/components/schemas/DeliverVehicle",
                     "complete_transfer": "#/components/schemas/CompleteOwnershipTransfer",
                     "open_claim": "#/components/schemas/OpenWarrantyClaim",
@@ -4075,6 +4306,36 @@
         "required": ["commandId", "expectedVersion", "action", "assignedTo"],
         "title": "AssignJob"
       },
+      "AssignRequirements": {
+        "properties": {
+          "commandId": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Commandid"
+          },
+          "stage": {
+            "type": "string",
+            "enum": ["purchase", "intake", "sale", "delivery"],
+            "title": "Stage"
+          },
+          "bookingId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bookingid"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["commandId", "stage"],
+        "title": "AssignRequirements"
+      },
       "AssistantDraft": {
         "properties": {
           "id": {
@@ -4214,7 +4475,7 @@
           },
           "language": {
             "type": "string",
-            "enum": ["en", "hi"],
+            "enum": ["en", "hi", "mr"],
             "title": "Language",
             "default": "en"
           },
@@ -4702,6 +4963,21 @@
         "required": ["car", "task"],
         "title": "CarCreated"
       },
+      "CarRequirements": {
+        "properties": {
+          "sets": {
+            "items": {
+              "$ref": "#/components/schemas/RequirementSet"
+            },
+            "type": "array",
+            "title": "Sets"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["sets"],
+        "title": "CarRequirements"
+      },
       "CarsPage": {
         "properties": {
           "items": {
@@ -4960,6 +5236,11 @@
             "type": "string",
             "title": "Titlehi"
           },
+          "titleMr": {
+            "type": "string",
+            "title": "Titlemr",
+            "default": ""
+          },
           "instruction": {
             "type": "string",
             "title": "Instruction"
@@ -4967,6 +5248,11 @@
           "instructionHi": {
             "type": "string",
             "title": "Instructionhi"
+          },
+          "instructionMr": {
+            "type": "string",
+            "title": "Instructionmr",
+            "default": ""
           },
           "order": {
             "type": "integer",
@@ -5055,8 +5341,10 @@
           "id",
           "title",
           "titleHi",
+          "titleMr",
           "instruction",
           "instructionHi",
+          "instructionMr",
           "order",
           "required",
           "zone",
@@ -5090,6 +5378,12 @@
             "minLength": 1,
             "title": "Titlehi"
           },
+          "titleMr": {
+            "type": "string",
+            "maxLength": 160,
+            "title": "Titlemr",
+            "default": ""
+          },
           "instruction": {
             "type": "string",
             "maxLength": 1000,
@@ -5101,6 +5395,12 @@
             "maxLength": 1000,
             "minLength": 1,
             "title": "Instructionhi"
+          },
+          "instructionMr": {
+            "type": "string",
+            "maxLength": 1000,
+            "title": "Instructionmr",
+            "default": ""
           },
           "order": {
             "type": "integer",
@@ -5302,6 +5602,43 @@
           "reference"
         ],
         "title": "CompleteOwnershipTransfer"
+      },
+      "ConfigureWarranty": {
+        "properties": {
+          "commandId": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Commandid"
+          },
+          "expectedVersion": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expectedversion"
+          },
+          "action": {
+            "type": "string",
+            "const": "configure_warranty",
+            "title": "Action"
+          },
+          "bookingId": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Bookingid"
+          },
+          "warranty": {
+            "$ref": "#/components/schemas/WarrantyConfiguration-Input"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "commandId",
+          "expectedVersion",
+          "action",
+          "bookingId",
+          "warranty"
+        ],
+        "title": "ConfigureWarranty"
       },
       "ContactEvent": {
         "properties": {
@@ -5767,16 +6104,10 @@
           "workRoles": {
             "items": {
               "type": "string",
-              "enum": [
-                "inspector",
-                "coordinator",
-                "supervisor",
-                "manager",
-                "sales"
-              ]
+              "enum": ["inspector", "supervisor"]
             },
             "type": "array",
-            "maxItems": 5,
+            "maxItems": 1,
             "minItems": 1,
             "title": "Workroles"
           }
@@ -6342,6 +6673,161 @@
           "selfReview"
         ],
         "title": "Document"
+      },
+      "DocumentPolicy": {
+        "properties": {
+          "version": {
+            "type": "integer",
+            "title": "Version"
+          },
+          "rules": {
+            "items": {
+              "$ref": "#/components/schemas/DocumentRule-Output"
+            },
+            "type": "array",
+            "title": "Rules"
+          },
+          "publishedByName": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Publishedbyname"
+          },
+          "publishedAt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Publishedat"
+          },
+          "reason": {
+            "type": "string",
+            "title": "Reason",
+            "default": ""
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "version",
+          "rules",
+          "publishedByName",
+          "publishedAt",
+          "reason"
+        ],
+        "title": "DocumentPolicy"
+      },
+      "DocumentRule-Input": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]{1,80}$",
+            "title": "Id"
+          },
+          "stage": {
+            "type": "string",
+            "enum": ["purchase", "intake", "sale", "delivery"],
+            "title": "Stage"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 160,
+            "minLength": 1,
+            "title": "Title"
+          },
+          "titleHi": {
+            "type": "string",
+            "maxLength": 160,
+            "minLength": 1,
+            "title": "Titlehi"
+          },
+          "titleMr": {
+            "type": "string",
+            "maxLength": 160,
+            "minLength": 1,
+            "title": "Titlemr"
+          },
+          "required": {
+            "type": "boolean",
+            "title": "Required",
+            "default": true
+          },
+          "applicability": {
+            "type": "string",
+            "maxLength": 500,
+            "title": "Applicability",
+            "default": ""
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["id", "stage", "title", "titleHi", "titleMr"],
+        "title": "DocumentRule"
+      },
+      "DocumentRule-Output": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]{1,80}$",
+            "title": "Id"
+          },
+          "stage": {
+            "type": "string",
+            "enum": ["purchase", "intake", "sale", "delivery"],
+            "title": "Stage"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 160,
+            "minLength": 1,
+            "title": "Title"
+          },
+          "titleHi": {
+            "type": "string",
+            "maxLength": 160,
+            "minLength": 1,
+            "title": "Titlehi"
+          },
+          "titleMr": {
+            "type": "string",
+            "maxLength": 160,
+            "minLength": 1,
+            "title": "Titlemr"
+          },
+          "required": {
+            "type": "boolean",
+            "title": "Required",
+            "default": true
+          },
+          "applicability": {
+            "type": "string",
+            "maxLength": 500,
+            "title": "Applicability",
+            "default": ""
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "stage",
+          "title",
+          "titleHi",
+          "titleMr",
+          "required",
+          "applicability"
+        ],
+        "title": "DocumentRule"
       },
       "Documents": {
         "properties": {
@@ -7178,6 +7664,28 @@
         "required": ["commandId", "expectedVersion", "action", "carId"],
         "title": "LinkEnquiryCar"
       },
+      "LinkRequirement": {
+        "properties": {
+          "commandId": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Commandid"
+          },
+          "requirementId": {
+            "type": "string",
+            "title": "Requirementid"
+          },
+          "documentId": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Documentid"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["commandId", "requirementId", "documentId"],
+        "title": "LinkRequirement"
+      },
       "LoginInput": {
         "properties": {
           "dealerCode": {
@@ -7753,6 +8261,39 @@
         "type": "object",
         "required": ["commandId", "expectedVersion", "action", "lines"],
         "title": "ProposeRepairQuote"
+      },
+      "PublishDocumentPolicy": {
+        "properties": {
+          "commandId": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Commandid"
+          },
+          "expectedVersion": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Expectedversion"
+          },
+          "rules": {
+            "items": {
+              "$ref": "#/components/schemas/DocumentRule-Input"
+            },
+            "type": "array",
+            "maxItems": 100,
+            "minItems": 1,
+            "title": "Rules"
+          },
+          "reason": {
+            "type": "string",
+            "maxLength": 1000,
+            "minLength": 3,
+            "title": "Reason"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["commandId", "expectedVersion", "rules", "reason"],
+        "title": "PublishDocumentPolicy"
       },
       "Purchase": {
         "properties": {
@@ -9381,6 +9922,137 @@
         ],
         "title": "ReportAmounts"
       },
+      "Requirement": {
+        "properties": {
+          "rule": {
+            "$ref": "#/components/schemas/DocumentRule-Output"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["missing", "pending", "rejected", "accepted"],
+            "title": "Status"
+          },
+          "documentId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Documentid"
+          },
+          "documentTitle": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Documenttitle"
+          },
+          "reviewedByName": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reviewedbyname"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "rule",
+          "status",
+          "documentId",
+          "documentTitle",
+          "reviewedByName"
+        ],
+        "title": "Requirement"
+      },
+      "RequirementSet": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "stage": {
+            "type": "string",
+            "enum": ["purchase", "intake", "sale", "delivery"],
+            "title": "Stage"
+          },
+          "bookingId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bookingid"
+          },
+          "bookingLabel": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bookinglabel"
+          },
+          "locked": {
+            "type": "boolean",
+            "title": "Locked",
+            "default": false
+          },
+          "policyVersion": {
+            "type": "integer",
+            "title": "Policyversion"
+          },
+          "enforced": {
+            "type": "boolean",
+            "title": "Enforced"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/Requirement"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "clear": {
+            "type": "boolean",
+            "title": "Clear"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "stage",
+          "bookingId",
+          "bookingLabel",
+          "locked",
+          "policyVersion",
+          "enforced",
+          "items",
+          "clear"
+        ],
+        "title": "RequirementSet"
+      },
       "ResetStaffSecret": {
         "properties": {
           "action": {
@@ -9729,6 +10401,16 @@
       },
       "SaleBooking": {
         "properties": {
+          "warrantyConfiguration": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/WarrantyConfiguration-Output"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "id": {
             "type": "string",
             "format": "uuid",
@@ -9829,6 +10511,7 @@
         "additionalProperties": false,
         "type": "object",
         "required": [
+          "warrantyConfiguration",
           "id",
           "customerName",
           "customerPhone",
@@ -10233,6 +10916,11 @@
             "type": "string",
             "const": "start",
             "title": "Action"
+          },
+          "commitsSpend": {
+            "type": "boolean",
+            "title": "Commitsspend",
+            "default": false
           }
         },
         "additionalProperties": false,
@@ -11033,16 +11721,10 @@
               {
                 "items": {
                   "type": "string",
-                  "enum": [
-                    "inspector",
-                    "coordinator",
-                    "supervisor",
-                    "manager",
-                    "sales"
-                  ]
+                  "enum": ["inspector", "supervisor"]
                 },
                 "type": "array",
-                "maxItems": 5,
+                "maxItems": 1,
                 "minItems": 1
               },
               {
@@ -11589,8 +12271,160 @@
         ],
         "title": "WarrantyClaim"
       },
+      "WarrantyConfiguration-Input": {
+        "properties": {
+          "durationMonths": {
+            "type": "integer",
+            "enum": [3, 6, 12],
+            "title": "Durationmonths"
+          },
+          "coveredComponents": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 40,
+            "minItems": 1,
+            "title": "Coveredcomponents"
+          },
+          "exclusions": {
+            "type": "string",
+            "maxLength": 2000,
+            "title": "Exclusions",
+            "default": ""
+          },
+          "terms": {
+            "type": "string",
+            "maxLength": 3000,
+            "minLength": 3,
+            "title": "Terms"
+          },
+          "provider": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Provider"
+          },
+          "policyReference": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Policyreference"
+          },
+          "odometerLimitKm": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 3000000.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Odometerlimitkm"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "durationMonths",
+          "coveredComponents",
+          "terms",
+          "provider",
+          "policyReference"
+        ],
+        "title": "WarrantyConfiguration"
+      },
+      "WarrantyConfiguration-Output": {
+        "properties": {
+          "durationMonths": {
+            "type": "integer",
+            "enum": [3, 6, 12],
+            "title": "Durationmonths"
+          },
+          "coveredComponents": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 40,
+            "minItems": 1,
+            "title": "Coveredcomponents"
+          },
+          "exclusions": {
+            "type": "string",
+            "maxLength": 2000,
+            "title": "Exclusions",
+            "default": ""
+          },
+          "terms": {
+            "type": "string",
+            "maxLength": 3000,
+            "minLength": 3,
+            "title": "Terms"
+          },
+          "provider": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Provider"
+          },
+          "policyReference": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Policyreference"
+          },
+          "odometerLimitKm": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 3000000.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Odometerlimitkm"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "durationMonths",
+          "coveredComponents",
+          "exclusions",
+          "terms",
+          "provider",
+          "policyReference",
+          "odometerLimitKm"
+        ],
+        "title": "WarrantyConfiguration"
+      },
       "WarrantyTerms-Input": {
         "properties": {
+          "durationMonths": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "enum": [3, 6, 12]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Durationmonths"
+          },
+          "coveredComponents": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 40,
+            "title": "Coveredcomponents"
+          },
           "provider": {
             "type": "string",
             "maxLength": 120,
@@ -11652,6 +12486,26 @@
       },
       "WarrantyTerms-Output": {
         "properties": {
+          "durationMonths": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "enum": [3, 6, 12]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Durationmonths"
+          },
+          "coveredComponents": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 40,
+            "title": "Coveredcomponents"
+          },
           "provider": {
             "type": "string",
             "maxLength": 120,
@@ -11710,6 +12564,8 @@
         "additionalProperties": false,
         "type": "object",
         "required": [
+          "durationMonths",
+          "coveredComponents",
           "provider",
           "policyReference",
           "exclusions",

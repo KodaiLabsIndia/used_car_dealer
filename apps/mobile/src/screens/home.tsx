@@ -34,7 +34,7 @@ import { useResource } from "../state/use-resource";
 export function HomeScreen({ navigation, route }: ScreenProps<"Home">) {
   const { session, api, t, language } = useApp(),
     owner = can(session!.actor, "overview"),
-    financialOwner = session!.actor.role === "owner",
+    financialOwner = can(session!.actor, "finance"),
     resource = useResource("dashboard", () => api.dashboard());
   const purchaseInbox = useResource(`purchase-inbox:${owner}`, () =>
     financialOwner ? api.purchases(true) : Promise.resolve([]),

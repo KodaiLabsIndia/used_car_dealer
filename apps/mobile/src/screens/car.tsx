@@ -1,3 +1,4 @@
+import { can } from "../application/access";
 import React from "react";
 import { ActivityIndicator, Image, RefreshControl, View } from "react-native";
 import { colors } from "@arihant/design-tokens";
@@ -22,7 +23,7 @@ import { useSection } from "../state/use-section";
 export function CarScreen({ route, navigation }: ScreenProps<"Car">) {
   const { api, t, language, session } = useApp(),
     hi = language === "hi",
-    owner = session!.actor.role === "owner";
+    owner = can(session!.actor, "finance");
   const resource = useResource(`car:${route.params.id}`, () =>
     api.car(route.params.id),
   );
@@ -86,17 +87,16 @@ export function CarScreen({ route, navigation }: ScreenProps<"Car">) {
           }
           footer={
             <ActionRow>
-              {owner ? (
-                <Button
-                  label={hi ? "खरीद" : "Purchase"}
-                  secondary
-                  icon="wallet-outline"
-                  onPress={() =>
-                    navigation.navigate("Purchase", { carId: car.id })
-                  }
-                  style={{ flex: 1 }}
-                />
-              ) : null}
+              <Button
+                label={hi ? "खरीद" : "Purchase"}
+                secondary
+                icon="wallet-outline"
+                onPress={() =>
+                  navigation.navigate("Purchase", { carId: car.id })
+                }
+                style={{ flex: 1 }}
+              />
+
               <Button
                 label={hi ? "काम खोलें" : "Open work"}
                 icon="clipboard-outline"
@@ -200,16 +200,14 @@ export function CarScreen({ route, navigation }: ScreenProps<"Car">) {
             icon="key-outline"
             onPress={() => navigation.navigate("Stock", { carId: car.id })}
           />
+          <Button
+            secondary
+            label={hi ? "निजी कागज़ात और बिल" : "Private documents & bills"}
+            icon="documents-outline"
+            onPress={() => navigation.navigate("Documents", { carId: car.id })}
+          />
           {owner ? (
             <>
-              <Button
-                secondary
-                label={hi ? "निजी कागज़ात और बिल" : "Private documents & bills"}
-                icon="documents-outline"
-                onPress={() =>
-                  navigation.navigate("Documents", { carId: car.id })
-                }
-              />
               <Button
                 secondary
                 label={

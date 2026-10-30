@@ -3,8 +3,8 @@ import io
 
 from sqlalchemy import text
 
+from app.domain.access import require
 from app.domain.errors import BusinessError
-from app.domain.workshop_policy import require_owner
 from app.report_contracts import OperationsReport, ReportAmounts
 
 # Invoices already post one cost ledger entry. Payments and advances stay separate.
@@ -62,7 +62,7 @@ class ReportStore:
         self.engine = engine
 
     def operations(self, actor, scope="all", search="", limit=30, offset=0):
-        require_owner(actor)
+        require(actor, "finance")
         with self.engine.connect().execution_options(isolation_level="REPEATABLE READ") as conn:
             with conn.begin():
                 cutoff = conn.execute(text("SELECT now()")).scalar_one()

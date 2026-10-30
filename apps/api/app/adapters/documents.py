@@ -11,8 +11,8 @@ from app.adapters.operations import rows
 from app.adapters.workflows import WorkflowStore
 from app.contracts import Actor
 from app.document_contracts import Document, Documents, DocumentUpload, ReviewDocument
+from app.domain.access import require
 from app.domain.errors import BusinessError
-from app.domain.workshop_policy import require_owner
 
 SELECT_DOCUMENT = """SELECT d.recorded_by AS recorded_by_id,d.id,d.cycle_id AS car_id,d.category,d.title,d.reference,d.job_id,d.booking_id,d.supersedes_id,
     d.width,d.height,d.bytes,d.sha256,d.profile,u.name AS recorded_by_name,d.created_at,
@@ -29,7 +29,6 @@ class DocumentStore:
         self.workflows, self.engine, self.root = workflows, workflows.engine, root
 
     def get(self, actor: Actor, id: UUID, conn=None):
-        require_owner(actor)
         if conn is None:
             with self.engine.connect() as connection:
                 return self.get(actor, id, connection)
@@ -40,12 +39,12 @@ class DocumentStore:
         )
         if not result:
             raise BusinessError("NOT_FOUND", "This document is unavailable.", 404)
+        self.workflows.ops.work_car(actor, result[0]["car_id"], conn)
         return Document.model_validate(result[0])
 
     def list(self, actor: Actor, car_id: UUID, limit=30, offset=0):
-        require_owner(actor)
         with self.engine.connect() as conn:
-            car = self.workflows.ops.car(actor, car_id, conn)
+            car = self.workflows.ops.work_car(actor, car_id, conn)
             items = rows(
                 conn,
                 SELECT_DOCUMENT
@@ -69,7 +68,6 @@ class DocumentStore:
         return document, path
 
     def save(self, actor: Actor, car_id: UUID, id: UUID, body: DocumentUpload, data: bytes):
-        require_owner(actor)
         metadata = inspect_photo(data)
         if not body.title.strip():
             raise BusinessError("TITLE_REQUIRED", "Give this page a short title.")
@@ -83,6 +81,7 @@ class DocumentStore:
         path = self.root / key
         try:
             with self.engine.begin() as conn:
+                self.workflows.ops.work_car(actor, car_id, conn)
                 self.workflows.lock_car(conn, actor, car_id)
                 prior = rows(
                     conn,
@@ -159,7 +158,7 @@ class DocumentStore:
             raise
 
     def review(self, actor: Actor, id: UUID, body: ReviewDocument):
-        require_owner(actor)
+        require(actor, "finance")
 
         def authorize(conn):
             document = self.get(actor, id, conn)

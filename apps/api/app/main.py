@@ -21,6 +21,7 @@ from starlette.exceptions import HTTPException
 from app.adapters.catalogue import CatalogueStore
 from app.adapters.checklists import ChecklistStore
 from app.adapters.commercial import CommercialStore
+from app.adapters.company import CompanyStore
 from app.adapters.database import create_database
 from app.adapters.decisions import DecisionStore
 from app.adapters.documents import DocumentStore
@@ -62,6 +63,7 @@ from app.http.body_limit import BodyLimitMiddleware
 from app.http.catalogue import mount_catalogue
 from app.http.checklists import mount_checklists
 from app.http.commercial import mount_commercial
+from app.http.company import mount_company
 from app.http.documents import mount_documents
 from app.http.enquiries import mount_enquiries
 from app.http.identity import mount_identity
@@ -200,6 +202,7 @@ def create_app(settings: Settings | None = None, engine: Engine | None = None) -
     mount_stock(app, authenticated, StockStore(workflow_store))
     document_store = DocumentStore(workflow_store, settings.media_path)
     mount_documents(app, authenticated, document_store)
+    mount_company(app, authenticated, CompanyStore(workflow_store))
     purchase_store = PurchaseStore(workflow_store)
     commercial_store = CommercialStore(purchase_store)
     assistant_store, assistant_runner = compose_assistant(

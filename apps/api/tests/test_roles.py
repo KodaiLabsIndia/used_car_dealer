@@ -14,18 +14,18 @@ def roles(engine, values):
         )
 
 
-def test_manager_sees_operations_and_can_intake_but_not_finances_or_accounts(workspace):
+def test_legacy_manager_maps_to_supervisor_operations_and_finance_but_not_company_admin(workspace):
     client, engine, owner, employee = workspace
     roles(engine, ["manager"])
     assert checked(client.get("/v1/me", headers=employee))["workRoles"] == ["manager"]
     assert len(checked(client.get("/v1/cars", headers=employee))["items"]) == 2
     assert client.get("/v1/people", headers=employee).status_code == 200
     assert client.get("/v1/team", headers=employee).status_code == 403
-    assert client.get("/v1/purchases", headers=employee).status_code == 403
-    assert client.get("/v1/business", headers=employee).status_code == 403
+    assert client.get("/v1/purchases", headers=employee).status_code == 200
+    assert client.get("/v1/business", headers=employee).status_code == 200
     result, _ = create_car(client, employee, registration="ROLE1234")
     car = checked(result, 201)["car"]
-    assert client.get(f"/v1/cars/{car['id']}/business", headers=employee).status_code == 403
+    assert client.get(f"/v1/cars/{car['id']}/business", headers=employee).status_code == 200
     with engine.begin() as conn:
         conn.execute(
             text(
@@ -40,7 +40,7 @@ def test_manager_sees_operations_and_can_intake_but_not_finances_or_accounts(wor
             },
         )
     history = checked(client.get(f"/v1/cars/{car['id']}/history", headers=employee))["items"]
-    assert not any(x["action"].startswith("purchase.") for x in history)
+    assert any(x["action"] == "purchase.payment" for x in history)
     own_history = checked(client.get(f"/v1/cars/{car['id']}/history", headers=owner))["items"]
     assert any(x["action"] == "purchase.payment" for x in own_history)
 
@@ -63,8 +63,9 @@ def test_supervisor_review_and_staff_independent_review_requirement(workspace):
 def test_coordinator_cannot_review_or_intake_and_combined_roles_work(workspace):
     client, engine, owner, employee = workspace
     roles(engine, ["coordinator"])
-    assert client.get("/v1/workshops", headers=employee).status_code == 200
-    assert create_car(client, employee, registration="ROLE2468")[0].status_code == 403
+    assert client.get("/v1/workshops", headers=employee).status_code == 403
+    _, body = create_car(client, owner, registration="ROLE2468")
+    assert client.post("/v1/cars", headers=employee, json=body).status_code == 403
     task = checked(client.get(f"/v1/tasks/{IDS['employee_task']}", headers=employee))
     assert (
         command(client, employee, task["id"], "review", task["version"], decision="accept").status_code == 403

@@ -10,7 +10,7 @@ from app.adapters.car_state import refresh_car_work
 from app.adapters.command_transaction import CommandTransaction
 from app.adapters.operations import OperationsStore, actor_params, rows
 from app.contracts import Actor, Task, VehicleConfiguration
-from app.domain.access import require
+from app.domain.access import can, require
 from app.domain.errors import BusinessError
 from app.domain.inspection import resolve_checks
 from app.domain.workshop_policy import JobPlan
@@ -274,6 +274,9 @@ class WorkflowStore:
                 assignedTo=str(body.assigned_to),
                 stockNumber=f"AC-{stock:05d}",
             )
+            from app.adapters.company import CompanyStore
+
+            CompanyStore(self).assign_in_transaction(conn, actor, car_id, "intake")
             return CarCreated(car=self.ops.car(actor, car_id, conn), task=self.ops.task(actor, task_id, conn))
 
         return self.commands.run(actor, body.command_id, "car.create", body, CarCreated, execute)
@@ -563,7 +566,7 @@ class WorkflowStore:
                 raise BusinessError(
                     "VERSION_CONFLICT", "This repair changed. Refresh to see the latest work.", 409
                 )
-            if command.action == "start":
+            if command.action == "start" and command.commits_spend:
                 quote = rows(
                     conn,
                     """SELECT COALESCE(a.decision,'pending') AS decision FROM repair_quotes q
@@ -571,10 +574,10 @@ class WorkflowStore:
                     WHERE q.company_id=:company AND q.job_id=:job ORDER BY revision DESC LIMIT 1""",
                     {"company": actor.company_id, "job": job_id},
                 )
-                if quote and quote[0]["decision"] != "approved":
+                if not quote or quote[0]["decision"] != "approved":
                     raise BusinessError(
                         "QUOTE_APPROVAL_REQUIRED",
-                        "The latest repair quote needs owner approval before work starts.",
+                        "Spending needs an approved current quote. You can log work without committing money.",
                         409,
                     )
             plan = planner(current)
@@ -696,9 +699,9 @@ class WorkflowStore:
                 FROM audit_events e JOIN users u ON u.id=e.actor_id AND u.company_id=e.company_id
                 WHERE e.company_id=:company AND e.aggregate_id=:car
                 AND (:finance OR (e.action NOT LIKE 'purchase.%' AND e.action NOT LIKE 'business.%' AND e.action NOT LIKE 'service_finance.%')) ORDER BY e.created_at DESC,e.id DESC LIMIT 100""",
-                {"company": actor.company_id, "car": car_id, "finance": actor.role == "owner"},
+                {"company": actor.company_id, "car": car_id, "finance": can(actor, "finance")},
             )
-            if actor.role == "owner":
+            if can(actor, "finance"):
                 system = rows(
                     conn,
                     "SELECT id,'Automation' AS actor_name,action,created_at,jsonb_build_object('summary',summary) AS details FROM system_events WHERE company_id=:company AND aggregate_id=:car ORDER BY created_at DESC,id DESC LIMIT 100",

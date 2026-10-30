@@ -35,7 +35,19 @@ class SaleDocuments(Contract):
     sale_agreement_reference: str = Field(default="", max_length=120)
 
 
+class WarrantyConfiguration(Contract):
+    duration_months: Literal[3, 6, 12]
+    covered_components: list[str] = Field(min_length=1, max_length=40)
+    exclusions: str = Field(default="", max_length=2000)
+    terms: str = Field(min_length=3, max_length=3000)
+    provider: str = Field(min_length=1, max_length=120)
+    policy_reference: str = Field(min_length=1, max_length=120)
+    odometer_limit_km: Annotated[StrictInt, Field(ge=0, le=3000000)] | None = None
+
+
 class WarrantyTerms(Contract):
+    duration_months: Literal[3, 6, 12] | None = None
+    covered_components: list[str] = Field(default_factory=list, max_length=40)
     provider: str = Field(default="", max_length=120)
     policy_reference: str = Field(default="", max_length=120)
     exclusions: str = Field(default="", max_length=2000)
@@ -65,6 +77,7 @@ class TransferRecord(Contract):
 
 
 class SaleBooking(Contract):
+    warranty_configuration: WarrantyConfiguration | None = None
     id: UUID
     customer_name: str
     customer_phone: str
@@ -190,6 +203,12 @@ class CheckSaleDocuments(CommandBase):
     documents: SaleDocuments
 
 
+class ConfigureWarranty(CommandBase):
+    action: Literal["configure_warranty"]
+    booking_id: UUID
+    warranty: WarrantyConfiguration
+
+
 class DeliverVehicle(CommandBase):
     key_count: Annotated[StrictInt, Field(ge=0, le=10)]
     accessories: str = Field(default="", max_length=1000)
@@ -241,6 +260,7 @@ BusinessCommand = Annotated[
     | ExtendBooking
     | SaleMoney
     | CheckSaleDocuments
+    | ConfigureWarranty
     | DeliverVehicle
     | CompleteOwnershipTransfer
     | OpenWarrantyClaim

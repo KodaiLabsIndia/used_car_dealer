@@ -1,3 +1,4 @@
+import { can } from "../application/access";
 import React, { useState } from "react";
 import {
   ActivityIndicator,
@@ -58,6 +59,7 @@ type FormKind =
   | "sale_refund"
   | "sale_documents"
   | "deliver"
+  | "configure_warranty"
   | "complete_transfer"
   | "open_claim"
   | "review_claim"
@@ -102,6 +104,7 @@ function Money({
   );
 }
 const readinessHindi: Record<string, string> = {
+  document_requirements: "ज़रूरी दस्तावेज़ की समीक्षा मंज़ूर",
   purchase: "खरीद समझौता दर्ज",
   receipt: "गाड़ी प्राप्त हुई",
   documents: "मालिकाना और लोन जाँच पूरी",
@@ -115,7 +118,7 @@ export function BusinessScreen({ route, navigation }: ScreenProps<"Business">) {
   const { api, session, language, changed } = useApp(),
     hi = language === "hi",
     carId = route.params.carId,
-    owner = session!.actor.role === "owner";
+    owner = can(session!.actor, "finance");
   const resource = useResource(`business:${carId}`, () =>
     api.vehicleBusiness(carId),
   );
@@ -147,6 +150,10 @@ export function BusinessScreen({ route, navigation }: ScreenProps<"Business">) {
     sale_receipt: tr("Record buyer receipt", "खरीदार से मिली रकम"),
     sale_refund: tr("Record buyer refund", "खरीदार को वापसी दर्ज करें"),
     sale_documents: tr("Delivery documents", "डिलीवरी दस्तावेज़"),
+    configure_warranty: tr(
+      "Configure this car’s warranty",
+      "इस गाड़ी की वारंटी तय करें",
+    ),
     deliver: tr("Record physical delivery", "गाड़ी की डिलीवरी दर्ज करें"),
     complete_transfer: tr(
       "Record ownership transfer",
@@ -332,6 +339,69 @@ export function BusinessScreen({ route, navigation }: ScreenProps<"Business">) {
           ),
         ]),
       ];
+    if (f.kind === "configure_warranty") {
+      const w = b?.warrantyConfiguration;
+      steps = [
+        step("Duration", "अवधि", [
+          {
+            key: "duration",
+            label: tr("Warranty duration", "वारंटी की अवधि"),
+            kind: "select",
+            initial: w ? String(w.durationMonths) : "",
+            options: [3, 6, 12].map((n) => ({
+              id: String(n),
+              label: `${n} ${tr("months", "महीने")}`,
+            })),
+          },
+        ]),
+        step("Coverage", "कवरेज", [
+          field(
+            "components",
+            "Covered components · separate with commas",
+            "शामिल हिस्से · कॉमा से अलग करें",
+            "text",
+            w?.coveredComponents.join(", "),
+          ),
+          field(
+            "exclusions",
+            "Exclusions / limits",
+            "अपवाद / सीमाएँ",
+            "text",
+            w?.exclusions,
+          ),
+          field(
+            "terms",
+            "Written coverage notes / terms",
+            "कवरेज के लिखित नोट / शर्तें",
+            "text",
+            w?.terms,
+          ),
+        ]),
+        step("Issued by", "वारंटी देने वाला", [
+          field(
+            "provider",
+            "Warranty provider",
+            "वारंटी देने वाला",
+            "text",
+            w?.provider,
+          ),
+          field(
+            "policy",
+            "Written policy reference",
+            "लिखित पॉलिसी संदर्भ",
+            "text",
+            w?.policyReference,
+          ),
+          field(
+            "kmLimit",
+            "Absolute odometer limit · optional",
+            "अंतिम ओडोमीटर सीमा · वैकल्पिक",
+            "number",
+            w?.odometerLimitKm?.toString(),
+          ),
+        ]),
+      ];
+    }
     if (f.kind === "deliver")
       steps = [
         step("Handover", "डिलीवरी", [
@@ -367,48 +437,18 @@ export function BusinessScreen({ route, navigation }: ScreenProps<"Business">) {
             "बाकी वादे / अगला संपर्क",
           ),
         ]),
-        step("Issued policy", "जारी वारंटी", [
-          field(
-            "provider",
-            "Warranty provider · leave blank if none",
-            "वारंटी देने वाला · न हो तो खाली रखें",
-          ),
-          field(
-            "policy",
-            "Policy version / written reference",
-            "पॉलिसी संस्करण / लिखित संदर्भ",
-          ),
-          field(
-            "exclusions",
-            "Issued exclusions / limits",
-            "जारी अपवाद / सीमाएँ",
-          ),
-        ]),
-        step("Warranty", "वारंटी", [
-          field(
-            "until",
-            "Issued warranty ends",
-            "जारी वारंटी की अंतिम तारीख",
-            "date",
-          ),
-          field(
-            "kmLimit",
-            "Warranty absolute odometer limit (optional)",
-            "वारंटी की अंतिम ओडोमीटर रीडिंग (वैकल्पिक)",
-            "number",
-          ),
-          field(
-            "terms",
-            "Actual issued warranty terms",
-            "जारी की गई वारंटी की शर्तें",
-          ),
-          field(
-            "noWarranty",
-            "No warranty is issued; customer acknowledgement recorded",
-            "वारंटी नहीं दी गई; ग्राहक की स्वीकृति दर्ज है",
-            "choice",
-          ),
-        ]),
+        ...(!b?.warrantyConfiguration
+          ? [
+              step("No warranty", "बिना वारंटी", [
+                field(
+                  "noWarranty",
+                  "No warranty is issued; customer acknowledgement recorded",
+                  "वारंटी नहीं दी गई; ग्राहक की स्वीकृति दर्ज है",
+                  "choice",
+                ),
+              ]),
+            ]
+          : []),
         step("Confirm", "पुष्टि", [
           field(
             "customerAck",
@@ -490,12 +530,14 @@ export function BusinessScreen({ route, navigation }: ScreenProps<"Business">) {
       title: labels[f.kind],
       submitLabel: tr("Review & record", "जाँचकर दर्ज करें"),
       note:
-        f.kind === "sale_receipt" || f.kind === "sale_refund"
-          ? tr(
-              "Record a completed payment. This app does not move money.",
-              "पूरा हो चुका भुगतान दर्ज करें। ऐप रकम नहीं भेजता है।",
-            )
-          : undefined,
+        f.kind === "deliver" && b?.warrantyConfiguration
+          ? `${b.warrantyConfiguration.durationMonths} ${tr("months from delivery", "महीने · डिलीवरी से")}\n${b.warrantyConfiguration.coveredComponents.join(" · ")}\n${b.warrantyConfiguration.exclusions}\n${b.warrantyConfiguration.terms}\n${b.warrantyConfiguration.provider} · ${b.warrantyConfiguration.policyReference}`
+          : f.kind === "sale_receipt" || f.kind === "sale_refund"
+            ? tr(
+                "Record a completed payment. This app does not move money.",
+                "पूरा हो चुका भुगतान दर्ज करें। ऐप रकम नहीं भेजता है।",
+              )
+            : undefined,
       steps,
     };
   }
@@ -601,6 +643,24 @@ export function BusinessScreen({ route, navigation }: ScreenProps<"Business">) {
           bookingId: f.bookingId!,
           expiresAt: future("expiry"),
           reason: values.reason ?? "",
+        };
+        break;
+      case "configure_warranty":
+        payload = {
+          action: "configure_warranty",
+          bookingId: f.bookingId!,
+          warranty: {
+            durationMonths: Number(values.duration) as 3 | 6 | 12,
+            coveredComponents: (values.components ?? "")
+              .split(/[\n,]/)
+              .map((s) => s.trim())
+              .filter(Boolean),
+            exclusions: values.exclusions ?? "",
+            terms: values.terms ?? "",
+            provider: values.provider ?? "",
+            policyReference: values.policy ?? "",
+            odometerLimitKm: values.kmLimit?.trim() ? integer("kmLimit") : null,
+          },
         };
         break;
       case "deliver":
@@ -1041,8 +1101,31 @@ export function BusinessScreen({ route, navigation }: ScreenProps<"Business">) {
             ) : section === "delivery" && booking?.status === "booked" ? (
               <Button
                 label={labels.deliver}
-                onPress={() => open("deliver", { bookingId: booking.id })}
+                onPress={() =>
+                  booking.warrantyConfiguration
+                    ? open("deliver", { bookingId: booking.id })
+                    : setSection("warranty")
+                }
               />
+            ) : section === "warranty" && booking?.status === "booked" ? (
+              <ActionRow>
+                <Button
+                  label={labels.configure_warranty}
+                  onPress={() =>
+                    open("configure_warranty", { bookingId: booking.id })
+                  }
+                />
+                {!booking.warrantyConfiguration ? (
+                  <Button
+                    secondary
+                    label={tr(
+                      "Handover without warranty",
+                      "बिना वारंटी डिलीवरी",
+                    )}
+                    onPress={() => open("deliver", { bookingId: booking.id })}
+                  />
+                ) : null}
+              </ActionRow>
             ) : section === "warranty" && booking?.status === "delivered" ? (
               <Button
                 label={labels.open_claim}
@@ -1107,6 +1190,35 @@ export function BusinessScreen({ route, navigation }: ScreenProps<"Business">) {
                 onPress={() => navigation.navigate("Car", { id: carId })}
               />
             </>
+          ) : null}
+          {section === "warranty" && booking?.status === "booked" ? (
+            <Panel>
+              <Text style={s.label}>
+                {tr("This car’s warranty", "इस गाड़ी की वारंटी")}
+              </Text>
+              {booking.warrantyConfiguration ? (
+                <>
+                  <Text>
+                    {booking.warrantyConfiguration.durationMonths}{" "}
+                    {tr("months from delivery", "महीने · डिलीवरी से")}
+                  </Text>
+                  <Text>
+                    {booking.warrantyConfiguration.coveredComponents.join(
+                      " · ",
+                    )}
+                  </Text>
+                  <Text>{booking.warrantyConfiguration.exclusions}</Text>
+                  <Text>{booking.warrantyConfiguration.terms}</Text>
+                </>
+              ) : (
+                <Text>
+                  {tr(
+                    "Choose duration and covered components for this sale. Nothing is selected automatically.",
+                    "इस बिक्री के लिए अवधि और शामिल हिस्से चुनें। कुछ भी अपने आप नहीं चुना जाता।",
+                  )}
+                </Text>
+              )}
+            </Panel>
           ) : null}
           {section === "costs" ? (
             <>
@@ -1327,6 +1439,18 @@ export function BusinessScreen({ route, navigation }: ScreenProps<"Business">) {
                           "वारंटी नहीं दी गई; स्वीकृति दर्ज है।",
                         )}
                   </Text>
+                  {booking.delivery.warranty.durationMonths ? (
+                    <Text>
+                      {booking.delivery.warranty.durationMonths}{" "}
+                      {tr("months from delivery", "महीने · डिलीवरी से")}
+                    </Text>
+                  ) : null}
+                  {booking.delivery.warranty.coveredComponents.length ? (
+                    <Text>
+                      {booking.delivery.warranty.coveredComponents.join(" · ")}
+                    </Text>
+                  ) : null}
+                  <Text>{booking.delivery.warranty.exclusions}</Text>
                   <Text>{booking.delivery.warranty.terms}</Text>
                 </Panel>
               ) : (

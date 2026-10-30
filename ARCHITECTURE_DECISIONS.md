@@ -182,14 +182,46 @@ Task creation snapshots the selected template and version. Each submission and e
 
 Purchase application services call pure approval/payment/handover policies through a purchase-store port. The PostgreSQL adapter locks the stock cycle before the purchase, and commits the command receipt, business changes, audit and outbox together. One purchase belongs to one company stock cycle. Every saved terms version, approval, payment and payment correction is immutable. Approval snapshots retain the terms, inspection versions, actual actor and self-review flag. Changing terms invalidates approval; changing pre-purchase inspections invalidates an uncommitted approval. Once the agreement is recorded, the approved commitment remains payable; new findings use intake/service work rather than changing its historical inspection approval.
 
-Store INR amounts as integer paise, enforce strict integers and input bounds on the server, and parse user-entered rupees without floating-point multiplication. Expected contribution is resale minus purchase price, repair budget and direct-expense estimate. It remains a forecast; the implemented actual-cost ledger and cash records do not establish accounting profit without approved definitions. Purchase amounts, seller details and payment histories are owner-only; generic car timeline events omit those details.
+Store INR amounts as integer paise, enforce strict integers and input bounds on the server, and parse user-entered rupees without floating-point multiplication. Expected contribution is resale minus purchase price, repair budget and direct-expense estimate. It remains a forecast; the implemented actual-cost ledger and cash records do not establish accounting profit without approved definitions. Purchase proposals are accessible on assigned cars; financial authorization, company-wide financial history and reports belong to Owner/Supervisor. Generic employee timelines omit privileged financial details.
 
 A payment records an external transaction already completed. It does not initiate a transfer. Serialize writes per purchase, reject amounts above the outstanding balance, and reserve company/method/reference combinations under an advisory lock to prevent concurrent duplicate entries across cars. A mistaken-entry correction retains the original transaction, records its actor/reason, updates the net balance and releases the reference for a corrected entry. It is not a refund. Idempotent replays return the original receipt instead of appending another payment.
 
-Keep document clearance, signed agreement, recorded payment completion and physical receipt independent. Acquiring requires accepted inspection, current approval, recorded seller/registration/ownership checks, resolved loan-check state and an agreement reference. Physical handover records location, odometer, fuel, keys, condition and a reference, assigns an intake checklist to the selected person (including the owner), and optionally raises an open arrival issue. It moves the car into refurbishment while preserving booking state; it cannot declare readiness. Private normalized document pages can now be uploaded and reviewed; policy binding to those accepted pages remains open, so checkboxes/references are not independent documentary verification. Draft checklist acknowledgement is allowed only in development/test, with explicit owner acknowledgement; production business approval requires approved checklists.
+Keep document clearance, signed agreement, recorded payment completion and physical receipt independent. Acquiring requires accepted inspection, current approval, recorded seller/registration/ownership checks, resolved loan-check state and an agreement reference. Physical handover records location, odometer, fuel, keys, condition and a reference, assigns an intake checklist to the selected person (including the owner), and optionally raises an open arrival issue. It moves the car into refurbishment while preserving booking state; it cannot declare readiness. Private normalized document pages can now be uploaded and reviewed; published company document requirements now bind to accepted pages; checkboxes/references alone cannot satisfy a required page. Draft checklist acknowledgement is allowed only in development/test, with explicit owner acknowledgement; production business approval requires approved checklists.
 
 ## ADR-12: Native uploads and management reports
 
 The shared API client owns HTTP contracts and authentication/error handling. Platform media upload is an adapter: mobile streams app-private normalized files with Expo FileSystem multipart upload and a bounded cancellation timeout; web upload entry is disabled. No React Native file object is passed to a browser-style FormData implementation, and no complete video buffer crosses JavaScript. Draft state keys and resource-cache keys use separate namespaces.
 
 Owner reports use one repeatable-read database snapshot for matching stock, aggregate totals and cutoff. Monetary values remain integer paise. Invoices determine incurred operating cost; vendor payments determine cash movement and must not add that invoice cost again. Per-job outstanding balances/advances are calculated before aggregation so an advance on one job does not erase another job's debt. Corrections exclude their original entries without deleting history. CSV export is authenticated, private/no-store, bounded and formula-escaped. Financial totals are operational records rather than an unapproved accounting-profit calculation.
+
+
+## ADR-13: Company policy, work progress and issued terms have separate lifetimes
+
+Owner/Supervisor and Employee are the operational levels. New staff commands
+accept one of those working responsibilities; historical roles remain readable.
+A legacy manager is interpreted as supervisor, rather than adding a manager tier.
+Owner-only policy and identity administration remain explicit. API policies enforce
+authority independently of UI visibility; mobile/web share the capability mapping.
+Assigned employees can prepare proposals, request quotes and log private evidence
+without acquiring financial approval authority. Progress while a quote is pending
+does not approve the quote or its spending. The existing version, exact-quote,
+budget, transaction-locking, audit and command-receipt guards remain in force.
+
+Document rules are owner-published immutable company versions. A stage receives an
+immutable requirements snapshot, with separate sale scopes for each booking.
+Append-only links refer to real private documents; review state determines
+completion. Finalized bindings cannot be relinked. Starter version 0 is explicitly
+unpublished: it supports configuration without pretending to be approved company
+policy. Publication applies to new assignments and does not rewrite old ones.
+Applicability notes are instructions, not an automatic clearance or waiver.
+
+A car's current sale has a configurable warranty draft. Delivery issues a snapshot
+of that configuration, calculating 3/6/12 calendar months with month-end clamping
+from the persisted delivery timestamp. Reconfiguration is rejected for a closed
+booking. Later resales have independent sale records. Customer complaints are
+assessed against the original issued terms rather than today's defaults.
+
+Language is an individual preference, scoped to the authenticated user on the
+device. Stable check IDs and assigned evidence stay independent of display language.
+Marathi content fields are additive so historical bilingual snapshots remain
+readable. Missing translations are a release gap, not synthesized company facts.

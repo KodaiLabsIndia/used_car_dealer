@@ -73,8 +73,16 @@ class AssistantContext:
                     items = [
                         {
                             "id": i.id,
-                            "title": i.title_hi if body.language == "hi" else i.title,
-                            "instruction": i.instruction_hi if body.language == "hi" else i.instruction,
+                            "title": i.title_mr
+                            if body.language == "mr" and i.title_mr
+                            else i.title_hi
+                            if body.language == "hi"
+                            else i.title,
+                            "instruction": i.instruction_mr
+                            if body.language == "mr" and i.instruction_mr
+                            else i.instruction_hi
+                            if body.language == "hi"
+                            else i.instruction,
                             "required": i.required,
                         }
                         for i in task.items

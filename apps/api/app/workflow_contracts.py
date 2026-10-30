@@ -138,6 +138,7 @@ class CreateJob(CommandBase):
 
 class StartJob(CommandBase):
     action: Literal["start"]
+    commits_spend: bool = False
 
 
 class WaitForParts(CommandBase):

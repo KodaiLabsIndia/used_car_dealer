@@ -28,7 +28,7 @@ def actor_params(actor: Actor) -> dict:
     return {
         "company": actor.company_id,
         "owner": can(actor, "overview"),
-        "catalog": can(actor, "leads"),
+        "catalog": can(actor, "stock_catalog"),
         "actor": actor.id,
     }
 
@@ -50,6 +50,20 @@ class OperationsStore:
                 {"hash": hashlib.sha256(token.encode()).hexdigest()},
             )
             return Actor.model_validate(data[0]) if data else None
+
+    def work_car(self, actor: Actor, car_id: UUID, conn=None) -> Car:
+        """Private work records need an assignment, not catalogue-only visibility."""
+        if conn is None:
+            with self.engine.connect() as connection:
+                return self.work_car(actor, car_id, connection)
+        data = rows(
+            conn,
+            CAR_SELECT + " WHERE " + VISIBILITY + " AND s.id=:id",
+            actor_params(actor) | {"catalog": False, "id": car_id},
+        )
+        if not data:
+            raise BusinessError("NOT_FOUND", "This car's work records are unavailable.", 404)
+        return Car.model_validate(data[0])
 
     def list_cars(
         self,

@@ -2,8 +2,8 @@ from dataclasses import dataclass
 from datetime import datetime, timedelta
 
 from app.contracts import Actor
+from app.domain.access import require
 from app.domain.errors import BusinessError
-from app.domain.workshop_policy import require_owner
 from app.purchase_contracts import Purchase, PurchaseCommand, PurchaseDocuments, PurchaseTerms
 
 
@@ -62,7 +62,8 @@ def plan_purchase_command(
     now: datetime,
     allow_draft_inspections: bool = False,
 ) -> PurchasePlan:
-    require_owner(actor)
+    if command.action in ("review", "payment", "reverse_payment", "acquire"):
+        require(actor, "finance")
     if purchase.company_id != actor.company_id:
         raise BusinessError("NOT_FOUND", "This purchase is unavailable.", 404)
     status = purchase.status

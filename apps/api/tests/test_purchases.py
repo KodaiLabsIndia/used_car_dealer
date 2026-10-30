@@ -90,9 +90,9 @@ def test_purchase_permissions_replay_and_original_terms(workspace):
         == 409
     )
     assert client.get("/v1/purchases", headers=employee).status_code == 403
-    assert client.get(f"/v1/cars/{car_id}/purchase", headers=employee).status_code == 403
-    assert client.get(f"/v1/purchases/{purchase['id']}", headers=employee).status_code == 403
-    assert purchase_command(client, employee, purchase, "submit").status_code == 403
+    assert client.get(f"/v1/cars/{car_id}/purchase", headers=employee).status_code == 404
+    assert client.get(f"/v1/purchases/{purchase['id']}", headers=employee).status_code == 404
+    assert purchase_command(client, employee, purchase, "submit").status_code == 404
     assert purchase["expectedContributionPaise"] == 13499975
     assert len(purchase["revisions"]) == 1
     other_company, other_owner = uuid4(), uuid4()

@@ -24,6 +24,7 @@ class CommercialService:
         self.allow_draft_checklists = allow_draft_checklists
 
     def run(self, actor: Actor, car_id: UUID, command: BusinessCommand) -> VehicleBusiness:
+        command = command.model_copy(deep=True)
         now = datetime.now(UTC)
         return self.store.execute(
             actor,

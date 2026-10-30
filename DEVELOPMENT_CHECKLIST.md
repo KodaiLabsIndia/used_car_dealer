@@ -35,21 +35,21 @@ References: [operations plan](ARIHANT_OPERATIONS_PLAN.md) · [AI and mobile prop
 
 - [ ] DEC-01 Record the single-release scope above, screen/module inventory, explicit exclusions, and the change-decision process.
 - [ ] DEC-02 Confirm branches, yards, staff, workshop network, stock volumes, concurrent users, and expected daily media volume.
-- [ ] DEC-03 Record who performs each responsibility, what the owner wants to do personally, initial delegations, and permission/approval limits.
-- [ ] DEC-04 Obtain Arihant's actual inspection checklist; define approved pre-purchase, intake, repair-QC, and delivery-PDI templates and versioning.
+- [x] DEC-03 Apply the confirmed two-tier family-business hierarchy: Owner/Supervisor and Employee. All work is logged; non-financial work continues during pending review; spending/financial commitments require one approval from owner or authorized supervisor. No separate manager tier or individual supervisor amount limits for now. Align reviewer assignment, UI and server permissions; see [company decisions](docs/COMPANY_DECISIONS.md).
+- [ ] DEC-04 Use the current comprehensive checklist as the confirmed initial baseline (229 checks in the demonstrated configuration), with later refinement controlled by the owner. Complete owner configuration and stage-specific pre-purchase, intake, repair-QC and delivery-PDI templates/versioning. A separate existing Arihant SOP is not a prerequisite to continuing; see [company decisions](docs/COMPANY_DECISIONS.md).
 - [ ] DEC-05 Define each checklist item's applicability, evidence type, measurements, severity, pass/fail rules, and not-applicable review requirements.
 - [ ] DEC-06 Define supported acquisition/sale types, including whether consignment and wholesale are required; specify supported exchange, cancellation, return, and buyback handling.
-- [ ] DEC-07 Define purchase handover requirements, document stages, seller payment process, and outstanding-loan follow-up where applicable.
+- [ ] DEC-07 Use standard starter document checklists configurable by the owner (stage, items, applicability, required/optional status), bound to actual uploaded/reviewed evidence. Complete purchase handover, seller payment and outstanding-loan rules where applicable; see [company decisions](docs/COMPANY_DECISIONS.md).
 - [ ] DEC-08 Define repair budget approval, quote revisions, extra work, QC acceptance, owner self-review attribution, and permitted non-safety exceptions.
 - [ ] DEC-09 Define availability, reservation expiry, booking deposits, discounts, cancellations/refunds, pre-readiness booking, and customer promises.
 - [ ] DEC-10 Define delivery clearance, required payment/document checks, ownership-transfer follow-up, and when outstanding obligations are closed.
-- [ ] DEC-11 Record issued warranty terms, provider/payer, duration/km rules, exclusions/limits, claim review, goodwill, reimbursements, and complaint escalation.
+- [ ] DEC-11 Record issued warranty terms. Confirmed: duration (initially 3, 6 or 12 months) and coverage/exclusions are configurable per car by Owner/Supervisor, retained in the sale's issued snapshot. Complete configuration implementation; confirm kilometre rules, provider/payer, claim review, goodwill, reimbursements and complaint escalation; see [company decisions](docs/COMPANY_DECISIONS.md).
 - [ ] DEC-12 Agree cost categories, currency/rounding, taxes/charges, deposits/advances, contributions, warranty reserve treatment, and reconciliation with accounts.
-- [ ] DEC-13 Confirm minimum Android/iOS devices/OS versions, desktop browsers, UI/dictation languages, offline instruction/audio packs, and assisted-enrollment needs; evaluate English/Hindi/Marathi candidates explicitly.
+- [ ] DEC-13 Support exactly Hindi, Marathi and English as confirmed. Complete Marathi UI/checklist editing and spoken/visual guidance alongside existing English/Hindi. Android phones/tablets and iPhone/iPad remain in scope; confirm minimum OS/hardware, browsers, offline audio packs and assisted enrollment; see [company decisions](docs/COMPANY_DECISIONS.md).
 - [ ] DEC-14 Agree release acceptance targets for response time, upload reliability, AI correction rates/latency, low-reading task comprehension/completion, accessibility, recovery, expected load, and AI spending limits.
 - [ ] DEC-15 Inventory records to migrate, document/media retention, initial users/vendors, production ownership, distribution accounts, and operating responsibilities.
 - [ ] DEC-16 Record media profile details beyond the fixed resolution rules: duration, bitrate, file-size/page budgets, JPEG quality, low-detail import handling, normalized-master retention, and temporary-source cleanup.
-- [ ] DEC-17 Arrange representative staff participation in design/acceptance across languages, reading ability, phone confidence, and job skills; set observable comprehension targets.
+- [ ] DEC-17 User says participation by one or two actual employees is possible. Confirm participants/devices/timing, arrange representative walkthroughs across Hindi/Marathi/English and reading/phone-skill levels, and record observable comprehension targets/results. Availability alone is not completed acceptance; see [company decisions](docs/COMPANY_DECISIONS.md).
 
 ## 2. Product design and usability — UX
 
@@ -379,20 +379,20 @@ These are the final completion conditions. Check them against working release-ca
 
 | IDs | Status and evidence |
 | --- | --- |
-| ENG-02/03 | Done: mobile/web/API/worker/shared contracts, 19 migrations, reproducible commands, formatting/lint/type checks, automated suite and CI configuration. Hosted CI has not run. |
+| ENG-02/03 | Done: mobile/web/API/worker/shared contracts, 21 migrations, reproducible commands, formatting/lint/type checks, automated suite and CI configuration. Hosted CI passed for the initial repository commit; subsequent batches need their own run. |
 | ENG-07/10, ARC-04/08/09 | Done for implemented commands: domain/import tests, PostgreSQL transactions/locks/constraints, durable receipts, current-version decisions, append-only history, transactional outbox/worker. |
 | IAM-05/07/08/09/12 | Done: one-account owner actions, explicit self-review, current-fact approvals, server-side object/action/media/document/export/AI/inbox scope; tests in identity, roles, integration, commercial, documents, assistant and reports. |
 | CAP-05/11/16/19 | Done: immutable normalized masters, required-photo/result gates, mobile JPEG normalization including document pages, actual-byte photo/video admission. Android native video evidence is linked in status. Cross-platform hardware and retention acceptance remain open. |
 | INS-03/05/06/07/09 | Done: owner-authored immutable checklist revisions/approval (migration 0019), immutable stage/template snapshots, linked failed findings deduplicated by item, selected-item return with reason and fresh evidence, owner direct work/review. See test_integration.py and domain policies. |
-| PUR-01/05 | Done: exact-paise valuation/forecast and independent approval/agreement/payment/document/physical-receipt facts. Private documents now exist; binding reviewed pages to policy and loan-resolution/allocation remain open. |
+| PUR-01/05 | Done: exact-paise valuation/forecast and independent approval/agreement/payment/document/physical-receipt facts. Reviewed pages now bind to versioned owner rules and gate acquisition; loan-resolution/allocation remain open. |
 | SRV-04/05/06 | Done: parallel jobs/readiness, itemized quote revisions, latest exact-version approval and fresh approval for revised work. See test_service_finance.py and service-finance mobile workspace. |
 | SAL-05/06 | Done: concurrent one-active-booking protection, durable retries, extension/expiry/cancellation and distinct bounded refund obligations. See test_commercial.py and notification worker tests. |
-| DEL-04/05 | Done: immutable delivered condition/odometer/keys/accessories/promises/actor and issued warranty/acknowledgement snapshot. Complete delivery preparation, document evidence policy and handover pack remain open. |
+| DEL-04/05 | Done: immutable delivered condition/odometer/keys/accessories/promises/actor and issued warranty/acknowledgement snapshot. Versioned document evidence policy and completion gates are implemented; complete delivery preparation and the handover pack remain open. |
 | WAR-03/06 | Done: date/km ambiguity and explicit missing-mileage review; warranty service preserves commercially sold state. Policy administration/referrals/reimbursements/closure remain open. |
 | AI-03/16/18 | Done foundation: permission-scoped structured drafts, source/field validation, durable jobs/failures, bounded context/output/concurrency/request budgets. Text smoke works; image quality failed. These checks do not complete any of the eight capability groups or AI-20. |
 | OPS-06 | Done local restore rehearsal: isolated synthetic purchase/payment/delivery/warranty-snapshot/document history, 18 table digests and 32 private media files matched after restore. Production scheduling/retention/RTO remain open. |
 | UX, CAR, OWN | In progress: focused tabs, Records entry points, all-business/work/decision views, consistent decision counts, custody, stock ageing and money reports. Business/payment dates use an English/Hindi calendar, including a 150% text layout check; appointments use date/hour/minute choices. Staff comprehension/device acceptance, complete reporting and web action parity remain open. |
-| IAM-01/03/04/10/11 | In progress: individual identity, reset/revocation/offboarding and five combinable operational responsibilities. Recovery, accounts/documentation roles, branch/spend scopes, privileged reauthentication and cache policy remain open. |
+| IAM-01/03/04/10/11 | In progress: individual identity, reset/revocation/offboarding and Employee/Supervisor working levels and owner-only company/account policy. Recovery, privileged reauthentication and cache policy remain open; no extra working tier or per-supervisor spending limits are required for the initial family-business setup. |
 | CAP-15/17/18/22, ENG-12 | In progress: Android native 720p import/camera preparation, actual video/document upload, force-stop restoration and partial-output cleanup verified. Branded development/bundled-preview APKs built; preview cold-launched without Metro. iOS source exists but full Xcode/native compilation and physical-device matrix are outstanding. |
 | FIN-01–09 | In progress: immutable costs, seller/vendor/buyer payments and corrections, owner scoped totals/export, no double-counting invoice/payments or netting unrelated job advances. Tax/contribution definitions, allocations/credits/reimbursements and period/vendor filters remain open. |
 | DEC, QA, OPS, REL, GATE | Open inputs/acceptance: real templates and policies, staff/device/language/quality targets, representative full journeys, production infrastructure, signed distribution and business acceptance. |
@@ -404,3 +404,14 @@ Continue independent implementation while business/device inputs are collected. 
 ### 30 October — responsive review and check media
 
 Implemented shared content-aware action wrapping, field/card reflow, content-sized tabs, short-screen dialogs, camera control reflow and compact inspection navigation. Photo and Video entry now appears for each check, with required proof and read-only access preserved. Follow-up review corrected narrow-screen footer crowding and the stacked identity banner. Emulator/browser evidence and the decoded synthetic photo/video check are in [the responsive review](docs/review/responsive/README.md). This does not close whole-device accessibility/staff acceptance or full-release gates.
+
+### 30 October — confirmed company rules implementation
+
+Implemented the two-tier hierarchy, supervisor financial approvals, non-financial
+work continuation, rich owner inspection rules/order/Marathi fields, owner-versioned
+document requirements with actual review-based gates, and per-sale 3/6/12-month
+coverage configuration with immutable issued terms. New company document rules
+must be reviewed/published; version-0 starters are not automatically enforced.
+Marathi core copy/preferences/date support is implemented; full screen/checklist
+translation, voice coverage and staff acceptance remain open. See the
+[implementation and verification record](docs/review/company-configuration/README.md).

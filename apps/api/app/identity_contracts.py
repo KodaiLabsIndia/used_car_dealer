@@ -38,7 +38,9 @@ class CreateStaff(Contract):
     name: str = Field(min_length=1, max_length=120)
     username: str = Field(pattern=r"^[a-zA-Z0-9._-]{2,40}$")
     temporary_secret: str = Field(min_length=8, max_length=200)
-    work_roles: list[WorkRole] = Field(default_factory=lambda: ["inspector"], min_length=1, max_length=5)
+    work_roles: list[Literal["inspector", "supervisor"]] = Field(
+        default_factory=lambda: ["inspector"], min_length=1, max_length=1
+    )
 
 
 class UpdateStaff(Contract):
@@ -47,7 +49,9 @@ class UpdateStaff(Contract):
     expected_version: int = Field(ge=1)
     name: str = Field(min_length=1, max_length=120)
     active: bool
-    work_roles: list[WorkRole] | None = Field(default=None, min_length=1, max_length=5)
+    work_roles: list[Literal["inspector", "supervisor"]] | None = Field(
+        default=None, min_length=1, max_length=1
+    )
 
 
 class ResetStaffSecret(Contract):

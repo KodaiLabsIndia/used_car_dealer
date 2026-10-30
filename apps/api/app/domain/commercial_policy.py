@@ -2,7 +2,9 @@ from datetime import datetime, timedelta
 
 from app.commercial_contracts import BusinessCommand, VehicleBusiness
 from app.contracts import Actor
+from app.domain.access import require as require_access
 from app.domain.errors import BusinessError
+from app.domain.warranty import validate_configuration
 
 
 def require(condition: bool, code: str, message: str):
@@ -17,8 +19,7 @@ def validate_business_command(
     now: datetime,
     allow_draft_checklists: bool = False,
 ):
-    if actor.role != "owner":
-        raise BusinessError("FORBIDDEN", "Ask the owner to make this change.", 403)
+    require_access(actor, "finance")
     require(
         current.car.version == command.expected_version,
         "VERSION_CONFLICT",
@@ -77,6 +78,7 @@ def validate_business_command(
             "Do not record a future payment or cost.",
         )
     if action in (
+        "configure_warranty",
         "cancel_booking",
         "sale_receipt",
         "sale_refund",
@@ -88,8 +90,10 @@ def validate_business_command(
         booking = next((b for b in current.bookings if b.id == command.booking_id), None)
         if not booking:
             raise BusinessError("NOT_FOUND", "This booking is unavailable.", 404)
-        if action in ("cancel_booking", "sale_receipt", "sale_documents", "deliver"):
+        if action in ("configure_warranty", "cancel_booking", "sale_receipt", "sale_documents", "deliver"):
             require(booking.status == "booked", "BOOKING_CLOSED", "This booking is no longer open.")
+        if action == "configure_warranty":
+            validate_configuration(command.warranty)
         if action in ("sale_receipt", "deliver"):
             require(
                 not booking.expired,
@@ -166,6 +170,7 @@ def validate_business_command(
             else:
                 require(
                     w.until > now
+                    and not w.no_warranty_acknowledged
                     and bool(w.terms.strip())
                     and bool(w.provider.strip())
                     and bool(w.policy_reference.strip()),

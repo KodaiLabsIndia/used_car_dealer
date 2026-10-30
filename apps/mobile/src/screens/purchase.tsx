@@ -1,3 +1,4 @@
+import { can } from "../application/access";
 import React, { useState } from "react";
 import { ActivityIndicator, Alert, Pressable, View } from "react-native";
 import type { Purchase, PurchaseCommand } from "@arihant/contracts";
@@ -71,7 +72,7 @@ function Amount({
 export function PurchaseScreen({ route, navigation }: ScreenProps<"Purchase">) {
   const { api, session, language, changed } = useApp(),
     hi = language === "hi",
-    owner = session!.actor.role === "owner",
+    owner = can(session!.actor, "finance"),
     carId = route.params.carId;
   const carResource = useResource(`car:${carId}`, () => api.car(carId));
   const resource = useResource(`purchase:${carId}`, async () => ({
@@ -215,8 +216,14 @@ export function PurchaseScreen({ route, navigation }: ScreenProps<"Purchase">) {
   return (
     <Workspace
       title={hi ? "खरीद" : "Purchase"}
-      items={purchase && owner ? items : [items[0]]}
-      selected={purchase && owner ? tab : "terms"}
+      items={
+        purchase
+          ? items.filter((item) => owner || item.id !== "payments")
+          : [items[0]]
+      }
+      selected={
+        purchase ? (tab === "payments" && !owner ? "review" : tab) : "terms"
+      }
       onChange={(value) => {
         setTab(value);
         setNotice("");
@@ -251,15 +258,7 @@ export function PurchaseScreen({ route, navigation }: ScreenProps<"Purchase">) {
         ) : undefined
       }
     >
-      {!owner ? (
-        <FocusPage>
-          <Text>
-            {hi
-              ? "खरीद रिकॉर्ड मालिक के लिए हैं।"
-              : "Purchase records require owner access."}
-          </Text>
-        </FocusPage>
-      ) : !resource.data || !car ? (
+      {!resource.data || !car ? (
         <FocusPage>
           {resource.error || carResource.error ? (
             <ErrorNotice
@@ -318,7 +317,7 @@ export function PurchaseScreen({ route, navigation }: ScreenProps<"Purchase">) {
                   else void run({ action: "submit" });
                 }}
               />
-            ) : purchase.status === "submitted" ? (
+            ) : purchase.status === "submitted" && owner ? (
               <ActionRow>
                 <Button
                   label={
@@ -575,6 +574,7 @@ export function PurchaseScreen({ route, navigation }: ScreenProps<"Purchase">) {
                     icon="document-text-outline"
                     busy={busy}
                     disabled={
+                      !owner ||
                       purchase.status !== "approved" ||
                       !agreement.trim() ||
                       !purchase.approvalValid ||

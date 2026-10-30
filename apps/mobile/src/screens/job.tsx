@@ -78,7 +78,7 @@ export function JobScreen({ route, navigation }: ScreenProps<"Job">) {
       hi ? "काम पूरा है?" : "Repair finished?",
       hi
         ? "अगला कदम फोटो के साथ क्वालिटी जाँच और मालिक की मंज़ूरी है।"
-        : "Next comes a photo quality check and owner review.",
+        : "Non-financial work can continue during review. Spending needs an approved quote; repair completion still needs photo QC.",
       [
         { text: hi ? "रद्द करें" : "Cancel", style: "cancel" },
         {
@@ -276,7 +276,7 @@ export function JobScreen({ route, navigation }: ScreenProps<"Job">) {
                 >
                   {job.title}
                 </Text>
-                {session!.actor.role === "owner" ? (
+                {can(session!.actor, "finance") || own ? (
                   <Button
                     secondary
                     label={

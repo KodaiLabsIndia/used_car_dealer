@@ -1,0 +1,384 @@
+{
+  "checks": [
+    {
+      "file": "apps/mobile/App.tsx",
+      "current": true,
+      "sha256": "098f3d9d5b1c91e3740454a01666353955250894635683576cb1c5ace1f76c74"
+    },
+    {
+      "file": "apps/mobile/src/screens/company-settings.tsx",
+      "current": true,
+      "sha256": "8ef0f61dca981d77f6893a094078947a5c201a0bc93334abb98ae00e037c12be"
+    },
+    {
+      "file": "apps/mobile/src/state/app-context.tsx",
+      "current": true,
+      "sha256": "73f0f29fd17c783fe0cc021ade11265d5e7226479995628cbc36f70aebd3b468"
+    },
+    {
+      "file": "apps/mobile/src/adapters/api.ts",
+      "current": true,
+      "sha256": "2c761e25d48c32b0c5e912d219407c23017ddcd14480b1671733ce28440cd1f3"
+    },
+    {
+      "file": "apps/mobile/src/state/copy.ts",
+      "current": true,
+      "sha256": "d5888ac63e25ba2ad9bd4dc3b37f6f6f6c7a4e07b960fe8432dfd237f98d709a"
+    },
+    {
+      "file": "apps/mobile/src/state/use-resource.ts",
+      "current": true,
+      "sha256": "467c5ab6070051d5027b4a5ccbc02f208d308f567063cc0eccea226bcf79de7f"
+    },
+    {
+      "file": "apps/mobile/src/application/resource-cache.ts",
+      "current": true,
+      "sha256": "c9f58562ed6ca80b9d6d8aa7b47cf5ac687d5b5c18fafad4b4e4698007033281"
+    },
+    {
+      "file": "apps/mobile/src/adapters/local-store.ts",
+      "current": true,
+      "sha256": "6f051985e055619c00e55395e0aad6345d5acc5182910e682a18d7cf834234e7"
+    },
+    {
+      "file": "apps/mobile/src/components/workspace.tsx",
+      "current": true,
+      "sha256": "208a6ddfbf3260946ee9a7cb2bb6182c005494855cd7d819bb1680a1e0585ae2"
+    },
+    {
+      "file": "apps/mobile/src/components/header.tsx",
+      "current": true,
+      "sha256": "afee61d69a6122fcf308a832b8379dffa32d27c532d25f9e2c3b1d6d45bb5751"
+    },
+    {
+      "file": "apps/mobile/src/components/ui.tsx",
+      "current": true,
+      "sha256": "df8c90ff9bfda94a0c78928bb15af84d17fcab0c90b1d5c3e7cad13189c47c9b"
+    },
+    {
+      "file": "apps/mobile/src/components/garage-motion.tsx",
+      "current": true,
+      "sha256": "5a0647c20f4b4a2a16e0c15826fec6aaf6705eb8565ac601cdea087fd33dca6f"
+    },
+    {
+      "file": "apps/mobile/src/components/layout.tsx",
+      "current": true,
+      "sha256": "832c1769a2e7c655bd6b88b06d72c4cd25a17593a8b4468b6c0dd1355485b264"
+    },
+    {
+      "file": "apps/mobile/src/components/forms.tsx",
+      "current": true,
+      "sha256": "3e20b57e5a4c591729b1ffcf635e942279f66c9d536706c93af094202a461386"
+    },
+    {
+      "file": "apps/mobile/src/screens/checklists.tsx",
+      "current": true,
+      "sha256": "bfce6296f232a1c29fe031a874bc5d27031d31460e26c04cf51d00406cbb8cf7"
+    },
+    {
+      "file": "apps/mobile/src/components/date-format.ts",
+      "current": true,
+      "sha256": "ad7362540838f28044bb467c237b6eec32270d0f4c32a9ac18c548e59e7fc72b"
+    },
+    {
+      "file": "apps/mobile/src/components/checklist-rules-editor.tsx",
+      "current": true,
+      "sha256": "18a03a7d82785300906ba5f6c0bd64b3ddb8e3ac9e3d93053136b502b41e1a96"
+    },
+    {
+      "file": "apps/mobile/src/application/inspection-index.ts",
+      "current": true,
+      "sha256": "b2ea5b80d5fd39bc070b7719d979f3772c34ebf926f84726efe701e7f21d6aee"
+    },
+    {
+      "file": "apps/mobile/src/application/inspection-parts.ts",
+      "current": true,
+      "sha256": "192dfcee3d63fa00c636cd14cb71fbbbfb8d8e1376d933889182451320593b23"
+    },
+    {
+      "file": "apps/mobile/src/application/send-command.ts",
+      "current": true,
+      "sha256": "06a8ea6d066d92533552090d318e5144af8ab6667ed0da43d9b9a58bed5bfb0b"
+    },
+    {
+      "file": "apps/mobile/src/application/command-identity.ts",
+      "current": true,
+      "sha256": "52c60380c2d17c55826e64d195f26fb711603fea5444e1f288c8e0c619aceb98"
+    },
+    {
+      "file": "apps/mobile/src/screens/decisions.tsx",
+      "current": true,
+      "sha256": "c80acd9b9d9d6ff2da1d5fa3fab03f093ddfd02b07edb6c397a5f714adcffca0"
+    },
+    {
+      "file": "apps/mobile/src/screens/reports.tsx",
+      "current": true,
+      "sha256": "069556390b179833a4a7cc03210815bd65f3defe1ca537a2b3248b1311b52c72"
+    },
+    {
+      "file": "apps/mobile/src/state/use-section.ts",
+      "current": true,
+      "sha256": "678f042ae0e9aacfbc16ff915bcfc1e489d7f2775066e0e6e64a7e3a95c0f856"
+    },
+    {
+      "file": "apps/mobile/src/application/money.ts",
+      "current": true,
+      "sha256": "aad54ccbd3671fa311f56bc0858eee33d2383c280a7186b1647ac7437d784a4b"
+    },
+    {
+      "file": "apps/mobile/src/screens/clips.tsx",
+      "current": true,
+      "sha256": "d82cfc7fb23bfac32dff0c3b1a78f7951190f1597e5de95c2811c2a35ed232cf"
+    },
+    {
+      "file": "apps/mobile/src/adapters/video.ts",
+      "current": true,
+      "sha256": "c5e186f45b3e070bb5611602bcccd705aad2674f749a26851c6734efd13d1796"
+    },
+    {
+      "file": "apps/mobile/src/components/video-camera.tsx",
+      "current": true,
+      "sha256": "753948db7da4eb9850bc9dbad4f57677b3b1acb40efa3066e2bb5d3a6c810bc8"
+    },
+    {
+      "file": "apps/mobile/src/screens/assistant.tsx",
+      "current": true,
+      "sha256": "e04be191894a390f3966ad5928f575aa64fc4219275debc975da7e586b2f37f3"
+    },
+    {
+      "file": "apps/mobile/src/application/inspection-sync.ts",
+      "current": true,
+      "sha256": "677c7daf1e73e009a34fb10a36bdd1031864b55da280deccb22e9f0bcff225ec"
+    },
+    {
+      "file": "apps/mobile/src/application/access.ts",
+      "current": true,
+      "sha256": "1c007fd603dd5cba00db88165237fc5ee6d6fbdb01d192ea6ccae059e19a521a"
+    },
+    {
+      "file": "apps/mobile/src/screens/documents.tsx",
+      "current": true,
+      "sha256": "2d2cabd8b0d558a188f3da4021f29e8ab9c4ecd7ea6caec917e503ee6c51cf2b"
+    },
+    {
+      "file": "apps/mobile/src/components/document-requirements.tsx",
+      "current": true,
+      "sha256": "c5ffca809c0bce4705eababbc8cff501e07e0421fdc54eb996bd9ef72b9937b6"
+    },
+    {
+      "file": "apps/mobile/src/components/business-form.tsx",
+      "current": true,
+      "sha256": "22fa76d7ed677ae20f5dba46db7cd9e31c3d5874404f4389e041c6618e9879cc"
+    },
+    {
+      "file": "apps/mobile/src/components/date-field.tsx",
+      "current": true,
+      "sha256": "06389b5dc810452c517cf0d9e2968f5d3ed2d1842e6c7d25a628fb63ad513fbc"
+    },
+    {
+      "file": "apps/mobile/src/application/payment-date.ts",
+      "current": true,
+      "sha256": "865a237818debf30d446806ac52c70dbfef7b4877bde67ae251f8c1f14da8312"
+    },
+    {
+      "file": "apps/mobile/src/components/date-time-field.tsx",
+      "current": true,
+      "sha256": "3d10bd3f363fe2c6f628c4bbb77604181eb132e037d066c12fddc2bd4870e576"
+    },
+    {
+      "file": "apps/mobile/src/components/photo-camera.tsx",
+      "current": true,
+      "sha256": "2ec768a0c8f7c3b5f00735932c130cfc1e906605242b4d1a13f6c4275161c9cd"
+    },
+    {
+      "file": "apps/mobile/src/adapters/photo.ts",
+      "current": true,
+      "sha256": "1650a32f9f72bd09993f142e83fb5d90109f30f2645fc18e9427d4496b9e768e"
+    },
+    {
+      "file": "apps/mobile/src/screens/inbox.tsx",
+      "current": true,
+      "sha256": "0ce64ea53f69ddb92c3260d7606a96dae2b952f1d5cc77022a48c74aa1dd1208"
+    },
+    {
+      "file": "apps/mobile/src/screens/stock.tsx",
+      "current": true,
+      "sha256": "25412b6691449971d6b7dcdf878e413df44ae341b4fb35bb855825e7f1324b3a"
+    },
+    {
+      "file": "apps/mobile/src/screens/enquiries.tsx",
+      "current": true,
+      "sha256": "5f4cc6e15ac4dddb30776af6aa6af2945a55759e9e14bc059d12cbdf4b18b6f6"
+    },
+    {
+      "file": "apps/mobile/src/application/future-date.ts",
+      "current": true,
+      "sha256": "3473c75449f913acdee2cd7880717e46539e8930baa733a4321e8cc14bd37db1"
+    },
+    {
+      "file": "apps/mobile/src/screens/service-finance.tsx",
+      "current": true,
+      "sha256": "fe7827e06618906e56580a59ee01c3bef3fdf62339d17ed7e0c551811163f066"
+    },
+    {
+      "file": "apps/mobile/src/screens/login.tsx",
+      "current": true,
+      "sha256": "b3af4854b17107af1b1476e724a64f1c20b627deaa550b46f12b670f34e2f4ed"
+    },
+    {
+      "file": "apps/mobile/src/screens/home.tsx",
+      "current": true,
+      "sha256": "c80c8fa7bf6575f9431433ab2ce575c99f64957a99844e11e642e9e91030370f"
+    },
+    {
+      "file": "apps/mobile/src/screens/cars.tsx",
+      "current": true,
+      "sha256": "d0e9e3133b0dce6233cea12641cc262c7282094d6f6493dfe303d363bc817aad"
+    },
+    {
+      "file": "apps/mobile/src/screens/car.tsx",
+      "current": true,
+      "sha256": "8695c85b39ad96c0fecf2d8ab068393fd0d401711c7eef73a478c5be10821fa5"
+    },
+    {
+      "file": "apps/mobile/src/components/car-work.tsx",
+      "current": true,
+      "sha256": "16c35c5d6a496db94c4225bebaa5cc6b25ca5767ccd8b10a71da76bc7901050e"
+    },
+    {
+      "file": "apps/mobile/src/components/job-card.tsx",
+      "current": true,
+      "sha256": "f2bf5682aa3921862c4119d8e50f78505d2f070b55fc29f748fd5a04b6aac8d2"
+    },
+    {
+      "file": "apps/mobile/src/screens/task.tsx",
+      "current": true,
+      "sha256": "6cfe8a7a0581b1451dbbab6475286d81da404f0612144757044c5431e5ee2111"
+    },
+    {
+      "file": "apps/mobile/src/components/inspection-sections.tsx",
+      "current": true,
+      "sha256": "35adaff3cc6f63816a43d627cd33072e0f0e91291141455d68a4c5c0780fc934"
+    },
+    {
+      "file": "apps/mobile/src/components/inspection-navigation.tsx",
+      "current": true,
+      "sha256": "8dd16adf4dfaff60b8d4d1041d25a9ce43a50260cedb91375b23a7d666a2e351"
+    },
+    {
+      "file": "apps/mobile/src/components/inspection-car.tsx",
+      "current": true,
+      "sha256": "9619cc556e8f950174c3bb453bf38ea9d582c2cb2f17f63de749910e17c0a0c6"
+    },
+    {
+      "file": "apps/mobile/src/components/inspection-car-scene.tsx",
+      "current": true,
+      "sha256": "88ab7e0f36b800795f020ca77f456f4e94211d77650a12d5573db6cb6855fabe"
+    },
+    {
+      "file": "apps/mobile/src/application/inspection-spatial.ts",
+      "current": true,
+      "sha256": "ce15c7f1748312dcbbe2cc928b64e6977810e849b4009dbb7151bc0d35d3f003"
+    },
+    {
+      "file": "apps/mobile/src/screens/scan.tsx",
+      "current": true,
+      "sha256": "784a41f04b5d597ddcec4ac511c3ea1533d69ef01a6bd69ad88af80f2f4d5b78"
+    },
+    {
+      "file": "apps/mobile/src/screens/settings.tsx",
+      "current": true,
+      "sha256": "c7633205fb774b85f21c13535e95792734ed27cc5c6746fc7eb3a254ec967926"
+    },
+    {
+      "file": "apps/mobile/src/screens/add-car.tsx",
+      "current": true,
+      "sha256": "aeedeb61e8aace884ff379bede9e088082ca6de23009a935950dc07f1c2cc984"
+    },
+    {
+      "file": "apps/mobile/src/components/vehicle-configuration.tsx",
+      "current": true,
+      "sha256": "e2dbc97651db1e6c47320cde9ee3bc7f68f5fd2142623be608649799e635c9bd"
+    },
+    {
+      "file": "apps/mobile/src/components/vehicle-catalogue-picker.tsx",
+      "current": true,
+      "sha256": "c7e31550c5fdc07c86cf70c5ef37bfe30cb68a4e871d9c526a2fa056f6b34999"
+    },
+    {
+      "file": "apps/mobile/src/screens/assign-inspection.tsx",
+      "current": true,
+      "sha256": "53e22c121162eb25adfb641d19b395ee18928b5bc6299e672b2751812103f52f"
+    },
+    {
+      "file": "apps/mobile/src/screens/jobs.tsx",
+      "current": true,
+      "sha256": "ab3fd80ab1c097e837a550a657195bebb5f50157ea8379990875ca9440047e36"
+    },
+    {
+      "file": "apps/mobile/src/screens/job.tsx",
+      "current": true,
+      "sha256": "ca4139deec408d5bdc7ec39f118c32a2279f731ea868738104f48f51c30b1f10"
+    },
+    {
+      "file": "apps/mobile/src/screens/assign-repair.tsx",
+      "current": true,
+      "sha256": "f201b3befe3a60ae6c6547e654bbad066f1115d0ef2b312cb9ec9da5c1aecc4a"
+    },
+    {
+      "file": "apps/mobile/src/screens/workshops.tsx",
+      "current": true,
+      "sha256": "d5a39af43589904e48017d23b97b843ee8cda9ee00f6ce0a692c5aea777ece68"
+    },
+    {
+      "file": "apps/mobile/src/screens/purchases.tsx",
+      "current": true,
+      "sha256": "3b1bf3ea86f7fabacd1b7cad5c94ef57a16897948415b601137affb71ef27689"
+    },
+    {
+      "file": "apps/mobile/src/screens/purchase.tsx",
+      "current": true,
+      "sha256": "48557686918170c0e8cdcaab6c920fa0e1c3146b919998dc84f2445e7abda764"
+    },
+    {
+      "file": "apps/mobile/src/components/purchase-terms.tsx",
+      "current": true,
+      "sha256": "86377b943a739731bef9ce42ae6b6ba19d246d30653427e26e60dbd97732a0bf"
+    },
+    {
+      "file": "apps/mobile/src/components/purchase-documents.tsx",
+      "current": true,
+      "sha256": "0ed96ad22f3e76f6ad0c3b7a1b90e2e63be2c4f0c7d1f992d3bf5cdbd15c2004"
+    },
+    {
+      "file": "apps/mobile/src/components/purchase-payments.tsx",
+      "current": true,
+      "sha256": "22b722076d7b19bfe875fb10c379da2dc20b6e9f3901305b9c6b17847fdcbb58"
+    },
+    {
+      "file": "apps/mobile/src/components/purchase-handover.tsx",
+      "current": true,
+      "sha256": "baa467325bcafca1de0ca28ff891a11bd3e38be1dae50050f35c57533da16519"
+    },
+    {
+      "file": "apps/mobile/src/screens/business.tsx",
+      "current": true,
+      "sha256": "6933787c7e64d752f4b855594abf354b1d4465058ae45a5054a4423b38c80d53"
+    },
+    {
+      "file": "apps/mobile/src/screens/business-board.tsx",
+      "current": true,
+      "sha256": "ba219838b00b87153b346e8d72dcabf0b9f0b97c353de42f82fb8c10c80573b1"
+    },
+    {
+      "file": "apps/mobile/src/screens/change-password.tsx",
+      "current": true,
+      "sha256": "47dd485f790e2b5f08d44b11477f51f02131bd6a3be9048e2b4fc93a3feb5f69"
+    },
+    {
+      "file": "apps/mobile/src/screens/team.tsx",
+      "current": true,
+      "sha256": "5b291d857bc134d670fb06565ac29683581c9f2dbf554882124a0a857e1ae3f7"
+    }
+  ]
+}

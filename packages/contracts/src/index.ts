@@ -173,8 +173,10 @@ export const itemSchema = z.object({
   id: z.string(),
   title: z.string(),
   titleHi: z.string(),
+  titleMr: z.string().default(""),
   instruction: z.string(),
   instructionHi: z.string(),
+  instructionMr: z.string().default(""),
   order: z.number(),
   required: z.boolean(),
   zone: z
@@ -571,7 +573,21 @@ export const saleDocumentsSchema = z.object({
   registrationReady: z.boolean(),
   saleAgreementReference: z.string(),
 });
+export const warrantyConfigurationSchema = z.object({
+  durationMonths: z.union([z.literal(3), z.literal(6), z.literal(12)]),
+  coveredComponents: z.array(z.string()),
+  exclusions: z.string(),
+  terms: z.string(),
+  provider: z.string(),
+  policyReference: z.string(),
+  odometerLimitKm: z.number().int().nullable(),
+});
 export const warrantyTermsSchema = z.object({
+  durationMonths: z
+    .union([z.literal(3), z.literal(6), z.literal(12)])
+    .nullable()
+    .default(null),
+  coveredComponents: z.array(z.string()).default([]),
   provider: z.string(),
   policyReference: z.string(),
   exclusions: z.string(),
@@ -603,6 +619,7 @@ export const ledgerEntrySchema = z.object({
   reversalReason: z.string().nullable(),
 });
 export const saleBookingSchema = z.object({
+  warrantyConfiguration: warrantyConfigurationSchema.nullable().default(null),
   id: z.uuid(),
   customerName: z.string(),
   customerPhone: z.string(),
@@ -718,6 +735,7 @@ export type BusinessCommand =
   | PurchaseApi["ExtendBooking"]
   | PurchaseApi["SaleMoney"]
   | PurchaseApi["CheckSaleDocuments"]
+  | PurchaseApi["ConfigureWarranty"]
   | PurchaseApi["DeliverVehicle"]
   | PurchaseApi["CompleteOwnershipTransfer"]
   | PurchaseApi["OpenWarrantyClaim"]
@@ -1107,3 +1125,51 @@ export const managedChecklistsSchema = z.object({
 });
 
 export { checkState, inspectionProgress } from "./inspection";
+
+export { can, workingLevel } from "./access";
+
+export const documentRuleSchema = z.object({
+  id: z.string(),
+  stage: z.enum(["purchase", "intake", "sale", "delivery"]),
+  title: z.string(),
+  titleHi: z.string(),
+  titleMr: z.string(),
+  required: z.boolean(),
+  applicability: z.string(),
+});
+export const documentPolicySchema = z.object({
+  version: z.number().int(),
+  rules: z.array(documentRuleSchema),
+  publishedByName: z.string().nullable(),
+  publishedAt: z.string().nullable(),
+  reason: z.string(),
+});
+export const carRequirementsSchema = z.object({
+  sets: z.array(
+    z.object({
+      id: z.uuid(),
+      stage: z.enum(["purchase", "intake", "sale", "delivery"]),
+      bookingId: z.uuid().nullable(),
+      bookingLabel: z.string().nullable().default(null),
+      locked: z.boolean().default(false),
+      policyVersion: z.number().int(),
+      enforced: z.boolean(),
+      clear: z.boolean(),
+      items: z.array(
+        z.object({
+          rule: documentRuleSchema,
+          status: z.enum(["missing", "pending", "accepted", "rejected"]),
+          documentId: z.uuid().nullable(),
+          documentTitle: z.string().nullable(),
+          reviewedByName: z.string().nullable(),
+        }),
+      ),
+    }),
+  ),
+});
+export type DocumentRule = z.infer<typeof documentRuleSchema>;
+export type DocumentPolicy = z.infer<typeof documentPolicySchema>;
+export type CarRequirements = z.infer<typeof carRequirementsSchema>;
+export type PublishDocumentPolicy = PurchaseApi["PublishDocumentPolicy"];
+export type AssignRequirements = PurchaseApi["AssignRequirements"];
+export type LinkRequirement = PurchaseApi["LinkRequirement"];

@@ -689,6 +689,59 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  "/v1/company/document-policy": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Policy */
+    get: operations["policy_v1_company_document_policy_get"];
+    put?: never;
+    /** Publish */
+    post: operations["publish_v1_company_document_policy_post"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/v1/cars/{car_id}/document-requirements": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Requirements */
+    get: operations["requirements_v1_cars__car_id__document_requirements_get"];
+    put?: never;
+    /** Assign */
+    post: operations["assign_v1_cars__car_id__document_requirements_post"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/v1/cars/{car_id}/document-requirements/{set_id}/links": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** Link */
+    post: operations["link_v1_cars__car_id__document_requirements__set_id__links_post"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   "/v1/assistant/options": {
     parameters: {
       query?: never;
@@ -1341,6 +1394,21 @@ export interface components {
        */
       assignedTo: string;
     };
+    /** AssignRequirements */
+    AssignRequirements: {
+      /**
+       * Commandid
+       * Format: uuid
+       */
+      commandId: string;
+      /**
+       * Stage
+       * @enum {string}
+       */
+      stage: "purchase" | "intake" | "sale" | "delivery";
+      /** Bookingid */
+      bookingId?: string | null;
+    };
     /** AssistantDraft */
     AssistantDraft: {
       /**
@@ -1416,7 +1484,7 @@ export interface components {
        * @default en
        * @enum {string}
        */
-      language: "en" | "hi";
+      language: "en" | "hi" | "mr";
       /**
        * Text
        * @default
@@ -1628,6 +1696,11 @@ export interface components {
       car: components["schemas"]["Car"];
       task: components["schemas"]["Task"];
     };
+    /** CarRequirements */
+    CarRequirements: {
+      /** Sets */
+      sets: components["schemas"]["RequirementSet"][];
+    };
     /** CarsPage */
     CarsPage: {
       /** Items */
@@ -1758,10 +1831,20 @@ export interface components {
       title: string;
       /** Titlehi */
       titleHi: string;
+      /**
+       * Titlemr
+       * @default
+       */
+      titleMr: string;
       /** Instruction */
       instruction: string;
       /** Instructionhi */
       instructionHi: string;
+      /**
+       * Instructionmr
+       * @default
+       */
+      instructionMr: string;
       /** Order */
       order: number;
       /** Required */
@@ -1832,10 +1915,20 @@ export interface components {
       title: string;
       /** Titlehi */
       titleHi: string;
+      /**
+       * Titlemr
+       * @default
+       */
+      titleMr: string;
       /** Instruction */
       instruction: string;
       /** Instructionhi */
       instructionHi: string;
+      /**
+       * Instructionmr
+       * @default
+       */
+      instructionMr: string;
       /** Order */
       order: number;
       /** Required */
@@ -1960,6 +2053,27 @@ export interface components {
       bookingId: string;
       /** Reference */
       reference: string;
+    };
+    /** ConfigureWarranty */
+    ConfigureWarranty: {
+      /**
+       * Commandid
+       * Format: uuid
+       */
+      commandId: string;
+      /** Expectedversion */
+      expectedVersion: number;
+      /**
+       * @description discriminator enum property added by openapi-typescript
+       * @enum {string}
+       */
+      action: "configure_warranty";
+      /**
+       * Bookingid
+       * Format: uuid
+       */
+      bookingId: string;
+      warranty: components["schemas"]["WarrantyConfiguration-Input"];
     };
     /** ContactEvent */
     ContactEvent: {
@@ -2180,9 +2294,7 @@ export interface components {
       /** Temporarysecret */
       temporarySecret: string;
       /** Workroles */
-      workRoles?: (
-        "inspector" | "coordinator" | "supervisor" | "manager" | "sales"
-      )[];
+      workRoles?: ("inspector" | "supervisor")[];
     };
     /** CreateWorkshop */
     CreateWorkshop: {
@@ -2460,6 +2572,74 @@ export interface components {
       reviewReason: string;
       /** Selfreview */
       selfReview: boolean;
+    };
+    /** DocumentPolicy */
+    DocumentPolicy: {
+      /** Version */
+      version: number;
+      /** Rules */
+      rules: components["schemas"]["DocumentRule-Output"][];
+      /** Publishedbyname */
+      publishedByName: string | null;
+      /** Publishedat */
+      publishedAt: string | null;
+      /**
+       * Reason
+       * @default
+       */
+      reason: string;
+    };
+    /** DocumentRule */
+    "DocumentRule-Input": {
+      /** Id */
+      id: string;
+      /**
+       * Stage
+       * @enum {string}
+       */
+      stage: "purchase" | "intake" | "sale" | "delivery";
+      /** Title */
+      title: string;
+      /** Titlehi */
+      titleHi: string;
+      /** Titlemr */
+      titleMr: string;
+      /**
+       * Required
+       * @default true
+       */
+      required: boolean;
+      /**
+       * Applicability
+       * @default
+       */
+      applicability: string;
+    };
+    /** DocumentRule */
+    "DocumentRule-Output": {
+      /** Id */
+      id: string;
+      /**
+       * Stage
+       * @enum {string}
+       */
+      stage: "purchase" | "intake" | "sale" | "delivery";
+      /** Title */
+      title: string;
+      /** Titlehi */
+      titleHi: string;
+      /** Titlemr */
+      titleMr: string;
+      /**
+       * Required
+       * @default true
+       */
+      required: boolean;
+      /**
+       * Applicability
+       * @default
+       */
+      applicability: string;
     };
     /** Documents */
     Documents: {
@@ -2858,6 +3038,21 @@ export interface components {
        */
       carId: string;
     };
+    /** LinkRequirement */
+    LinkRequirement: {
+      /**
+       * Commandid
+       * Format: uuid
+       */
+      commandId: string;
+      /** Requirementid */
+      requirementId: string;
+      /**
+       * Documentid
+       * Format: uuid
+       */
+      documentId: string;
+    };
     /** LoginInput */
     LoginInput: {
       /** Dealercode */
@@ -3114,6 +3309,20 @@ export interface components {
        * @default
        */
       note: string;
+    };
+    /** PublishDocumentPolicy */
+    PublishDocumentPolicy: {
+      /**
+       * Commandid
+       * Format: uuid
+       */
+      commandId: string;
+      /** Expectedversion */
+      expectedVersion: number;
+      /** Rules */
+      rules: components["schemas"]["DocumentRule-Input"][];
+      /** Reason */
+      reason: string;
     };
     /** Purchase */
     Purchase: {
@@ -3900,6 +4109,51 @@ export interface components {
        */
       vendorAdvancePaise: number;
     };
+    /** Requirement */
+    Requirement: {
+      rule: components["schemas"]["DocumentRule-Output"];
+      /**
+       * Status
+       * @enum {string}
+       */
+      status: "missing" | "pending" | "rejected" | "accepted";
+      /** Documentid */
+      documentId: string | null;
+      /** Documenttitle */
+      documentTitle: string | null;
+      /** Reviewedbyname */
+      reviewedByName: string | null;
+    };
+    /** RequirementSet */
+    RequirementSet: {
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
+      /**
+       * Stage
+       * @enum {string}
+       */
+      stage: "purchase" | "intake" | "sale" | "delivery";
+      /** Bookingid */
+      bookingId: string | null;
+      /** Bookinglabel */
+      bookingLabel: string | null;
+      /**
+       * Locked
+       * @default false
+       */
+      locked: boolean;
+      /** Policyversion */
+      policyVersion: number;
+      /** Enforced */
+      enforced: boolean;
+      /** Items */
+      items: components["schemas"]["Requirement"][];
+      /** Clear */
+      clear: boolean;
+    };
     /** ResetStaffSecret */
     ResetStaffSecret: {
       /**
@@ -4120,6 +4374,8 @@ export interface components {
     };
     /** SaleBooking */
     SaleBooking: {
+      warrantyConfiguration:
+        components["schemas"]["WarrantyConfiguration-Output"] | null;
       /**
        * Id
        * Format: uuid
@@ -4372,6 +4628,11 @@ export interface components {
        * @enum {string}
        */
       action: "start";
+      /**
+       * Commitsspend
+       * @default false
+       */
+      commitsSpend: boolean;
     };
     /** StockHold */
     StockHold: {
@@ -4753,9 +5014,7 @@ export interface components {
       /** Active */
       active: boolean;
       /** Workroles */
-      workRoles?:
-        | ("inspector" | "coordinator" | "supervisor" | "manager" | "sales")[]
-        | null;
+      workRoles?: ("inspector" | "supervisor")[] | null;
     };
     /** ValidationError */
     ValidationError: {
@@ -5006,8 +5265,58 @@ export interface components {
        */
       reportedAt: string;
     };
+    /** WarrantyConfiguration */
+    "WarrantyConfiguration-Input": {
+      /**
+       * Durationmonths
+       * @enum {integer}
+       */
+      durationMonths: 3 | 6 | 12;
+      /** Coveredcomponents */
+      coveredComponents: string[];
+      /**
+       * Exclusions
+       * @default
+       */
+      exclusions: string;
+      /** Terms */
+      terms: string;
+      /** Provider */
+      provider: string;
+      /** Policyreference */
+      policyReference: string;
+      /** Odometerlimitkm */
+      odometerLimitKm?: number | null;
+    };
+    /** WarrantyConfiguration */
+    "WarrantyConfiguration-Output": {
+      /**
+       * Durationmonths
+       * @enum {integer}
+       */
+      durationMonths: 3 | 6 | 12;
+      /** Coveredcomponents */
+      coveredComponents: string[];
+      /**
+       * Exclusions
+       * @default
+       */
+      exclusions: string;
+      /** Terms */
+      terms: string;
+      /** Provider */
+      provider: string;
+      /** Policyreference */
+      policyReference: string;
+      /** Odometerlimitkm */
+      odometerLimitKm: number | null;
+    };
     /** WarrantyTerms */
     "WarrantyTerms-Input": {
+      /** Durationmonths */
+      durationMonths?: (3 | 6 | 12) | null;
+      /** Coveredcomponents */
+      coveredComponents?: string[];
       /**
        * Provider
        * @default
@@ -5040,6 +5349,10 @@ export interface components {
     };
     /** WarrantyTerms */
     "WarrantyTerms-Output": {
+      /** Durationmonths */
+      durationMonths: (3 | 6 | 12) | null;
+      /** Coveredcomponents */
+      coveredComponents: string[];
       /**
        * Provider
        * @default
@@ -6525,6 +6838,161 @@ export interface operations {
       };
     };
   };
+  policy_v1_company_document_policy_get: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["DocumentPolicy"];
+        };
+      };
+    };
+  };
+  publish_v1_company_document_policy_post: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["PublishDocumentPolicy"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["DocumentPolicy"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  requirements_v1_cars__car_id__document_requirements_get: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        car_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["CarRequirements"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  assign_v1_cars__car_id__document_requirements_post: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        car_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["AssignRequirements"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["CarRequirements"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  link_v1_cars__car_id__document_requirements__set_id__links_post: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        car_id: string;
+        set_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["LinkRequirement"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["CarRequirements"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
   options_v1_assistant_options_get: {
     parameters: {
       query?: never;
@@ -6729,6 +7197,7 @@ export interface operations {
           | components["schemas"]["ExtendBooking"]
           | components["schemas"]["SaleMoney"]
           | components["schemas"]["CheckSaleDocuments"]
+          | components["schemas"]["ConfigureWarranty"]
           | components["schemas"]["DeliverVehicle"]
           | components["schemas"]["CompleteOwnershipTransfer"]
           | components["schemas"]["OpenWarrantyClaim"]

@@ -26,9 +26,10 @@ from app.commercial_contracts import (
     WarrantyTerms,
 )
 from app.contracts import Actor
+from app.domain.access import require
 from app.domain.errors import BusinessError
 from app.domain.purchase_policy import documents_clear
-from app.domain.workshop_policy import require_owner
+from app.domain.warranty import issue_warranty
 
 
 class CommercialStore:
@@ -40,7 +41,7 @@ class CommercialStore:
         self.commands = CommandTransaction(self.engine)
 
     def queue(self, actor: Actor, search: str, scope: str, limit: int, offset: int) -> BusinessQueue:
-        require_owner(actor)
+        require(actor, "finance")
         pattern = "%" + search.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_") + "%"
         with self.engine.connect() as conn:
             records = rows(
@@ -92,7 +93,7 @@ class CommercialStore:
             )
 
     def get(self, actor: Actor, car_id: UUID, conn: Connection | None = None) -> VehicleBusiness:
-        require_owner(actor)
+        require(actor, "finance")
         if conn is None:
             with self.engine.connect() as connection:
                 return self.get(actor, car_id, connection)
@@ -212,6 +213,7 @@ class CommercialStore:
                     expires_at=b["expires_at"],
                     expired=b["status"] == "booked" and b["expires_at"] <= datetime.now(UTC),
                     documents=SaleDocuments.model_validate(b["documents"]),
+                    warranty_configuration=b["warranty_configuration"],
                     cancellation_reason=b["cancellation_reason"],
                     collected_paise=collected,
                     refunded_paise=refunded,
@@ -271,6 +273,16 @@ class CommercialStore:
         running = sum(e.amount_paise for e in active_ledger if e.kind == "cost" and e.category != "warranty")
         warranty = sum(e.amount_paise for e in active_ledger if e.kind == "cost" and e.category == "warranty")
         price = purchase.terms.purchase_price_paise if purchase and purchase.acquired_at else 0
+        from app.adapters.company import CompanyStore
+
+        documents = CompanyStore(self.workflows).requirements(actor, car_id, conn)
+        readiness.append(
+            (
+                "document_requirements",
+                "Required document proof accepted",
+                all(s.clear for s in documents.sets if s.enforced and s.stage in ("purchase", "intake")),
+            )
+        )
         return VehicleBusiness(
             car=car,
             readiness=[ReadinessCheck(id=key, label=label, clear=bool(ok)) for key, label, ok in readiness],
@@ -298,11 +310,24 @@ class CommercialStore:
         command: BusinessCommand,
         validate: Callable[[VehicleBusiness], None],
     ) -> VehicleBusiness:
-        require_owner(actor)
+        require(actor, "finance")
 
         def execute(conn):
             current = self.get(actor, car_id, conn)
+            if command.action == "deliver":
+                booking = next((b for b in current.bookings if b.id == command.booking_id), None)
+                if booking and booking.warranty_configuration:
+                    delivered_at = conn.execute(text("SELECT now()")).scalar_one()
+                    issued = issue_warranty(booking.warranty_configuration, delivered_at)
+                    # A changed configuration invalidates the form's car version before this point.
+                    command.warranty = issued
             validate(current)
+            from app.adapters.company import CompanyStore
+
+            policies = CompanyStore(self.workflows)
+            if command.action == "deliver":
+                policies.require_clear(conn, actor, car_id, {"purchase", "intake"})
+                policies.require_clear(conn, actor, car_id, {"sale", "delivery"}, command.booking_id)
             params = {"company": actor.company_id, "car": car_id, "actor": actor.id}
             action = command.action
             details = command.model_dump(mode="json", by_alias=True, exclude={"command_id", "action"})
@@ -365,6 +390,10 @@ class CommercialStore:
                     ),
                     params,
                 )
+                from app.adapters.company import CompanyStore
+
+                for stage in ("sale", "delivery"):
+                    CompanyStore(self.workflows).assign_in_transaction(conn, actor, car_id, stage, booking_id)
                 details["bookingId"] = str(booking_id)
             elif action == "extend_booking":
                 conn.execute(
@@ -397,6 +426,17 @@ class CommercialStore:
                         "documents": command.documents.model_dump_json(by_alias=True),
                     },
                 )
+            elif action == "configure_warranty":
+                conn.execute(
+                    text(
+                        "UPDATE sale_bookings SET warranty_configuration=CAST(:warranty AS jsonb) WHERE id=:booking AND company_id=:company"
+                    ),
+                    params
+                    | {
+                        "booking": command.booking_id,
+                        "warranty": command.warranty.model_dump_json(by_alias=True),
+                    },
+                )
             elif action == "deliver":
                 booking = next(b for b in current.bookings if b.id == command.booking_id)
                 snapshot = {
@@ -407,6 +447,9 @@ class CommercialStore:
                         "customerAcknowledged": command.customer_acknowledged,
                     },
                     "warranty": command.warranty.model_dump(mode="json", by_alias=True),
+                    "documentRequirements": policies.requirements(actor, car_id, conn).model_dump(
+                        mode="json", by_alias=True
+                    ),
                     "booking": booking.model_dump(mode="json", by_alias=True),
                     "readiness": [r.model_dump(mode="json") for r in current.readiness],
                     "ledger": [
@@ -526,6 +569,7 @@ class CommercialStore:
                 "sale_receipt": "Customer receipt recorded",
                 "sale_refund": "Customer refund recorded",
                 "sale_documents": "Delivery documents checked",
+                "configure_warranty": "Per-car warranty duration and coverage configured",
                 "deliver": "Vehicle delivery and warranty terms recorded",
                 "complete_transfer": "Ownership transfer acknowledged",
                 "open_claim": "Warranty concern logged",

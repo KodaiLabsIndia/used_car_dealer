@@ -81,20 +81,20 @@ def test_quote_revision_reapproval_job_gate_and_scope(workspace):
     client, _, owner, employee = workspace
     job = new_job(client, owner)
     path = f"/v1/jobs/{job['id']}/finance"
-    assert client.get(path, headers=employee).status_code == 403
+    assert client.get(path, headers=employee).status_code == 200
     data = checked(client.get(path, headers=owner))
     data = quote(client, owner, data)
     assert (
-        repair_command(client, employee, data["job"], "start").json()["error"]["code"]
+        repair_command(client, employee, data["job"], "start", commitsSpend=True).json()["error"]["code"]
         == "QUOTE_APPROVAL_REQUIRED"
     )
     data = approve(client, owner, data)
-    job = checked(repair_command(client, employee, data["job"], "start"))
+    job = checked(repair_command(client, employee, data["job"], "start", commitsSpend=True))
     data = checked(client.get(path, headers=owner))
     assert len(data["quotes"]) == 1
     data = quote(client, owner, data, 600000)
     assert data["quotes"][0]["decision"] == "pending"
-    assert repair_command(client, employee, data["job"], "start").status_code == 409
+    assert repair_command(client, employee, data["job"], "start", commitsSpend=True).status_code == 409
     assert (
         finance_command(
             client,
@@ -109,7 +109,7 @@ def test_quote_revision_reapproval_job_gate_and_scope(workspace):
     )
     data = approve(client, owner, data)
     assert data["quotes"][0]["revision"] == 2
-    assert repair_command(client, employee, data["job"], "start").status_code == 200
+    assert repair_command(client, employee, data["job"], "start", commitsSpend=True).status_code == 200
 
 
 def test_invoice_payment_exact_totals_idempotency_and_budget(workspace):
