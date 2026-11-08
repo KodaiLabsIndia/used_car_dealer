@@ -57,3 +57,10 @@ real API results, with unset/empty states rather than invented business metrics.
 The stable destinations and adaptive sidebar follow [Apple navigation guidance](https://developer.apple.com/design/human-interface-guidelines/sidebars)
 and [Android canonical layouts](https://developer.android.com/develop/adaptive-apps/guides/canonical-layouts).
 These informed the structure; the implemented visual treatment is Arihant's.
+
+## Allocated inspection update
+
+[Inspection allocation](SHARED_INSPECTIONS.md) adds Allocate, Review and Coverage
+to each inspection. Owners/Supervisors can assign sections/checks to employees or
+themselves, review submitted portions and see unallocated work. The original
+checklist snapshot and evidence remain on one master inspection.

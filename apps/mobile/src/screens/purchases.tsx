@@ -44,7 +44,7 @@ export function PurchasesScreen({ navigation }: ScreenProps<"Purchases">) {
         }
       >
         <Text style={s.title}>
-          {hi ? "हर खरीद का पूरा हिसाब।" : "Every purchase. Accounted for."}
+          {hi ? "खरीद का रिकॉर्ड" : "Purchase records"}
         </Text>
         {session?.actor.role === "owner" ? (
           <>

@@ -568,11 +568,7 @@ export function OwnerHomeScreen({ navigation, route }: ScreenProps<"Home">) {
                         color: ink,
                       }}
                     >
-                      {tr(
-                        "Your dealership,\ntoday.",
-                        "आज की\nडीलरशिप।",
-                        "आजची\nडीलरशिप.",
-                      )}
+                      {tr("Today’s operations", "आज के काम", "आजची कामे")}
                     </Text>
                   </View>
                   <View
@@ -822,9 +818,9 @@ export function OwnerHomeScreen({ navigation, route }: ScreenProps<"Home">) {
                     </View>
                     <Text style={{ fontSize: 12, color: muted }}>
                       {tr(
-                        "One place for your team’s day, work and pay.",
-                        "टीम की हाज़िरी, काम और वेतन एक जगह।",
-                        "टीमची हजेरी, काम आणि पगार एकाच ठिकाणी.",
+                        "Attendance, assigned work and payroll",
+                        "हाज़िरी, सौंपे काम और वेतन",
+                        "हजेरी, नेमलेली कामे व पगार",
                       )}
                     </Text>
                   </View>
@@ -939,9 +935,9 @@ export function OwnerHomeScreen({ navigation, route }: ScreenProps<"Home">) {
                   <Heading
                     eyebrow={tr("DEALERSHIP", "डीलरशिप", "डीलरशिप")}
                     title={tr(
-                      "From first look\nto the next owner.",
-                      "पहली जाँच से\nअगले मालिक तक।",
-                      "पहिल्या तपासणीपासून\nपुढच्या मालकापर्यंत.",
+                      "Vehicle operations",
+                      "गाड़ियों के काम",
+                      "गाड्यांची कामे",
                     )}
                   />
                   <View
@@ -1338,15 +1334,11 @@ function OwnerDecisions({ navigation }: { navigation: Navigation }) {
     <View style={{ gap: 20 }}>
       <Heading
         eyebrow={tr("DECISIONS", "फैसले", "निर्णय")}
-        title={tr("Keep work moving.", "काम आगे बढ़ाएँ।", "काम पुढे न्या.")}
+        title={tr("Pending decisions", "लंबित निर्णय", "प्रलंबित निर्णय")}
       />
       <Text style={{ fontSize: 15, color: muted }}>
         {resource.data ? `${resource.data.total} ` : ""}
-        {tr(
-          "waiting for review — cars and people, together.",
-          "समीक्षा बाकी — गाड़ियाँ और कर्मचारी एक साथ।",
-          "तपासणी बाकी — गाड्या आणि कर्मचारी एकत्र.",
-        )}
+        {tr("pending reviews", "समीक्षा बाकी", "तपासणी बाकी")}
       </Text>
       {resource.error ? (
         <ErrorNotice message={resource.error} retry={resource.refresh} />
@@ -1387,7 +1379,7 @@ function OwnerDecisions({ navigation }: { navigation: Navigation }) {
           />
           <Text style={{ fontSize: 22, fontWeight: "600" }}>
             {tr(
-              "Nothing waiting on you.",
+              "No pending decisions",
               "आपके फैसले बाकी नहीं।",
               "तुमच्याकडे निर्णय बाकी नाहीत.",
             )}

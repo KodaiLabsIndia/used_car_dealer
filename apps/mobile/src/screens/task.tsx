@@ -4,10 +4,12 @@ import { useIsFocused } from "@react-navigation/native";
 import { can } from "../application/access";
 import { Workspace, FocusPage, CarIdentity } from "../components/workspace";
 import { useSection } from "../state/use-section";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   ActivityIndicator,
   Alert,
+  AppState,
+  RefreshControl,
   Image,
   Pressable,
   TextInput,
@@ -16,7 +18,13 @@ import {
 import * as ImagePicker from "expo-image-picker";
 import * as Speech from "expo-speech";
 import * as Haptics from "expo-haptics";
-import type { Task } from "@arihant/contracts";
+import {
+  inspectionPortion,
+  allocationFor,
+  checkRevision,
+  writableChecks,
+  type Task,
+} from "@arihant/contracts";
 import { colors } from "@arihant/design-tokens";
 import type { ScreenProps } from "../navigation";
 import {
@@ -57,7 +65,7 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
     "sections",
     ["sections", "map", "photo", "result"] as const,
   );
-  const [task, setTask] = useState<Task | null>(null),
+  const [masterTask, setTask] = useState<Task | null>(null),
     [index, setIndex] = useState(0),
     [draft, setDraft] = useState<PhotoDraft | null>(null),
     [camera, setCamera] = useState(false),
@@ -65,6 +73,16 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
     [recheckSelection, setRecheckSelection] = useState<string[]>([]),
     [reviewNote, setReviewNote] = useState(""),
     [message, setMessage] = useState("");
+  const task =
+    masterTask && masterTask.collaborative && !owner
+      ? inspectionPortion(masterTask, ownerId)
+      : masterTask;
+  const capture = useRef<{
+    allocationVersion?: number;
+    itemVersion?: number;
+    itemId?: string;
+    taskId?: string;
+  }>({});
   const [allChecks, setAllChecks] = useState(false);
   const [inspectionSection, setInspectionSection] = useState<string | null>(
       null,
@@ -82,7 +100,7 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
     let active = true;
     void loadLocal<number>(ownerId, `step:${route.params.id}`)
       .then((saved) => {
-        if (active)
+        if (active && !route.params.itemId)
           setIndex(
             Number.isInteger(saved) && saved !== null && saved >= 0 ? saved : 0,
           );
@@ -102,13 +120,63 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
     setTask(resource.data);
   }, [resource.data]);
   const focused = useIsFocused();
+  useEffect(() => {
+    if (!focused || busy || camera || (draft && !draft.synced)) return;
+    const tick = () => {
+      if (AppState.currentState === "active") resource.refresh();
+    };
+    tick();
+    const timer = setInterval(tick, 15000);
+    const sub = AppState.addEventListener("change", (state) => {
+      if (state === "active") tick();
+    });
+    return () => {
+      clearInterval(timer);
+      sub.remove();
+    };
+  }, [focused, busy, camera, !!draft && !draft.synced]);
   const layout = useLayout();
   const [instructionsOpen, setInstructionsOpen] = useState(false);
+  useEffect(() => {
+    if (!task) return;
+    const target = route.params.itemId
+      ? task.items.findIndex((i) => i.id === route.params.itemId)
+      : -1;
+    setIndex((prior) =>
+      target >= 0
+        ? target
+        : Math.min(prior, Math.max(0, task.items.length - 1)),
+    );
+    if (target >= 0) setPhase("photo");
+  }, [task?.id, task?.items.map((i) => i.id).join("|"), route.params.itemId]);
   const item = task?.items[index],
+    allocation = allocationFor(task, item?.id),
     answer = task?.answers.find((a) => a.itemId === item?.id),
-    own = task?.assignedTo === ownerId,
-    readOnly =
-      !own || task?.status === "submitted" || task?.status === "completed";
+    own = task?.collaborative
+      ? allocation?.assignedTo === ownerId
+      : task?.assignedTo === ownerId,
+    readOnly = task?.collaborative
+      ? !own ||
+        !["assigned", "in_progress", "recheck"].includes(
+          allocation?.state ?? "",
+        ) ||
+        masterTask?.status === "completed"
+      : !own || task?.status === "submitted" || task?.status === "completed";
+  function pinCapture() {
+    capture.current = {
+      ...(task?.collaborative && allocation
+        ? {
+            allocationVersion: allocation.assignmentVersion,
+            itemVersion: allocation.version,
+          }
+        : {}),
+      ...(item && task ? { itemId: item.id, taskId: task.id } : {}),
+    };
+  }
+  function openCamera() {
+    pinCapture();
+    setCamera(true);
+  }
   const preview =
     draft?.uri && !readOnly
       ? { uri: draft.uri }
@@ -145,8 +213,19 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
     if (!item) return;
     setBusy(true);
     try {
-      const next = await preparePhoto(photo, ownerId);
-      await saveLocal(ownerId, draftKey(route.params.id, item.id), next);
+      const {
+        itemId: capturedItem,
+        taskId: capturedTask,
+        ...pinned
+      } = { ...capture.current };
+      if (!capturedItem || !capturedTask)
+        throw new Error("Open a check before taking its proof.");
+      const next = { ...(await preparePhoto(photo, ownerId)), ...pinned };
+      await saveLocal(ownerId, draftKey(capturedTask, capturedItem), next);
+      if (capturedItem !== item.id || capturedTask !== route.params.id) {
+        resource.refresh();
+        return;
+      }
       setDraft(next);
       setPhase("result");
       setMessage(t("savedPhone"));
@@ -155,6 +234,7 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
     }
   }
   async function gallery() {
+    pinCapture();
     const p = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (!p.granted) {
       setMessage(t("noCamera"));
@@ -175,7 +255,14 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
   async function editDraft(patch: Partial<PhotoDraft>) {
     if (!draft || !item) return;
     const { commandId: _command, expectedVersion: _version, ...fresh } = draft;
-    const next = { ...fresh, ...patch, synced: false };
+    const next = {
+      ...fresh,
+      ...patch,
+      ...(draft.synced && task?.collaborative
+        ? { itemVersion: allocation?.version ?? null }
+        : {}),
+      synced: false,
+    };
     setDraft(next);
     await saveLocal(ownerId, draftKey(route.params.id, item.id), next);
   }
@@ -187,7 +274,13 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
     setBusy(true);
     setMessage("");
     try {
-      const updated = await syncAnswer(api, ownerId, task, item.id, draft);
+      const updated = await syncAnswer(
+        api,
+        ownerId,
+        masterTask!,
+        item.id,
+        draft,
+      );
       setTask(updated.task);
       setDraft(updated.draft);
       setMessage(t("received"));
@@ -207,7 +300,15 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
       setMessage(
         err.code === "VERSION_CONFLICT" ? t("changeNotice") : err.message,
       );
-      if (err.code === "VERSION_CONFLICT") {
+      if (
+        [
+          "VERSION_CONFLICT",
+          "ALLOCATION_CHANGED",
+          "CHECK_NOT_ASSIGNED",
+          "READ_ONLY",
+          "NOT_FOUND",
+        ].includes(err.code ?? "")
+      ) {
         const { commandId: _c, expectedVersion: _v, ...clean } = draft;
         await saveLocal(ownerId, draftKey(task.id, item.id), clean);
         setDraft(clean);
@@ -225,26 +326,32 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
     setMessage("");
     try {
       const payload =
-        action === "accept" || action === "recheck"
+        action === "submit" && task.collaborative
           ? {
-              action: "review" as const,
-              decision:
-                action === "accept"
-                  ? ("accept" as const)
-                  : ("recheck" as const),
-              ...(action === "recheck"
-                ? { recheckItemIds: recheckSelection }
-                : {}),
-              note: reviewNote,
+              action: "submit_checks" as const,
+              checks: readyChecks.map(checkRevision),
             }
-          : action === "help"
+          : action === "accept" || action === "recheck"
             ? {
-                action: "help" as const,
-                ...(item ? { itemId: item.id } : {}),
-                note: "",
+                action: "review" as const,
+                decision:
+                  action === "accept"
+                    ? ("accept" as const)
+                    : ("recheck" as const),
+                ...(action === "recheck"
+                  ? { recheckItemIds: recheckSelection }
+                  : {}),
+                note: reviewNote,
               }
-            : { action };
-      const updated = await sendTaskCommand(api, ownerId, task, payload);
+            : action === "help"
+              ? {
+                  action: "help" as const,
+                  ...(item ? { itemId: item.id } : {}),
+                  note: "",
+                  allocationVersion: allocation?.assignmentVersion ?? null,
+                }
+              : { action };
+      const updated = await sendTaskCommand(api, ownerId, masterTask!, payload);
       setTask(updated);
       changed();
       setMessage(
@@ -282,6 +389,41 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
       ],
     );
   }
+  function reconfirmDraft() {
+    if (!draft || !allocation || readOnly) return;
+    Alert.alert(
+      language === "hi"
+        ? "नया नतीजा देखें"
+        : language === "mr"
+          ? "नवीन निकाल तपासा"
+          : "Review the latest result",
+      language === "hi"
+        ? "पहले मौजूदा नतीजा और फोटो देखें। पुष्टि के बाद आपका ड्राफ्ट इसी जाँच के नए संस्करण पर भेजा जा सकेगा।"
+        : language === "mr"
+          ? "आधी सध्याचा निकाल व फोटो तपासा. पुष्टीनंतर हा मसुदा नवीन आवृत्तीवर पाठवता येईल."
+          : "Read the current result and photo first. Confirming prepares this draft to replace the latest result; you still need to press Save.",
+      [
+        { text: t("cancel"), style: "cancel" },
+        {
+          text: t("confirm"),
+          onPress: () => {
+            const { commandId: _c, expectedVersion: _v, ...rest } = draft;
+            const next = {
+              ...rest,
+              itemVersion: allocation.version,
+              synced: false,
+            };
+            setDraft(next);
+            void saveLocal(
+              ownerId,
+              draftKey(route.params.id, allocation.itemId),
+              next,
+            );
+          },
+        },
+      ],
+    );
+  }
   function submit() {
     Alert.alert(t("send"), t("sendConfirmation"), [
       { text: t("cancel"), style: "cancel" },
@@ -289,7 +431,26 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
     ]);
   }
   const complete = task ? inspectionProgress(task).missing.length === 0 : false;
-  const readyToSubmit = complete && (!draft || draft.synced);
+  const readyChecks = masterTask?.collaborative
+    ? writableChecks(masterTask, ownerId).filter((a) => {
+        const check = masterTask.items.find((i) => i.id === a.itemId)!;
+        const result = masterTask.answers.find((v) => v.itemId === a.itemId);
+        return (
+          !!result &&
+          result.result !== "unable" &&
+          inspectionProgress({
+            ...masterTask,
+            items: [{ ...check, required: true }],
+          }).missing.length === 0
+        );
+      })
+    : [];
+  const readyToSubmit =
+    (task?.collaborative ? readyChecks.length > 0 : complete) &&
+    (!draft || draft.synced);
+  const sendLabel = task?.collaborative
+    ? `${language === "mr" ? "तयार तपासण्या पाठवा" : language === "hi" ? "तैयार जाँच भेजें" : "Send ready checks"} · ${readyChecks.length}`
+    : t("send");
   const footer =
     task && item ? (
       phase === "map" || phase === "sections" ? (
@@ -348,7 +509,7 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
           />
           {own && readyToSubmit ? (
             <Button
-              label={t("send")}
+              label={sendLabel}
               icon="arrow-forward-outline"
               onPress={submit}
               busy={busy}
@@ -381,7 +542,24 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
             />
           )}
         </ActionRow>
-      ) : owner && task.status === "submitted" ? (
+      ) : task.collaborative && owner ? (
+        <Button
+          label={
+            language === "mr"
+              ? "नेमणूक व तपासणी"
+              : language === "hi"
+                ? "काम बाँटें और समीक्षा"
+                : "Allocation & review"
+          }
+          icon="people-outline"
+          onPress={() =>
+            navigation.navigate("InspectionAllocation", {
+              taskId: task.id,
+              section: allocation?.state === "submitted" ? "review" : "assign",
+            })
+          }
+        />
+      ) : owner && !task.collaborative && task.status === "submitted" ? (
         <ActionRow>
           <Button
             label={t("askRecheck")}
@@ -507,6 +685,13 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
         }
       >
         <FocusPage
+          refreshControl={
+            <RefreshControl
+              refreshing={resource.loading}
+              onRefresh={resource.refresh}
+              tintColor="#fff"
+            />
+          }
           widthLimit={phase === "photo" || phase === "result" ? 800 : 1280}
           scrollKey={`${index}:${phase}`}
           top={
@@ -527,6 +712,92 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
             <ErrorNotice
               message={resource.offline ? t("offline") : resource.error}
               retry={resource.refresh}
+            />
+          ) : null}
+          {task?.collaborative ? (
+            <Panel style={{ gap: 10 }}>
+              <Text style={{ fontWeight: "600" }}>
+                {language === "mr"
+                  ? "नेमलेल्या तपासण्या"
+                  : language === "hi"
+                    ? "सौंपी गई जाँच"
+                    : owner
+                      ? "Inspection progress"
+                      : "Allocated checks"}
+              </Text>
+              <Text style={s.muted}>
+                {task.items.length} / {masterTask?.items.length}{" "}
+                {language === "mr"
+                  ? "तपासण्या येथे दिसतात"
+                  : language === "hi"
+                    ? "जाँच यहाँ दिखती हैं"
+                    : "checks shown here"}{" "}
+                ·{" "}
+                {
+                  masterTask?.allocations.filter(
+                    (a) => a.state === "accepted" || a.state === "waived",
+                  ).length
+                }{" "}
+                {language === "mr"
+                  ? "एकूण पूर्ण"
+                  : language === "hi"
+                    ? "कुल पूरी"
+                    : "resolved overall"}
+              </Text>
+              {readyToSubmit ? (
+                <Button label={sendLabel} disabled={busy} onPress={submit} />
+              ) : null}
+              {owner ? (
+                <Button
+                  secondary
+                  label={
+                    language === "mr"
+                      ? "नेमणूक व तपासणी"
+                      : language === "hi"
+                        ? "काम बाँटें और समीक्षा"
+                        : "Allocation & review"
+                  }
+                  icon="people-outline"
+                  onPress={() =>
+                    navigation.navigate("InspectionAllocation", {
+                      taskId: task.id,
+                      section: masterTask?.allocations.some(
+                        (a) => a.state === "submitted",
+                      )
+                        ? "review"
+                        : "assign",
+                    })
+                  }
+                />
+              ) : null}
+              {masterTask?.answers.some(
+                (a) =>
+                  a.result === "problem" &&
+                  masterTask.items.find((i) => i.id === a.itemId)?.critical,
+              ) ? (
+                <Text style={{ color: colors.amber }}>
+                  {language === "mr"
+                    ? "सुरक्षेची समस्या नोंदली आहे. वाहन चालवण्यापूर्वी पर्यवेक्षकाला विचारा."
+                    : language === "hi"
+                      ? "सुरक्षा की समस्या दर्ज है। गाड़ी चलाने से पहले सुपरवाइज़र से पूछें।"
+                      : "A safety issue is recorded on this car. Check with your supervisor before driving."}
+                </Text>
+              ) : null}
+            </Panel>
+          ) : owner && task && task.status !== "completed" ? (
+            <Button
+              secondary
+              label={
+                language === "mr"
+                  ? "विभाग संघाला नेमा"
+                  : language === "hi"
+                    ? "टीम को हिस्से सौंपें"
+                    : "Allocate sections to team"
+              }
+              icon="people-outline"
+              onPress={() =>
+                navigation.navigate("InspectionAllocation", { taskId: task.id })
+              }
             />
           ) : null}
           {task && item ? (
@@ -568,7 +839,7 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
                       secondary
                       disabled={busy}
                       onPress={() =>
-                        readOnly ? setPhase("photo") : setCamera(true)
+                        readOnly ? setPhase("photo") : openCamera()
                       }
                     />
                     <Button
@@ -602,11 +873,16 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
                     (language === "hi"
                       ? "दोबारा जाँच · नई फोटो लें। पिछली फोटो सुरक्षित है।"
                       : "Recheck · take a new photo. The previous submission is retained.") +
-                    (task.recheckNote ? ` ${task.recheckNote}` : "")
+                    (allocation?.reviewNote || task.recheckNote
+                      ? ` ${allocation?.reviewNote || task.recheckNote}`
+                      : "")
                   }
                 />
               ) : null}
-              {owner && task.status === "submitted" && phase === "result" ? (
+              {owner &&
+              !task.collaborative &&
+              task.status === "submitted" &&
+              phase === "result" ? (
                 <Panel>
                   <Button
                     secondary
@@ -766,7 +1042,7 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
                           : "Inspection evidence"
                     }
                     disabled={readOnly || busy}
-                    onPress={() => setCamera(true)}
+                    onPress={openCamera}
                     style={{
                       height: Math.max(
                         140,
@@ -995,11 +1271,36 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
                 <Panel style={{ gap: 12 }}>
                   <Pill
                     label={
-                      task.status === "completed"
-                        ? t("completed")
-                        : task.status === "submitted"
-                          ? t("pending")
-                          : task.assigneeName
+                      task.collaborative
+                        ? allocation?.state === "accepted"
+                          ? language === "mr"
+                            ? "तपासणी स्वीकारली"
+                            : language === "hi"
+                              ? "जाँच स्वीकृत"
+                              : "Check accepted"
+                          : allocation?.state === "submitted"
+                            ? language === "mr"
+                              ? "तपासणी बाकी"
+                              : language === "hi"
+                                ? "समीक्षा बाकी"
+                                : "Awaiting review"
+                            : allocation?.state === "waived"
+                              ? language === "mr"
+                                ? "ऐच्छिक तपासणी वगळली"
+                                : language === "hi"
+                                  ? "वैकल्पिक जाँच छोड़ी गई"
+                                  : "Optional check omitted"
+                              : (allocation?.assigneeName ??
+                                (language === "mr"
+                                  ? "अनियोजित"
+                                  : language === "hi"
+                                    ? "बिना ज़िम्मेदारी"
+                                    : "Unallocated"))
+                        : task.status === "completed"
+                          ? t("completed")
+                          : task.status === "submitted"
+                            ? t("pending")
+                            : task.assigneeName
                     }
                   />
                   <Text style={{ fontSize: 19, fontWeight: "600" }}>
@@ -1040,8 +1341,22 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
                       })
                     }
                   />
-                  <Text style={s.muted}>{task.assigneeName}</Text>
-                  {owner && task.status === "submitted" ? (
+                  <Text style={s.muted}>
+                    {allocation?.assigneeName ?? task.assigneeName}
+                  </Text>
+                  {allocation?.answeredByName ? (
+                    <Text style={s.muted}>
+                      {language === "mr"
+                        ? "नोंद करणारे"
+                        : language === "hi"
+                          ? "दर्ज करने वाले"
+                          : "Recorded by"}{" "}
+                      · {allocation.answeredByName}
+                    </Text>
+                  ) : null}
+                  {owner &&
+                  !task.collaborative &&
+                  task.status === "submitted" ? (
                     <Text style={s.muted}>
                       {language === "hi"
                         ? "नीचे का निर्णय पूरी जाँच के लिए है।"
@@ -1063,12 +1378,40 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
                   icon="people-outline"
                   disabled={busy}
                   onPress={() =>
-                    navigation.navigate("AssignInspection", {
-                      carId: task.carId,
+                    navigation.navigate("InspectionAllocation", {
                       taskId: task.id,
                     })
                   }
                 />
+              ) : null}
+              {task.collaborative &&
+              draft &&
+              !draft.synced &&
+              allocation &&
+              allocation.assignmentVersion === draft.allocationVersion &&
+              allocation.version !== draft.itemVersion &&
+              !readOnly ? (
+                <Panel style={{ gap: 10 }}>
+                  <Text>
+                    {language === "hi"
+                      ? "इस जाँच का नतीजा बदल गया है।"
+                      : language === "mr"
+                        ? "या तपासणीचा निकाल बदलला आहे."
+                        : "The result for this check changed."}{" "}
+                    {answer ? `${answer.result} · ${answer.note}` : ""}
+                  </Text>
+                  <Button
+                    secondary
+                    label={
+                      language === "hi"
+                        ? "नया नतीजा देखकर ड्राफ्ट रखें"
+                        : language === "mr"
+                          ? "नवीन निकाल तपासून मसुदा ठेवा"
+                          : "Review latest result and keep draft"
+                    }
+                    onPress={reconfirmDraft}
+                  />
+                </Panel>
               ) : null}
               {message ? (
                 <Text

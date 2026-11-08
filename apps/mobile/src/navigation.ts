@@ -22,7 +22,11 @@ export type RootStack = {
     | undefined;
   Cars: { stage?: import("@arihant/contracts").Stage } | undefined;
   Car: { id: string };
-  Task: { id: string };
+  Task: { id: string; itemId?: string };
+  InspectionAllocation: {
+    taskId: string;
+    section?: "assign" | "review" | "coverage";
+  };
   Scan: undefined;
   Settings: undefined;
   AddCar: undefined;

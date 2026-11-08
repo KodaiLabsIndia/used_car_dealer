@@ -418,10 +418,16 @@ export class ApiClient {
   async clips(taskId: string) {
     return videoClipsSchema.parse(await this.request(`/tasks/${taskId}/clips`));
   }
-  async uploadClip(taskId: string, itemId: string, id: string, uri: string) {
+  async uploadClip(
+    taskId: string,
+    itemId: string,
+    id: string,
+    uri: string,
+    allocationVersion?: number | null,
+  ) {
     return videoClipSchema.parse(
       await this.uploadPreparedFile(
-        `/tasks/${taskId}/items/${encodeURIComponent(itemId)}/clips/${id}`,
+        `/tasks/${taskId}/items/${encodeURIComponent(itemId)}/clips/${id}${allocationVersion != null ? `?allocation_version=${allocationVersion}` : ""}`,
         uri,
         "video/mp4",
       ),
@@ -561,6 +567,17 @@ export class ApiClient {
   }
   async task(id: string) {
     return taskSchema.parse(await this.request(`/tasks/${id}`));
+  }
+  async allocateChecks(
+    id: string,
+    body: import("@arihant/contracts").AllocateChecks,
+  ) {
+    return taskSchema.parse(
+      await this.request(`/tasks/${id}/allocations`, {
+        method: "POST",
+        body: JSON.stringify(body),
+      }),
+    );
   }
   async command(id: string, command: TaskCommand) {
     return taskSchema.parse(
@@ -732,10 +749,16 @@ export class ApiClient {
       }),
     );
   }
-  async upload(taskId: string, itemId: string, id: string, uri: string) {
+  async upload(
+    taskId: string,
+    itemId: string,
+    id: string,
+    uri: string,
+    allocationVersion?: number | null,
+  ) {
     return evidenceSchema.parse(
       await this.uploadPreparedFile(
-        `/tasks/${taskId}/items/${encodeURIComponent(itemId)}/evidence/${id}`,
+        `/tasks/${taskId}/items/${encodeURIComponent(itemId)}/evidence/${id}${allocationVersion != null ? `?allocation_version=${allocationVersion}` : ""}`,
         uri,
         "image/jpeg",
       ),

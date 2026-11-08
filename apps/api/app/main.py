@@ -27,6 +27,7 @@ from app.adapters.decisions import DecisionStore
 from app.adapters.documents import DocumentStore
 from app.adapters.enquiries import EnquiryStore
 from app.adapters.identity import IdentityStore
+from app.adapters.inspection_allocations import InspectionAllocationStore
 from app.adapters.media import LocalEvidenceStore
 from app.adapters.notifications import NotificationStore
 from app.adapters.operations import OperationsStore, rows
@@ -69,6 +70,7 @@ from app.http.company import mount_company
 from app.http.documents import mount_documents
 from app.http.enquiries import mount_enquiries
 from app.http.identity import mount_identity
+from app.http.inspection_allocations import mount_inspection_allocations
 from app.http.notifications import mount_notifications
 from app.http.purchases import mount_purchases
 from app.http.reports import mount_reports
@@ -197,6 +199,7 @@ def create_app(settings: Settings | None = None, engine: Engine | None = None) -
     mount_reports(app, authenticated, ReportStore(database))
     mount_video(app, authenticated, VideoStore(store, settings.media_path))
     mount_notifications(app, authenticated, NotificationStore(database))
+    mount_inspection_allocations(app, authenticated, InspectionAllocationStore(store))
     workflow_store = WorkflowStore(store)
     mount_workforce(app, authenticated, WorkforceStore(workflow_store, settings.media_path))
     mount_routines(app, authenticated, RoutineStore(workflow_store))
@@ -329,13 +332,20 @@ def create_app(settings: Settings | None = None, engine: Engine | None = None) -
         "/v1/tasks/{task_id}/items/{item_id}/evidence/{evidence_id}", response_model=Evidence, status_code=201
     )
     async def upload(
-        task_id: UUID, item_id: str, evidence_id: UUID, actor: User, file: Annotated[UploadFile, File()]
+        task_id: UUID,
+        item_id: str,
+        evidence_id: UUID,
+        actor: User,
+        file: Annotated[UploadFile, File()],
+        allocation_version: int | None = Query(default=None, ge=1),
     ):
         if len(item_id) > 80:
             raise BusinessError("INVALID_ITEM", "That check is not part of this task.")
         data = await file.read(MAX_PHOTO_BYTES + 1)
         try:
-            return await run_in_threadpool(media.save, actor, task_id, item_id, evidence_id, data)
+            return await run_in_threadpool(
+                media.save, actor, task_id, item_id, evidence_id, data, allocation_version
+            )
         finally:
             await file.close()
 

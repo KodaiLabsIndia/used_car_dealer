@@ -112,3 +112,54 @@ test("a paused template does not erase work already started on its saved day", (
     "not_due",
   );
 });
+
+test("a shared inspection appears in the employee routine queue using current checks, with partial review alongside unfinished work", async () => {
+  const { itemSchema, inspectionPortion } = await import("@arihant/contracts");
+  const master = {
+    id: "shared",
+    assignedTo: "owner",
+    status: "in_progress",
+    collaborative: true,
+    helpOpen: false,
+    dueAt: null,
+    items: ["body", "engine", "brakes"].map((id, order) =>
+      itemSchema.parse({
+        id,
+        order,
+        title: id,
+        titleHi: id,
+        instruction: id,
+        instructionHi: id,
+        required: true,
+      }),
+    ),
+    allocations: [
+      { itemId: "body", assignedTo: "ravi", state: "submitted" },
+      { itemId: "engine", assignedTo: "ravi", state: "assigned" },
+      { itemId: "brakes", assignedTo: "meena", state: "accepted" },
+    ],
+    answers: [],
+    evidence: [],
+    recheckItems: [],
+    clipItemIds: [],
+  } as unknown as import("@arihant/contracts").Task;
+  const work = personalInspectionWork([master], "ravi", "2026-11-08T10:00:00Z");
+  assert.equal(work.todo[0]?.id, "shared");
+  assert.equal(work.review[0]?.id, "shared");
+  assert.deepEqual(
+    work.todo[0]?.items.map((i) => i.id),
+    ["body", "engine"],
+  );
+  assert.equal(master.items.length, 3);
+  assert.equal(inspectionPortion(master, "meena").status, "completed");
+  assert.equal(personalInspectionWork([master], "owner", "").todo.length, 0);
+  const tomorrow = personalInspectionWork(
+    [master],
+    "ravi",
+    "2026-11-09T10:00:00Z",
+  );
+  assert.equal(tomorrow.todo[0]?.id, "shared");
+  master.allocations[0]!.assignedTo = "meena";
+  master.allocations[1]!.assignedTo = null;
+  assert.equal(personalInspectionWork([master], "ravi", "").todo.length, 0);
+});

@@ -53,5 +53,7 @@ export type PhotoDraft = {
   evidenceId?: string;
   commandId?: string;
   expectedVersion?: number;
+  allocationVersion?: number | null;
+  itemVersion?: number | null;
   synced?: boolean;
 };

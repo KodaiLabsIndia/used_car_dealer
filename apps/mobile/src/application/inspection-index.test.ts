@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import type { Task } from "@arihant/contracts";
-import { itemSchema } from "@arihant/contracts";
+import { itemSchema, allocationFor } from "@arihant/contracts";
 import { checkState, inspectionProgress } from "./inspection-index";
 
 function inspection(): Task {
@@ -69,4 +69,16 @@ test("unable stays unfinished while an explicit N/A goes to review and findings 
   task.answers[0]!.result = "problem";
   assert.equal(inspectionProgress(task).issues, 1);
   assert.equal(inspectionProgress(task).exceptions, 0);
+});
+
+test("inspection and clip entry tolerate a legacy phone cache while fetching allocation metadata", () => {
+  assert.equal(allocationFor(null, "tyre"), undefined);
+  assert.equal(allocationFor({}, "tyre"), undefined);
+  assert.equal(allocationFor({ allocations: [] }, "tyre"), undefined);
+  const check = {
+    itemId: "tyre",
+    assignedTo: "ravi",
+  } as import("@arihant/contracts").CheckAllocation;
+  assert.equal(allocationFor({ allocations: [check] }, "tyre"), check);
+  assert.equal(allocationFor({ allocations: [check] }, "another"), undefined);
 });

@@ -1,9 +1,10 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from uuid import UUID
 
 from app.contracts import Actor, Answer, Task, TaskCommand
 from app.domain.access import can
 from app.domain.errors import BusinessError
+from app.domain.inspection_allocation import authorize_scoped_command, check_for, require_check
 
 
 @dataclass(frozen=True)
@@ -15,9 +16,12 @@ class TaskPlan:
     submit: bool = False
     review: dict | None = None
     recheck_items: list[str] | None = None
+    check_states: dict[str, str] | None = None
+    scope_submitted: list[str] | None = None
+    reviewed_item_ids: list[str] | None = None
 
 
-def plan_task_command(actor: Actor, task: Task, command: TaskCommand) -> TaskPlan:
+def plan_legacy_task_command(actor: Actor, task: Task, command: TaskCommand) -> TaskPlan:
     if actor.company_id != task.company_id or (not can(actor, "overview") and task.assigned_to != actor.id):
         raise BusinessError("NOT_FOUND", "This work is unavailable.", 404)
     if command.action in ("takeover", "assign"):
@@ -99,7 +103,9 @@ def plan_task_command(actor: Actor, task: Task, command: TaskCommand) -> TaskPla
         return TaskPlan(
             status="in_progress",
             answer=Answer.model_validate(
-                command.model_dump(exclude={"action", "command_id", "expected_version"})
+                command.model_dump(
+                    exclude={"action", "command_id", "expected_version", "allocation_version", "item_version"}
+                )
             ),
             recheck_items=[i for i in task.recheck_items if i != command.item_id],
         )
@@ -120,6 +126,132 @@ def plan_task_command(actor: Actor, task: Task, command: TaskCommand) -> TaskPla
             "Resolve every required check, including required photos and video clips. Unable-to-check items remain unfinished.",
         )
     return TaskPlan(status="submitted", submit=True)
+
+
+def plan_task_command(actor: Actor, task: Task, command: TaskCommand) -> TaskPlan:
+    if not task.collaborative:
+        if command.action in ("submit_checks", "review_checks"):
+            raise BusinessError(
+                "SCOPED_WORK_REQUIRED", "Allocate this inspection before submitting portions.", 409
+            )
+        return plan_legacy_task_command(actor, task, command)
+    authorize_scoped_command(actor, task, command)
+    if task.status == "completed":
+        raise BusinessError(
+            "INSPECTION_CLOSED",
+            "This inspection is complete. Create a follow-up inspection for new work.",
+            409,
+        )
+    if command.action in ("answer", "help"):
+        grant = require_check(actor, task, command.item_id, command.allocation_version)
+        if command.action == "answer":
+            if command.item_version != grant.version:
+                raise BusinessError(
+                    "VERSION_CONFLICT", "This check changed. Review its current result before saving.", 409
+                )
+            proof = next(
+                (e for e in task.evidence if e.id == command.evidence_id and e.item_id == command.item_id),
+                None,
+            )
+            if proof and (
+                proof.assignment_version != grant.assignment_version or proof.uploaded_by != actor.id
+            ):
+                raise BusinessError(
+                    "FRESH_EVIDENCE_REQUIRED", "Use a photo admitted under your current allocation.", 409
+                )
+        local = task.model_copy(update={"assigned_to": actor.id, "status": "in_progress"})
+        plan = plan_legacy_task_command(actor, local, command)
+        return replace(
+            plan,
+            status=None,
+            check_states={command.item_id: "in_progress"} if command.action == "answer" else None,
+        )
+    tokens = command.checks
+    if len({c.item_id for c in tokens}) != len(tokens):
+        raise BusinessError("INVALID_ITEM", "Choose each check only once.", 400)
+    grants = []
+    for token in tokens:
+        grant = check_for(task, token.item_id)
+        if (token.assignment_version, token.version) != (grant.assignment_version, grant.version):
+            raise BusinessError(
+                "VERSION_CONFLICT", "An allocated check changed. Refresh before continuing.", 409
+            )
+        grants.append(grant)
+    ids = [g.item_id for g in grants]
+    if command.action == "submit_checks":
+        for token in tokens:
+            require_check(actor, task, token.item_id, token.assignment_version)
+        if any(
+            not any(a.item_id == item_id and a.result != "unable" for a in task.answers) for item_id in ids
+        ):
+            raise BusinessError(
+                "INCOMPLETE",
+                "Record each selected check. Ask a supervisor to omit an optional check explicitly.",
+                409,
+            )
+        local = task.model_copy(
+            update={
+                "assigned_to": actor.id,
+                "status": "in_progress",
+                "items": [i.model_copy(update={"required": True}) for i in task.items if i.id in ids],
+                "recheck_items": [i for i in task.recheck_items if i in ids],
+            }
+        )
+        from app.contracts import SubmitCommand
+
+        plan_legacy_task_command(
+            actor,
+            local,
+            SubmitCommand(
+                command_id=command.command_id, expected_version=command.expected_version, action="submit"
+            ),
+        )
+        return TaskPlan(check_states=dict.fromkeys(ids, "submitted"), scope_submitted=ids)
+    if command.decision in ("recheck", "waive") and len(command.note.strip()) < 5:
+        raise BusinessError("REASON_REQUIRED", "Record a reason for the returned or omitted checks.", 400)
+    for grant in grants:
+        item = next(i for i in task.items if i.id == grant.item_id)
+        answer = next((a for a in task.answers if a.item_id == grant.item_id), None)
+        if command.decision == "waive":
+            if item.required or (answer and answer.result not in ("unable",)):
+                raise BusinessError(
+                    "INVALID_EXCEPTION",
+                    "Only an optional, unrecorded/unable check can be explicitly omitted.",
+                    409,
+                )
+        elif command.decision == "accept":
+            if grant.state != "submitted" or answer is None or answer.result == "unable":
+                raise BusinessError(
+                    "NOT_SUBMITTED",
+                    "Review a submitted, recorded result or explicitly omit an optional check.",
+                    409,
+                )
+            if actor.role != "owner" and grant.answered_by == actor.id:
+                raise BusinessError(
+                    "INDEPENDENT_REVIEW_REQUIRED",
+                    "Ask another supervisor to review your own recorded checks.",
+                    403,
+                )
+            if task.kind == "repair_qc" and answer.result == "problem":
+                raise BusinessError(
+                    "QC_FAILED", "This repair still has a reported problem. Request a recheck.", 409
+                )
+        elif grant.state not in ("submitted", "accepted", "waived"):
+            raise BusinessError("NOT_SUBMITTED", "Return submitted or accepted checks for correction.", 409)
+    state = {"accept": "accepted", "recheck": "recheck", "waive": "waived"}[command.decision]
+    remaining = [i for i in task.recheck_items if i not in ids]
+    return TaskPlan(
+        check_states={
+            g.item_id: ("unassigned" if state == "recheck" and g.assigned_to is None else state)
+            for g in grants
+        },
+        reviewed_item_ids=ids,
+        review={
+            "decision": "recheck" if state == "recheck" else "accept",
+            "selfReview": any(g.answered_by == actor.id for g in grants),
+        },
+        recheck_items=remaining + ids if state == "recheck" else remaining,
+    )
 
 
 def normalized_photo_size(width: int, height: int) -> tuple[int, int]:

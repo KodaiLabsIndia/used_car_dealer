@@ -1,15 +1,30 @@
-import type { RoutineItem, Task } from "@arihant/contracts";
+import {
+  inspectionPortion,
+  type RoutineItem,
+  type Task,
+} from "@arihant/contracts";
 
 type InspectionWork = Pick<
   Task,
   "id" | "assignedTo" | "status" | "helpOpen" | "dueAt"
->;
+> &
+  Partial<Pick<Task, "collaborative" | "allocations" | "items">>;
 export function personalInspectionWork<T extends InspectionWork>(
   tasks: readonly T[],
   person: string,
   serverNow: string,
 ) {
-  const own = tasks.filter((t) => t.assignedTo === person);
+  const own = tasks
+    .filter((t) =>
+      t.collaborative
+        ? t.allocations?.some((a) => a.assignedTo === person)
+        : t.assignedTo === person,
+    )
+    .map((t) =>
+      t.collaborative && t.items
+        ? (inspectionPortion(t as unknown as Task, person) as unknown as T)
+        : t,
+    );
   const now = Date.parse(serverNow);
   const rank = (t: T) =>
     t.status === "recheck"
@@ -31,7 +46,13 @@ export function personalInspectionWork<T extends InspectionWork>(
     );
   return {
     todo,
-    review: own.filter((t) => t.status === "submitted"),
+    review: own.filter((t) =>
+      t.collaborative
+        ? t.allocations?.some(
+            (a) => a.assignedTo === person && a.state === "submitted",
+          )
+        : t.status === "submitted",
+    ),
     finished: own.filter((t) => t.status === "completed"),
   };
 }

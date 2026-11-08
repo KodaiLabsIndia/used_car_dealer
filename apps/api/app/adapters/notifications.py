@@ -86,15 +86,26 @@ class NotificationStore:
             target_type, target_id = "task", payload["taskId"]
             task = rows(
                 conn,
-                "SELECT assigned_to FROM tasks WHERE company_id=:company AND id=:id",
+                "SELECT assigned_to,collaborative FROM tasks WHERE company_id=:company AND id=:id",
                 {"company": company, "id": target_id},
             )
             if not task:
                 return []
-            recipients += [task[0]["assigned_to"]]
+            if task[0]["collaborative"]:
+                # Current participants receive shared work updates; a revoked assignee has no target access.
+                recipients += [
+                    r["assigned_to"]
+                    for r in rows(
+                        conn,
+                        "SELECT DISTINCT assigned_to FROM inspection_check_allocations WHERE company_id=:company AND task_id=:id AND assigned_to IS NOT NULL",
+                        {"company": company, "id": target_id},
+                    )
+                ]
+            else:
+                recipients += [task[0]["assigned_to"]]
             if kind in ("task.assign", "task.takeover") and payload.get("previousAssignedTo"):
                 recipients.append(UUID(payload["previousAssignedTo"]))
-            if kind in ("task.submit", "task.help"):
+            if kind in ("task.submit", "task.submit_checks", "task.help", "task.allocated"):
                 recipients += [
                     u["id"]
                     for u in rows(
@@ -181,7 +192,7 @@ class NotificationStore:
                 (
                     "task.overdue",
                     "task",
-                    "SELECT company_id,id,assigned_to AS user_id FROM tasks WHERE status NOT IN ('submitted','completed') AND due_at<now()",
+                    "SELECT t.company_id,t.id,t.assigned_to AS user_id FROM tasks t WHERE NOT t.collaborative AND t.status NOT IN ('submitted','completed') AND t.due_at<now() UNION SELECT t.company_id,t.id,c.assigned_to AS user_id FROM tasks t JOIN inspection_check_allocations c ON c.task_id=t.id AND c.company_id=t.company_id WHERE t.collaborative AND c.state IN ('assigned','in_progress','recheck') AND c.assigned_to IS NOT NULL AND t.due_at<now()",
                 ),
                 (
                     "repair.overdue",

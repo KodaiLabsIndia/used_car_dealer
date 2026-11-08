@@ -50,11 +50,6 @@ export function EmployeeHomeScreen({ navigation }: ScreenProps<"Home">) {
     "pay",
     "help",
   ]);
-  const [kind, setKind] = useSection("employee:work-kind:v1", "inspections", [
-    "inspections",
-    "routines",
-    "service",
-  ] as const);
   const [list, setList] = useSection("employee:work-list:v1", "todo", [
     "todo",
     "review",
@@ -204,6 +199,16 @@ export function EmployeeHomeScreen({ navigation }: ScreenProps<"Home">) {
           </View>
         </View>
         <Text style={{ fontSize: 15, width: "100%" }}>{task.title}</Text>
+        {task.collaborative ? (
+          <Text style={{ color: c.accent }}>
+            {tr(
+              "Your allocated checks",
+              "आपकी सौंपी जाँच",
+              "तुम्हाला नेमलेल्या तपासण्या",
+            )}{" "}
+            · {task.items.length}
+          </Text>
+        ) : null}
         <View style={{ height: 4, backgroundColor: c.line, borderRadius: 4 }}>
           <View
             style={{
@@ -218,6 +223,24 @@ export function EmployeeHomeScreen({ navigation }: ScreenProps<"Home">) {
           {p.completed}/{p.total}{" "}
           {tr("checks recorded", "जाँच दर्ज", "तपासण्या नोंदवल्या")}
         </Text>
+        {task.collaborative ? (
+          <Text style={{ fontSize: 12, color: c.muted }}>
+            {
+              task.allocations.filter(
+                (a) => a.assignedTo === actor.id && a.state === "submitted",
+              ).length
+            }{" "}
+            {tr("in review", "समीक्षा में", "तपासणीत")} ·{" "}
+            {
+              task.allocations.filter(
+                (a) =>
+                  a.assignedTo === actor.id &&
+                  ["accepted", "waived"].includes(a.state),
+              ).length
+            }{" "}
+            {tr("resolved", "पूरी", "पूर्ण")}
+          </Text>
+        ) : null}
         <Button
           secondary={task.status === "completed" || task.status === "submitted"}
           label={label}
@@ -351,9 +374,9 @@ export function EmployeeHomeScreen({ navigation }: ScreenProps<"Home">) {
                     </Text>
                     <Text style={{ fontSize: 14, color: c.muted }}>
                       {tr(
-                        "One clear next step.",
-                        "एक समय पर एक साफ़ काम।",
-                        "एका वेळी एक स्पष्ट काम.",
+                        "Today’s attendance and assigned work",
+                        "आज की हाज़िरी और सौंपे काम",
+                        "आजची हजेरी व नेमलेली कामे",
                       )}
                     </Text>
                   </View>
@@ -394,9 +417,9 @@ export function EmployeeHomeScreen({ navigation }: ScreenProps<"Home">) {
                     </View>
                     <Text style={{ fontSize: 13, color: c.muted }}>
                       {tr(
-                        "Your attendance, shift and leave in one place.",
-                        "आपकी हाज़िरी, शिफ्ट और छुट्टी एक जगह।",
-                        "तुमची हजेरी, शिफ्ट व रजा एकाच ठिकाणी.",
+                        "Attendance, shift and leave",
+                        "हाज़िरी, शिफ्ट और छुट्टी",
+                        "हजेरी, शिफ्ट व रजा",
                       )}
                     </Text>
                     <Button
@@ -466,7 +489,6 @@ export function EmployeeHomeScreen({ navigation }: ScreenProps<"Home">) {
                       detail={`${routineDone.length}/${due.length} ${tr("finished today", "आज पूरे", "आज पूर्ण")}`}
                       icon="repeat-outline"
                       onPress={() => {
-                        setKind("routines");
                         setList("todo");
                         setArea("work");
                       }}
@@ -491,11 +513,7 @@ export function EmployeeHomeScreen({ navigation }: ScreenProps<"Home">) {
                 <>
                   <WorkHeading
                     kicker={tr("YOUR WORK", "आपके काम", "तुमची कामे")}
-                    title={tr(
-                      "Know what’s next.",
-                      "अगला काम साफ़ है।",
-                      "पुढचे काम स्पष्ट आहे.",
-                    )}
+                    title={tr("Assigned work", "सौंपे हुए काम", "नेमलेली कामे")}
                     action={tr(
                       "Scan car",
                       "गाड़ी स्कैन करें",
@@ -506,46 +524,15 @@ export function EmployeeHomeScreen({ navigation }: ScreenProps<"Home">) {
                   <SectionTabs
                     items={[
                       {
-                        id: "inspections",
-                        label: tr("Inspections", "जाँच", "तपासणी"),
-                        icon: "scan-outline",
-                        badge: String(tasks.todo.length),
-                      },
-                      {
-                        id: "routines",
-                        label: tr("Routines", "रोज़ के काम", "रोजची कामे"),
-                        icon: "repeat-outline",
-                        badge: String(routineTodo.length),
-                      },
-                      {
-                        id: "service",
-                        label: tr("Service", "सर्विस", "सर्विस"),
-                        icon: "build-outline",
-                        badge: String(activeJobs.length),
-                      },
-                    ]}
-                    selected={kind}
-                    onChange={(v) => {
-                      setKind(v);
-                      setList("todo");
-                    }}
-                  />
-                  <SectionTabs
-                    items={[
-                      {
                         id: "todo",
                         label: tr("To do", "करना है", "करायचे"),
                         icon: "ellipse-outline",
                       },
-                      ...(kind === "inspections"
-                        ? [
-                            {
-                              id: "review" as const,
-                              label: tr("In review", "समीक्षा में", "तपासणीत"),
-                              icon: "hourglass-outline" as const,
-                            },
-                          ]
-                        : []),
+                      {
+                        id: "review",
+                        label: tr("In review", "समीक्षा में", "तपासणीत"),
+                        icon: "hourglass-outline",
+                      },
                       {
                         id: "finished",
                         label: tr("Finished", "पूरा हुआ", "पूर्ण"),
@@ -555,41 +542,22 @@ export function EmployeeHomeScreen({ navigation }: ScreenProps<"Home">) {
                     selected={list}
                     onChange={setList}
                   />
-                  {kind === "inspections" ? (
-                    <>
-                      <WorkGrid>
-                        {(list === "finished"
-                          ? tasks.finished
-                          : list === "review"
-                            ? tasks.review
-                            : tasks.todo
-                        ).map(taskCard)}
-                      </WorkGrid>
-                      {!(
-                        list === "finished"
-                          ? tasks.finished
-                          : list === "review"
-                            ? tasks.review
-                            : tasks.todo
-                      ).length ? (
-                        <WorkEmpty
-                          title={tr(
-                            "Nothing in this list",
-                            "इस सूची में काम नहीं",
-                            "या यादीत काम नाही",
-                          )}
-                          detail={tr(
-                            "Your assigned inspections appear in the right stage.",
-                            "आपकी जाँच सही स्थिति में यहाँ दिखेगी।",
-                            "तुमच्या तपासण्या योग्य स्थितीत येथे दिसतील.",
-                          )}
-                        />
-                      ) : null}
-                    </>
-                  ) : kind === "routines" ? (
-                    <>
-                      <WorkGrid>
-                        {(list === "finished" ? routineDone : routineTodo).map(
+                  <Text style={{ color: c.muted }}>
+                    {tr(
+                      "Your routine queue includes car checks, daily tasks and service work. Car assignments continue across days until reviewed.",
+                      "आपके कामों में गाड़ी की जाँच, रोज़ के काम और सर्विस साथ हैं। समीक्षा तक गाड़ी के काम अगले दिन भी रहेंगे।",
+                      "तुमच्या यादीत गाडीची तपासणी, रोजची कामे व सर्विस एकत्र आहेत. तपासणी होईपर्यंत गाडीची कामे पुढील दिवसाही राहतील.",
+                    )}
+                  </Text>
+                  <WorkGrid>
+                    {(list === "finished"
+                      ? tasks.finished
+                      : list === "review"
+                        ? tasks.review
+                        : tasks.todo
+                    ).map(taskCard)}
+                    {list !== "review"
+                      ? (list === "finished" ? routineDone : routineTodo).map(
                           (i) => (
                             <RoutineCard
                               key={i.id}
@@ -601,79 +569,62 @@ export function EmployeeHomeScreen({ navigation }: ScreenProps<"Home">) {
                               }
                             />
                           ),
-                        )}
-                      </WorkGrid>
-                      {!(list === "finished" ? routineDone : routineTodo)
-                        .length ? (
-                        <WorkEmpty
-                          title={tr(
-                            "No routines in this list",
-                            "इस सूची में रोज़ के काम नहीं",
-                            "या यादीत रोजची कामे नाहीत",
-                          )}
-                          detail={tr(
-                            "Only routines assigned to you and due today appear here.",
-                            "सिर्फ़ आपके आज के रोज़ के काम यहाँ दिखेंगे।",
-                            "फक्त तुम्हाला नेमलेली आजची कामे येथे दिसतील.",
-                          )}
-                        />
-                      ) : null}
-                      <WorkRow
-                        title={tr(
-                          "Saved routine history",
-                          "रोज़ के काम का रिकॉर्ड",
-                          "रोजच्या कामांची नोंद",
-                        )}
-                        detail={tr(
-                          "Choose a day and see recorded steps",
-                          "दिन चुनकर दर्ज चरण देखें",
-                          "दिवस निवडा व नोंदवलेले टप्पे पाहा",
-                        )}
-                        icon="calendar-outline"
-                        onPress={() =>
-                          navigation.navigate("Routines", {
-                            section: "history",
-                          })
-                        }
-                      />
-                    </>
-                  ) : (
-                    <>
-                      <WorkGrid>
-                        {(list === "finished"
+                        )
+                      : null}
+                    {list !== "review"
+                      ? (list === "finished"
                           ? jobs.filter((j) => j.status === "completed")
                           : activeJobs
-                        ).map(jobRow)}
-                      </WorkGrid>
-                      {!(
-                        list === "finished"
-                          ? jobs.filter((j) => j.status === "completed")
-                          : activeJobs
-                      ).length ? (
-                        <WorkEmpty
-                          title={tr(
-                            "No service work in this list",
-                            "इस सूची में सर्विस का काम नहीं",
-                            "या यादीत सर्विसचे काम नाही",
-                          )}
-                          detail={tr(
-                            "Your repair assignments and parts updates appear here.",
-                            "आपके मरम्मत के काम और पार्ट अपडेट यहाँ दिखेंगे।",
-                            "तुमची दुरुस्तीची कामे व पार्टची माहिती येथे दिसेल.",
-                          )}
-                        />
-                      ) : null}
-                    </>
-                  )}
+                        ).map(jobRow)
+                      : null}
+                  </WorkGrid>
+                  {!(list === "finished"
+                    ? tasks.finished.length +
+                      routineDone.length +
+                      jobs.filter((j) => j.status === "completed").length
+                    : list === "review"
+                      ? tasks.review.length
+                      : tasks.todo.length +
+                        routineTodo.length +
+                        activeJobs.length) ? (
+                    <WorkEmpty
+                      title={tr(
+                        "Nothing in this list",
+                        "इस सूची में काम नहीं",
+                        "या यादीत काम नाही",
+                      )}
+                      detail={tr(
+                        "Assigned work appears here automatically.",
+                        "सौंपे काम यहाँ अपने आप दिखेंगे।",
+                        "नेमलेली कामे येथे आपोआप दिसतील.",
+                      )}
+                    />
+                  ) : null}
+                  <WorkRow
+                    title={tr(
+                      "Saved routine history",
+                      "रोज़ के काम का रिकॉर्ड",
+                      "रोजच्या कामांची नोंद",
+                    )}
+                    detail={tr(
+                      "Choose a day and see recorded steps",
+                      "दिन चुनकर दर्ज चरण देखें",
+                      "दिवस निवडा व नोंदवलेले टप्पे पाहा",
+                    )}
+                    icon="calendar-outline"
+                    onPress={() =>
+                      navigation.navigate("Routines", { section: "history" })
+                    }
+                  />
                 </>
               ) : area === "pay" ? (
                 <>
                   <WorkHeading
                     kicker={tr("MY PAY", "मेरा वेतन", "माझा पगार")}
                     title={tr(
-                      "Your pay, clearly.",
-                      "आपके वेतन का साफ़ हिसाब।",
-                      "तुमच्या पगाराचा स्पष्ट हिशेब.",
+                      "Salary and advances",
+                      "वेतन और अग्रिम",
+                      "पगार व आगाऊ रक्कम",
                     )}
                   />
                   <View
@@ -776,9 +727,9 @@ export function EmployeeHomeScreen({ navigation }: ScreenProps<"Home">) {
                   <WorkHeading
                     kicker={tr("HELP", "मदद", "मदत")}
                     title={tr(
-                      "You don’t have to guess.",
-                      "अंदाज़ा लगाने की ज़रूरत नहीं।",
-                      "अंदाज लावायची गरज नाही.",
+                      "Help and instructions",
+                      "मदद और निर्देश",
+                      "मदत व सूचना",
                     )}
                   />
                   <WorkRow
@@ -826,7 +777,6 @@ export function EmployeeHomeScreen({ navigation }: ScreenProps<"Home">) {
                     )}
                     icon="hand-left-outline"
                     onPress={() => {
-                      setKind("inspections");
                       setArea("work");
                       setList("todo");
                     }}

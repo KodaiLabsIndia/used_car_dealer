@@ -1,5 +1,6 @@
+import { allocationFor } from "@arihant/contracts";
 import { formatDateTime } from "../components/date-format";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Alert, AppState, View } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import * as Crypto from "expo-crypto";
@@ -19,7 +20,12 @@ import {
 import { Workspace, FocusPage } from "../components/workspace";
 import { Button, ErrorNotice, Panel, Pill, Text, s } from "../components/ui";
 import { VideoCamera } from "../components/video-camera";
-type ClipDraft = { id: string; source: string; prepared: PreparedVideo | null };
+type ClipDraft = {
+  id: string;
+  source: string;
+  prepared: PreparedVideo | null;
+  allocationVersion?: number | null;
+};
 function Player({
   source,
 }: {
@@ -59,9 +65,22 @@ export function ClipsScreen({ route }: ScreenProps<"Clips">) {
       clips: await api.clips(taskId),
     }),
   );
-  const editable =
-    resource.data?.task.assignedTo === user.id &&
-    !["submitted", "completed"].includes(resource.data.task.status);
+  const task = resource.data?.task;
+  const allocation = allocationFor(task, itemId);
+  const editable = task?.collaborative
+    ? allocation?.assignedTo === user.id &&
+      ["assigned", "in_progress", "recheck"].includes(allocation.state) &&
+      task.status !== "completed"
+    : task?.assignedTo === user.id &&
+      !["submitted", "completed"].includes(task.status);
+  const captureVersion = useRef<number | null>(null);
+  function pinCapture() {
+    captureVersion.current = allocation?.assignmentVersion ?? null;
+  }
+  function openCamera() {
+    pinCapture();
+    setCamera(true);
+  }
   useEffect(() => {
     setView(route.params.initialView || "saved");
   }, [taskId, itemId, route.params.initialView]);
@@ -116,8 +135,14 @@ export function ClipsScreen({ route }: ScreenProps<"Clips">) {
     setOperation("preparing");
     setError("");
     try {
+      const allocationVersion = captureVersion.current;
       const source = await preserveVideoSource(uri, user.id),
-        next = { id: Crypto.randomUUID(), source, prepared: null };
+        next = {
+          id: Crypto.randomUUID(),
+          source,
+          prepared: null,
+          allocationVersion,
+        };
       await saveLocal(user.id, key, next);
       const previous = draft;
       setDraft(next);
@@ -141,6 +166,7 @@ export function ClipsScreen({ route }: ScreenProps<"Clips">) {
     }
   }
   async function gallery() {
+    pinCapture();
     try {
       const result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ["videos"],
@@ -196,7 +222,20 @@ export function ClipsScreen({ route }: ScreenProps<"Clips">) {
     setOperation("uploading");
     setError("");
     try {
-      await api.uploadClip(taskId, itemId, draft.id, draft.prepared.uri);
+      if (task?.collaborative && draft.allocationVersion == null)
+        throw new Error(
+          tr(
+            "This clip predates team allocation. Keep it on the phone and record a new clip for your current allocation.",
+            "यह वीडियो टीम ज़िम्मेदारी से पहले का है। इसे फ़ोन पर रखें और नई जाँच के लिए नया वीडियो लें।",
+          ),
+        );
+      await api.uploadClip(
+        taskId,
+        itemId,
+        draft.id,
+        draft.prepared.uri,
+        draft.allocationVersion,
+      );
       await deleteLocal(user.id, key);
       await deleteLocal(user.id, `clip:${taskId}:${itemId}`);
       await Promise.allSettled([
@@ -328,7 +367,7 @@ export function ClipsScreen({ route }: ScreenProps<"Clips">) {
                         "नया वीडियो रिकॉर्ड करें",
                       )}
                       disabled={!canPrepareVideo || !editable}
-                      onPress={() => replaceClip(() => setCamera(true))}
+                      onPress={() => replaceClip(openCamera)}
                     />
                     <Button
                       secondary
@@ -372,7 +411,7 @@ export function ClipsScreen({ route }: ScreenProps<"Clips">) {
                   label={tr("Record a clip", "वीडियो लें")}
                   icon="videocam-outline"
                   disabled={!canPrepareVideo || !editable || busy}
-                  onPress={() => setCamera(true)}
+                  onPress={openCamera}
                 />
                 <Button
                   secondary

@@ -112,6 +112,8 @@ export const carSchema = z.object({
 });
 export type Car = z.infer<typeof carSchema>;
 export const evidenceSchema = z.object({
+  assignmentVersion: z.number().int().nullable().default(null),
+  uploadedBy: z.uuid().nullable().default(null),
   id: z.uuid(),
   itemId: z.string(),
   width: z.number(),
@@ -224,7 +226,37 @@ export const answerSchema = z.object({
   applicabilityConfirmed: z.boolean().default(false),
 });
 export type Answer = z.infer<typeof answerSchema>;
+export const checkAllocationSchema = z.object({
+  itemId: z.string(),
+  assignedTo: z.uuid().nullable(),
+  assigneeName: z.string().nullable(),
+  assignmentVersion: z.number().int(),
+  version: z.number().int(),
+  state: z.enum([
+    "unassigned",
+    "assigned",
+    "in_progress",
+    "submitted",
+    "accepted",
+    "recheck",
+    "waived",
+  ]),
+  answeredBy: z.uuid().nullable(),
+  answeredByName: z.string().nullable(),
+  reviewedBy: z.uuid().nullable(),
+  reviewedAt: z.string().nullable(),
+  reviewNote: z.string(),
+});
+export type CheckAllocation = z.infer<typeof checkAllocationSchema>;
+export const checkRevisionSchema = z.object({
+  itemId: z.string(),
+  assignmentVersion: z.number().int().positive(),
+  version: z.number().int().nonnegative(),
+});
+export type CheckRevision = z.infer<typeof checkRevisionSchema>;
 export const taskSchema = z.object({
+  collaborative: z.boolean().default(false),
+  allocations: z.array(checkAllocationSchema).default([]),
   id: z.uuid(),
   companyId: z.uuid(),
   carId: z.uuid(),
@@ -283,12 +315,26 @@ export const commandSchema = z.discriminatedUnion("action", [
   z.object({
     ...commandBase,
     action: z.literal("answer"),
+    allocationVersion: z.number().int().positive().nullable().optional(),
+    itemVersion: z.number().int().nonnegative().nullable().optional(),
     itemId: z.string().min(1).max(80),
     result: z.enum(["ok", "problem", "unable", "not_applicable"]),
     note: z.string().max(1000).default(""),
     evidenceId: z.uuid(),
     reading: z.number().nonnegative().nullable().default(null),
     applicabilityConfirmed: z.boolean().default(false),
+  }),
+  z.object({
+    ...commandBase,
+    action: z.literal("submit_checks"),
+    checks: z.array(checkRevisionSchema).min(1).max(1000),
+  }),
+  z.object({
+    ...commandBase,
+    action: z.literal("review_checks"),
+    checks: z.array(checkRevisionSchema).min(1).max(1000),
+    decision: z.enum(["accept", "recheck", "waive"]),
+    note: z.string().max(1000).default(""),
   }),
   z.object({ ...commandBase, action: z.literal("submit") }),
   z.object({ ...commandBase, action: z.literal("takeover") }),
@@ -300,6 +346,7 @@ export const commandSchema = z.discriminatedUnion("action", [
   z.object({
     ...commandBase,
     action: z.literal("help"),
+    allocationVersion: z.number().int().positive().nullable().optional(),
     itemId: z.string().max(80).optional(),
     note: z.string().max(1000).default(""),
   }),
@@ -1130,7 +1177,14 @@ export const managedChecklistsSchema = z.object({
   items: z.array(managedChecklistSchema),
 });
 
-export { checkState, inspectionProgress } from "./inspection";
+export {
+  checkState,
+  inspectionProgress,
+  inspectionPortion,
+  allocationFor,
+  checkRevision,
+  writableChecks,
+} from "./inspection";
 
 export { can, workingLevel } from "./access";
 
@@ -1185,3 +1239,5 @@ export * from "./workforce";
 export { salaryStatementText } from "./workforce-presentation";
 
 export * from "./routines";
+
+export type AllocateChecks = PurchaseApi["AllocateChecks"];

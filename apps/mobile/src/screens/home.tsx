@@ -7,7 +7,7 @@ import {
   View,
 } from "react-native";
 import { colors } from "@arihant/design-tokens";
-import { inspectionProgress } from "@arihant/contracts";
+import { inspectionProgress, inspectionPortion } from "@arihant/contracts";
 import { can } from "../application/access";
 import type { Navigation, ScreenProps } from "../navigation";
 import { GarageHeader, BottomNav } from "../components/header";
@@ -57,9 +57,17 @@ function WorkBoard({
     language === "mr" ? mr : language === "hi" ? hi : en;
   const [scope, setScope] = useState(initialMine ? "mine" : "all");
   const resource = useResource("dashboard", () => api.dashboard());
-  const tasks = (resource.data?.tasks ?? []).filter(
-    (task) => scope !== "mine" || task.assignedTo === session!.actor.id,
-  );
+  const tasks = (resource.data?.tasks ?? [])
+    .filter(
+      (task) =>
+        scope !== "mine" ||
+        (task.collaborative
+          ? task.allocations.some((a) => a.assignedTo === session!.actor.id)
+          : task.assignedTo === session!.actor.id),
+    )
+    .map((task) =>
+      scope === "mine" ? inspectionPortion(task, session!.actor.id) : task,
+    );
   return (
     <View style={{ flex: 1, backgroundColor: colors.surface }}>
       <GarageHeader

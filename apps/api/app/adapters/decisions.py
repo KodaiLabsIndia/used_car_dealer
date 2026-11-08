@@ -6,10 +6,10 @@ from app.domain.access import can, require
 
 # One query defines both count and pages, keeping the owner badge reconcilable.
 QUERY = """WITH pending AS (
- SELECT t.id,CASE WHEN t.status='submitted' THEN 'inspection' ELSE 'help' END AS kind,t.cycle_id,
+ SELECT t.id,CASE WHEN t.status='submitted' OR (t.collaborative AND EXISTS(SELECT 1 FROM inspection_check_allocations c WHERE c.task_id=t.id AND c.company_id=t.company_id AND c.state='submitted')) THEN 'inspection' ELSE 'help' END AS kind,t.cycle_id,
  t.title,'task' AS target_type,t.id AS target_id,t.updated_at AS created_at
  FROM tasks t WHERE t.company_id=:company AND :review AND
- (t.status='submitted' OR EXISTS(SELECT 1 FROM help_requests h WHERE h.task_id=t.id AND h.company_id=t.company_id AND h.status='open'))
+ (t.status='submitted' OR (t.collaborative AND EXISTS(SELECT 1 FROM inspection_check_allocations c WHERE c.task_id=t.id AND c.company_id=t.company_id AND c.state='submitted')) OR EXISTS(SELECT 1 FROM help_requests h WHERE h.task_id=t.id AND h.company_id=t.company_id AND h.status='open'))
  UNION ALL
  SELECT p.id,'purchase',p.cycle_id,'Purchase approval','purchase',p.cycle_id,p.updated_at FROM purchases p WHERE p.company_id=:company AND :owner AND p.status='submitted'
  UNION ALL

@@ -253,3 +253,26 @@ Workforce requests/attendance review join the central Decisions query with a
 person subject and a nullable car reference; no synthetic car represents a
 worker. Staff deactivation revokes employee activity while preserving authorised
 final settlement. Foreground location is sampled only for a punch when enabled.
+
+## ADR-15: One master inspection with per-check work assignments
+
+Inspection checklist snapshots stay on the existing task. A check allocation has
+an assignee, assignment revision, result revision and review state; a persistent
+person/task work assignment projects into the employee routine queue. Daily
+routine checkboxes cannot complete inspection work. The task's legacy assignee
+is not authoritative once collaborative allocation is enabled.
+
+Assignment revisions revoke stale/offline and replayed writes after handover.
+Per-check revisions let independent employees save against the same master
+version. Domain policies retain proof/applicability/measurement rules and derive
+master completion from all checks. SQL adapters lock the car/task consistently,
+recheck media authority after preparation and preserve immutable answer,
+allocation, portion submission and review facts with actual authors.
+
+Partial review affects selected checks. Required work and known problems cannot
+be omitted; optional omissions require an explicit recorded decision. Shared QC
+and financial readiness depend on the master state. Repair coordination can
+change without replacing the QC team. Money approval requirements are unchanged.
+
+See [implementation and rollout](docs/SHARED_INSPECTIONS.md). UI text describes
+operations, actions, records and status; it must not use marketing slogans.

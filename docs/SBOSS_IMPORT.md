@@ -100,7 +100,7 @@ silently charged to one car's cost ledger.
 ## Where to use it
 
 Owner mobile: **Home → People → Attendance / Payroll / Daily routines**.
-Employee mobile: **Today → View my attendance**, **My work → Routines**,
+Employee mobile: **Today → View my attendance**, **My work → assigned routine card**,
 and **My pay → Salary & advances**. The [employee/routine layout study](EMPLOYEE_WORKSPACE.md)
 records the SBOSS employee/owner patterns adapted here.
 Tabs are Attendance, Leave, Pay, and owner-only Rules. Owners select a person or

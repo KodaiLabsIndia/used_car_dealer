@@ -10,6 +10,7 @@ from sqlalchemy import text
 from app.adapters.operations import OperationsStore, rows
 from app.contracts import Actor
 from app.domain.errors import BusinessError
+from app.domain.inspection_allocation import require_check
 from app.video_contracts import MAX_VIDEO_BYTES, VideoClip, VideoClips
 
 
@@ -121,7 +122,7 @@ class VideoStore:
                     clip_dto(row)
                     for row in rows(
                         conn,
-                        "SELECT v.*,u.name AS recorded_by_name FROM video_clips v JOIN users u ON u.id=v.recorded_by AND u.company_id=v.company_id WHERE v.task_id=:task AND v.company_id=:company ORDER BY v.created_at,v.id LIMIT 200",
+                        "SELECT v.*,u.name AS recorded_by_name FROM video_clips v JOIN users u ON u.id=v.recorded_by AND u.company_id=v.company_id WHERE v.task_id=:task AND v.company_id=:company ORDER BY v.created_at,v.id LIMIT 3000",
                         {"task": task_id, "company": actor.company_id},
                     )
                 ]
@@ -139,8 +140,9 @@ class VideoStore:
             self.ops.task(actor, data[0]["task_id"], conn)
             return self.root / data[0]["storage_key"]
 
-    def save(self, actor: Actor, task_id: UUID, item_id: str, id: UUID, data: bytes):
-        self.ops.task(actor, task_id)
+    def save(self, actor: Actor, task_id: UUID, item_id: str, id: UUID, data: bytes, allocation_version=None):
+        initial = self.ops.task(actor, task_id)
+        require_check(actor, initial, item_id, allocation_version, mutable=False)
         if not data or len(data) > MAX_VIDEO_BYTES:
             raise BusinessError(
                 "INVALID_VIDEO", "Record a shorter clip. The prepared file must be 32 MB or smaller."
@@ -160,6 +162,7 @@ class VideoStore:
                     {"task": task_id, "company": actor.company_id},
                 )
                 task = self.ops.task(actor, task_id, conn)
+                require_check(actor, task, item_id, allocation_version, mutable=False)
                 prior = rows(
                     conn,
                     "SELECT v.*,u.name AS recorded_by_name FROM video_clips v JOIN users u ON u.id=v.recorded_by WHERE v.id=:id",
@@ -172,27 +175,26 @@ class VideoStore:
                         or old["task_id"] != task_id
                         or old["item_id"] != item_id
                         or old["sha256"] != digest
+                        or old["recorded_by"] != actor.id
+                        or (task.collaborative and old["assignment_version"] != allocation_version)
                     ):
                         raise BusinessError(
                             "IDEMPOTENCY_CONFLICT", "That clip reference was already used.", 409
                         )
                     return clip_dto(old)
-                if task.assigned_to != actor.id or task.status in ("submitted", "completed"):
-                    raise BusinessError(
-                        "READ_ONLY", "Only the assigned person can add clips to an open inspection.", 409
-                    )
+                require_check(actor, task, item_id, allocation_version)
                 if not any(i.id == item_id for i in task.items):
                     raise BusinessError("INVALID_ITEM", "Choose an inspection check.")
                 count = conn.execute(
                     text("SELECT count(*) FROM video_clips WHERE task_id=:task"), {"task": task_id}
                 ).scalar_one()
-                if count >= 200:
+                if count >= max(200, len(task.items) * 3):
                     raise BusinessError(
                         "CLIP_LIMIT", "This inspection already has the maximum number of clips."
                     )
                 conn.execute(
                     text(
-                        "INSERT INTO video_clips(id,company_id,task_id,item_id,recorded_by,storage_key,width,height,duration_ms,bytes,sha256,profile) VALUES(:id,:company,:task,:item,:actor,:key,:width,:height,:duration_ms,:bytes,:sha,'video-720-v1')"
+                        "INSERT INTO video_clips(id,company_id,task_id,item_id,recorded_by,storage_key,width,height,duration_ms,bytes,sha256,profile,assignment_version) VALUES(:id,:company,:task,:item,:actor,:key,:width,:height,:duration_ms,:bytes,:sha,'video-720-v1',:allocation)"
                     ),
                     {
                         "id": id,
@@ -203,6 +205,7 @@ class VideoStore:
                         "key": key,
                         "bytes": len(data),
                         "sha": digest,
+                        "allocation": allocation_version if task.collaborative else None,
                         **dimensions,
                     },
                 )

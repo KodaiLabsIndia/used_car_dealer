@@ -26,6 +26,7 @@ import { RoutinesScreen } from "./src/screens/routines";
 import { HomeScreen, WorkScreen } from "./src/screens/home";
 import { CarsScreen } from "./src/screens/cars";
 import { CarScreen } from "./src/screens/car";
+import { InspectionAllocationScreen } from "./src/screens/inspection-allocation";
 import { TaskScreen } from "./src/screens/task";
 import { ScanScreen } from "./src/screens/scan";
 import { SettingsScreen } from "./src/screens/settings";
@@ -107,6 +108,10 @@ function AuthenticatedRoutes({ ownerId }: { ownerId: string }) {
         <Stack.Screen name="Cars" component={CarsScreen} />
         <Stack.Screen name="Car" component={CarScreen} />
         <Stack.Screen name="Task" component={TaskScreen} />
+        <Stack.Screen
+          name="InspectionAllocation"
+          component={InspectionAllocationScreen}
+        />
         <Stack.Screen name="Scan" component={ScanScreen} />
         <Stack.Screen name="Settings" component={SettingsScreen} />
         <Stack.Screen name="AddCar" component={AddCarScreen} />

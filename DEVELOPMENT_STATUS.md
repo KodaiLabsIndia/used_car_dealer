@@ -8,7 +8,14 @@ The responsive review now covers shared actions, forms, cards, tabs, full-check 
 
 ## Working implementation
 
-The [employee workspace](docs/EMPLOYEE_WORKSPACE.md) now has Today, My work, My pay and Help, own-work categories and a guided spoken routine step view. Owners see person-grouped routine progress, active/paused libraries and search.
+[Allocated inspection work](docs/SHARED_INSPECTIONS.md) now supports per-check
+ownership, section assignment to employees or the owner personally, independent
+saves, partial submission/review and explicit unallocated coverage. The employee
+routine queue combines inspections, daily routines and service work. Check proof
+and actual authors stay on one master inspection. Operational screens use action
+and status labels, without marketing slogans.
+
+The [employee workspace](docs/EMPLOYEE_WORKSPACE.md) now has Today, My work, My pay and Help, a unified assigned-work queue and a guided spoken routine step view. Owners see person-grouped routine progress, active/paused libraries and search.
 
 The [owner workspace](docs/OWNER_WORKSPACE.md) groups Today, Dealership, People and Decisions, with attendance/payroll/routines inside employee management and focused buying/preparation/selling/support destinations. Daily routines have named assignment, repeat days, immutable started-day snapshots and logged completion/reopening.
 
@@ -23,7 +30,7 @@ The user has confirmed the current comprehensive checklist as the initial workin
 | Owner workspace | All business / My work / Decisions, stock search, linked attention queue, assignment to self or staff, takeover, explicitly attributed self-review; one owner account throughout |
 | Staff identity | Individual company-code/username/password sign-in, salted hashes, login throttling, required first password change, session rotation/revocation, owner-managed reset/offboarding; Employee / Supervisor selection; legacy manager records map to supervisor authority, with owner-only company/account configuration |
 | Car and intake | Normalized registration uniqueness, company stock numbers, acquisition cycles, transactional car/checklist creation, QR entry, independent preparation/commercial/custody states, activity history; searchable imported make/model references, manual fallback and observed body/fuel/transmission configuration |
-| Inspections | Owner checklist editor with three-language wording fields, ordering, sections/part mapping, proof/measurement/applicability/criticality controls, immutable revisions and explicit approval; four starters plus a 246-definition comprehensive unapproved pre-purchase library; configuration-resolved snapshots, section/part navigation, searchable complete list, generic rotatable sedan/hatchback/SUV schematics with red part dots, measurements, fitted confirmations, reasoned N/A/cannot-inspect states, photo/clip submission gates, replayable speech, help and selected-item fresh-proof rechecks |
+| Inspections | Per-check team allocation, handover revisions, persistent person/task work, partial reviews and master completion; owner checklist editor with three-language wording fields, ordering, sections/part mapping, proof/measurement/applicability/criticality controls, immutable revisions and explicit approval; four starters plus a 246-definition comprehensive unapproved pre-purchase library; configuration-resolved snapshots, section/part navigation, searchable complete list, generic rotatable sedan/hatchback/SUV schematics with red part dots, measurements, fitted confirmations, reasoned N/A/cannot-inspect states, photo/clip submission gates, replayable speech, help and selected-item fresh-proof rechecks |
 | Purchase | Seller/valuation, expected contribution, inspection-linked approval, changed-terms reapproval, checked documents/loan state, agreement reference, exact-paise partial seller payments/corrections, physical receipt creating intake and optional arrival issue |
 | Workshops and service | Manual/inspection issues, parallel jobs, workshop/person assignment, requested/received parts, waiting/resume, quote versions and exact-version approval, itemized invoices, vendor payments/advances/corrections, linked photo QC/rework/reopening |
 | Readiness and custody | Explainable inspection/purchase/receipt/document/job/hold/custody gates, authorized readiness acceptance, holds, yard/workshop/test-drive/customer movements, custodian acknowledgement, odometer/keys/fuel records |

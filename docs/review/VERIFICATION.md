@@ -4,13 +4,13 @@ These are local development results, not full-release acceptance. The initial re
 
 | Check | Latest result |
 | --- | --- |
-| npm run check | Passed: Ruff, native literal-text placement lint, TypeScript in all client workspaces, 14 Python domain/architecture tests and 17 mobile logic tests |
-| npm run test:integration | **110 passed** against real PostgreSQL in isolated random schemas; includes the existing car workflows 25 attendance/payroll API and calculation cases, and five staff-routine scenarios |
+| npm run check | Passed: Ruff, native literal-text placement lint, TypeScript in all client workspaces, 14 Python domain/architecture tests and 19 mobile logic tests |
+| npm run test:integration | **120 passed** against real PostgreSQL in isolated random schemas; includes existing car workflows, workforce/routines and ten shared-inspection scenarios |
 | Contracts | Python OpenAPI regenerated; shared validators/generated types pass compile-time parity |
 | Android native | Development and bundled internal-preview APKs built/installed; local Media3 module compiles; camera/mic/import/720p preparation, native document upload and verified video upload exercised |
 | iOS source | Swift syntax parses; no native compile/device run because full Xcode is absent |
 | JavaScript/web bundles | Android/iOS Expo exports and Vite build passed, including final mobile source changes |
-| Migration | Local Alembic schema is at 0024; clean-schema integration tests apply all 24 SQL migrations |
+| Migration | Local Alembic schema is at 0025; clean-schema integration tests apply all 25 SQL migrations |
 | Restore rehearsal | Source left intact; isolated restored DB dropped; 18 table content digests and 32 referenced private files matched |
 | Dependency advisory check | 8 findings: 5 low, 3 high, through Expo/development tooling; none critical; no forced incompatible override applied |
 
@@ -136,3 +136,18 @@ retained the original completion and a reasoned reopening. Display/language
 settings were restored. Final direct-entry, owner-list and historical-detail
 back navigation were verified in the installed preview; physical audio/iOS and
 staff comprehension remain open.
+
+
+## Allocated inspection work — 8 November
+
+The [implementation checklist](../SHARED_INSPECTION_CHECKLIST.md) and
+[review record](shared-inspections/README.md) cover one master inspection with
+per-check employee/owner allocations, independent result revisions, handover
+revocation, media admission, partial submission/review and explicit optional
+omissions. Ten PostgreSQL scenarios extend the full suite to 120 tests, including performed optional checks retaining configured media and measurements. The final complete suite passed after the scope and activity-history changes.
+The existing money gates remain covered by the full car/workforce suite.
+
+Mobile logic now has 19 checks, including personal portion classification across
+days and legacy phone-cache compatibility. The new cache regression was found
+and corrected during the installed emulator review, without discarding drafts.
+Operational UI headlines were replaced with action, record and status labels.

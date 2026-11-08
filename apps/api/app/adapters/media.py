@@ -9,6 +9,7 @@ from PIL import Image
 from app.adapters.operations import OperationsStore
 from app.contracts import MAX_PHOTO_BYTES, Actor, Evidence
 from app.domain.errors import BusinessError
+from app.domain.inspection_allocation import require_check
 from app.domain.task_policy import normalized_photo_size
 
 
@@ -44,9 +45,24 @@ class LocalEvidenceStore:
     def __init__(self, root: Path, operations: OperationsStore):
         self.root, self.operations = root, operations
 
-    def save(self, actor: Actor, task_id: UUID, item_id: str, evidence_id: UUID, data: bytes) -> Evidence:
-        self.operations.task(actor, task_id)
-        evidence = Evidence(id=evidence_id, item_id=item_id, **inspect_photo(data))
+    def save(
+        self,
+        actor: Actor,
+        task_id: UUID,
+        item_id: str,
+        evidence_id: UUID,
+        data: bytes,
+        allocation_version=None,
+    ) -> Evidence:
+        task = self.operations.task(actor, task_id)
+        require_check(actor, task, item_id, allocation_version, mutable=False)
+        evidence = Evidence(
+            id=evidence_id,
+            item_id=item_id,
+            uploaded_by=actor.id,
+            assignment_version=allocation_version if task.collaborative else None,
+            **inspect_photo(data),
+        )
         self.root.mkdir(parents=True, exist_ok=True, mode=0o700)
         key = f"{uuid4()}.jpg"
         path = self.root / key
@@ -54,7 +70,7 @@ class LocalEvidenceStore:
             with path.open("xb") as output:
                 output.write(data)
             path.chmod(0o600)
-            inserted = self.operations.record_evidence(actor, task_id, evidence, key)
+            inserted = self.operations.record_evidence(actor, task_id, evidence, key, allocation_version)
             if not inserted:
                 path.unlink()
             return evidence

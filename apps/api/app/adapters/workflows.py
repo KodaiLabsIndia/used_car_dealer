@@ -124,12 +124,13 @@ class WorkflowStore:
         conn.execute(
             text("""
             INSERT INTO tasks(id,company_id,cycle_id,title,assigned_to,items,due_at,kind,
-                template_id,template_name,template_version,template_approved,vehicle_configuration)
-            VALUES(:id,:company,:car,:title,:assigned,CAST(:items AS jsonb),:due,:kind,:template,:name,:version,:approved,CAST(:configuration AS jsonb))
+                template_id,template_name,template_version,template_approved,vehicle_configuration,created_by)
+            VALUES(:id,:company,:car,:title,:assigned,CAST(:items AS jsonb),:due,:kind,:template,:name,:version,:approved,CAST(:configuration AS jsonb),:creator)
         """),
             {
                 "id": task_id,
                 "company": actor.company_id,
+                "creator": actor.id,
                 "car": car_id,
                 "title": title or template.name,
                 "assigned": assigned_to,
@@ -587,17 +588,20 @@ class WorkflowStore:
                 self.active_person(conn, actor, plan.assigned_to)
                 if qc_task:
                     task = self.ops.task(actor, qc_task, conn)
-                    if task.status == "submitted":
-                        raise BusinessError(
-                            "CONFLICT", "Review the submitted QC before reassigning this repair.", 409
-                        )
-                    if task.status != "completed":
-                        conn.execute(
-                            text(
-                                "UPDATE tasks SET assigned_to=:assigned,version=version+1,updated_at=now() WHERE id=:task AND company_id=:company"
-                            ),
-                            {"assigned": plan.assigned_to, "task": qc_task, "company": actor.company_id},
-                        )
+                    # A repair's coordinator and the QC check team are independent.
+                    # Legacy single-worker QC continues to follow the repair assignee.
+                    if not task.collaborative:
+                        if task.status == "submitted":
+                            raise BusinessError(
+                                "CONFLICT", "Review the submitted QC before reassigning this repair.", 409
+                            )
+                        if task.status != "completed":
+                            conn.execute(
+                                text(
+                                    "UPDATE tasks SET assigned_to=:assigned,version=version+1,updated_at=now() WHERE id=:task AND company_id=:company"
+                                ),
+                                {"assigned": plan.assigned_to, "task": qc_task, "company": actor.company_id},
+                            )
             if plan.create_part:
                 conn.execute(
                     text(
@@ -713,6 +717,9 @@ class WorkflowStore:
             labels = {
                 "task.answer": "Inspection check recorded",
                 "task.submit": "Inspection submitted",
+                "task.submit_checks": "Inspection checks submitted",
+                "task.review_checks": "Inspection check review recorded",
+                "inspection.allocated": "Inspection checks allocated",
                 "task.review": "Inspection reviewed",
                 "task.help": "Help requested",
                 "task.takeover": "Task taken over",

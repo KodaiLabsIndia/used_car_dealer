@@ -70,3 +70,11 @@ instructions. Physical audio/comprehension acceptance remains open. The previous
 routine scope remains: recorded step history, current-day repeat rules and saved
 snapshots; future media proof, missed-occurrence generation, ad-hoc work and extra
 cadences are not silently represented as implemented.
+
+## Allocated inspection update
+
+[Allocated inspection work](SHARED_INSPECTIONS.md) replaces the separate
+inspection/routine/service lists with one assigned-work queue. An inspection can
+be divided across employees by section or check. Its activity opens the real
+inspection workflow and persists across days; generic daily-step completion
+cannot replace check proof, submission or review.

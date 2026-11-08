@@ -1,6 +1,10 @@
 import { Workforce } from "./workforce";
 import { can, workingLevel } from "@arihant/contracts";
-import { checkState, inspectionProgress } from "@arihant/contracts";
+import {
+  checkState,
+  inspectionProgress,
+  checkRevision,
+} from "@arihant/contracts";
 import { Checklists } from "./checklists";
 import { DecisionBoard } from "./decisions";
 import { Reports } from "./reports";
@@ -1154,7 +1158,8 @@ function TaskReview({
     [index, setIndex] = useState(0),
     [checked, setChecked] = useState(false),
     [busy, setBusy] = useState(false),
-    [error, setError] = useState("");
+    [error, setError] = useState(""),
+    [reviewNote, setReviewNote] = useState("");
   useEffect(() => {
     let active = true;
     void Promise.all([api.task(id), api.clips(id)])
@@ -1192,9 +1197,46 @@ function TaskReview({
       setBusy(false);
     }
   }
+  async function reviewCheck(decision: "accept" | "recheck" | "waive") {
+    if (
+      !task ||
+      !item ||
+      !allocation ||
+      !window.confirm(`Record ${decision} for ${item.title}?`)
+    )
+      return;
+    setBusy(true);
+    setError("");
+    try {
+      setTask(
+        await api.command(id, {
+          action: "review_checks",
+          commandId: crypto.randomUUID(),
+          expectedVersion: task.version,
+          checks: [checkRevision(allocation)],
+          decision,
+          note: reviewNote,
+        }),
+      );
+      setChecked(false);
+      setReviewNote("");
+      onChange();
+    } catch (e) {
+      setError((e as Error).message);
+      const latest = await api.task(id).catch(() => null);
+      if (latest) setTask(latest);
+    } finally {
+      setBusy(false);
+    }
+  }
   const item = task?.items[index],
     answer = task?.answers.find((v) => v.itemId === item?.id),
+    allocation = task?.allocations.find((a) => a.itemId === item?.id),
     canReview = can(session.actor, "review_inspection");
+  useEffect(() => {
+    setChecked(false);
+    setReviewNote("");
+  }, [index, task?.version]);
   return (
     <>
       <button className="quiet" onClick={onBack}>
@@ -1294,7 +1336,94 @@ function TaskReview({
                 ))}
             </article>
           </div>
-          {task.status === "submitted" && canReview ? (
+          {task.collaborative ? (
+            <article>
+              <h3>Shared inspection</h3>
+              <p>
+                {
+                  task.allocations.filter((a) => a.state === "unassigned")
+                    .length
+                }{" "}
+                unallocated ·{" "}
+                {task.allocations.filter((a) => a.state === "submitted").length}{" "}
+                in review ·{" "}
+                {
+                  task.allocations.filter((a) =>
+                    ["accepted", "waived"].includes(a.state),
+                  ).length
+                }
+                /{task.items.length} resolved
+              </p>
+              <p>
+                Current check: {allocation?.assigneeName ?? "Unallocated"} ·{" "}
+                {allocation?.state && human(allocation.state)}
+              </p>
+              {allocation?.answeredByName ? (
+                <p>Recorded by {allocation.answeredByName}</p>
+              ) : null}
+              {allocation?.reviewNote ? <p>{allocation.reviewNote}</p> : null}
+              {canReview && task.status !== "completed" ? (
+                <>
+                  <h3>Review this check</h3>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={checked}
+                      onChange={(e) => setChecked(e.target.checked)}
+                    />{" "}
+                    I reviewed this check and its proof.
+                  </label>
+                  <label>
+                    Reason / review note
+                    <textarea
+                      value={reviewNote}
+                      onChange={(e) => setReviewNote(e.target.value)}
+                    />
+                  </label>
+                  <div className="toolbar">
+                    <button
+                      disabled={
+                        busy || !checked || allocation?.state !== "submitted"
+                      }
+                      onClick={() => void reviewCheck("accept")}
+                    >
+                      Accept check
+                    </button>
+                    <button
+                      disabled={
+                        busy ||
+                        !checked ||
+                        !["submitted", "accepted", "waived"].includes(
+                          allocation?.state ?? "",
+                        ) ||
+                        reviewNote.trim().length < 5
+                      }
+                      onClick={() => void reviewCheck("recheck")}
+                    >
+                      Return check
+                    </button>
+                    {!item.required ? (
+                      <button
+                        disabled={
+                          busy ||
+                          !checked ||
+                          reviewNote.trim().length < 5 ||
+                          (!!answer && answer.result !== "unable")
+                        }
+                        onClick={() => void reviewCheck("waive")}
+                      >
+                        Omit optional check
+                      </button>
+                    ) : null}
+                  </div>
+                </>
+              ) : null}
+              <p>
+                Section allocation and capture are available in the mobile app.
+              </p>
+            </article>
+          ) : null}
+          {!task.collaborative && task.status === "submitted" && canReview ? (
             <article className="decision">
               <h3>Review the whole inspection</h3>
               <p>
@@ -1327,7 +1456,8 @@ function TaskReview({
               </div>
             </article>
           ) : null}
-          {can(session.actor, "assign_inspection") &&
+          {!task.collaborative &&
+          can(session.actor, "assign_inspection") &&
           task.assignedTo !== session.actor.id &&
           !["submitted", "completed"].includes(task.status) ? (
             <button

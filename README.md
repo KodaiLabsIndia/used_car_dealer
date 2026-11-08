@@ -36,6 +36,11 @@ See the
 and name references do not establish business SOP approval or India variant
 completeness.
 
+[Allocated inspection work](docs/SHARED_INSPECTIONS.md) divides a master
+inspection across employees or the owner personally. Section/check allocations
+appear in the employee's unified routine queue. Evidence, authorship and selected
+portion review stay on the original inspection; unallocated work remains visible.
+
 Setup preserves environment files. PostgreSQL uses dedicated Compose project arihant-operations on 127.0.0.1:55438. Private evidence/models/backups stay under ignored .data. Do not commit environment files or private data.
 
 Start in separate terminals:

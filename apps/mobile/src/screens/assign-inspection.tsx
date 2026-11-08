@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ActivityIndicator } from "react-native";
 import type { ScreenProps } from "../navigation";
 import { FocusScreen, FocusPage, SelectField } from "../components/workspace";
@@ -31,6 +31,10 @@ export function AssignInspectionScreen({
   const [configuration, setConfiguration] = useState(() =>
     vehicleConfigurationSchema.parse({}),
   );
+  useEffect(() => {
+    if (taskId && catalog.data?.task)
+      navigation.replace("InspectionAllocation", { taskId });
+  }, [taskId, catalog.data?.task?.id]);
   async function submit() {
     setBusy(true);
     setError("");
@@ -59,7 +63,7 @@ export function AssignInspectionScreen({
             (body) => api.createInspection(carId, body),
           );
       changed();
-      navigation.replace("Task", { id: result.id });
+      navigation.replace("InspectionAllocation", { taskId: result.id });
     } catch (e) {
       setError((e as Error).message);
       catalog.refresh();

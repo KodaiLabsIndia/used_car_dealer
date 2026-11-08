@@ -67,6 +67,8 @@ class Car(Contract):
 
 
 class Evidence(Contract):
+    assignment_version: int | None = None
+    uploaded_by: UUID | None = None
     id: UUID
     item_id: str
     width: int
@@ -118,7 +120,29 @@ class Answer(Contract):
     applicability_confirmed: bool = False
 
 
+class CheckAllocation(Contract):
+    item_id: str
+    assigned_to: UUID | None
+    assignee_name: str | None
+    assignment_version: int
+    version: int
+    state: Literal["unassigned", "assigned", "in_progress", "submitted", "accepted", "recheck", "waived"]
+    answered_by: UUID | None
+    answered_by_name: str | None
+    reviewed_by: UUID | None
+    reviewed_at: datetime | None
+    review_note: str
+
+
+class CheckRevision(Contract):
+    item_id: str = Field(min_length=1, max_length=80)
+    assignment_version: int = Field(ge=1)
+    version: int = Field(ge=0)
+
+
 class Task(Contract):
+    collaborative: bool = False
+    allocations: list[CheckAllocation] = Field(default_factory=list)
     id: UUID
     company_id: UUID
     car_id: UUID
@@ -169,6 +193,8 @@ class CommandBase(Contract):
 
 
 class AnswerCommand(CommandBase):
+    allocation_version: int | None = Field(default=None, ge=1)
+    item_version: int | None = Field(default=None, ge=0)
     action: Literal["answer"]
     item_id: str = Field(min_length=1, max_length=80)
     result: Literal["ok", "problem", "unable", "not_applicable"]
@@ -192,6 +218,7 @@ class ReassignCommand(CommandBase):
 
 
 class HelpCommand(CommandBase):
+    allocation_version: int | None = Field(default=None, ge=1)
     action: Literal["help"]
     item_id: str | None = Field(default=None, max_length=80)
     note: str = Field(default="", max_length=1000)
@@ -204,8 +231,27 @@ class ReviewCommand(CommandBase):
     note: str = Field(default="", max_length=1000)
 
 
+class SubmitChecksCommand(CommandBase):
+    action: Literal["submit_checks"]
+    checks: list[CheckRevision] = Field(min_length=1, max_length=1000)
+
+
+class ReviewChecksCommand(CommandBase):
+    action: Literal["review_checks"]
+    checks: list[CheckRevision] = Field(min_length=1, max_length=1000)
+    decision: Literal["accept", "recheck", "waive"]
+    note: str = Field(default="", max_length=1000)
+
+
 TaskCommand = Annotated[
-    AnswerCommand | SubmitCommand | TakeoverCommand | ReassignCommand | HelpCommand | ReviewCommand,
+    AnswerCommand
+    | SubmitCommand
+    | TakeoverCommand
+    | ReassignCommand
+    | HelpCommand
+    | ReviewCommand
+    | SubmitChecksCommand
+    | ReviewChecksCommand,
     Field(discriminator="action"),
 ]
 

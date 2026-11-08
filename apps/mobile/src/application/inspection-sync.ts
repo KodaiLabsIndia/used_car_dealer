@@ -17,6 +17,13 @@ export async function syncAnswer(
   draft: PhotoDraft,
 ) {
   if (!draft.result) throw new Error("Choose the observed result first.");
+  if (
+    task.collaborative &&
+    (draft.allocationVersion == null || draft.itemVersion == null)
+  )
+    throw new Error(
+      "This photo was prepared before team allocation. Keep it on your phone and take a new proof for your current checks.",
+    );
   const sending = {
     ...draft,
     commandId: draft.commandId || randomUUID(),
@@ -25,7 +32,13 @@ export async function syncAnswer(
   await saveLocal(owner, draftKey(task.id, itemId), sending);
   const evidence = sending.evidenceId
     ? { id: sending.evidenceId }
-    : await api.upload(task.id, itemId, sending.id, sending.uri);
+    : await api.upload(
+        task.id,
+        itemId,
+        sending.id,
+        sending.uri,
+        sending.allocationVersion,
+      );
   await saveLocal(owner, draftKey(task.id, itemId), {
     ...sending,
     evidenceId: evidence.id,
@@ -37,6 +50,8 @@ export async function syncAnswer(
     commandId: sending.commandId,
     expectedVersion: sending.expectedVersion,
     itemId,
+    allocationVersion: sending.allocationVersion,
+    itemVersion: sending.itemVersion,
     result: draft.result,
     note: draft.note,
     evidenceId: evidence.id,
@@ -51,7 +66,16 @@ export async function syncAnswer(
 }
 type SimpleCommand =
   | { action: "submit" | "takeover" }
-  | { action: "help"; itemId?: string; note: string }
+  | {
+      action: "help";
+      itemId?: string;
+      note: string;
+      allocationVersion?: number | null;
+    }
+  | {
+      action: "submit_checks";
+      checks: import("@arihant/contracts").CheckRevision[];
+    }
   | {
       action: "review";
       decision: "accept" | "recheck";
@@ -89,7 +113,14 @@ export async function sendTaskCommand(
       e &&
       typeof e === "object" &&
       "code" in e &&
-      ["VERSION_CONFLICT", "NOT_FOUND", "FORBIDDEN"].includes(String(e.code))
+      [
+        "VERSION_CONFLICT",
+        "ALLOCATION_CHANGED",
+        "CHECK_NOT_ASSIGNED",
+        "READ_ONLY",
+        "NOT_FOUND",
+        "FORBIDDEN",
+      ].includes(String(e.code))
     )
       await deleteLocal(owner, key);
     throw e;

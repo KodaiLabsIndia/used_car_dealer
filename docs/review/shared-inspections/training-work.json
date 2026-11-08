@@ -1,0 +1,10 @@
+{
+  "trainingOnly": true,
+  "registration": "TRAINSHARED01",
+  "carId": "20e07011-d0d0-4e2a-b818-19fc20b800dc",
+  "taskId": "f359f2cb-7dd2-4c4f-8852-5d5d4356113e",
+  "checkCount": 229,
+  "ownerId": "10000000-0000-4000-8000-000000000002",
+  "employeeId": "10000000-0000-4000-8000-000000000003",
+  "purpose": "Shared inspection UI review only; no purchase, repair spend or payroll events"
+}

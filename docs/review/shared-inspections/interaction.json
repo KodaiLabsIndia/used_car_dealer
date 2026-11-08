@@ -1,0 +1,50 @@
+{
+  "trainingOnly": true,
+  "masterCheckCount": 229,
+  "masterStatus": "in_progress",
+  "allocationCounts": {
+    "unassigned": 185,
+    "assigned": 43,
+    "in_progress": 0,
+    "submitted": 0,
+    "accepted": 1,
+    "recheck": 0,
+    "waived": 0
+  },
+  "ownerAllocatedChecks": 32,
+  "employeeAllocatedChecks": 12,
+  "acceptedChecks": [
+    {
+      "itemId": "registration",
+      "assignedTo": "10000000-0000-4000-8000-000000000003",
+      "assigneeName": "Ravi",
+      "assignmentVersion": 2,
+      "version": 4,
+      "state": "accepted",
+      "answeredBy": "10000000-0000-4000-8000-000000000003",
+      "answeredByName": "Ravi",
+      "reviewedBy": "10000000-0000-4000-8000-000000000002",
+      "reviewedAt": "2026-11-08T10:04:12.556888Z",
+      "reviewNote": ""
+    }
+  ],
+  "photos": [
+    {
+      "id": "461bca49-01b2-4eb9-8176-b85d577f4bf6",
+      "itemId": "registration",
+      "width": 1080,
+      "height": 1794,
+      "profile": "photo-fhd-v1",
+      "assignmentVersion": 2,
+      "uploadedBy": "10000000-0000-4000-8000-000000000003"
+    }
+  ],
+  "flows": [
+    "Owner allocated the 12 Identity checks to Ravi using section selection and reason.",
+    "Owner personally took the 32 Wheel checks, preserving Ravi\u2019s allocation.",
+    "Employee entered the allocated portion from the unified routine queue.",
+    "Employee took an emulator camera photo, normalized it on device, recorded the result and submitted one ready check.",
+    "Owner opened the submitted photo and accepted only that selected check."
+  ],
+  "sourceLimits": "Emulator camera scene is synthetic training proof, not evidence of any real vehicle condition. No money, attendance or payroll transactions are part of this inspection review."
+}

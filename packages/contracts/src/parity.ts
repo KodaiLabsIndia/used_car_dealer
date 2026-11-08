@@ -24,6 +24,8 @@ export type SessionParity = Assert<Equal<Session, Schema["Session"]>>;
 export type TaskParity = Assert<Equal<Task, Schema["Task"]>>;
 type ApiCommand =
   | Schema["AnswerCommand"]
+  | Schema["SubmitChecksCommand"]
+  | Schema["ReviewChecksCommand"]
   | Schema["SubmitCommand"]
   | Schema["TakeoverCommand"]
   | Schema["ReassignCommand"]

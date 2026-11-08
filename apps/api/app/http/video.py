@@ -1,7 +1,7 @@
 from typing import Annotated
 from uuid import UUID
 
-from fastapi import Depends, FastAPI, File, UploadFile
+from fastapi import Depends, FastAPI, File, Query, UploadFile
 from fastapi.responses import FileResponse
 from starlette.concurrency import run_in_threadpool
 
@@ -17,10 +17,23 @@ def mount_video(app: FastAPI, authenticated, store):
         return store.list(actor, task_id)
 
     @app.post("/v1/tasks/{task_id}/items/{item_id}/clips/{id}", response_model=VideoClip, status_code=201)
-    async def upload(task_id: UUID, item_id: str, id: UUID, actor: User, file: Annotated[UploadFile, File()]):
+    async def upload(
+        task_id: UUID,
+        item_id: str,
+        id: UUID,
+        actor: User,
+        file: Annotated[UploadFile, File()],
+        allocation_version: int | None = Query(default=None, ge=1),
+    ):
         try:
             return await run_in_threadpool(
-                store.save, actor, task_id, item_id, id, await file.read(MAX_VIDEO_BYTES + 1)
+                store.save,
+                actor,
+                task_id,
+                item_id,
+                id,
+                await file.read(MAX_VIDEO_BYTES + 1),
+                allocation_version,
             )
         finally:
             await file.close()

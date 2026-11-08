@@ -226,6 +226,23 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  "/v1/tasks/{task_id}/allocations": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** Allocate */
+    post: operations["allocate_v1_tasks__task_id__allocations_post"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   "/v1/workforce": {
     parameters: {
       query?: never;
@@ -1421,6 +1438,32 @@ export interface components {
       /** Reference */
       reference: string | null;
     };
+    /** AllocateChecks */
+    AllocateChecks: {
+      /**
+       * Commandid
+       * Format: uuid
+       */
+      commandId: string;
+      /** Expectedversion */
+      expectedVersion: number;
+      /**
+       * Unallocateunmentioned
+       * @default true
+       */
+      unallocateUnmentioned: boolean;
+      /** Changes */
+      changes: components["schemas"]["AllocationChange"][];
+      /** Reason */
+      reason: string;
+    };
+    /** AllocationChange */
+    AllocationChange: {
+      /** Itemids */
+      itemIds: string[];
+      /** Assignedto */
+      assignedTo: string | null;
+    };
     /** Answer */
     Answer: {
       /** Itemid */
@@ -1457,6 +1500,10 @@ export interface components {
       commandId: string;
       /** Expectedversion */
       expectedVersion: number;
+      /** Allocationversion */
+      allocationVersion?: number | null;
+      /** Itemversion */
+      itemVersion?: number | null;
       /**
        * @description discriminator enum property added by openapi-typescript
        * @enum {string}
@@ -2039,6 +2086,41 @@ export interface components {
       /** Newsecret */
       newSecret: string;
     };
+    /** CheckAllocation */
+    CheckAllocation: {
+      /** Itemid */
+      itemId: string;
+      /** Assignedto */
+      assignedTo: string | null;
+      /** Assigneename */
+      assigneeName: string | null;
+      /** Assignmentversion */
+      assignmentVersion: number;
+      /** Version */
+      version: number;
+      /**
+       * State
+       * @enum {string}
+       */
+      state:
+        | "unassigned"
+        | "assigned"
+        | "in_progress"
+        | "submitted"
+        | "accepted"
+        | "recheck"
+        | "waived";
+      /** Answeredby */
+      answeredBy: string | null;
+      /** Answeredbyname */
+      answeredByName: string | null;
+      /** Reviewedby */
+      reviewedBy: string | null;
+      /** Reviewedat */
+      reviewedAt: string | null;
+      /** Reviewnote */
+      reviewNote: string;
+    };
     /** CheckPurchaseDocuments */
     CheckPurchaseDocuments: {
       /**
@@ -2054,6 +2136,15 @@ export interface components {
        */
       action: "documents";
       documents: components["schemas"]["PurchaseDocuments-Input"];
+    };
+    /** CheckRevision */
+    CheckRevision: {
+      /** Itemid */
+      itemId: string;
+      /** Assignmentversion */
+      assignmentVersion: number;
+      /** Version */
+      version: number;
     };
     /** CheckSaleDocuments */
     CheckSaleDocuments: {
@@ -3042,6 +3133,10 @@ export interface components {
     };
     /** Evidence */
     Evidence: {
+      /** Assignmentversion */
+      assignmentVersion: number | null;
+      /** Uploadedby */
+      uploadedBy: string | null;
       /**
        * Id
        * Format: uuid
@@ -3132,6 +3227,8 @@ export interface components {
       commandId: string;
       /** Expectedversion */
       expectedVersion: number;
+      /** Allocationversion */
+      allocationVersion?: number | null;
       /**
        * @description discriminator enum property added by openapi-typescript
        * @enum {string}
@@ -4735,6 +4832,33 @@ export interface components {
       /** Humanreviewed */
       humanReviewed: boolean;
     };
+    /** ReviewChecksCommand */
+    ReviewChecksCommand: {
+      /**
+       * Commandid
+       * Format: uuid
+       */
+      commandId: string;
+      /** Expectedversion */
+      expectedVersion: number;
+      /**
+       * @description discriminator enum property added by openapi-typescript
+       * @enum {string}
+       */
+      action: "review_checks";
+      /** Checks */
+      checks: components["schemas"]["CheckRevision"][];
+      /**
+       * Decision
+       * @enum {string}
+       */
+      decision: "accept" | "recheck" | "waive";
+      /**
+       * Note
+       * @default
+       */
+      note: string;
+    };
     /** ReviewCommand */
     ReviewCommand: {
       /**
@@ -5578,6 +5702,23 @@ export interface components {
       /** Oldestdueat */
       oldestDueAt: string | null;
     };
+    /** SubmitChecksCommand */
+    SubmitChecksCommand: {
+      /**
+       * Commandid
+       * Format: uuid
+       */
+      commandId: string;
+      /** Expectedversion */
+      expectedVersion: number;
+      /**
+       * @description discriminator enum property added by openapi-typescript
+       * @enum {string}
+       */
+      action: "submit_checks";
+      /** Checks */
+      checks: components["schemas"]["CheckRevision"][];
+    };
     /** SubmitCommand */
     SubmitCommand: {
       /**
@@ -5640,6 +5781,13 @@ export interface components {
     };
     /** Task */
     Task: {
+      /**
+       * Collaborative
+       * @default false
+       */
+      collaborative: boolean;
+      /** Allocations */
+      allocations: components["schemas"]["CheckAllocation"][];
       /**
        * Id
        * Format: uuid
@@ -6747,7 +6895,9 @@ export interface operations {
   };
   upload_v1_tasks__task_id__items__item_id__clips__id__post: {
     parameters: {
-      query?: never;
+      query?: {
+        allocation_version?: number | null;
+      };
       header?: never;
       path: {
         task_id: string;
@@ -6863,6 +7013,41 @@ export interface operations {
           [name: string]: unknown;
         };
         content?: never;
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  allocate_v1_tasks__task_id__allocations_post: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        task_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["AllocateChecks"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Task"];
+        };
       };
       /** @description Validation Error */
       422: {
@@ -8980,7 +9165,9 @@ export interface operations {
           | components["schemas"]["TakeoverCommand"]
           | components["schemas"]["ReassignCommand"]
           | components["schemas"]["HelpCommand"]
-          | components["schemas"]["ReviewCommand"];
+          | components["schemas"]["ReviewCommand"]
+          | components["schemas"]["SubmitChecksCommand"]
+          | components["schemas"]["ReviewChecksCommand"];
       };
     };
     responses: {
@@ -9006,7 +9193,9 @@ export interface operations {
   };
   upload_v1_tasks__task_id__items__item_id__evidence__evidence_id__post: {
     parameters: {
-      query?: never;
+      query?: {
+        allocation_version?: number | null;
+      };
       header?: never;
       path: {
         task_id: string;
