@@ -908,6 +908,7 @@ export const inboxSchema = z.object({
         "enquiry",
         "purchase",
         "business",
+        "workforce",
       ]),
       targetId: z.uuid(),
       createdAt: z.string(),
@@ -1054,9 +1055,13 @@ export const decisionItemSchema = z.object({
     "document",
     "claim",
     "hold",
+    "workforce_leave",
+    "workforce_advance",
+    "attendance",
   ]),
-  carId: z.uuid(),
+  carId: z.uuid().nullable(),
   carLabel: z.string(),
+  subjectLabel: z.string().default(""),
   title: z.string(),
   targetType: z.enum([
     "task",
@@ -1065,6 +1070,7 @@ export const decisionItemSchema = z.object({
     "documents",
     "business",
     "stock",
+    "workforce",
   ]),
   targetId: z.uuid(),
   createdAt: z.string(),
@@ -1174,3 +1180,6 @@ export type CarRequirements = z.infer<typeof carRequirementsSchema>;
 export type PublishDocumentPolicy = PurchaseApi["PublishDocumentPolicy"];
 export type AssignRequirements = PurchaseApi["AssignRequirements"];
 export type LinkRequirement = PurchaseApi["LinkRequirement"];
+
+export * from "./workforce";
+export { salaryStatementText } from "./workforce-presentation";

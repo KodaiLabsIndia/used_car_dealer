@@ -9,7 +9,9 @@ export function PhotoCamera({
   visible,
   onClose,
   onPhoto,
+  facing = "back",
 }: {
+  facing?: "front" | "back";
   visible: boolean;
   onClose: () => void;
   onPhoto: (photo: {
@@ -70,9 +72,9 @@ export function PhotoCamera({
             permission?.granted ? (
               <View style={{ flex: 1 }}>
                 <CameraView
+                  facing={facing}
                   ref={camera}
                   style={{ flex: 1 }}
-                  facing="back"
                   mode="picture"
                   onCameraReady={() => setReady(true)}
                   onMountError={(event) => {

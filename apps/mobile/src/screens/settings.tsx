@@ -120,6 +120,15 @@ export function SettingsScreen({ navigation }: ScreenProps<"Settings">) {
           </>
         ) : section === "work" ? (
           <>
+            <Button
+              label={tr(
+                "Attendance & pay",
+                "हाज़िरी और वेतन",
+                "हजेरी आणि पगार",
+              )}
+              icon="time-outline"
+              onPress={() => navigation.navigate("Workforce")}
+            />
             {supervisor ? (
               <Button
                 secondary

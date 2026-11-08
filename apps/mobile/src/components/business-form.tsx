@@ -49,6 +49,8 @@ export function BusinessForm({
   const { session, language } = useApp(),
     owner = session!.actor.id,
     hi = language === "hi",
+    tr = (en: string, h: string, mr: string) =>
+      language === "mr" ? mr : hi ? h : en,
     key = `business-form:${spec.key}`;
   const [draft, setDraft] = useState<Draft | null>(null),
     [busy, setBusy] = useState(false),
@@ -121,7 +123,7 @@ export function BusinessForm({
         <ActionRow>
           <Button
             secondary
-            label={hi ? "बंद करें" : "Close"}
+            label={tr("Close", "बंद करें", "बंद करा")}
             disabled={busy}
             onPress={onCancel}
             style={{ flex: 1 }}
@@ -129,14 +131,14 @@ export function BusinessForm({
           {step > 0 ? (
             <Button
               secondary
-              label={hi ? "पीछे" : "Back"}
+              label={tr("Back", "पीछे", "मागे")}
               disabled={busy}
               onPress={() => update({ ...draft, step: step - 1 })}
               style={{ flex: 1 }}
             />
           ) : null}
           <Button
-            label={last ? spec.submitLabel : hi ? "अगला" : "Next"}
+            label={last ? spec.submitLabel : tr("Next", "अगला", "पुढे")}
             busy={busy}
             disabled={last && stale}
             onPress={() =>
@@ -153,11 +155,11 @@ export function BusinessForm({
       ) : null}
       {stale ? (
         <ErrorNotice
-          message={
-            hi
-              ? "रिकॉर्ड बदल गया। नई जानकारी जाँचकर आगे बढ़ें।"
-              : "The car record changed. Review its latest amounts before continuing."
-          }
+          message={tr(
+            "This record changed. Review its latest details before continuing.",
+            "रिकॉर्ड बदल गया। नई जानकारी जाँचकर आगे बढ़ें।",
+            "नोंद बदलली आहे. पुढे जाण्यापूर्वी नवीन माहिती तपासा.",
+          )}
           retry={() => {
             setError("");
             update({ ...draft, version });

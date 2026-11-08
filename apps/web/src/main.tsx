@@ -1,3 +1,4 @@
+import { Workforce } from "./workforce";
 import { can, workingLevel } from "@arihant/contracts";
 import { checkState, inspectionProgress } from "@arihant/contracts";
 import { Checklists } from "./checklists";
@@ -103,6 +104,7 @@ function ProtectedMedia({
 function App() {
   const [session, setSession] = useState<Session | null>(null),
     [page, setPage] = useState("today"),
+    [workforceUser, setWorkforceUser] = useState<string | undefined>(undefined),
     [selected, setSelected] = useState<string | null>(null),
     [taskId, setTaskId] = useState<string | null>(null),
     [revision, setRevision] = useState(0);
@@ -138,6 +140,7 @@ function App() {
             ...(session.actor.role === "owner"
               ? [["checklists", "Checklists"]]
               : []),
+            ["workforce", "Attendance & pay"],
             ["inbox", "Updates"],
           ].map(([id, label]) => (
             <button
@@ -211,6 +214,8 @@ function App() {
             openTask={setTaskId}
             onBack={() => setSelected(null)}
           />
+        ) : page === "workforce" ? (
+          <Workforce api={api} actor={session.actor} userId={workforceUser} />
         ) : page === "checklists" ? (
           <Checklists api={api} revision={revision} onChange={refresh} />
         ) : page === "reports" ? (
@@ -221,6 +226,10 @@ function App() {
             revision={revision}
             openCar={setSelected}
             openTask={setTaskId}
+            openWorkforce={(id) => {
+              setWorkforceUser(id);
+              setPage("workforce");
+            }}
           />
         ) : (
           <Board
@@ -230,6 +239,10 @@ function App() {
             revision={revision}
             openCar={setSelected}
             openTask={setTaskId}
+            openWorkforce={(id) => {
+              setWorkforceUser(id);
+              setPage("workforce");
+            }}
           />
         )}
       </main>
@@ -425,12 +438,14 @@ function Board({
   revision,
   openCar,
   openTask,
+  openWorkforce,
 }: {
   api: ApiClient;
   page: string;
   revision: number;
   openCar: (id: string) => void;
   openTask: (id: string) => void;
+  openWorkforce: (id: string) => void;
 }) {
   const [search, setSearch] = useState(""),
     [filter, setFilter] = useState("all"),
@@ -746,7 +761,8 @@ function Board({
                 <button
                   onClick={() => {
                     void api.readNotifications(inbox.cutoff, v.id);
-                    if (v.targetType === "task") openTask(v.targetId);
+                    if (v.targetType === "workforce") openWorkforce(v.targetId);
+                    else if (v.targetType === "task") openTask(v.targetId);
                     else if (
                       v.targetType === "car" ||
                       v.targetType === "business"

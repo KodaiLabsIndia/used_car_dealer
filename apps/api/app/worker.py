@@ -11,6 +11,7 @@ from app.adapters.notifications import NotificationStore
 from app.adapters.operations import OperationsStore
 from app.adapters.purchases import PurchaseStore
 from app.adapters.workflows import WorkflowStore
+from app.adapters.workforce import WorkforceStore
 from app.assistant_composition import compose_assistant
 from app.config import Settings
 
@@ -34,6 +35,9 @@ def main():
     try:
         while True:
             try:
+                workforce = WorkforceStore(workflows, settings.media_path)
+                workforce.close_missing()
+                workforce.remind()
                 expired = store.expire_bookings()
                 delivered = store.drain()
                 reminded = store.reminders()

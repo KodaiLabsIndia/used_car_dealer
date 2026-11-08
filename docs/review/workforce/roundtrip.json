@@ -1,0 +1,12 @@
+{
+  "ownerDevice": "emulator-5554",
+  "employeeDevice": "emulator-5556",
+  "employee": "Ravi (synthetic training account)",
+  "punchedInViaEmployeeApp": true,
+  "ownerObservedAtWorkWithoutManualRefresh": true,
+  "punchedOutViaEmployeeApp": true,
+  "ownerObservedFinishedWithoutManualRefresh": true,
+  "salaryConfiguredDuringReview": false,
+  "companyRulesPublishedDuringReview": false,
+  "moneyPostedDuringReview": false
+}

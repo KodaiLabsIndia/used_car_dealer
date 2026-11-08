@@ -91,6 +91,20 @@ npm run android:preview:install
 
 This creates artifacts/ArihantCars-internal-preview.apk with JavaScript included, so Metro is unnecessary. It uses the same app identity and local training API; installing over the development client preserves its session/drafts. Launcher artwork uses the existing Arihant website logo. The build is debug signed for internal review and allows the configured HTTP development API. Ordinary release configuration requires encrypted transport. It is not a production distribution build. For the emulator keep port 4100 forwarded; a physical phone needs a build pointing EXPO_PUBLIC_API_URL at the reachable host. Reinstall the development APK to return to Metro-based editing. Android automatic cloud backup is disabled for app data.
 
+## Attendance and payroll
+
+The [SBOSS-derived workforce module](docs/SBOSS_IMPORT.md) uses existing Arihant
+accounts. Open **Attendance & pay** from Home or Settings → Work tools. Owner
+configures company shifts, holidays, photo/location rules and each person’s agreed
+pay. Employees punch and view their own leave/pay; Owner/Supervisor reviews team
+requests and salary. The management website includes the same workforce records
+and financial workflows. New workforce decisions appear in the existing queue.
+
+Apply all migrations (through **0023**) and rebuild the native preview/development
+client for the foreground location module. Attendance uses server time and stays
+online; uncertain departures are reviewed rather than assigned invented hours.
+The app records external salary payments and does not initiate transfers.
+
 ## Media and AI
 
 Photos/scanned pages are normalized on the phone to JPEG within **Full HD**, preserving shape without upscaling. Videos are normalized privately on the phone to **720p displayed dimensions**, MP4/H.264, at most 30 fps. Development limits: 30 seconds / 32 MB. There is no oversized-source fallback. Android import/camera/preparation/upload and draft restart were exercised. The API independently checks actual bytes. iOS hardware acceptance remains open.
@@ -110,7 +124,7 @@ npm run mobile:export
 npm run web:build
 ```
 
-PostgreSQL tests create/remove isolated random schemas. Contract generation exports Python OpenAPI and shared TypeScript, checked against runtime validators. Mobile exports are JavaScript bundles, not native/signed releases. Hosted CI has not run.
+PostgreSQL tests create/remove isolated random schemas. Contract generation exports Python OpenAPI and shared TypeScript, checked against runtime validators. Mobile exports are JavaScript bundles, not native/signed releases. Hosted CI references are recorded in the verification notes.
 
 Repeat the isolated local restore rehearsal without overwriting the source database:
 

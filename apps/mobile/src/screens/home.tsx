@@ -206,6 +206,18 @@ export function HomeScreen({ navigation, route }: ScreenProps<"Home">) {
           />
         ) : null}
         {resource.loading && !data ? <ActivityIndicator color="#fff" /> : null}
+        <Button
+          secondary
+          label={
+            language === "mr"
+              ? "हजेरी आणि पगार"
+              : hi
+                ? "हाज़िरी और वेतन"
+                : "Attendance & pay"
+          }
+          icon="time-outline"
+          onPress={() => navigation.navigate("Workforce")}
+        />
         {overview && data ? (
           <>
             <View
@@ -266,9 +278,7 @@ export function HomeScreen({ navigation, route }: ScreenProps<"Home">) {
                       <Pressable
                         accessibilityRole="button"
                         onPress={() => {
-                          setView("decisions");
-                          setScope("all");
-                          setStage(null);
+                          navigation.navigate("Decisions");
                         }}
                         style={{
                           minHeight: 60,
@@ -520,9 +530,7 @@ export function HomeScreen({ navigation, route }: ScreenProps<"Home">) {
           setScope("all");
         }}
         onDecisions={() => {
-          setView("decisions");
-          setScope("all");
-          setStage(null);
+          navigation.navigate("Decisions");
         }}
         onHelp={help}
       />

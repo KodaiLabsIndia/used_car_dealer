@@ -10,7 +10,7 @@ from app.contracts import Contract
 class Notification(Contract):
     id: UUID
     kind: str
-    target_type: Literal["task", "job", "car", "enquiry", "purchase", "business"]
+    target_type: Literal["task", "job", "car", "enquiry", "purchase", "business", "workforce"]
     target_id: UUID
     created_at: datetime
     read_at: datetime | None

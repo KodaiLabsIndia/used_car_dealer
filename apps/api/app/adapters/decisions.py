@@ -25,8 +25,18 @@ QUERY = """WITH pending AS (
  UNION ALL
  SELECT h.id,'hold',h.cycle_id,'Car hold needs resolution','stock',h.cycle_id,h.created_at FROM stock_holds h WHERE h.company_id=:company AND :service AND h.resolved_at IS NULL
  ) SELECT p.id,p.kind,p.cycle_id AS car_id,v.make||' '||v.model||' · '||v.registration AS car_label,
- p.title,p.target_type,p.target_id,p.created_at FROM pending p JOIN stock_cycles s ON s.id=p.cycle_id AND s.company_id=:company
+ p.title,p.target_type,p.target_id,p.created_at,v.make||' '||v.model||' · '||v.registration AS subject_label FROM pending p JOIN stock_cycles s ON s.id=p.cycle_id AND s.company_id=:company
  JOIN vehicles v ON v.id=s.vehicle_id AND v.company_id=s.company_id
+ UNION ALL
+ SELECT r.id,CASE WHEN r.kind='leave' THEN 'workforce_leave' ELSE 'workforce_advance' END,NULL::uuid,'',
+ CASE WHEN r.kind='leave' THEN 'Leave request' ELSE 'Salary advance request' END,'workforce',r.user_id,r.created_at,u.name
+ FROM workforce_requests r JOIN users u ON u.id=r.user_id AND u.company_id=r.company_id
+ WHERE r.company_id=:company AND :owner AND NOT EXISTS(SELECT 1 FROM workforce_request_reviews x WHERE x.request_id=r.id AND x.company_id=r.company_id)
+ UNION ALL
+ SELECT a.id,'attendance',NULL::uuid,'','Attendance evidence review','workforce',a.user_id,a.punched_in_at,u.name
+ FROM attendance_sessions a JOIN users u ON u.id=a.user_id AND u.company_id=a.company_id
+ WHERE a.company_id=:company AND :owner AND (a.status='missed_out' OR (a.status='open' AND a.cutoff_at<=now()) OR a.flags<>'[]'::jsonb)
+ AND NOT EXISTS(SELECT 1 FROM workforce_day_reviews r WHERE r.company_id=a.company_id AND r.user_id=a.user_id AND r.work_date=a.work_date AND r.created_at>=a.punched_in_at)
 """
 
 

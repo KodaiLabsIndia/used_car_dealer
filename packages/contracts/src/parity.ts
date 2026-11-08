@@ -140,3 +140,16 @@ export type DocumentPolicyParity = Assert<
 export type CarRequirementsParity = Assert<
   Equal<import("./index").CarRequirements, Schema["CarRequirements"]>
 >;
+
+export type WorkforceParity = Assert<
+  Equal<import("./workforce").WorkforceView, Schema["WorkforceView"]>
+>;
+export type WorkforcePolicyParity = Assert<
+  Equal<import("./workforce").WorkforcePolicy, Schema["WorkforcePolicy-Output"]>
+>;
+export type SalaryPreviewParity = Assert<
+  Equal<import("./workforce").SalaryPreview, Schema["SalaryPreview"]>
+>;
+export type DecisionItemParity = Assert<
+  Equal<import("./index").DecisionItem, Schema["DecisionItem"]>
+>;

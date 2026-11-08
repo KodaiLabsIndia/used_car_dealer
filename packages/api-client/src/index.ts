@@ -1,4 +1,11 @@
 import {
+  workforceSchema,
+  workforcePolicySchema,
+  salaryPreviewSchema,
+  type WorkforceCommand,
+  type PublishWorkforcePolicy,
+} from "@arihant/contracts";
+import {
   documentPolicySchema,
   carRequirementsSchema,
   type PublishDocumentPolicy,
@@ -120,6 +127,48 @@ export class ApiClient {
     readonly url = API_URL,
     protected readonly onUnauthorized?: () => void,
   ) {}
+  async workforce(userId?: string, asOf?: string) {
+    const query = new URLSearchParams();
+    if (userId) query.set("user_id", userId);
+    if (asOf) query.set("as_of", asOf);
+    return workforceSchema.parse(await this.request(`/workforce?${query}`));
+  }
+  async workforceCommand(userId: string, body: WorkforceCommand) {
+    return workforceSchema.parse(
+      await this.request(`/workforce/${userId}/commands`, {
+        method: "POST",
+        body: JSON.stringify(body),
+      }),
+    );
+  }
+  async publishWorkforcePolicy(body: PublishWorkforcePolicy) {
+    return workforcePolicySchema.parse(
+      await this.request("/workforce/policy", {
+        method: "POST",
+        body: JSON.stringify(body),
+      }),
+    );
+  }
+  async salaryPreview(userId: string, asOf: string, bonus = 0, deduction = 0) {
+    return salaryPreviewSchema.parse(
+      await this.request(
+        `/workforce/${userId}/preview?as_of=${asOf}&bonus_paise=${bonus}&deduction_paise=${deduction}`,
+      ),
+    );
+  }
+  async uploadAttendanceProof(id: string, uri: string) {
+    return await this.uploadPreparedFile(
+      `/workforce/proofs/${id}`,
+      uri,
+      "image/jpeg",
+    );
+  }
+  attendanceProofUri(id: string) {
+    return {
+      uri: `${this.url}/v1/workforce/proofs/${id}/file`,
+      headers: this.token ? { Authorization: `Bearer ${this.token}` } : {},
+    };
+  }
   async request(path: string, init: RequestInit = {}) {
     const controller = new AbortController(),
       timer = setTimeout(() => controller.abort(), 25000);

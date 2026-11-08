@@ -379,7 +379,7 @@ These are the final completion conditions. Check them against working release-ca
 
 | IDs | Status and evidence |
 | --- | --- |
-| ENG-02/03 | Done: mobile/web/API/worker/shared contracts, 21 migrations, reproducible commands, formatting/lint/type checks, automated suite and CI configuration. Hosted CI passed for the initial repository and company configuration commits; review follow-ups need their own run. |
+| ENG-02/03 | Done: mobile/web/API/worker/shared contracts, 23 migrations, reproducible commands, formatting/lint/type checks, automated suite and CI configuration. Hosted CI passed for the initial repository and company configuration commits; review follow-ups need their own run. |
 | ENG-07/10, ARC-04/08/09 | Done for implemented commands: domain/import tests, PostgreSQL transactions/locks/constraints, durable receipts, current-version decisions, append-only history, transactional outbox/worker. |
 | IAM-05/07/08/09/12 | Done: one-account owner actions, explicit self-review, current-fact approvals, server-side object/action/media/document/export/AI/inbox scope; tests in identity, roles, integration, commercial, documents, assistant and reports. |
 | CAP-05/11/16/19 | Done: immutable normalized masters, required-photo/result gates, mobile JPEG normalization including document pages, actual-byte photo/video admission. Android native video evidence is linked in status. Cross-platform hardware and retention acceptance remain open. |
@@ -415,3 +415,16 @@ must be reviewed/published; version-0 starters are not automatically enforced.
 Marathi core copy/preferences/date support is implemented; full screen/checklist
 translation, voice coverage and staff acceptance remain open. See the
 [implementation and verification record](docs/review/company-configuration/README.md).
+
+
+### 8 November — SBOSS workforce port
+
+- [x] WFP-01 Review SBOSS attendance/payroll source and record fit/provenance.
+- [x] WFP-02 Integrate company-scoped, server-timed punches, saved day/night shifts, GPS/photo evidence and honest missing-departure state.
+- [x] WFP-03 Add owner-configurable rules, employee shift overrides, leave/holidays and append-only paid-time review.
+- [x] WFP-04 Add effective-dated rates/settlement cycles, explainable previews, approved advances/recovery, immutable salary statements, payments and original-preserving corrections.
+- [x] WFP-05 Connect mobile/web, shared Decisions/count, notifications, reminders and own-record privacy; preserve final settlement after deactivation.
+- [ ] WFP-06 Arihant validates agreed rates, work/leave/holiday policy and adjustment practices with actual staff; complete native iOS/iPad and physical GPS/camera/accessibility acceptance.
+
+See [the port and further reuse candidates](docs/SBOSS_IMPORT.md) and workforce
+review evidence. This implementation does not close the existing full-release gates.

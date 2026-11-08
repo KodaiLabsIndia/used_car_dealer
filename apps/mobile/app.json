@@ -24,9 +24,17 @@
     },
     "plugins": [
       [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Record your location only when you punch attendance.",
+          "isIosBackgroundLocationEnabled": false,
+          "isAndroidBackgroundLocationEnabled": false
+        }
+      ],
+      [
         "expo-camera",
         {
-          "cameraPermission": "Photograph the car and inspection evidence.",
+          "cameraPermission": "Take car inspection photos and attendance selfies.",
           "recordAudioAndroid": true,
           "microphonePermission": "Record short inspection explanations and car sounds."
         }

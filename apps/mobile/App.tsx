@@ -1,3 +1,4 @@
+import { WorkforceScreen } from "./src/screens/workforce";
 import { CompanySettingsScreen } from "./src/screens/company-settings";
 import { ChecklistsScreen } from "./src/screens/checklists";
 import { DecisionsScreen } from "./src/screens/decisions";
@@ -89,6 +90,7 @@ function AuthenticatedRoutes({ ownerId }: { ownerId: string }) {
           contentStyle: { backgroundColor: colors.surface },
         }}
       >
+        <Stack.Screen name="Workforce" component={WorkforceScreen} />
         <Stack.Screen name="Assistant" component={AssistantScreen} />
         <Stack.Screen name="Clips" component={ClipsScreen} />
         <Stack.Screen name="Decisions" component={DecisionsScreen} />

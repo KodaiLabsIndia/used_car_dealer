@@ -14,11 +14,13 @@ export function DecisionBoard({
   revision,
   openCar,
   openTask,
+  openWorkforce,
 }: {
   api: ApiClient;
   revision: number;
   openCar: (id: string) => void;
   openTask: (id: string) => void;
+  openWorkforce: (id: string) => void;
 }) {
   const [items, setItems] = useState<DecisionItem[]>([]),
     [total, setTotal] = useState(0),
@@ -54,7 +56,7 @@ export function DecisionBoard({
     <>
       <p className="muted">
         {total} pending decisions · Inspections, help, purchases, repair quotes,
-        documents, warranty and car holds.
+        documents, warranty, car holds and workforce requests.
       </p>
       {error ? (
         <p role="alert" className="error">
@@ -66,14 +68,15 @@ export function DecisionBoard({
         {items.map((v) => (
           <article key={`${v.kind}:${v.id}`}>
             <span className="badge">{v.kind}</span>
-            <h3>{v.carLabel}</h3>
+            <h3>{v.subjectLabel || v.carLabel}</h3>
             <p>{v.title}</p>
             <small>{new Date(v.createdAt).toLocaleString()}</small>
             <button
               onClick={() => {
-                if (v.targetType === "task") openTask(v.targetId);
+                if (v.targetType === "workforce") openWorkforce(v.targetId);
+                else if (v.targetType === "task") openTask(v.targetId);
                 else if (v.targetType === "service_finance") setJob(v.targetId);
-                else openCar(v.carId);
+                else if (v.carId) openCar(v.carId);
               }}
             >
               Open & review →

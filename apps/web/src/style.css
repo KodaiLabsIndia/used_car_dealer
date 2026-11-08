@@ -612,3 +612,20 @@ textarea {
   border-radius: 18px;
   background: #19191d;
 }
+
+.workforce-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: 16px;
+  margin: 16px 0;
+}
+.workforce-fields label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+.table-scroll {
+  max-width: 100%;
+  overflow: auto;
+}

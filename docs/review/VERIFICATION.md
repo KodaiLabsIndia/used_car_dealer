@@ -1,16 +1,16 @@
-# Development verification — 30 October 2026
+# Development verification — 8 November 2026
 
 These are local development results, not full-release acceptance. The initial repository and company configuration commits passed hosted CI. The review follow-up has local verification; no production deployment or physical iOS/tablet acceptance has occurred.
 
 | Check | Latest result |
 | --- | --- |
 | npm run check | Passed: Ruff, native literal-text placement lint, TypeScript in all client workspaces, 14 Python domain/architecture tests and 13 mobile logic tests |
-| npm run test:integration | **80 passed** against real PostgreSQL in isolated random schemas; includes configuration-resolved comprehensive snapshots, measurements, reasoned exceptions, fresh required clips, urgent critical findings and catalogue import/search |
+| npm run test:integration | **105 passed** against real PostgreSQL in isolated random schemas; includes the existing car workflows and 25 new attendance/payroll API and calculation cases |
 | Contracts | Python OpenAPI regenerated; shared validators/generated types pass compile-time parity |
 | Android native | Development and bundled internal-preview APKs built/installed; local Media3 module compiles; camera/mic/import/720p preparation, native document upload and verified video upload exercised |
 | iOS source | Swift syntax parses; no native compile/device run because full Xcode is absent |
 | JavaScript/web bundles | Android/iOS Expo exports and Vite build passed, including final mobile source changes |
-| Migration | Local Alembic schema is at 0021; clean-schema integration tests apply all 21 SQL migrations |
+| Migration | Local Alembic schema is at 0023; clean-schema integration tests apply all 23 SQL migrations |
 | Restore rehearsal | Source left intact; isolated restored DB dropped; 18 table content digests and 32 referenced private files matched |
 | Dependency advisory check | 8 findings: 5 low, 3 high, through Expo/development tooling; none critical; no forced incompatible override applied |
 
@@ -46,7 +46,7 @@ The [internal preview](../../artifacts/ArihantCars-internal-preview.apk) include
 
 Native spatial integration exposed two compatibility defects that were corrected: Metro now resolves Three's browser ESM entry instead of its Node-oriented CommonJS entry, and a reproducible Expo config plugin keeps Expo GL's native constructors in optimized Android builds. R8 remains enabled. These fixes were exercised in an installed bundled preview; a JavaScript-only export would not catch the constructor failure.
 
-Both APKs now include the native Expo GL library. The preview bundles the current inspection source and generic model assets; the development client loads JavaScript through Metro. See [source comparison](spatial/bundled-source-verification.json) and [artifact fingerprints](android/build-manifest.json).
+Both APKs include the native Expo GL library. The latest preview also includes foreground location and the workforce workspace, with all 78 bundled mobile runtime sources matching the working tree. The development client loads JavaScript through Metro; its older artifact does not include attendance location. See the latest [source comparison](workforce/bundled-source-verification.json) and [artifact fingerprints](android/build-manifest.json).
 
 The selected date survived a development-to-preview APK update. [Build manifest](android/build-manifest.json) records artifact size, SHA-256, package/version, ARM64 architecture and minimum/target SDK. The [launcher](android/preview-launcher.png) and [corrected ready camera](android/preview-camera-ready.png) were checked in the installed preview. These APKs still need the configured development backend.
 
@@ -81,3 +81,18 @@ The final full integration suite passed 80 tests, including the private-work
 access guard and three finalized/open legacy-stage regressions. Local lint/types, 14 Python tests,
 13 mobile tests, both platform JavaScript exports and web/native Android builds
 passed. Marathi remains partial and physical-device/staff acceptance remains open.
+
+## 8 November: SBOSS attendance and payroll
+
+See [workforce review](workforce/README.md) and [source provenance and further reuse](../SBOSS_IMPORT.md).
+The final full integration run passed **105 tests**. Lint/types, formatting,
+14 Python domain/architecture tests, 13 mobile logic tests, Android/iOS JavaScript
+exports, web build and the native bundled Android preview build passed.
+
+The final preview was installed on separate owner and employee emulators. Ravi's
+synthetic training punch-in/out appeared in the owner's team view without manual
+refresh. Employee-only records/controls, owner rule access, Leave and Pay screens
+were reviewed. No pay terms, company policies or financial records were posted
+during this interface review. API tests exercise the financial workflows against
+isolated PostgreSQL schemas. This remains local development verification; native
+iOS/iPad, physical devices, actual business rules and staff acceptance are open.

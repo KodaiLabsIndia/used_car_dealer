@@ -1,0 +1,22 @@
+{
+  "profiles": [
+    {
+      "profile": "phone-large-text",
+      "width": 1080,
+      "height": 2424,
+      "density": 420,
+      "fontScale": "1.5",
+      "allFourTabsReachable": true
+    },
+    {
+      "profile": "tablet-portrait",
+      "width": 1600,
+      "height": 2560,
+      "density": 240,
+      "fontScale": "1.0",
+      "allFourTabsReachable": true
+    }
+  ],
+  "originalDisplayRestored": true,
+  "physicalDeviceAcceptance": false
+}

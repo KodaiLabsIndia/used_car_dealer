@@ -226,6 +226,108 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  "/v1/workforce": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** View */
+    get: operations["view_v1_workforce_get"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/v1/workforce/policy": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** Policy */
+    post: operations["policy_v1_workforce_policy_post"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/v1/workforce/{user_id}/commands": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** Command */
+    post: operations["command_v1_workforce__user_id__commands_post"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/v1/workforce/{user_id}/preview": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Preview */
+    get: operations["preview_v1_workforce__user_id__preview_get"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/v1/workforce/proofs/{id}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** Proof */
+    post: operations["proof_v1_workforce_proofs__id__post"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/v1/workforce/proofs/{id}/file": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Proof File */
+    get: operations["proof_file_v1_workforce_proofs__id__file_get"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   "/v1/checklists/manage": {
     parameters: {
       query?: never;
@@ -1223,6 +1325,51 @@ export interface components {
         "inspector" | "coordinator" | "supervisor" | "manager" | "sales"
       )[];
     };
+    /** AdvancePlan */
+    AdvancePlan: {
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
+      /**
+       * Mode
+       * @enum {string}
+       */
+      mode: "full" | "skip" | "partial" | "split";
+      /** Portionpaise */
+      portionPaise: number;
+      /**
+       * Startson
+       * Format: date
+       */
+      startsOn: string;
+      /** Paymentids */
+      paymentIds: string[];
+      /** Reason */
+      reason: string;
+    };
+    /** AdvanceRecord */
+    AdvanceRecord: {
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
+      /** Amountpaise */
+      amountPaise: number;
+      /** Reason */
+      reason: string;
+      /**
+       * Status
+       * @enum {string}
+       */
+      status: "pending" | "approved" | "rejected" | "paid";
+      /** Version */
+      version: number;
+      /** Reference */
+      reference: string | null;
+    };
     /** Answer */
     Answer: {
       /** Itemid */
@@ -1526,6 +1673,71 @@ export interface components {
       /** Requestsperday */
       requestsPerDay: number;
     };
+    /** AttendanceRecord */
+    AttendanceRecord: {
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
+      /**
+       * Userid
+       * Format: uuid
+       */
+      userId: string;
+      /**
+       * Workdate
+       * Format: date
+       */
+      workDate: string;
+      /**
+       * Punchedinat
+       * Format: date-time
+       */
+      punchedInAt: string;
+      /** Punchedoutat */
+      punchedOutAt: string | null;
+      /**
+       * Status
+       * @enum {string}
+       */
+      status: "open" | "closed" | "missed_out";
+      /** Minutes */
+      minutes: number | null;
+      /** Version */
+      version: number;
+      schedule: components["schemas"]["Schedule-Output"];
+      /** Policyversion */
+      policyVersion: number;
+      /** Selfierequired */
+      selfieRequired: boolean;
+      /**
+       * Sourcesignature
+       * @default
+       */
+      sourceSignature: string;
+      /**
+       * Startsat
+       * Format: date-time
+       */
+      startsAt: string;
+      /**
+       * Endsat
+       * Format: date-time
+       */
+      endsAt: string;
+      /**
+       * Cutoffat
+       * Format: date-time
+       */
+      cutoffAt: string;
+      /** Flags */
+      flags: string[];
+      /** Proofid */
+      proofId: string | null;
+      /** Outproofid */
+      outProofId: string | null;
+    };
     /** AuthOptions */
     AuthOptions: {
       /**
@@ -1535,6 +1747,11 @@ export interface components {
       staffLogin: boolean;
       /** Traininglogin */
       trainingLogin: boolean;
+    };
+    /** Body_proof_v1_workforce_proofs__id__post */
+    Body_proof_v1_workforce_proofs__id__post: {
+      /** File */
+      file: string;
     };
     /** Body_upload_v1_cars__car_id__documents__id__post */
     Body_upload_v1_cars__car_id__documents__id__post: {
@@ -2329,6 +2546,29 @@ export interface components {
       /** Attention */
       attention: components["schemas"]["Car"][];
     };
+    /** DayReview */
+    DayReview: {
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
+      /**
+       * Workdate
+       * Format: date
+       */
+      workDate: string;
+      /** Halfdays */
+      halfDays: number;
+      /** Minutes */
+      minutes: number | null;
+      /** Reason */
+      reason: string;
+      /** Reviewedby */
+      reviewedBy: string;
+      /** Sourcesignature */
+      sourceSignature: string;
+    };
     /** DecideRepairQuote */
     DecideRepairQuote: {
       /**
@@ -2374,14 +2614,19 @@ export interface components {
         | "quote"
         | "document"
         | "claim"
-        | "hold";
-      /**
-       * Carid
-       * Format: uuid
-       */
-      carId: string;
+        | "hold"
+        | "workforce_leave"
+        | "workforce_advance"
+        | "attendance";
+      /** Carid */
+      carId: string | null;
       /** Carlabel */
       carLabel: string;
+      /**
+       * Subjectlabel
+       * @default
+       */
+      subjectLabel: string;
       /** Title */
       title: string;
       /**
@@ -2394,7 +2639,8 @@ export interface components {
         | "service_finance"
         | "documents"
         | "business"
-        | "stock";
+        | "stock"
+        | "workforce";
       /**
        * Targetid
        * Format: uuid
@@ -2894,6 +3140,36 @@ export interface components {
       /** Reason */
       reason: string;
     };
+    /** Holiday */
+    "Holiday-Input": {
+      /**
+       * Day
+       * Format: date
+       */
+      day: string;
+      /** Name */
+      name: string;
+      /**
+       * Paid
+       * @default true
+       */
+      paid: boolean;
+    };
+    /** Holiday */
+    "Holiday-Output": {
+      /**
+       * Day
+       * Format: date
+       */
+      day: string;
+      /** Name */
+      name: string;
+      /**
+       * Paid
+       * @default true
+       */
+      paid: boolean;
+    };
     /** Inbox */
     Inbox: {
       /** Items */
@@ -2973,6 +3249,39 @@ export interface components {
     JobsPage: {
       /** Items */
       items: components["schemas"]["RepairJob"][];
+    };
+    /** LeaveRecord */
+    LeaveRecord: {
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
+      /**
+       * Start
+       * Format: date
+       */
+      start: string;
+      /**
+       * End
+       * Format: date
+       */
+      end: string;
+      /** Halfdaysperday */
+      halfDaysPerDay: number;
+      /** Paid */
+      paid: boolean;
+      /** Reason */
+      reason: string;
+      /**
+       * Status
+       * @enum {string}
+       */
+      status: "pending" | "approved" | "rejected";
+      /** Version */
+      version: number;
+      /** Reviewreason */
+      reviewReason: string | null;
     };
     /** LedgerEntry */
     LedgerEntry: {
@@ -3193,7 +3502,14 @@ export interface components {
        * Targettype
        * @enum {string}
        */
-      targetType: "task" | "job" | "car" | "enquiry" | "purchase" | "business";
+      targetType:
+        | "task"
+        | "job"
+        | "car"
+        | "enquiry"
+        | "purchase"
+        | "business"
+        | "workforce";
       /**
        * Targetid
        * Format: uuid
@@ -3265,6 +3581,111 @@ export interface components {
       /** Expectedat */
       expectedAt: string | null;
     };
+    /** PayDay */
+    PayDay: {
+      /**
+       * Day
+       * Format: date
+       */
+      day: string;
+      /** Source */
+      source: string;
+      /** Halfdays */
+      halfDays: number;
+      /** Minutes */
+      minutes: number | null;
+      /** Earningspaise */
+      earningsPaise: number;
+      /** Warnings */
+      warnings: string[];
+    };
+    /** PayEvent */
+    PayEvent: {
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
+      /**
+       * Kind
+       * @enum {string}
+       */
+      kind: "advance_payment" | "salary_payment" | "reversal" | "void";
+      /** Amountpaise */
+      amountPaise: number;
+      /**
+       * Targetid
+       * Format: uuid
+       */
+      targetId: string;
+      /** Reversesid */
+      reversesId: string | null;
+      /** Reference */
+      reference: string;
+      /** Reason */
+      reason: string;
+      /**
+       * Occurredat
+       * Format: date-time
+       */
+      occurredAt: string;
+      /** Recordedby */
+      recordedBy: string;
+      /** Reversed */
+      reversed: boolean;
+    };
+    /** PayTerms */
+    "PayTerms-Input": {
+      /**
+       * Effectivefrom
+       * Format: date
+       */
+      effectiveFrom: string;
+      /**
+       * Basis
+       * @enum {string}
+       */
+      basis: "daily" | "weekly" | "monthly" | "hourly";
+      /**
+       * Cycle
+       * @enum {string}
+       */
+      cycle: "daily" | "weekly" | "monthly";
+      /** Ratepaise */
+      ratePaise: number;
+      /**
+       * Payoutdelaydays
+       * @default 1
+       */
+      payoutDelayDays: number;
+      schedule?: components["schemas"]["Schedule-Input"] | null;
+    };
+    /** PayTerms */
+    "PayTerms-Output": {
+      /**
+       * Effectivefrom
+       * Format: date
+       */
+      effectiveFrom: string;
+      /**
+       * Basis
+       * @enum {string}
+       */
+      basis: "daily" | "weekly" | "monthly" | "hourly";
+      /**
+       * Cycle
+       * @enum {string}
+       */
+      cycle: "daily" | "weekly" | "monthly";
+      /** Ratepaise */
+      ratePaise: number;
+      /**
+       * Payoutdelaydays
+       * @default 1
+       */
+      payoutDelayDays: number;
+      schedule: components["schemas"]["Schedule-Output"] | null;
+    };
     /** PeoplePage */
     PeoplePage: {
       /** Items */
@@ -3325,6 +3746,37 @@ export interface components {
       rules: components["schemas"]["DocumentRule-Input"][];
       /** Reason */
       reason: string;
+    };
+    /** PublishWorkforcePolicy */
+    PublishWorkforcePolicy: {
+      /**
+       * Commandid
+       * Format: uuid
+       */
+      commandId: string;
+      /** Expectedversion */
+      expectedVersion: number;
+      policy: components["schemas"]["WorkforcePolicy-Input"];
+      /** Reason */
+      reason: string;
+    };
+    /** Punch */
+    Punch: {
+      /** Latitude */
+      latitude?: number | null;
+      /** Longitude */
+      longitude?: number | null;
+      /** Accuracym */
+      accuracyM?: number | null;
+      /**
+       * Mocked
+       * @default false
+       */
+      mocked: boolean;
+      /** Clienttime */
+      clientTime?: string | null;
+      /** Proofid */
+      proofId?: string | null;
     };
     /** Purchase */
     Purchase: {
@@ -4374,6 +4826,83 @@ export interface components {
       action: "revise";
       terms: components["schemas"]["PurchaseTerms-Input"];
     };
+    /** SalaryPreview */
+    SalaryPreview: {
+      /**
+       * Userid
+       * Format: uuid
+       */
+      userId: string;
+      /**
+       * Start
+       * Format: date
+       */
+      start: string;
+      /**
+       * End
+       * Format: date
+       */
+      end: string;
+      /**
+       * Dueon
+       * Format: date
+       */
+      dueOn: string;
+      terms: components["schemas"]["PayTerms-Output"];
+      /** Sourcedays */
+      sourceDays: components["schemas"]["PayDay"][];
+      /** Basepaise */
+      basePaise: number;
+      /** Bonuspaise */
+      bonusPaise: number;
+      /** Deductionpaise */
+      deductionPaise: number;
+      /** Advancebalancepaise */
+      advanceBalancePaise: number;
+      /** Advancerecoverypaise */
+      advanceRecoveryPaise: number;
+      /** Netpaise */
+      netPaise: number;
+      /** Blockers */
+      blockers: string[];
+      /** Fingerprint */
+      fingerprint: string;
+    };
+    /** SalaryRecord */
+    SalaryRecord: {
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
+      /**
+       * Start
+       * Format: date
+       */
+      start: string;
+      /**
+       * End
+       * Format: date
+       */
+      end: string;
+      /** Revision */
+      revision: number;
+      snapshot: components["schemas"]["SalaryPreview"];
+      /** Confirmedby */
+      confirmedBy: string;
+      /**
+       * Confirmedat
+       * Format: date-time
+       */
+      confirmedAt: string;
+      /** Paidpaise */
+      paidPaise: number;
+      /**
+       * Status
+       * @enum {string}
+       */
+      status: "confirmed" | "paid" | "void";
+    };
     /** SaleBooking */
     SaleBooking: {
       warrantyConfiguration:
@@ -4489,6 +5018,58 @@ export interface components {
        * Format: date-time
        */
       occurredAt: string;
+    };
+    /** Schedule */
+    "Schedule-Input": {
+      /**
+       * Timezone
+       * @default Asia/Kolkata
+       * @constant
+       */
+      timezone: "Asia/Kolkata";
+      /**
+       * Start
+       * @default 10:00
+       */
+      start: string;
+      /**
+       * End
+       * @default 19:00
+       */
+      end: string;
+      /** Weekdays */
+      weekdays?: number[];
+      /**
+       * Graceminutes
+       * @default 15
+       */
+      graceMinutes: number;
+    };
+    /** Schedule */
+    "Schedule-Output": {
+      /**
+       * Timezone
+       * @default Asia/Kolkata
+       * @constant
+       */
+      timezone: "Asia/Kolkata";
+      /**
+       * Start
+       * @default 10:00
+       */
+      start: string;
+      /**
+       * End
+       * @default 19:00
+       */
+      end: string;
+      /** Weekdays */
+      weekdays: number[];
+      /**
+       * Graceminutes
+       * @default 15
+       */
+      graceMinutes: number;
     };
     /** ScheduleAppointment */
     ScheduleAppointment: {
@@ -5385,6 +5966,263 @@ export interface components {
        */
       noWarrantyAcknowledged: boolean;
     };
+    /** WorkforceCommand */
+    WorkforceCommand: {
+      /**
+       * Commandid
+       * Format: uuid
+       */
+      commandId: string;
+      /**
+       * Expectedversion
+       * @default 0
+       */
+      expectedVersion: number;
+      /**
+       * Action
+       * @enum {string}
+       */
+      action:
+        | "punch_in"
+        | "punch_out"
+        | "save_profile"
+        | "review_day"
+        | "request_leave"
+        | "review_leave"
+        | "request_advance"
+        | "review_advance"
+        | "pay_advance"
+        | "save_advance_plan"
+        | "confirm_salary"
+        | "pay_salary"
+        | "reverse_payment"
+        | "void_salary";
+      punch?: components["schemas"]["Punch"] | null;
+      /** Sessionid */
+      sessionId?: string | null;
+      terms?: components["schemas"]["PayTerms-Input"] | null;
+      /** Workdate */
+      workDate?: string | null;
+      /**
+       * Halfdays
+       * @default 2
+       */
+      halfDays: number;
+      /** Minutes */
+      minutes?: number | null;
+      /** Start */
+      start?: string | null;
+      /** End */
+      end?: string | null;
+      /**
+       * Paid
+       * @default true
+       */
+      paid: boolean;
+      /**
+       * Reason
+       * @default
+       */
+      reason: string;
+      /** Targetid */
+      targetId?: string | null;
+      /**
+       * Decision
+       * @default approved
+       * @enum {string}
+       */
+      decision: "approved" | "rejected";
+      /**
+       * Amountpaise
+       * @default 0
+       */
+      amountPaise: number;
+      /**
+       * Reference
+       * @default
+       */
+      reference: string;
+      /** Occurredat */
+      occurredAt?: string | null;
+      /**
+       * Planmode
+       * @default full
+       * @enum {string}
+       */
+      planMode: "full" | "skip" | "partial" | "split";
+      /**
+       * Installments
+       * @default 1
+       */
+      installments: number;
+      /** Asof */
+      asOf?: string | null;
+      /**
+       * Fingerprint
+       * @default
+       */
+      fingerprint: string;
+      /**
+       * Bonuspaise
+       * @default 0
+       */
+      bonusPaise: number;
+      /**
+       * Deductionpaise
+       * @default 0
+       */
+      deductionPaise: number;
+    };
+    /** WorkforcePerson */
+    WorkforcePerson: {
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
+      /** Name */
+      name: string;
+      /** Active */
+      active: boolean;
+      /**
+       * Attendancestatus
+       * @default not_punched
+       */
+      attendanceStatus: string;
+    };
+    /** WorkforcePolicy */
+    "WorkforcePolicy-Input": {
+      /**
+       * Version
+       * @default 0
+       */
+      version: number;
+      /**
+       * Effectivefrom
+       * Format: date
+       * @default 2026-01-01
+       */
+      effectiveFrom: string;
+      schedule?: components["schemas"]["Schedule-Input"];
+      /**
+       * Paidleavehalfdays
+       * @default 24
+       */
+      paidLeaveHalfDays: number;
+      /** Holidays */
+      holidays?: components["schemas"]["Holiday-Input"][];
+      /**
+       * Collectlocation
+       * @default false
+       */
+      collectLocation: boolean;
+      /**
+       * Selfierequired
+       * @default false
+       */
+      selfieRequired: boolean;
+      /** Latitude */
+      latitude?: number | null;
+      /** Longitude */
+      longitude?: number | null;
+      /**
+       * Radiusm
+       * @default 150
+       */
+      radiusM: number;
+    };
+    /** WorkforcePolicy */
+    "WorkforcePolicy-Output": {
+      /**
+       * Version
+       * @default 0
+       */
+      version: number;
+      /**
+       * Effectivefrom
+       * Format: date
+       * @default 2026-01-01
+       */
+      effectiveFrom: string;
+      schedule: components["schemas"]["Schedule-Output"];
+      /**
+       * Paidleavehalfdays
+       * @default 24
+       */
+      paidLeaveHalfDays: number;
+      /** Holidays */
+      holidays: components["schemas"]["Holiday-Output"][];
+      /**
+       * Collectlocation
+       * @default false
+       */
+      collectLocation: boolean;
+      /**
+       * Selfierequired
+       * @default false
+       */
+      selfieRequired: boolean;
+      /** Latitude */
+      latitude: number | null;
+      /** Longitude */
+      longitude: number | null;
+      /**
+       * Radiusm
+       * @default 150
+       */
+      radiusM: number;
+    };
+    /** WorkforceProof */
+    WorkforceProof: {
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
+    };
+    /** WorkforceView */
+    WorkforceView: {
+      /**
+       * Servernow
+       * Format: date-time
+       */
+      serverNow: string;
+      /**
+       * Today
+       * Format: date
+       */
+      today: string;
+      /** Emptydaysignature */
+      emptyDaySignature: string;
+      /** People */
+      people: components["schemas"]["WorkforcePerson"][];
+      /**
+       * Selecteduserid
+       * Format: uuid
+       */
+      selectedUserId: string;
+      policy: components["schemas"]["WorkforcePolicy-Output"];
+      /** Profileversion */
+      profileVersion: number;
+      payTerms: components["schemas"]["PayTerms-Output"] | null;
+      /** Attendance */
+      attendance: components["schemas"]["AttendanceRecord"][];
+      /** Reviews */
+      reviews: components["schemas"]["DayReview"][];
+      /** Leaves */
+      leaves: components["schemas"]["LeaveRecord"][];
+      /** Leaveusedhalfdays */
+      leaveUsedHalfDays: number;
+      /** Advances */
+      advances: components["schemas"]["AdvanceRecord"][];
+      advancePlan: components["schemas"]["AdvancePlan"] | null;
+      /** Advancebalancepaise */
+      advanceBalancePaise: number;
+      /** Salaries */
+      salaries: components["schemas"]["SalaryRecord"][];
+      /** Payments */
+      payments: components["schemas"]["PayEvent"][];
+    };
     /** Workshop */
     Workshop: {
       /**
@@ -5831,6 +6669,205 @@ export interface operations {
     responses: {
       /** @description Successful Response */
       204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  view_v1_workforce_get: {
+    parameters: {
+      query?: {
+        user_id?: string | null;
+        as_of?: string | null;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["WorkforceView"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  policy_v1_workforce_policy_post: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["PublishWorkforcePolicy"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["WorkforcePolicy-Output"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  command_v1_workforce__user_id__commands_post: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        user_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["WorkforceCommand"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["WorkforceView"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  preview_v1_workforce__user_id__preview_get: {
+    parameters: {
+      query: {
+        as_of: string;
+        bonus_paise?: number;
+        deduction_paise?: number;
+      };
+      header?: never;
+      path: {
+        user_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["SalaryPreview"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  proof_v1_workforce_proofs__id__post: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "multipart/form-data": components["schemas"]["Body_proof_v1_workforce_proofs__id__post"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["WorkforceProof"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  proof_file_v1_workforce_proofs__id__file_get: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
         headers: {
           [name: string]: unknown;
         };

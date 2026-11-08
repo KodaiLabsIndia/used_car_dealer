@@ -78,7 +78,16 @@ export function InboxScreen({ navigation }: ScreenProps<"Inbox">) {
   }
   function open(item: Inbox["items"][number]) {
     void read(item.id);
-    if (item.targetType === "task")
+    if (item.targetType === "workforce")
+      navigation.navigate("Workforce", {
+        userId: item.targetId,
+        section: item.kind.includes("leave")
+          ? "leave"
+          : item.kind.includes("salary") || item.kind.includes("advance")
+            ? "pay"
+            : "attendance",
+      });
+    else if (item.targetType === "task")
       navigation.navigate("Task", { id: item.targetId });
     else if (item.targetType === "job")
       navigation.navigate("Job", { id: item.targetId });

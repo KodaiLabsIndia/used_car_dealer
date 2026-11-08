@@ -225,3 +225,31 @@ Language is an individual preference, scoped to the authenticated user on the
 device. Stable check IDs and assigned evidence stay independent of display language.
 Marathi content fields are additive so historical bilingual snapshots remain
 readable. Missing translations are a release gap, not synthesized company facts.
+
+
+## ADR-14: Workforce evidence and salary remain separate from car costs
+
+The SBOSS workforce port reuses Arihant company/users, role checks, command
+receipts and notifications. Pure shift/geo/calculation policies and the salary
+projection live in the domain layer; SQL, HTTP, media and phone sensors remain
+adapters. The company is locked while attendance/leave/advance/payroll sources
+change, so salary confirmation can recheck a stable fingerprint.
+
+Actual punches and saved shift/photo rules are protected by database constraints
+and terminal-state triggers. Paid-time reviews append facts about pay without
+rewriting attendance. Automated missing-departure boundaries use system events;
+they do not impersonate the employee. Profiles, policies, requests, decisions,
+statements and money events retain their revisions.
+
+Effective pay settings, reviewed days, accepted leave/holidays and advances feed
+integer-paise calculations. Statements freeze the reviewed calculation. Recovery
+is reserved at confirmation, and chronological confirmation/correction prevents
+double recovery. Payroll payments and reversals are separate from car-cost
+entries. No automatic late/location deduction, statutory calculation or bank
+transfer is added. Owner configures terms/rules, Owner/Supervisor makes financial
+decisions, and employees access their own records.
+
+Workforce requests/attendance review join the central Decisions query with a
+person subject and a nullable car reference; no synthetic car represents a
+worker. Staff deactivation revokes employee activity while preserving authorised
+final settlement. Foreground location is sampled only for a punch when enabled.

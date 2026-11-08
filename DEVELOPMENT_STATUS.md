@@ -1,12 +1,14 @@
 # Development status
 
-30 October 2026 · Internal development build · Production release gates remain open
+8 November 2026 · Internal development build · Production release gates remain open
 
 The selected **03 Garage** design uses Arihant's website logo, artwork, red/black/white palette and Plus Jakarta Sans. The product has a Python/FastAPI backend, PostgreSQL, adaptive Expo mobile and a React management website. Marketing integration remains excluded. The [spatial inspection plan](docs/SPATIAL_INSPECTION_PLAN.md) now has a working first implementation: vehicle-name search, a comprehensive unapproved inspection draft, section/part navigation and bundled generic 3D cars with drag rotation and red inspection points. Qualified SOP approval, verified India variants and physical-device acceptance remain open.
 
 The responsive review now covers shared actions, forms, cards, tabs, full-check search, calendar/catalogue dialogs and camera controls. Check proof shows Photo and Video together; video opens directly in add mode. The inspection navigator is compact, instructions expand on demand with speech still directly accessible, and custom text sizes receive matching line spacing. [Review evidence](docs/review/responsive/README.md) distinguishes emulator/browser checks from outstanding physical Android/iOS acceptance.
 
 ## Working implementation
+
+The [SBOSS attendance/payroll port](docs/SBOSS_IMPORT.md) adds team attendance, saved shifts, optional foreground location/photos, paid-time review, leave/holidays, effective-dated pay, salary advances/recovery, issued statements, payments/corrections and workforce items in the shared Decisions queue. Owners must configure agreed pay and company rules before operational use. The new mobile workspace has English/Hindi/Marathi labels; wider app translation and device acceptance remain open.
 
 The [company configuration batch](docs/review/company-configuration/README.md) adds the confirmed two-tier approval policy, rich owner checklist rules, reviewed-document requirements and per-sale warranty configuration. Marathi foundations are connected; complete translation and voice/staff acceptance remain open.
 
@@ -27,6 +29,7 @@ The user has confirmed the current comprehensive checklist as the initial workin
 | Warranty | Per-sale configurable 3/6/12-month duration, covered components/exclusions/notes and immutable calendar-based issued terms; date/km assessment including unknown mileage, owner/supervisor claim review, explicit goodwill, budget-linked repair/QC, source sale retained; a warranty visit keeps the car commercially sold |
 | Documents | Company-private normalized JPEG pages on accessible cars, supervised review, immutable masters/replacements, owner-published document rules, assigned transaction snapshots and actual page/review-based completion gates |
 | Money and reports | Immutable integer-paise operating ledger, original-preserving corrections, separate commitments/costs/cash, owner/supervisor stock ageing and balances, totals across all pages, source-car links, authorized CSV export |
+| Attendance and payroll | Self-service attendance/leave/advance requests; Owner/Supervisor team oversight and review; owner-only company rules/pay terms; pure SBOSS-derived calculation policies, immutable evidence and salary snapshots; day/night shifts, honest missing departure, GPS signals, front-camera proof, configurable leave/holidays, daily/weekly/monthly/hourly rates and settlement cycles, exact-paise advance plans and payment corrections; mobile/web workspace and main Decisions integration |
 | Notifications | Permission-scoped in-app inbox/read state, transactional outbox, durable retries/dead-letter, deduplication, reassignment notices, overdue work/transfer reminders, automatic booking expiry |
 | AI foundation | Eight draft capability types, scoped source snapshots/private images, durable bounded jobs, structured fields/source validation, freshness, human accept/reject, English/Hindi spoken review and manual fallback |
 | Management website | Stock/dashboard/decisions, inspection evidence review/recheck/takeover, workshop/enquiry/sales/support views, documents, inbox, checklist version review/approval, stock/money reports/export; many operational detail views are currently read-only |

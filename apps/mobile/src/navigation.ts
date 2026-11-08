@@ -3,6 +3,8 @@ import type {
   NativeStackScreenProps,
 } from "@react-navigation/native-stack";
 export type RootStack = {
+  Workforce:
+    { userId?: string; section?: "attendance" | "leave" | "pay" } | undefined;
   Home: { scope?: "all" | "mine" | "decisions" } | undefined;
   Cars: undefined;
   Car: { id: string };

@@ -23,6 +23,9 @@ const labels: Record<DecisionItem["kind"], [string, string]> = {
   document: ["Document review", "कागज़ात की समीक्षा"],
   claim: ["Warranty complaint", "वारंटी की शिकायत"],
   hold: ["Car hold", "कार पर रोक"],
+  workforce_leave: ["Leave request", "छुट्टी की माँग"],
+  workforce_advance: ["Advance request", "अग्रिम की माँग"],
+  attendance: ["Attendance review", "हाज़िरी की समीक्षा"],
 };
 export function DecisionsScreen({ navigation }: ScreenProps<"Decisions">) {
   const { api, language } = useApp(),
@@ -30,7 +33,17 @@ export function DecisionsScreen({ navigation }: ScreenProps<"Decisions">) {
     [offset, setOffset] = useState(0),
     resource = useResource(`decisions:${offset}`, () => api.decisions(offset));
   function open(v: DecisionItem) {
-    if (v.targetType === "task")
+    if (v.targetType === "workforce")
+      navigation.navigate("Workforce", {
+        userId: v.targetId,
+        section:
+          v.kind === "workforce_leave"
+            ? "leave"
+            : v.kind === "workforce_advance"
+              ? "pay"
+              : "attendance",
+      });
+    else if (v.targetType === "task")
       navigation.navigate("Task", { id: v.targetId });
     else if (v.targetType === "purchase")
       navigation.navigate("Purchase", { carId: v.targetId });
@@ -86,7 +99,7 @@ export function DecisionsScreen({ navigation }: ScreenProps<"Decisions">) {
           <Panel key={`${v.kind}:${v.id}`} style={{ gap: 12 }}>
             <Pill label={labels[v.kind][hi ? 1 : 0]} warning />
             <Text style={{ fontSize: 21, fontWeight: "600" }}>
-              {v.carLabel}
+              {v.subjectLabel || v.carLabel}
             </Text>
             <Text>{v.title}</Text>
             <Text style={s.muted}>{formatDateTime(v.createdAt, language)}</Text>

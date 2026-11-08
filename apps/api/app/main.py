@@ -36,6 +36,7 @@ from app.adapters.service_finance import ServiceFinanceStore
 from app.adapters.stock import StockStore
 from app.adapters.video import VideoStore
 from app.adapters.workflows import WorkflowStore
+from app.adapters.workforce import WorkforceStore
 from app.application.commercial import CommercialService
 from app.application.purchases import PurchaseService
 from app.application.tasks import TaskService
@@ -74,6 +75,7 @@ from app.http.service_finance import mount_service_finance
 from app.http.stock import mount_stock
 from app.http.video import mount_video
 from app.http.workflows import mount_workflows
+from app.http.workforce import mount_workforce
 from app.seed import IDS
 
 
@@ -194,6 +196,7 @@ def create_app(settings: Settings | None = None, engine: Engine | None = None) -
     mount_video(app, authenticated, VideoStore(store, settings.media_path))
     mount_notifications(app, authenticated, NotificationStore(database))
     workflow_store = WorkflowStore(store)
+    mount_workforce(app, authenticated, WorkforceStore(workflow_store, settings.media_path))
     mount_checklists(app, authenticated, ChecklistStore(store))
     mount_catalogue(app, authenticated, CatalogueStore(database))
     mount_workflows(app, authenticated, workflow_store, WorkshopService(workflow_store))
