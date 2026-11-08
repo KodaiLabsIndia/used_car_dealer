@@ -3,8 +3,7 @@ from uuid import uuid4
 from test_commercial import acquired, business, change
 from test_integration import checked
 from test_integration import workspace as workspace
-
-from app.seed import IDS
+from workspace_seed import IDS
 
 
 def stock(client, headers, car_id):

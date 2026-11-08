@@ -3,8 +3,7 @@ from uuid import uuid4
 
 from test_integration import checked, create_car, jpeg
 from test_integration import workspace as workspace
-
-from app.seed import IDS
+from workspace_seed import IDS
 
 
 def upload(client, headers, car_id, id=None, data=None, **metadata):

@@ -2,6 +2,7 @@ from datetime import UTC, datetime
 from uuid import uuid4
 
 import pytest
+from workspace_seed import IDS, ITEMS
 
 from app.contracts import (
     Actor,
@@ -16,7 +17,6 @@ from app.contracts import (
 )
 from app.domain.errors import BusinessError
 from app.domain.task_policy import normalized_photo_size, plan_task_command
-from app.seed import IDS, ITEMS
 
 
 @pytest.fixture

@@ -1,0 +1,314 @@
+{
+  "demoOnly": true,
+  "asOf": "2026-11-08",
+  "generation": "77fab418eea744a0",
+  "counts": {
+    "cars": 11,
+    "clips": 80,
+    "staff": 6,
+    "tasks": 26,
+    "photos": 2419,
+    "answers": 2419,
+    "documents": 27,
+    "attendance": 240,
+    "salaryStatements": 7
+  },
+  "dashboard": {
+    "cars": 11,
+    "stages": {
+      "inspection": 1,
+      "purchase": 2,
+      "refurbishment": 3,
+      "ready": 2,
+      "delivered": 3
+    },
+    "booked": 1,
+    "workshop": 4,
+    "decisions": 10
+  },
+  "scenarios": [
+    {
+      "key": "inspection",
+      "registration": "DEMO01",
+      "make": "Kia",
+      "model": "Seltos",
+      "scenario": "shared_inspection",
+      "stage": "inspection",
+      "pages": {
+        "": 200,
+        "/business": 200,
+        "/stock": 200,
+        "/history": 200,
+        "/documents": 200,
+        "/document-requirements": 200
+      }
+    },
+    {
+      "key": "purchase_review",
+      "registration": "DEMO02",
+      "make": "Maruti Suzuki",
+      "model": "Swift",
+      "scenario": "purchase_submitted",
+      "stage": "purchase",
+      "pages": {
+        "": 200,
+        "/business": 200,
+        "/stock": 200,
+        "/history": 200,
+        "/documents": 200,
+        "/document-requirements": 200
+      }
+    },
+    {
+      "key": "purchase_approved",
+      "registration": "DEMO03",
+      "make": "Honda",
+      "model": "City",
+      "scenario": "purchase_approved",
+      "stage": "purchase",
+      "pages": {
+        "": 200,
+        "/business": 200,
+        "/stock": 200,
+        "/history": 200,
+        "/documents": 200,
+        "/document-requirements": 200
+      }
+    },
+    {
+      "key": "parts",
+      "registration": "DEMO04",
+      "make": "Hyundai",
+      "model": "Creta",
+      "scenario": "waiting_parts",
+      "stage": "refurbishment",
+      "pages": {
+        "": 200,
+        "/business": 200,
+        "/stock": 200,
+        "/history": 200,
+        "/documents": 200,
+        "/document-requirements": 200
+      }
+    },
+    {
+      "key": "service",
+      "registration": "DEMO05",
+      "make": "Hyundai",
+      "model": "i20",
+      "scenario": "service_quote",
+      "stage": "refurbishment",
+      "pages": {
+        "": 200,
+        "/business": 200,
+        "/stock": 200,
+        "/history": 200,
+        "/documents": 200,
+        "/document-requirements": 200
+      }
+    },
+    {
+      "key": "qc",
+      "registration": "DEMO06",
+      "make": "Tata",
+      "model": "Nexon",
+      "scenario": "repair_qc",
+      "stage": "refurbishment",
+      "pages": {
+        "": 200,
+        "/business": 200,
+        "/stock": 200,
+        "/history": 200,
+        "/documents": 200,
+        "/document-requirements": 200
+      }
+    },
+    {
+      "key": "ready",
+      "registration": "DEMO07",
+      "make": "Maruti Suzuki",
+      "model": "Baleno",
+      "scenario": "ready_refund",
+      "stage": "ready",
+      "pages": {
+        "": 200,
+        "/business": 200,
+        "/stock": 200,
+        "/history": 200,
+        "/documents": 200,
+        "/document-requirements": 200
+      }
+    },
+    {
+      "key": "booked",
+      "registration": "DEMO08",
+      "make": "Hyundai",
+      "model": "Venue",
+      "scenario": "booked",
+      "stage": "ready",
+      "pages": {
+        "": 200,
+        "/business": 200,
+        "/stock": 200,
+        "/history": 200,
+        "/documents": 200,
+        "/document-requirements": 200
+      }
+    },
+    {
+      "key": "delivered",
+      "registration": "DEMO09",
+      "make": "Maruti Suzuki",
+      "model": "Dzire",
+      "scenario": "warranty_pending",
+      "stage": "delivered",
+      "pages": {
+        "": 200,
+        "/business": 200,
+        "/stock": 200,
+        "/history": 200,
+        "/documents": 200,
+        "/document-requirements": 200
+      }
+    },
+    {
+      "key": "warranty_service",
+      "registration": "DEMO10",
+      "make": "Maruti Suzuki",
+      "model": "Ertiga",
+      "scenario": "warranty_repair",
+      "stage": "delivered",
+      "pages": {
+        "": 200,
+        "/business": 200,
+        "/stock": 200,
+        "/history": 200,
+        "/documents": 200,
+        "/document-requirements": 200
+      }
+    },
+    {
+      "key": "warranty_closed",
+      "registration": "DEMO11",
+      "make": "Honda",
+      "model": "Jazz",
+      "scenario": "warranty_closed",
+      "stage": "delivered",
+      "pages": {
+        "": 200,
+        "/business": 200,
+        "/stock": 200,
+        "/history": 200,
+        "/documents": 200,
+        "/document-requirements": 200
+      }
+    }
+  ],
+  "workforce": [
+    {
+      "name": "Owner",
+      "role": "owner",
+      "workRoles": [
+        "supervisor"
+      ],
+      "basis": "monthly",
+      "cycle": "monthly",
+      "salaryStatuses": [
+        "paid"
+      ],
+      "advanceBalancePaise": 0
+    },
+    {
+      "name": "Ravi",
+      "role": "employee",
+      "workRoles": [
+        "inspector"
+      ],
+      "basis": "daily",
+      "cycle": "weekly",
+      "salaryStatuses": [
+        "confirmed",
+        "void"
+      ],
+      "advanceBalancePaise": 0
+    },
+    {
+      "name": "Meena",
+      "role": "employee",
+      "workRoles": [
+        "supervisor"
+      ],
+      "basis": "monthly",
+      "cycle": "monthly",
+      "salaryStatuses": [
+        "paid"
+      ],
+      "advanceBalancePaise": 0
+    },
+    {
+      "name": "Suresh",
+      "role": "employee",
+      "workRoles": [
+        "inspector",
+        "coordinator"
+      ],
+      "basis": "hourly",
+      "cycle": "weekly",
+      "salaryStatuses": [
+        "confirmed"
+      ],
+      "advanceBalancePaise": 600000
+    },
+    {
+      "name": "Imran",
+      "role": "employee",
+      "workRoles": [
+        "sales"
+      ],
+      "basis": "weekly",
+      "cycle": "weekly",
+      "salaryStatuses": [
+        "paid"
+      ],
+      "advanceBalancePaise": 0
+    },
+    {
+      "name": "Nisha",
+      "role": "employee",
+      "workRoles": [
+        "coordinator"
+      ],
+      "basis": "monthly",
+      "cycle": "monthly",
+      "salaryStatuses": [
+        "paid"
+      ],
+      "advanceBalancePaise": 0
+    }
+  ],
+  "routines": 4,
+  "assistant": {
+    "model": "demo-fixture-no-model-call",
+    "tokens": 0,
+    "stale": false
+  },
+  "samplePhoto": {
+    "width": 1600,
+    "height": 900,
+    "checksumVerified": true
+  },
+  "sampleClips": {
+    "count": 8,
+    "verified720pMetadata": true
+  },
+  "checks": [
+    "all owner detail pages respond",
+    "employee financial privacy",
+    "supervisor versus owner-only account management",
+    "office allocated-document access",
+    "own payroll scope",
+    "linked inspection and sample-media access",
+    "source-linked assistant read",
+    "issued payroll source models"
+  ]
+}

@@ -9,11 +9,11 @@ from fastapi.testclient import TestClient
 from PIL import Image
 from sqlalchemy import create_engine, text
 from sqlalchemy.exc import DBAPIError
+from workspace_seed import IDS, ITEMS, seed
 
 from app.adapters.database import create_database
 from app.config import Settings
 from app.main import create_app
-from app.seed import IDS, ITEMS, seed
 
 
 @pytest.fixture

@@ -4,8 +4,7 @@ from uuid import uuid4
 from sqlalchemy import text
 from test_integration import checked
 from test_integration import workspace as workspace
-
-from app.seed import IDS
+from workspace_seed import IDS
 
 
 def create(client, headers, assigned=None, key=None, **extra):

@@ -14,7 +14,7 @@ uv sync --locked --project apps/api
 npm run setup
 npm run db:up
 npm run db:migrate
-npm run db:seed
+npm run demo:seed
 ```
 
 Import the pinned make/model name references after migration:
@@ -24,9 +24,11 @@ cd apps/api
 .venv/bin/python -m app.import_catalogue
 ```
 
+The [reusable demo seed](docs/DEMO_DATA.md) provides 11 connected vehicle scenarios, six staff accounts, inspection proof, workforce/payroll, sales and support records. Use `npm run demo:seed -- --reset --as-of YYYY-MM-DD` to refresh its timeline. Private demo login details and scenario IDs are under `.data/demo/`.
+
 The comprehensive pre-purchase draft contains 246 check definitions, resolved
 and frozen per vehicle configuration. Select it when creating an inspection;
-existing three-check training records keep their history. The integrated car
+older operational snapshots retain their history. The explicit demo reset replaces the local sample workspace. The integrated car
 map, section/part navigation and searchable complete list open the same
 proof/result records. The shared sedan/hatchback/SUV models are generic CC0
 meshes with drag rotation and red part dots; nearby dots open a part picker.
@@ -61,7 +63,7 @@ adb -s emulator-5554 reverse tcp:8081 tcp:8081
 adb -s emulator-5554 reverse tcp:4100 tcp:4100
 ```
 
-Training sign-in uses DEV_ACCESS_CODE from private root .env, with Owner/Employee identities. Never put it in EXPO_PUBLIC variables. Individual accounts use company code, username and password. The owner bootstrap CLI prompts securely:
+The development-only quick-entry API uses DEV_ACCESS_CODE from private root .env for automated Owner/Employee checks; it is not shown on the sign-in screen. Never put it in EXPO_PUBLIC variables. Individual accounts use only username and password. This deployment serves Arihant alone; no dealer code is requested. The owner bootstrap CLI prompts securely:
 
 ```sh
 cd apps/api

@@ -6,8 +6,7 @@ from uuid import uuid4
 import pytest
 from test_integration import command
 from test_integration import workspace as workspace
-
-from app.seed import IDS, ITEMS
+from workspace_seed import IDS, ITEMS
 
 
 @pytest.fixture(scope="module")

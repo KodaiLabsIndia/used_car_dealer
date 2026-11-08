@@ -53,7 +53,9 @@ def bootstrap_owner(
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--dealer-code", required=True)
+    parser.add_argument(
+        "--dealer-code", default="arihant", help="Internal workspace key; never requested at sign-in"
+    )
     parser.add_argument("--company-name", required=True)
     parser.add_argument("--owner-name", required=True)
     parser.add_argument("--username", required=True)

@@ -8,8 +8,7 @@ from sqlalchemy.exc import DBAPIError
 from test_integration import checked, command, fill_inspection
 from test_integration import workspace as workspace
 from test_purchases import DOCUMENTS, approve, payment, prepare, purchase_command
-
-from app.seed import IDS
+from workspace_seed import IDS
 
 
 def business(client, owner, car_id):

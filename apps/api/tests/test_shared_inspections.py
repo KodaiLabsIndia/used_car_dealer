@@ -10,8 +10,7 @@ from test_identity import create_staff, login
 from test_integration import checked, command, jpeg
 from test_integration import workspace as workspace
 from test_video import clips as clips
-
-from app.seed import IDS
+from workspace_seed import IDS
 
 
 def task(client, headers):

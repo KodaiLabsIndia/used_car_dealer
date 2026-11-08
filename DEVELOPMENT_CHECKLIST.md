@@ -456,3 +456,17 @@ shared across employees and the owner personally. Verified with 120 PostgreSQL
 integration tests, 14 domain/architecture checks, 19 mobile logic checks and
 separate owner/employee emulators. Wider language/voice/staff and native/physical
 release acceptance remain open.
+
+
+### Reusable full-workflow demo data
+
+- [x] DEM-01 Separate the old minimal API-test fixtures from the runnable app seed.
+- [x] DEM-02 Define 11 connected vehicle scenarios, six roles, documents/media, finance, requests, routines, attendance and payroll.
+- [x] DEM-03 Add a single configurable business date, calendar-based payroll/warranties, explicit replacement and idempotent unchanged replay.
+- [x] DEM-04 Back up the prior local database/media, replace atomically, validate source relationships and retain reference catalogue/migrations.
+- [x] DEM-05 Use new business generations to isolate old URLs/drafts, and test date changes and failure recovery.
+- [x] DEM-06 Load the current local demo, refresh both role simulators and record the final verification.
+
+- [x] AUTH-01 Use username/password only on mobile and web; resolve the single Arihant workspace on the server and remove dealer-code prompts.
+
+See [demo commands, accounts and walkthrough](docs/DEMO_DATA.md).

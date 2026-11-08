@@ -19,11 +19,7 @@ type AppState = {
   t: ReturnType<typeof words>;
   setLanguage: (l: Language) => void;
   signIn: (code: string, account: "owner" | "employee") => Promise<void>;
-  signInPassword: (
-    dealer: string,
-    username: string,
-    secret: string,
-  ) => Promise<void>;
+  signInPassword: (username: string, secret: string) => Promise<void>;
   changePassword: (current: string, next: string) => Promise<void>;
   signOut: () => Promise<void>;
   revision: number;
@@ -134,13 +130,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
       throw error;
     }
   }
-  async function signInPassword(
-    dealer: string,
-    username: string,
-    secret: string,
-  ) {
+  async function signInPassword(username: string, secret: string) {
     await acceptSession(
-      await new ApiClient(null).signInPassword(dealer, username, secret),
+      await new ApiClient(null).signInPassword(username, secret),
     );
   }
   async function changePassword(current: string, next: string) {

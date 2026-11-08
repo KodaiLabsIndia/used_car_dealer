@@ -7,7 +7,6 @@ from app.contracts import Contract, WorkRole
 
 
 class LoginInput(Contract):
-    dealer_code: str = Field(min_length=3, max_length=50)
     username: str = Field(min_length=2, max_length=50)
     secret: str = Field(min_length=1, max_length=200)
 
@@ -29,7 +28,6 @@ class Member(Contract):
 
 
 class Team(Contract):
-    dealer_code: str
     items: list[Member]
 
 

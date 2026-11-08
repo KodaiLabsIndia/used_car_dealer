@@ -258,11 +258,11 @@ export class ApiClient {
       .object({ staffLogin: z.boolean(), trainingLogin: z.boolean() })
       .parse(await this.request("/auth/options"));
   }
-  async signInPassword(dealerCode: string, username: string, secret: string) {
+  async signInPassword(username: string, secret: string) {
     return sessionSchema.parse(
       await this.request("/auth/login", {
         method: "POST",
-        body: JSON.stringify({ dealerCode, username, secret }),
+        body: JSON.stringify({ username, secret }),
       }),
     );
   }

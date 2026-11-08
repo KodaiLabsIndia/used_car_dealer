@@ -219,3 +219,11 @@ owner checklist controls, versioned document policy/evidence binding and per-sal
 warranty settings. Earlier paragraphs describe the state when each decision was
 collected. Full Marathi translation, stage content completion, physical-device
 coverage and representative employee acceptance remain open.
+
+## 8 November 2026 — single-company sign-in
+
+The app serves Arihant only. Staff and the owner sign in with **username and
+password**; no dealer code or company selection is requested. Mobile OTP is
+deferred. The server resolves the single configured company and refuses an
+ambiguous multi-company setup. Owner-managed temporary passwords, required first
+password changes, login throttling and session revocation remain in place.

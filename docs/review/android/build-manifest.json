@@ -1,16 +1,16 @@
 {
-  "recordedAt": "2026-11-08T10:10:38.316984+00:00",
+  "recordedAt": "2026-11-08T11:16:17.621378+00:00",
   "package": "com.arihantcars.operations",
   "version": "0.1.0",
   "versionCode": 1,
   "minimumAndroidSdk": 24,
   "targetAndroidSdk": 36,
-  "backend": "Local training API; PostgreSQL + Python/FastAPI",
+  "backend": "Local Arihant demo API; PostgreSQL + Python/FastAPI",
   "artifacts": [
     {
       "file": "artifacts/ArihantCars-internal-preview.apk",
-      "bytes": 41591787,
-      "sha256": "70f3836d1dcc79f2e3f0887a42b98c5f3a7b852c8805f655dde2b989b9654b9c",
+      "bytes": 41589911,
+      "sha256": "bd51d1495334d4fc1dd797d10382955e9a4ade9ee05a5b1199b2f6bf58462316",
       "bundledJavaScript": true,
       "requiresMetro": false,
       "productionDistribution": false,
@@ -29,7 +29,8 @@
       "includesOwnerWorkspace": true,
       "includesStaffRoutines": true,
       "includesEmployeeWorkspace": true,
-      "includesSharedInspections": true
+      "includesSharedInspections": true,
+      "usernameOnlyLogin": true
     },
     {
       "file": "artifacts/ArihantCars-development.apk",
@@ -53,5 +54,5 @@
     }
   ],
   "compileAndroidSdk": 37,
-  "previewBundledSources": "docs/review/shared-inspections/bundled-source-verification.json"
+  "previewBundledSources": "docs/review/demo-data/bundled-source-verification.json"
 }

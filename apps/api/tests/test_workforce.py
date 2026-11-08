@@ -8,9 +8,9 @@ from sqlalchemy.exc import DBAPIError
 from test_integration import checked, jpeg
 from test_integration import workspace as workspace
 from test_roles import roles
+from workspace_seed import IDS
 
 from app.adapters.workforce import WorkforceStore
-from app.seed import IDS
 
 
 @pytest.fixture

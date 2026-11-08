@@ -46,12 +46,10 @@ class IdentityStore:
 
     def login(self, body: LoginInput, client: str) -> Session:
         now = datetime.now(UTC)
-        user_bucket = hashlib.sha256(
-            f"user:{body.dealer_code.strip().lower()}:{body.username.strip().lower()}".encode()
-        ).hexdigest()
+        user_bucket = hashlib.sha256(f"user:{body.username.strip().lower()}".encode()).hexdigest()
         ip_bucket = hashlib.sha256(f"client:{client}".encode()).hexdigest()
         result = None
-        error = BusinessError("UNAUTHORIZED", "Check your dealer code, username and password.", 401)
+        error = BusinessError("UNAUTHORIZED", "Check your username and password.", 401)
         with self.engine.begin() as conn:
             for key in sorted((user_bucket, ip_bucket)):
                 conn.execute(text("SELECT pg_advisory_xact_lock(hashtextextended(:key,0))"), {"key": key})
@@ -66,13 +64,14 @@ class IdentityStore:
                     "RATE_LIMIT", "Too many attempts. Wait 15 minutes or ask the owner for help.", 429
                 )
             else:
+                companies = rows(conn, "SELECT id FROM companies LIMIT 2")
+                company_id = companies[0]["id"] if len(companies) == 1 else None
                 accounts = rows(
                     conn,
                     """SELECT u.id,u.company_id,u.name,u.role,u.work_roles,u.active,c.secret_hash,c.must_change_secret
                     FROM user_credentials c JOIN users u ON u.id=c.user_id AND u.company_id=c.company_id
-                    JOIN companies co ON co.id=u.company_id
-                    WHERE lower(co.access_code)=:dealer AND lower(c.login_name)=:login""",
-                    {"dealer": body.dealer_code.strip().lower(), "login": body.username.strip().lower()},
+                    WHERE u.company_id=:company AND lower(c.login_name)=:login""",
+                    {"company": company_id, "login": body.username.strip().lower()},
                 )
                 account = accounts[0] if accounts else None
                 verified = verify_secret(body.secret, account["secret_hash"] if account else self.dummy_hash)
@@ -132,15 +131,12 @@ class IdentityStore:
     def team(self, actor: Actor) -> Team:
         require_owner(actor)
         with self.engine.connect() as conn:
-            code = conn.execute(
-                text("SELECT access_code FROM companies WHERE id=:company"), {"company": actor.company_id}
-            ).scalar_one()
             ids = rows(
                 conn,
                 "SELECT id FROM users WHERE company_id=:company ORDER BY active DESC,role DESC,name,id",
                 {"company": actor.company_id},
             )
-            return Team(dealer_code=code, items=[self.member(conn, actor, r["id"]) for r in ids])
+            return Team(items=[self.member(conn, actor, r["id"]) for r in ids])
 
     def command(
         self, actor: Actor, body: CreateStaff | TeamCommand | SetupOwnLogin, user_id: UUID | None = None

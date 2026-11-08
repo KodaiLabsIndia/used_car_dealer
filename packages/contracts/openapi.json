@@ -8998,12 +8998,6 @@
       },
       "LoginInput": {
         "properties": {
-          "dealerCode": {
-            "type": "string",
-            "maxLength": 50,
-            "minLength": 3,
-            "title": "Dealercode"
-          },
           "username": {
             "type": "string",
             "maxLength": 50,
@@ -9019,7 +9013,7 @@
         },
         "additionalProperties": false,
         "type": "object",
-        "required": ["dealerCode", "username", "secret"],
+        "required": ["username", "secret"],
         "title": "LoginInput"
       },
       "ManagedChecklist": {
@@ -13874,10 +13868,6 @@
       },
       "Team": {
         "properties": {
-          "dealerCode": {
-            "type": "string",
-            "title": "Dealercode"
-          },
           "items": {
             "items": {
               "$ref": "#/components/schemas/Member"
@@ -13888,7 +13878,7 @@
         },
         "additionalProperties": false,
         "type": "object",
-        "required": ["dealerCode", "items"],
+        "required": ["items"],
         "title": "Team"
       },
       "TemplatePage": {

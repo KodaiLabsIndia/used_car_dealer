@@ -8,8 +8,7 @@ from sqlalchemy import text
 from sqlalchemy.exc import DBAPIError
 from test_integration import checked, command, create_car, fill_inspection
 from test_integration import workspace as workspace
-
-from app.seed import IDS
+from workspace_seed import IDS
 
 TERMS = {
     "sellerName": "Training Seller",

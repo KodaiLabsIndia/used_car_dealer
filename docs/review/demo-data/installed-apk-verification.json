@@ -1,0 +1,16 @@
+{
+  "checks": [
+    {
+      "serial": "emulator-5554",
+      "role": "owner",
+      "installedApkSha256": "bd51d1495334d4fc1dd797d10382955e9a4ade9ee05a5b1199b2f6bf58462316",
+      "matchesPreviewArtifact": true
+    },
+    {
+      "serial": "emulator-5556",
+      "role": "employee",
+      "installedApkSha256": "bd51d1495334d4fc1dd797d10382955e9a4ade9ee05a5b1199b2f6bf58462316",
+      "matchesPreviewArtifact": true
+    }
+  ]
+}

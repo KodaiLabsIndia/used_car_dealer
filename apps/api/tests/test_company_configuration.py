@@ -13,10 +13,10 @@ from test_purchases import DOCUMENTS, prepare, purchase_command
 from test_purchases import approve as approve_purchase
 from test_roles import roles
 from test_service_finance import finance_command, new_job, quote
+from workspace_seed import IDS
 
 from app.adapters.company import CompanyStore
 from app.domain.warranty import add_months
-from app.seed import IDS
 
 
 def publish(client, headers, version=0, rules=None):

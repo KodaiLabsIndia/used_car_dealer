@@ -5,10 +5,10 @@ from sqlalchemy import text
 from test_documents import upload as document_upload
 from test_integration import checked, command, jpeg, upload
 from test_integration import workspace as workspace
+from workspace_seed import IDS, ITEMS
 
 from app.application.assistant import ModelResult
 from app.assistant_contracts import AIContent
-from app.seed import IDS, ITEMS
 
 
 class FakeModel:

@@ -22,9 +22,7 @@ def create_staff(client, owner, **extra):
 
 
 def login(client, secret="temporary-test-only", username="meena"):
-    return client.post(
-        "/v1/auth/login", json={"dealerCode": "arihant-training", "username": username, "secret": secret}
-    )
+    return client.post("/v1/auth/login", json={"username": username, "secret": secret})
 
 
 def test_salted_passwords_and_retry_safe_account_creation(workspace):
@@ -157,3 +155,17 @@ def test_owner_individual_login_keeps_company_wide_identity(workspace):
         ]["code"]
         == "LOGIN_EXISTS"
     )
+
+
+def test_username_only_login_refuses_ambiguous_company_setup(workspace):
+    client, engine, owner, _ = workspace
+    checked(create_staff(client, owner), 201)
+    assert login(client, username=" MEENA ").status_code == 200
+    with engine.begin() as conn:
+        conn.execute(
+            text("INSERT INTO companies(id,name,access_code) VALUES(:id,'Other company','other-test')"),
+            {"id": uuid4()},
+        )
+    response = login(client)
+    assert response.status_code == 401
+    assert response.json()["error"]["message"] == "Check your username and password."

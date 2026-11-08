@@ -3,12 +3,12 @@ from uuid import uuid4
 from test_integration import checked, command, create_car, jpeg, upload
 from test_integration import workspace as workspace
 from test_video import clips as clips
+from workspace_seed import IDS
 
 from app.adapters.catalogue import import_catalogue
 from app.checklists import templates_for
 from app.contracts import VehicleConfiguration
 from app.domain.inspection import resolve_checks
-from app.seed import IDS
 
 
 def test_complete_library_resolves_by_configuration_and_retains_unknown_equipment():

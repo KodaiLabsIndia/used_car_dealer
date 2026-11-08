@@ -15,7 +15,7 @@
     "dev:api": "npm run dev -w @arihant/api",
     "db:up": "node scripts/compose.mjs up -d db",
     "db:migrate": "npm run db:migrate -w @arihant/api",
-    "db:seed": "npm run db:seed -w @arihant/api",
+    "db:seed": "npm run db:seed -w @arihant/api --",
     "typecheck": "npm run typecheck --workspaces --if-present",
     "test": "npm run test --workspaces --if-present",
     "test:integration": "npm run test:integration -w @arihant/api",
@@ -31,7 +31,8 @@
     "android:install": "node scripts/build-android-dev.mjs --install",
     "dev:native": "npm run start:dev -w @arihant/mobile",
     "android:preview": "node scripts/build-android-dev.mjs --preview",
-    "android:preview:install": "node scripts/build-android-dev.mjs --preview --install"
+    "android:preview:install": "node scripts/build-android-dev.mjs --preview --install",
+    "demo:seed": "npm run demo:seed -w @arihant/api --"
   },
   "devDependencies": {
     "@types/node": "^24.10.1",

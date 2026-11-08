@@ -60,6 +60,7 @@ from app.contracts import (
     TasksPage,
 )
 from app.decision_contracts import Decisions
+from app.demo_identity import IDS
 from app.domain.errors import BusinessError
 from app.http.assistant import mount_assistant
 from app.http.body_limit import BodyLimitMiddleware
@@ -80,7 +81,6 @@ from app.http.stock import mount_stock
 from app.http.video import mount_video
 from app.http.workflows import mount_workflows
 from app.http.workforce import mount_workforce
-from app.seed import IDS
 
 
 def create_app(settings: Settings | None = None, engine: Engine | None = None) -> FastAPI:
@@ -260,8 +260,8 @@ def create_app(settings: Settings | None = None, engine: Engine | None = None) -
         with database.begin() as conn:
             data = rows(
                 conn,
-                "SELECT id,company_id,name,role,work_roles FROM users WHERE company_id=:company AND role=:role AND active=true ORDER BY id LIMIT 1",
-                {"company": IDS["company"], "role": body.account},
+                "SELECT id,company_id,name,role,work_roles FROM users WHERE company_id=:company AND id=:id AND role=:role AND active=true",
+                {"company": IDS["company"], "id": IDS[body.account], "role": body.account},
             )
             if not data:
                 raise BusinessError("SETUP_REQUIRED", "Run the training workspace seed first.", 503)

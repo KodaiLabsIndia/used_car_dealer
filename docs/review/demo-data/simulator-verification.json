@@ -1,0 +1,104 @@
+{
+  "readOnlyReview": true,
+  "checks": [
+    {
+      "role": "owner",
+      "view": "people",
+      "verified": true
+    },
+    {
+      "role": "owner",
+      "view": "decisions",
+      "verified": true
+    },
+    {
+      "role": "owner",
+      "view": "dealership",
+      "verified": true
+    },
+    {
+      "role": "owner",
+      "view": "inventory",
+      "expected": [
+        "DEMO03",
+        "DEMO07"
+      ]
+    },
+    {
+      "role": "owner",
+      "view": "preparation",
+      "expected": [
+        "Inspection work"
+      ]
+    },
+    {
+      "role": "owner",
+      "view": "inspections",
+      "expected": [
+        "Kia",
+        "Seltos"
+      ]
+    },
+    {
+      "role": "owner",
+      "view": "today-final",
+      "expected": [
+        "11"
+      ]
+    },
+    {
+      "role": "employee",
+      "view": "my-pay",
+      "expected": [
+        "Salary",
+        "Leave requests"
+      ]
+    },
+    {
+      "role": "employee",
+      "view": "my-work",
+      "expected": [
+        "Kia",
+        "Seltos",
+        "DEMO01"
+      ]
+    },
+    {
+      "role": "employee",
+      "view": "inspection",
+      "expected": [
+        "229"
+      ]
+    },
+    {
+      "role": "employee",
+      "view": "today-final",
+      "expected": [
+        "Ravi"
+      ]
+    },
+    {
+      "role": "owner",
+      "view": "runtime",
+      "fatalErrors": false
+    },
+    {
+      "role": "employee",
+      "view": "runtime",
+      "fatalErrors": false
+    }
+  ],
+  "postedBusinessCommands": false,
+  "finalLogin": {
+    "fields": [
+      "Username",
+      "Password"
+    ],
+    "dealerCodeVisible": false,
+    "trainingToggleVisible": false,
+    "ownerSuccess": true,
+    "employeeSuccess": true,
+    "oldDeviceCachesCleared": true
+  },
+  "finalRuntimeErrors": false
+}

@@ -6,8 +6,7 @@ from test_commercial import acquired, book, change, delivered
 from test_integration import checked
 from test_integration import workspace as workspace
 from test_service_finance import approve, finance_command, new_job, quote
-
-from app.seed import IDS
+from workspace_seed import IDS
 
 
 def test_report_reconciles_purchase_cost_cash_refund_and_all_pages(workspace):

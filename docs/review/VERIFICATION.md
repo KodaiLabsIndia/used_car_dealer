@@ -5,7 +5,7 @@ These are local development results, not full-release acceptance. The initial re
 | Check | Latest result |
 | --- | --- |
 | npm run check | Passed: Ruff, native literal-text placement lint, TypeScript in all client workspaces, 14 Python domain/architecture tests and 19 mobile logic tests |
-| npm run test:integration | **120 passed** against real PostgreSQL in isolated random schemas; includes existing car workflows, workforce/routines and ten shared-inspection scenarios |
+| npm run test:integration | **127 passed** against real PostgreSQL in isolated random schemas; includes car workflows, workforce/routines, shared inspections, six reusable-demo cases and single-company login |
 | Contracts | Python OpenAPI regenerated; shared validators/generated types pass compile-time parity |
 | Android native | Development and bundled internal-preview APKs built/installed; local Media3 module compiles; camera/mic/import/720p preparation, native document upload and verified video upload exercised |
 | iOS source | Swift syntax parses; no native compile/device run because full Xcode is absent |
@@ -46,7 +46,7 @@ The [internal preview](../../artifacts/ArihantCars-internal-preview.apk) include
 
 Native spatial integration exposed two compatibility defects that were corrected: Metro now resolves Three's browser ESM entry instead of its Node-oriented CommonJS entry, and a reproducible Expo config plugin keeps Expo GL's native constructors in optimized Android builds. R8 remains enabled. These fixes were exercised in an installed bundled preview; a JavaScript-only export would not catch the constructor failure.
 
-Both APKs include the native Expo GL library. The latest preview also includes foreground location and the workforce workspace, with all 86 bundled mobile runtime sources matching the working tree. The development client loads JavaScript through Metro; its older artifact does not include attendance location. See the latest [source comparison](employee-workspace/bundled-source-verification.json) and [artifact fingerprints](android/build-manifest.json).
+Both APKs include the native Expo GL library. The latest preview also includes foreground location and the workforce workspace, with all 95 bundled app/shared-package runtime sources matching the working tree. The development client loads JavaScript through Metro; its older artifact does not include attendance location. See the latest [source comparison](demo-data/bundled-source-verification.json) and [artifact fingerprints](android/build-manifest.json).
 
 The selected date survived a development-to-preview APK update. [Build manifest](android/build-manifest.json) records artifact size, SHA-256, package/version, ARM64 architecture and minimum/target SDK. The [launcher](android/preview-launcher.png) and [corrected ready camera](android/preview-camera-ready.png) were checked in the installed preview. These APKs still need the configured development backend.
 
@@ -151,3 +151,29 @@ Mobile logic now has 19 checks, including personal portion classification across
 days and legacy phone-cache compatibility. The new cache regression was found
 and corrected during the installed emulator review, without discarding drafts.
 Operational UI headlines were replaced with action, record and status labels.
+
+
+## Reusable demo and username-only sign-in — 8 November
+
+The runnable seed now loads the linked 11-car/six-person demonstration described
+in the [demo review](demo-data/README.md). Previous local sample data/media were
+backed up privately before replacement. Same-input replay preserves the demo;
+explicit reset reanchors the business timeline and retires old business/media
+IDs while retaining the make/model catalogue. Six new demo cases cover linked
+roles/workflows, idempotent replay, leap day/year boundaries, failed-build
+rollback, company guards and post-commit cleanup failure.
+
+The login form on mobile and web now asks only for username and password.
+The API resolves the single company and rejects ambiguous setup; identity
+coverage retains password-change, revocation, offboarding and throttling checks.
+The complete integration suite passed **127 tests**. Lint/types, 14 domain/
+architecture tests, 19 mobile logic checks, formatting, web build and both
+platform JavaScript exports passed. The 720p demo clips are real encoded
+fixtures admitted by existing media validation; they do not establish physical
+media/device acceptance.
+
+Both simulators passed fresh final username/password-only sign-in after old demo
+app caches were cleared. The preview matches all 95 bundled runtime sources;
+installed APK checksums match on both devices. Read-only owner/employee demo
+walkthroughs and fatal-error checks passed. The review does not establish native
+iOS/iPad or physical-device acceptance.

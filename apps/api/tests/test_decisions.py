@@ -3,8 +3,7 @@ from test_integration import checked, command
 from test_integration import workspace as workspace
 from test_service_finance import approve, new_job, quote
 from test_stock import action, stock
-
-from app.seed import IDS, ITEMS
+from workspace_seed import IDS, ITEMS
 
 
 def test_owner_queue_count_pages_and_current_quote_revision_reconcile(workspace):

@@ -1,0 +1,237 @@
+{
+  "version": 1,
+  "companyName": "Arihant Cars · Demo",
+  "dealerCode": "arihant-demo",
+  "staff": [
+    {
+      "key": "owner",
+      "name": "Owner",
+      "role": "owner",
+      "workRoles": [
+        "supervisor"
+      ],
+      "payBasis": "monthly",
+      "ratePaise": 4500000,
+      "username": "owner"
+    },
+    {
+      "key": "employee",
+      "name": "Ravi",
+      "role": "employee",
+      "workRoles": [
+        "inspector"
+      ],
+      "payBasis": "daily",
+      "ratePaise": 90000,
+      "username": "ravi"
+    },
+    {
+      "key": "supervisor",
+      "name": "Meena",
+      "role": "employee",
+      "workRoles": [
+        "supervisor"
+      ],
+      "payBasis": "monthly",
+      "ratePaise": 3200000,
+      "username": "meena"
+    },
+    {
+      "key": "service",
+      "name": "Suresh",
+      "role": "employee",
+      "workRoles": [
+        "inspector",
+        "coordinator"
+      ],
+      "payBasis": "hourly",
+      "ratePaise": 15000,
+      "username": "suresh"
+    },
+    {
+      "key": "sales",
+      "name": "Imran",
+      "role": "employee",
+      "workRoles": [
+        "sales"
+      ],
+      "payBasis": "weekly",
+      "ratePaise": 600000,
+      "username": "imran"
+    },
+    {
+      "key": "office",
+      "name": "Nisha",
+      "role": "employee",
+      "workRoles": [
+        "coordinator"
+      ],
+      "payBasis": "monthly",
+      "ratePaise": 2200000,
+      "username": "nisha"
+    }
+  ],
+  "cars": [
+    {
+      "key": "inspection",
+      "make": "Kia",
+      "model": "Seltos",
+      "year": 2022,
+      "body": "suv",
+      "fuel": "diesel",
+      "transmission": "automatic",
+      "purchaseRupees": 950000,
+      "resaleRupees": 1120000,
+      "ageDays": 3,
+      "scenario": "shared_inspection",
+      "nextAction": "Complete allocated checks and review returned tyre proofs"
+    },
+    {
+      "key": "purchase_review",
+      "make": "Maruti Suzuki",
+      "model": "Swift",
+      "year": 2021,
+      "body": "hatchback",
+      "fuel": "petrol",
+      "transmission": "manual",
+      "purchaseRupees": 480000,
+      "resaleRupees": 570000,
+      "ageDays": 5,
+      "scenario": "purchase_submitted",
+      "nextAction": "Review purchase terms and inspection results"
+    },
+    {
+      "key": "purchase_approved",
+      "make": "Honda",
+      "model": "City",
+      "year": 2020,
+      "body": "sedan",
+      "fuel": "petrol",
+      "transmission": "automatic",
+      "purchaseRupees": 650000,
+      "resaleRupees": 775000,
+      "ageDays": 7,
+      "scenario": "purchase_approved",
+      "nextAction": "Record acquisition and arrange seller handover"
+    },
+    {
+      "key": "parts",
+      "make": "Hyundai",
+      "model": "Creta",
+      "year": 2021,
+      "body": "suv",
+      "fuel": "diesel",
+      "transmission": "manual",
+      "purchaseRupees": 840000,
+      "resaleRupees": 995000,
+      "ageDays": 17,
+      "scenario": "waiting_parts",
+      "nextAction": "Receive the ordered brake pads and resume repair"
+    },
+    {
+      "key": "service",
+      "make": "Hyundai",
+      "model": "i20",
+      "year": 2022,
+      "body": "hatchback",
+      "fuel": "petrol",
+      "transmission": "manual",
+      "purchaseRupees": 600000,
+      "resaleRupees": 715000,
+      "ageDays": 12,
+      "scenario": "service_quote",
+      "nextAction": "Review the repair quote; inspection work can continue"
+    },
+    {
+      "key": "qc",
+      "make": "Tata",
+      "model": "Nexon",
+      "year": 2022,
+      "body": "suv",
+      "fuel": "petrol",
+      "transmission": "manual",
+      "purchaseRupees": 720000,
+      "resaleRupees": 865000,
+      "ageDays": 18,
+      "scenario": "repair_qc",
+      "nextAction": "Review submitted QC checks and complete the remaining checks"
+    },
+    {
+      "key": "ready",
+      "make": "Maruti Suzuki",
+      "model": "Baleno",
+      "year": 2021,
+      "body": "hatchback",
+      "fuel": "petrol",
+      "transmission": "manual",
+      "purchaseRupees": 510000,
+      "resaleRupees": 620000,
+      "ageDays": 21,
+      "scenario": "ready_refund",
+      "nextAction": "Available for sale; settle the cancelled booking refund"
+    },
+    {
+      "key": "booked",
+      "make": "Hyundai",
+      "model": "Venue",
+      "year": 2022,
+      "body": "suv",
+      "fuel": "petrol",
+      "transmission": "automatic",
+      "purchaseRupees": 780000,
+      "resaleRupees": 935000,
+      "ageDays": 24,
+      "scenario": "booked",
+      "warrantyMonths": 6,
+      "nextAction": "Review buyer documents and collect the remaining payment"
+    },
+    {
+      "key": "delivered",
+      "make": "Maruti Suzuki",
+      "model": "Dzire",
+      "year": 2021,
+      "body": "sedan",
+      "fuel": "petrol",
+      "transmission": "manual",
+      "purchaseRupees": 465000,
+      "resaleRupees": 590000,
+      "ageDays": 45,
+      "deliveredDaysAgo": 15,
+      "scenario": "warranty_pending",
+      "warrantyMonths": 3,
+      "nextAction": "Review the warranty request and follow up the ownership transfer"
+    },
+    {
+      "key": "warranty_service",
+      "make": "Maruti Suzuki",
+      "model": "Ertiga",
+      "year": 2021,
+      "body": "mpv",
+      "fuel": "petrol",
+      "transmission": "manual",
+      "purchaseRupees": 740000,
+      "resaleRupees": 895000,
+      "ageDays": 75,
+      "deliveredDaysAgo": 45,
+      "scenario": "warranty_repair",
+      "warrantyMonths": 12,
+      "nextAction": "Complete approved warranty repair without reopening the sale"
+    },
+    {
+      "key": "warranty_closed",
+      "make": "Honda",
+      "model": "Jazz",
+      "year": 2020,
+      "body": "hatchback",
+      "fuel": "petrol",
+      "transmission": "automatic",
+      "purchaseRupees": 450000,
+      "resaleRupees": 565000,
+      "ageDays": 120,
+      "deliveredDaysAgo": 90,
+      "scenario": "warranty_closed",
+      "warrantyMonths": 6,
+      "nextAction": "Warranty repair completed; retain the support and payment history"
+    }
+  ]
+}

@@ -769,7 +769,6 @@ export const memberSchema = z.object({
   mustChangeSecret: z.boolean(),
 });
 export const teamSchema = z.object({
-  dealerCode: z.string(),
   items: z.array(memberSchema),
 });
 export type Member = z.infer<typeof memberSchema>;

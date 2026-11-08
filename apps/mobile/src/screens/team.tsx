@@ -167,14 +167,6 @@ export function TeamScreen({ navigation }: ScreenProps<"Team">) {
           ) : undefined
         }
       >
-        {resource.data ? (
-          <Panel style={{ gap: 5 }}>
-            <Text style={s.muted}>{tr("Dealer code", "डीलर कोड")}</Text>
-            <Text selectable style={{ fontSize: 20, fontWeight: "600" }}>
-              {resource.data.dealerCode}
-            </Text>
-          </Panel>
-        ) : null}
         {error || resource.error ? (
           <ErrorNotice
             message={error || resource.error}
@@ -375,8 +367,8 @@ export function TeamScreen({ navigation }: ScreenProps<"Team">) {
                     "सभी गाड़ियों की पहुँच और पुराना काम इसी पहचान से जुड़ा रहेगा।",
                   )
                 : tr(
-                    "Help the employee sign in with this dealer code and username, then choose their own password.",
-                    "कर्मचारी को डीलर कोड और यूज़र नाम से प्रवेश करने में मदद करें। फिर वे अपना पासवर्ड चुनें।",
+                    "Help the employee sign in with their username and temporary password, then choose their own password.",
+                    "कर्मचारी को यूज़र नाम और अस्थायी पासवर्ड से प्रवेश करने में मदद करें। फिर वे अपना पासवर्ड चुनें।",
                   )}
             </Text>
           </>

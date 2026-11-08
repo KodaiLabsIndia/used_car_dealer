@@ -15,6 +15,8 @@ routine queue combines inspections, daily routines and service work. Check proof
 and actual authors stay on one master inspection. Operational screens use action
 and status labels, without marketing slogans.
 
+The [reusable demo review](docs/review/demo-data/README.md) records date-based reingestion, username/password-only sign-in, 127 passing PostgreSQL tests and both role simulators.
+
 The [employee workspace](docs/EMPLOYEE_WORKSPACE.md) now has Today, My work, My pay and Help, a unified assigned-work queue and a guided spoken routine step view. Owners see person-grouped routine progress, active/paused libraries and search.
 
 The [owner workspace](docs/OWNER_WORKSPACE.md) groups Today, Dealership, People and Decisions, with attendance/payroll/routines inside employee management and focused buying/preparation/selling/support destinations. Daily routines have named assignment, repeat days, immutable started-day snapshots and logged completion/reopening.
@@ -28,7 +30,7 @@ The user has confirmed the current comprehensive checklist as the initial workin
 | Area | Implemented and connected |
 | --- | --- |
 | Owner workspace | All business / My work / Decisions, stock search, linked attention queue, assignment to self or staff, takeover, explicitly attributed self-review; one owner account throughout |
-| Staff identity | Individual company-code/username/password sign-in, salted hashes, login throttling, required first password change, session rotation/revocation, owner-managed reset/offboarding; Employee / Supervisor selection; legacy manager records map to supervisor authority, with owner-only company/account configuration |
+| Staff identity | Individual username/password sign-in for the single Arihant workspace, salted hashes, login throttling, required first password change, session rotation/revocation, owner-managed reset/offboarding; Employee / Supervisor selection; legacy manager records map to supervisor authority, with owner-only company/account configuration |
 | Car and intake | Normalized registration uniqueness, company stock numbers, acquisition cycles, transactional car/checklist creation, QR entry, independent preparation/commercial/custody states, activity history; searchable imported make/model references, manual fallback and observed body/fuel/transmission configuration |
 | Inspections | Per-check team allocation, handover revisions, persistent person/task work, partial reviews and master completion; owner checklist editor with three-language wording fields, ordering, sections/part mapping, proof/measurement/applicability/criticality controls, immutable revisions and explicit approval; four starters plus a 246-definition comprehensive unapproved pre-purchase library; configuration-resolved snapshots, section/part navigation, searchable complete list, generic rotatable sedan/hatchback/SUV schematics with red part dots, measurements, fitted confirmations, reasoned N/A/cannot-inspect states, photo/clip submission gates, replayable speech, help and selected-item fresh-proof rechecks |
 | Purchase | Seller/valuation, expected contribution, inspection-linked approval, changed-terms reapproval, checked documents/loan state, agreement reference, exact-paise partial seller payments/corrections, physical receipt creating intake and optional arrival issue |
@@ -46,11 +48,20 @@ The user has confirmed the current comprehensive checklist as the initial workin
 | Management website | Stock/dashboard/decisions, inspection evidence review/recheck/takeover, workshop/enquiry/sales/support views, documents, inbox, checklist version review/approval, stock/money reports/export; many operational detail views are currently read-only |
 | Mobile reliability | SQLite drafts/cache with separate namespaces and stale-response guards, SecureStore session token, durable command IDs, conflict/version handling, saved navigation/sections, safe areas, keyboard avoidance, focused tabs, English/Hindi calendar date selection, width-based phone/tablet panels and fewer columns at large text sizes |
 
-Training data includes the original two cars, a workshop/repair/part and draft templates. A separate synthetic car, **AC3DTRAINING**, exercises the new comprehensive draft (229 resolved checks for its diesel/automatic configuration). Existing short tasks and recorded progress are preserved. The shared database is not a real dealership ledger. Draft checklists require Arihant approval; development acknowledgements cannot establish production clearance. Financial commands record external payments and do not transfer money.
+The [reusable demo](docs/DEMO_DATA.md) replaces the former local training records
+with 11 vehicles, six staff, connected inspections, buying, service, sales,
+warranty, documents, money, attendance, payroll and routines. An explicit date
+anchors business history; unchanged replay preserves demo edits and `--reset`
+backs up and replaces the local demo. The prior database/media archive is
+private under `.data/backups/`. This is fictional demonstration data, not a real
+dealership ledger. Draft checklists still require Arihant approval. Financial
+commands record external payments and do not transfer money.
 
 The catalogue import contains 96 makes and 1,857 model-name references, including 32 source-linked India references. It contains **zero verified variant revisions** and explicitly reports incomplete coverage. It cannot infer a particular car's equipment, year or mechanical limits. See [catalogue provenance](data/vehicle-catalogue/README.md) and [model provenance](data/inspection-models/README.md). The 3D geometry is a generic navigation aid; the checklist and proof records remain authoritative. Other inspection stages retain their earlier draft templates.
 
-Fresh seed cars start commercially available. The original Sonet example had an illustrative booked flag with no booking history; that known training row was corrected with a system event, leaving booking and financial records untouched. Seed consistency and preserving later progress have integration coverage.
+The old minimal car/task records are now isolated API-test fixtures. They are not
+loaded into the demo app. Demo sold, booked and ready states have their linked
+transaction histories; old business URLs are retired on each replacement.
 
 ## Media implementation and evidence
 

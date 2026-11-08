@@ -260,16 +260,8 @@ function Login({
   api: ApiClient;
   onSession: (v: Session) => void;
 }) {
-  const [training, setTraining] = useState(false),
-    [available, setAvailable] = useState(false),
-    [busy, setBusy] = useState(false),
+  const [busy, setBusy] = useState(false),
     [error, setError] = useState("");
-  useEffect(() => {
-    void api
-      .authOptions()
-      .then((v) => setAvailable(v.trainingLogin))
-      .catch((e) => setError((e as Error).message));
-  }, [api]);
   return (
     <div className="login">
       <section>
@@ -290,79 +282,39 @@ function Login({
           const data = new FormData(e.currentTarget);
           setBusy(true);
           setError("");
-          void (
-            training
-              ? api.signIn(
-                  String(data.get("code")),
-                  data.get("account") === "employee" ? "employee" : "owner",
-                )
-              : api.signInPassword(
-                  String(data.get("dealer")),
-                  String(data.get("username")),
-                  String(data.get("password")),
-                )
-          )
+          void api
+            .signInPassword(
+              String(data.get("username")).trim(),
+              String(data.get("password")),
+            )
             .then(onSession)
             .catch((e) => setError((e as Error).message))
             .finally(() => setBusy(false));
         }}
       >
-        <h2>{training ? "Training sign in" : "Staff sign in"}</h2>
+        <h2>Sign in</h2>
         <ErrorBox message={error} />
-        {training ? (
-          <>
-            <label>
-              Development access code
-              <input
-                autoComplete="off"
-                name="code"
-                type="password"
-                required
-                minLength={12}
-              />
-            </label>
-            <label>
-              Training account
-              <select name="account">
-                <option value="owner">Owner</option>
-                <option value="employee">Employee</option>
-              </select>
-            </label>
-          </>
-        ) : (
-          <>
-            <label>
-              Dealer code
-              <input name="dealer" autoComplete="organization" required />
-            </label>
-            <label>
-              Username
-              <input name="username" autoComplete="username" required />
-            </label>
-            <label>
-              Password
-              <input
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                required
-              />
-            </label>
-          </>
-        )}
+        <label>
+          Username
+          <input
+            name="username"
+            autoComplete="username"
+            autoCapitalize="none"
+            required
+          />
+        </label>
+        <label>
+          Password
+          <input
+            name="password"
+            type="password"
+            autoComplete="current-password"
+            required
+          />
+        </label>
         <button className="primary" disabled={busy}>
           {busy ? "Signing in…" : "Open garage →"}
         </button>
-        {available ? (
-          <button
-            type="button"
-            className="quiet"
-            disabled={busy}
-            onClick={() => setTraining(!training)}
-          >
-            {training ? "Use individual staff login" : "Use training workspace"}
-          </button>
-        ) : null}
         <p className="muted">
           Your session stays in this page. Closing or reloading it requires sign
           in again.

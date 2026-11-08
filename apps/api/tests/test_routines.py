@@ -6,9 +6,9 @@ from sqlalchemy import text
 from sqlalchemy.exc import DBAPIError
 from test_integration import checked
 from test_integration import workspace as workspace
+from workspace_seed import IDS
 
 from app.adapters.routines import RoutineStore
-from app.seed import IDS
 
 
 @pytest.fixture(autouse=True)

@@ -5,9 +5,9 @@ from sqlalchemy import text
 from test_commercial import acquired, book, business, change
 from test_integration import checked, command
 from test_integration import workspace as workspace
+from workspace_seed import IDS
 
 from app.adapters.notifications import NotificationStore
-from app.seed import IDS
 
 
 def test_outbox_delivery_is_idempotent_scoped_and_failed_events_are_bounded(workspace):

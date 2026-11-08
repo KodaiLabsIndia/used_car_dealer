@@ -3514,8 +3514,6 @@ export interface components {
     };
     /** LoginInput */
     LoginInput: {
-      /** Dealercode */
-      dealerCode: string;
       /** Username */
       username: string;
       /** Secret */
@@ -5874,8 +5872,6 @@ export interface components {
     };
     /** Team */
     Team: {
-      /** Dealercode */
-      dealerCode: string;
       /** Items */
       items: components["schemas"]["Member"][];
     };
