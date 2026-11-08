@@ -1,0 +1,52 @@
+{
+  "checks": [
+    {
+      "language": "hi",
+      "todayRendered": true,
+      "restoredEnglish": true
+    },
+    {
+      "language": "mr",
+      "todayRendered": true,
+      "restoredEnglish": true
+    },
+    {
+      "profile": "phone-large-text",
+      "width": 1080,
+      "height": 2424,
+      "density": 420,
+      "fontScale": "1.5",
+      "fourRootAreasReachable": true
+    },
+    {
+      "profile": "phone-huge-text",
+      "width": 1080,
+      "height": 2424,
+      "density": 420,
+      "fontScale": "2.0",
+      "fourRootAreasReachable": true
+    },
+    {
+      "profile": "tablet-portrait",
+      "width": 1600,
+      "height": 2560,
+      "density": 240,
+      "fontScale": "1.0",
+      "fourRootAreasReachable": true
+    },
+    {
+      "profile": "tablet-landscape",
+      "width": 2560,
+      "height": 1600,
+      "density": 240,
+      "fontScale": "1.0",
+      "fourRootAreasReachable": true
+    }
+  ],
+  "originalDisplayRestored": true,
+  "languageRestored": "en",
+  "reopenedTrainingStepWithReason": true,
+  "originalCompletionRetained": true,
+  "moneyPosted": false,
+  "physicalDeviceAcceptance": false
+}

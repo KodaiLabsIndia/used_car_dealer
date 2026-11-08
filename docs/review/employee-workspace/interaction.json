@@ -1,0 +1,22 @@
+{
+  "employeeRoots": [
+    "Today",
+    "My work",
+    "My pay",
+    "Help"
+  ],
+  "employeeWorkCategories": [
+    "Inspections",
+    "Routines",
+    "Service"
+  ],
+  "employeeCompletedRemainingTrainingStep": true,
+  "directRoutineBackReturnsToWork": true,
+  "ownerObservedCompletion": true,
+  "ownerCannotImpersonateAssignedEmployee": true,
+  "routineLibraryAndPausedViewVerified": true,
+  "hearStepInvoked": true,
+  "audioQualityAcceptance": false,
+  "companyOrPayRulesChanged": false,
+  "moneyPosted": false
+}

@@ -32,8 +32,10 @@ const ScrollingContext = createContext<ReactNode>(null);
 export function FocusScreen({
   title,
   children,
+  onBack,
 }: {
   title: string;
+  onBack?: (() => void) | undefined;
   children: ReactNode;
 }) {
   return (
@@ -41,7 +43,7 @@ export function FocusScreen({
       style={{ flex: 1, backgroundColor: colors.surface }}
       behavior={Platform.OS === "ios" ? "padding" : undefined}
     >
-      <GarageHeader back title={title} />
+      <GarageHeader back title={title} onBack={onBack} />
       <View
         style={{ flex: 1, width: "100%", maxWidth: 1280, alignSelf: "center" }}
       >

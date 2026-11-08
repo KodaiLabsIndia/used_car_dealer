@@ -95,7 +95,7 @@ This creates artifacts/ArihantCars-internal-preview.apk with JavaScript included
 
 The [SBOSS-derived workforce module](docs/SBOSS_IMPORT.md) uses existing Arihant
 accounts. Owners open **People → Attendance / Payroll**; employees open
-**My attendance & pay** from Home or Settings → Work tools. Owner
+**Today → View my attendance** and **My pay → Salary & advances**. Owner
 configures company shifts, holidays, photo/location rules and each person’s agreed
 pay. Employees punch and view their own leave/pay; Owner/Supervisor reviews team
 requests and salary. The management website includes the same workforce records
@@ -144,3 +144,9 @@ leave and daily routines. Buying, preparation, selling and after-sales sit withi
 **Dealership**. Daily routines support named assignment, repeat-day presets,
 logged steps, reasoned reopening and saved history; no routine is silently
 completed or converted into a salary deduction.
+
+The [employee workspace](docs/EMPLOYEE_WORKSPACE.md) puts attendance and the next
+job on Today; My work groups inspections, routines and service; My pay separates
+issued salary and requests; Help offers spoken guidance and account/language tools.
+Both roles share routine progress and activity records, with completion limited
+to the actual assigned person.

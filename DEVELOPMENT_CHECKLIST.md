@@ -437,3 +437,12 @@ review evidence. This implementation does not close the existing full-release ga
 - [x] OWN-04 Add assigned daily routine templates, repeat-day presets, pause/edit revisions, self-only completion and append-only started-day history.
 - [ ] OWN-05 Extend routine scheduling to historical unstarted occurrences, media proofs, ad-hoc work and more cadences.
 - [ ] OWN-06 Owner/staff comprehension and physical phone/tablet/iOS acceptance of the reorganized app.
+
+### 8 November — employee workspace and SBOSS routine views
+
+- [x] EMP-01 Review actual SBOSS employee day/work, owner work and routine-library UI/code.
+- [x] EMP-02 Group employee entry into Today, My work, My pay and Help with adaptive navigation.
+- [x] EMP-03 Separate inspections/routines/service and unfinished/review/finished work.
+- [x] EMP-04 Add guided next-step routines, spoken instructions, explicit completion, named activity and reasoned reopening.
+- [x] EMP-05 Group owner routine progress by person and separate active/paused searchable setup.
+- [ ] EMP-06 Physical phone/tablet/iOS, language/audio and representative staff acceptance.

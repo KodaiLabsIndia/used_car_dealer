@@ -1,55 +1,50 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   ActivityIndicator,
   AppState,
-  Pressable,
+  BackHandler,
   RefreshControl,
-  View,
 } from "react-native";
-import { useIsFocused } from "@react-navigation/native";
+import { useFocusEffect, useIsFocused } from "@react-navigation/native";
 import { randomUUID } from "expo-crypto";
 import type { RoutineItem, SaveRoutine } from "@arihant/contracts";
-import { colors } from "@arihant/design-tokens";
 import { useApp } from "../state/app-context";
 import { useResource } from "../state/use-resource";
 import { can } from "../application/access";
 import { sendCommand } from "../application/send-command";
-import { Workspace, FocusPage, ChoiceModal } from "../components/workspace";
+import { Workspace, FocusPage } from "../components/workspace";
 import {
   BusinessForm,
   type BusinessFormSpec,
 } from "../components/business-form";
 import { DateField } from "../components/date-field";
-import {
-  ActionRow,
-  Button,
-  ErrorNotice,
-  Icon,
-  Panel,
-  Pill,
-  Text,
-  s,
-} from "../components/ui";
-import { CardGrid } from "../components/layout";
+import { ErrorNotice } from "../components/ui";
+import type { ScreenProps } from "../navigation";
+import { RoutineFocus } from "../components/routine-focus";
+import { RoutineBoard } from "../components/routine-board";
 
-export function RoutinesScreen() {
+export function RoutinesScreen({ navigation, route }: ScreenProps<"Routines">) {
   const { api, session, language, changed } = useApp();
   const actor = session!.actor;
   const manager = can(actor, "overview");
   const tr = (en: string, hi: string, mr: string) =>
     language === "mr" ? mr : language === "hi" ? hi : en;
   const [section, setSection] = useState<"today" | "manage" | "history">(
-    "today",
+    route.params?.section === "manage" && !manager
+      ? "today"
+      : (route.params?.section ?? "today"),
   );
-  const [day, setDay] = useState("");
+  const [day, setDay] = useState(route.params?.day ?? "");
   const resource = useResource(
-    `routines:${section === "history" ? day : "today"}`,
+    `routines:${manager ? "team" : "self"}:${section === "history" ? day : "today"}`,
     () => api.routines(section === "history" && day ? day : undefined),
   );
   const people = useResource(`routine-people:${manager}`, () =>
     manager ? api.people() : Promise.resolve([]),
   );
-  const [selected, setSelected] = useState<string | null>(null);
+  const [selected, setSelected] = useState<string | null>(
+    route.params?.routineId ?? null,
+  );
   const [edit, setEdit] = useState<{
     id: string;
     item: RoutineItem | null;
@@ -60,8 +55,33 @@ export function RoutinesScreen() {
   } | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
-  const [scheduleMore, setScheduleMore] = useState(false);
   const focused = useIsFocused();
+  useEffect(() => {
+    if (route.params?.routineId) setSelected(route.params.routineId);
+    if (route.params?.section)
+      setSection(
+        route.params.section === "manage" && !manager
+          ? "today"
+          : route.params.section,
+      );
+  }, [route.params?.routineId, route.params?.section, manager]);
+  const closeDetail = useCallback(() => {
+    if (route.params?.routineId && navigation.canGoBack()) navigation.goBack();
+    else {
+      setSelected(null);
+      navigation.setParams({ routineId: undefined });
+    }
+  }, [navigation, route.params?.routineId]);
+  useFocusEffect(
+    useCallback(() => {
+      if (!selected || edit || reopen) return;
+      const sub = BackHandler.addEventListener("hardwareBackPress", () => {
+        closeDetail();
+        return true;
+      });
+      return () => sub.remove();
+    }, [selected, edit, reopen, closeDetail]),
+  );
   useEffect(() => {
     if (resource.data && !day) setDay(resource.data.today);
   }, [resource.data?.today]);
@@ -72,11 +92,9 @@ export function RoutinesScreen() {
     }, 30000);
     return () => clearInterval(timer);
   }, [focused, edit, reopen]);
-  const templates = resource.data?.items ?? [];
-  const due = templates.filter((i) => i.dueToday);
-  const completed = due.filter(
-    (i) => i.completedSteps.length === i.definition.steps.length,
-  ).length;
+  const templates = (resource.data?.items ?? []).filter(
+    (i) => manager || i.definition.assignedTo === actor.id,
+  );
   const item = templates.find((i) => i.id === selected);
   const cycleOptions = [
     { id: "0,1,2,3,4,5,6", label: tr("Every day", "हर दिन", "दररोज") },
@@ -241,6 +259,25 @@ export function RoutinesScreen() {
       setBusy(false);
     }
   }
+  if (item && !edit && !reopen)
+    return (
+      <RoutineFocus
+        item={item}
+        busy={busy || resource.loading}
+        error={error}
+        canLog={
+          item.definition.assignedTo === actor.id &&
+          section !== "history" &&
+          item.dueToday
+        }
+        onBack={closeDetail}
+        onDone={(index) => {
+          void mark(item, index);
+        }}
+        onReopen={(index) => setReopen({ item, step: index })}
+        {...(manager ? { onEdit: () => setEdit({ id: item.id, item }) } : {})}
+      />
+    );
   return (
     <Workspace
       title={
@@ -362,284 +399,26 @@ export function RoutinesScreen() {
               value={day}
               onChange={setDay}
             />
-          ) : section === "today" ? (
-            <View style={{ gap: 6 }}>
-              <Text style={{ fontSize: 28, fontWeight: "600" }}>
-                {tr(
-                  "The everyday work\nthat keeps cars moving.",
-                  "रोज़ के काम,\nजो यार्ड चलाते हैं।",
-                  "रोजची कामे,\nजी यार्ड चालवतात.",
-                )}
-              </Text>
-              <Text style={s.muted}>
-                {`${completed} / ${due.length} `}
-                {tr("routines finished today", "काम आज पूरे", "कामे आज पूर्ण")}
-              </Text>
-            </View>
-          ) : (
-            <>
-              <Text style={s.title}>
-                {tr(
-                  "Repeat the right work.",
-                  "ज़रूरी काम दोहराएँ।",
-                  "योग्य काम पुन्हा करा.",
-                )}
-              </Text>
-              <Button
-                label={tr("Create routine", "काम बनाएँ", "काम तयार करा")}
-                icon="add-outline"
-                onPress={() => setEdit({ id: randomUUID(), item: null })}
-              />
-              <Button
-                secondary
-                label={tr(
-                  "Yard routine ideas",
-                  "यार्ड के काम के सुझाव",
-                  "यार्डच्या कामांच्या कल्पना",
-                )}
-                icon="bulb-outline"
-                onPress={() => setScheduleMore((v) => !v)}
-              />
-              {scheduleMore ? (
-                <Panel>
-                  <Text>
-                    {tr(
-                      "Opening: check keys, gates and parked cars.\nYard care: cleaning, battery and tyre checks.\nClosing: reconcile keys and secure the yard.\nCreate only the routines your team agrees to follow.",
-                      "खोलना: चाबी, गेट और गाड़ियाँ जाँचें।\nदेखभाल: सफ़ाई, बैटरी और टायर।\nबंद करना: चाबी मिलाएँ और यार्ड सुरक्षित करें।\nटीम के साथ तय किए काम ही बनाएँ।",
-                      "उघडताना: चाव्या, गेट व गाड्या तपासा.\nदेखभाल: स्वच्छता, बॅटरी व टायर.\nबंद करताना: चाव्या मोजा व यार्ड सुरक्षित करा.\nटीमने मान्य केलेलीच कामे तयार करा.",
-                    )}
-                  </Text>
-                </Panel>
-              ) : null}
-            </>
-          )}
-          <CardGrid>
-            {(section === "today" ? due : templates).map((i) => {
-              const finished =
-                i.completedSteps.length === i.definition.steps.length;
-              return (
-                <Pressable
-                  key={i.id}
-                  accessibilityRole="button"
-                  accessibilityLabel={`${i.definition.title}, ${i.assigneeName}`}
-                  onPress={() => setSelected(i.id)}
-                >
-                  <Panel
-                    style={{
-                      gap: 15,
-                      borderColor: finished ? "#42624E" : colors.line,
-                    }}
-                  >
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        gap: 12,
-                        alignItems: "center",
-                      }}
-                    >
-                      <View
-                        style={{
-                          width: 45,
-                          height: 45,
-                          borderRadius: 15,
-                          backgroundColor: finished ? "#253E2D" : "#372A25",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <Icon
-                          name={
-                            finished ? "checkmark-outline" : "repeat-outline"
-                          }
-                          color={finished ? colors.green : "#EAC1A5"}
-                        />
-                      </View>
-                      <View style={{ flex: 1 }}>
-                        <Text style={{ fontSize: 18, fontWeight: "600" }}>
-                          {section === "manage"
-                            ? i.currentDefinition.title
-                            : i.definition.title}
-                        </Text>
-                        <Text style={{ fontSize: 12, color: colors.muted }}>
-                          {section === "manage"
-                            ? (people.data?.find(
-                                (p) => p.id === i.currentDefinition.assignedTo,
-                              )?.name ?? i.assigneeName)
-                            : i.assigneeName}
-                        </Text>
-                      </View>
-                      <Icon name="chevron-forward-outline" />
-                    </View>
-                    <View
-                      style={{
-                        height: 4,
-                        backgroundColor: colors.line,
-                        borderRadius: 4,
-                      }}
-                    >
-                      <View
-                        style={{
-                          height: 4,
-                          borderRadius: 4,
-                          width: `${(i.completedSteps.length / i.definition.steps.length) * 100}%`,
-                          backgroundColor: finished ? colors.green : colors.red,
-                        }}
-                      />
-                    </View>
-                    <Text style={{ fontSize: 12, color: colors.muted }}>
-                      {i.completedSteps.length}/{i.definition.steps.length}{" "}
-                      {tr("steps logged", "चरण दर्ज", "टप्पे नोंदवले")}
-                      {!i.currentDefinition.active
-                        ? ` · ${tr("Paused for new starts", "नए काम रुके", "नवीन काम थांबवले")}`
-                        : ""}
-                    </Text>
-                    {section === "manage" ? (
-                      <Button
-                        secondary
-                        label={tr("Edit routine", "काम बदलें", "काम बदला")}
-                        onPress={() => setEdit({ id: i.id, item: i })}
-                      />
-                    ) : null}
-                  </Panel>
-                </Pressable>
-              );
-            })}
-          </CardGrid>
-          {!resource.loading &&
-          !(section === "today" ? due : templates).length ? (
-            <Panel style={{ gap: 8 }}>
-              <Icon name="repeat-outline" size={30} />
-              <Text style={{ fontWeight: "600" }}>
-                {section === "history"
-                  ? tr(
-                      "No saved work on this date",
-                      "इस दिन कोई दर्ज काम नहीं",
-                      "या दिवशी नोंदवलेले काम नाही",
-                    )
-                  : tr(
-                      "No routines due",
-                      "अभी कोई रोज़ का काम नहीं",
-                      "सध्या रोजचे काम नाही",
-                    )}
-              </Text>
-              <Text style={s.muted}>
-                {manager
-                  ? tr(
-                      "Create and assign a routine under Manage routines.",
-                      "काम सँभालें में रोज़ का काम बनाकर सौंपें।",
-                      "कामे सांभाळा मध्ये रोजचे काम तयार करून नेमा.",
-                    )
-                  : tr(
-                      "Your assigned routines appear here on their repeat days.",
-                      "आपको सौंपे काम तय दिनों पर यहाँ दिखेंगे।",
-                      "तुम्हाला नेमलेली कामे ठरलेल्या दिवशी येथे दिसतील.",
-                    )}
-              </Text>
-            </Panel>
           ) : null}
+          <RoutineBoard
+            items={templates}
+            names={Object.fromEntries(
+              (people.data ?? []).map((p) => [p.id, p.name]),
+            )}
+            manager={manager}
+            section={section}
+            onOpen={(id) =>
+              navigation.push("Routines", {
+                routineId: id,
+                section,
+                day: section === "history" ? day : undefined,
+              })
+            }
+            onEdit={(item) => setEdit({ id: item.id, item })}
+            onCreate={() => setEdit({ id: randomUUID(), item: null })}
+          />
         </FocusPage>
       )}
-      <ChoiceModal
-        visible={!!item && !edit && !reopen}
-        title={item?.definition.title ?? ""}
-        onClose={() => setSelected(null)}
-      >
-        {item ? (
-          <>
-            <Text style={s.muted}>
-              {item.assigneeName} · {item.workDate}
-            </Text>
-            {item.definition.steps.map((step, index) => {
-              const done = item.completedSteps.includes(index);
-              const own = item.definition.assignedTo === actor.id;
-              const editable = own && section !== "history" && item.dueToday;
-              return (
-                <Pressable
-                  key={index}
-                  accessibilityRole="checkbox"
-                  accessibilityLabel={step}
-                  accessibilityState={{
-                    checked: done,
-                    disabled: !editable || busy,
-                  }}
-                  disabled={!editable || busy}
-                  onPress={() => {
-                    if (done) {
-                      setReopen({ item, step: index });
-                      setSelected(null);
-                    } else void mark(item, index);
-                  }}
-                  style={{
-                    flexDirection: "row",
-                    gap: 14,
-                    padding: 16,
-                    minHeight: 70,
-                    backgroundColor: done ? "#25382B" : colors.card,
-                    borderRadius: 14,
-                  }}
-                >
-                  <Icon
-                    name={done ? "checkmark-circle" : "ellipse-outline"}
-                    color={done ? colors.green : colors.muted}
-                  />
-                  <View style={{ flex: 1 }}>
-                    <Text style={{ fontSize: 16 }}>{step}</Text>
-                    {done ? (
-                      <Text style={{ fontSize: 11, color: colors.green }}>
-                        {tr("Logged", "दर्ज किया", "नोंदवले")}
-                      </Text>
-                    ) : null}
-                  </View>
-                </Pressable>
-              );
-            })}
-            {!item.events.length ? (
-              <Text style={s.muted}>
-                {tr(
-                  "No steps logged yet.",
-                  "अभी कोई चरण दर्ज नहीं।",
-                  "अद्याप टप्पे नोंदवलेले नाहीत.",
-                )}
-              </Text>
-            ) : (
-              <>
-                <Text style={s.label}>
-                  {tr("Activity record", "काम का रिकॉर्ड", "कामाची नोंद")}
-                </Text>
-                {item.events.map((event) => (
-                  <View
-                    key={event.version}
-                    style={{
-                      paddingVertical: 8,
-                      borderBottomWidth: 1,
-                      borderColor: colors.line,
-                    }}
-                  >
-                    <Text style={{ fontSize: 12 }}>
-                      {event.byName} ·{" "}
-                      {event.done
-                        ? tr("Done", "पूरा", "पूर्ण")
-                        : tr("Reopened", "फिर खोला", "पुन्हा उघडले")}{" "}
-                      · {item.definition.steps[event.step]}
-                    </Text>
-                    <Text style={{ fontSize: 11, color: colors.muted }}>
-                      {new Date(event.createdAt).toLocaleString(
-                        language === "hi"
-                          ? "hi-IN"
-                          : language === "mr"
-                            ? "mr-IN"
-                            : "en-IN",
-                      )}
-                      {event.note ? `\n${event.note}` : ""}
-                    </Text>
-                  </View>
-                ))}
-              </>
-            )}
-            {error ? <ErrorNotice message={error} /> : null}
-          </>
-        ) : null}
-      </ChoiceModal>
     </Workspace>
   );
 }

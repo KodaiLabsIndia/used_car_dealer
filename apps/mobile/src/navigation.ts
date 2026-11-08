@@ -13,7 +13,13 @@ export type RootStack = {
       }
     | undefined;
   Work: { mine?: boolean } | undefined;
-  Routines: undefined;
+  Routines:
+    | {
+        routineId?: string | undefined;
+        day?: string | undefined;
+        section?: "today" | "manage" | "history" | undefined;
+      }
+    | undefined;
   Cars: { stage?: import("@arihant/contracts").Stage } | undefined;
   Car: { id: string };
   Task: { id: string };

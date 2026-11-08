@@ -1,0 +1,10 @@
+{
+  "employeeDirectBackReturnsToWork": true,
+  "historyDetailReadOnly": true,
+  "historyBackRetainsDateList": true,
+  "ownerBackReturnsToTeamList": true,
+  "ownerStillCannotLogEmployeesWork": true,
+  "employeeLeftOnToday": true,
+  "ownerLeftOnRoutineLibrary": true,
+  "moneyPosted": false
+}

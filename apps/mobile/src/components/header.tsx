@@ -9,9 +9,11 @@ import { NightDrive } from "./garage-motion";
 export function GarageHeader({
   back = false,
   title,
+  onBack,
 }: {
   back?: boolean;
   title?: string;
+  onBack?: (() => void) | undefined;
 }) {
   const { session, t } = useApp(),
     nav = useNavigation<Navigation>(),
@@ -48,7 +50,11 @@ export function GarageHeader({
             accessibilityRole="button"
             accessibilityLabel={t("back")}
             onPress={() =>
-              nav.canGoBack() ? nav.goBack() : nav.navigate("Home")
+              onBack
+                ? onBack()
+                : nav.canGoBack()
+                  ? nav.goBack()
+                  : nav.navigate("Home")
             }
             style={s.iconButton}
           >

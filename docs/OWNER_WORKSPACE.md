@@ -18,8 +18,8 @@ Tabs, cards and text reflow instead of truncating names. A short crossfade
 respects system reduced motion. The moving-car journey appears only in Garage.
 The owner can use My work and their own attendance without switching accounts.
 Supervisors retain existing operational oversight; account and policy controls
-remain owner-only. Employee home remains personal work with personal attendance,
-pay and routines.
+remain owner-only. The [employee workspace](EMPLOYEE_WORKSPACE.md) separates Today, My work, My pay
+and Help, with guided routine steps and shared named progress.
 
 Buyer/seller, ready/delivered and booked/support shortcuts carry their filters
 into existing screens and API queries. The existing purchase, inspection,

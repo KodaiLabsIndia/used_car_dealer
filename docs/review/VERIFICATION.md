@@ -4,7 +4,7 @@ These are local development results, not full-release acceptance. The initial re
 
 | Check | Latest result |
 | --- | --- |
-| npm run check | Passed: Ruff, native literal-text placement lint, TypeScript in all client workspaces, 14 Python domain/architecture tests and 13 mobile logic tests |
+| npm run check | Passed: Ruff, native literal-text placement lint, TypeScript in all client workspaces, 14 Python domain/architecture tests and 17 mobile logic tests |
 | npm run test:integration | **110 passed** against real PostgreSQL in isolated random schemas; includes the existing car workflows 25 attendance/payroll API and calculation cases, and five staff-routine scenarios |
 | Contracts | Python OpenAPI regenerated; shared validators/generated types pass compile-time parity |
 | Android native | Development and bundled internal-preview APKs built/installed; local Media3 module compiles; camera/mic/import/720p preparation, native document upload and verified video upload exercised |
@@ -46,7 +46,7 @@ The [internal preview](../../artifacts/ArihantCars-internal-preview.apk) include
 
 Native spatial integration exposed two compatibility defects that were corrected: Metro now resolves Three's browser ESM entry instead of its Node-oriented CommonJS entry, and a reproducible Expo config plugin keeps Expo GL's native constructors in optimized Android builds. R8 remains enabled. These fixes were exercised in an installed bundled preview; a JavaScript-only export would not catch the constructor failure.
 
-Both APKs include the native Expo GL library. The latest preview also includes foreground location and the workforce workspace, with all 80 bundled mobile runtime sources matching the working tree. The development client loads JavaScript through Metro; its older artifact does not include attendance location. See the latest [source comparison](owner-workspace/bundled-source-verification.json) and [artifact fingerprints](android/build-manifest.json).
+Both APKs include the native Expo GL library. The latest preview also includes foreground location and the workforce workspace, with all 86 bundled mobile runtime sources matching the working tree. The development client loads JavaScript through Metro; its older artifact does not include attendance location. See the latest [source comparison](employee-workspace/bundled-source-verification.json) and [artifact fingerprints](android/build-manifest.json).
 
 The selected date survived a development-to-preview APK update. [Build manifest](android/build-manifest.json) records artifact size, SHA-256, package/version, ARM64 architecture and minimum/target SDK. The [launcher](android/preview-launcher.png) and [corrected ready camera](android/preview-camera-ready.png) were checked in the installed preview. These APKs still need the configured development backend.
 
@@ -116,3 +116,23 @@ The owner hierarchy passed two-emulator interaction checks, with a real training
 step appearing in the owner view. Routine draft restoration and a training-only
 mobile revision save passed. Owner layouts were reviewed at normal/150%/200% text
 and tablet portrait/landscape sizes; original display settings were restored.
+
+
+## 8 November: employee workspace and shared routine views
+
+See [the SBOSS source study](../EMPLOYEE_WORKSPACE.md) and [review evidence](employee-workspace/README.md).
+The employee app now separates Today, My work, My pay and Help, with own-work
+categories, focused routine steps and spoken instructions. Owners see grouped
+progress and an active/paused searchable routine library. Local lint/types,
+14 Python and 17 mobile logic tests, formatting, both platform JS exports, web
+and native Android builds passed. Five routine PostgreSQL scenarios were rerun;
+the backend/schema remains unchanged from the 110-test full integration run.
+Two emulators verified employee completion, owner observation and role controls.
+The current preview bundles 86 matching mobile sources.
+
+Employee language/layout checks passed on Hindi/Marathi Today, 150%/200% text,
+and tablet portrait/landscape emulator windows. The saved training correction
+retained the original completion and a reasoned reopening. Display/language
+settings were restored. Final direct-entry, owner-list and historical-detail
+back navigation were verified in the installed preview; physical audio/iOS and
+staff comprehension remain open.

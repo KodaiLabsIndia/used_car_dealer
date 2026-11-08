@@ -25,6 +25,7 @@ import {
 } from "../components/ui";
 import { useApp } from "../state/app-context";
 import { useResource } from "../state/use-resource";
+import { EmployeeHomeScreen } from "./employee-home";
 import { OwnerHomeScreen } from "./owner-home";
 
 export function HomeScreen(props: ScreenProps<"Home">) {
@@ -32,7 +33,7 @@ export function HomeScreen(props: ScreenProps<"Home">) {
   return can(session!.actor, "overview") ? (
     <OwnerHomeScreen {...props} />
   ) : (
-    <WorkBoard navigation={props.navigation} />
+    <EmployeeHomeScreen {...props} />
   );
 }
 export function WorkScreen({ navigation, route }: ScreenProps<"Work">) {
