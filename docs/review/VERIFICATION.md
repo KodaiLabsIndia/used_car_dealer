@@ -177,3 +177,12 @@ app caches were cleared. The preview matches all 95 bundled runtime sources;
 installed APK checksums match on both devices. Read-only owner/employee demo
 walkthroughs and fatal-error checks passed. The review does not establish native
 iOS/iPad or physical-device acceptance.
+
+### Showroom wording follow-up
+
+Replaced visible Yard wording with Showroom in English/Hindi/Marathi, default
+locations, attendance location warnings and demo data. Current demo locations
+were renamed and the opening routine received a new revision; started snapshots
+and financial/work records were retained. `npm run check`, formatting and the
+existing night-shift/location-warning integration case passed. The Android
+preview was rebuilt; all 95 bundled runtime sources match its source comparison.

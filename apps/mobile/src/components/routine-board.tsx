@@ -212,14 +212,14 @@ export function RoutineBoard({
           </WorkGrid>
           <WorkRow
             title={tr(
-              "Routine ideas for your yard",
-              "यार्ड के कामों के सुझाव",
-              "यार्डच्या कामांच्या कल्पना",
+              "Routine ideas for your showroom",
+              "शोरूम के कामों के सुझाव",
+              "शोरूमच्या कामांच्या कल्पना",
             )}
             detail={tr(
               "Opening, vehicle care and closing",
-              "यार्ड खोलना, गाड़ी की देखभाल और बंद करना",
-              "यार्ड उघडणे, गाड्यांची देखभाल व बंद करणे",
+              "शोरूम खोलना, गाड़ी की देखभाल और बंद करना",
+              "शोरूम उघडणे, गाड्यांची देखभाल व बंद करणे",
             )}
             icon="bulb-outline"
             onPress={() => setIdeas((v) => !v)}
@@ -240,14 +240,14 @@ export function RoutineBoard({
                   "उघडताना: चाव्या, गेट व गाड्या तपासा.",
                 ),
                 tr(
-                  "Yard care: cleaning, battery and tyre checks.",
+                  "Showroom care: cleaning, battery and tyre checks.",
                   "देखभाल: सफ़ाई, बैटरी और टायर जाँचें।",
                   "देखभाल: स्वच्छता, बॅटरी व टायर तपासा.",
                 ),
                 tr(
-                  "Closing: reconcile keys and secure the yard.",
-                  "बंद करना: चाबी मिलाएँ और यार्ड सुरक्षित करें।",
-                  "बंद करताना: चाव्या मोजा व यार्ड सुरक्षित करा.",
+                  "Closing: reconcile keys and secure the showroom.",
+                  "बंद करना: चाबी मिलाएँ और शोरूम सुरक्षित करें।",
+                  "बंद करताना: चाव्या मोजा व शोरूम सुरक्षित करा.",
                 ),
               ].map((t) => (
                 <Text key={t} style={{ fontSize: 14, color: c.muted }}>

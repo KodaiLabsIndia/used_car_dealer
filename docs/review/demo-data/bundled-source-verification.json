@@ -8,7 +8,7 @@
     {
       "file": "apps/mobile/src/screens/workforce.tsx",
       "current": true,
-      "sha256": "0f2b069a999684dab6d93c23db37ee94785f78a0aafd476f0135a951e12c9866"
+      "sha256": "181d46b9369acde87fa684c248a9accb73b500ea6a7672e1537199f5a3860a52"
     },
     {
       "file": "packages/contracts/src/index.ts",
@@ -253,7 +253,7 @@
     {
       "file": "apps/mobile/src/screens/stock.tsx",
       "current": true,
-      "sha256": "25412b6691449971d6b7dcdf878e413df44ae341b4fb35bb855825e7f1324b3a"
+      "sha256": "572ce86a05d7442023251acbe82abd9f4948f81277545b0e0c93f717b2c34d11"
     },
     {
       "file": "apps/mobile/src/screens/enquiries.tsx",
@@ -298,7 +298,7 @@
     {
       "file": "apps/mobile/src/components/routine-board.tsx",
       "current": true,
-      "sha256": "2717982a5bb2486edf7ba4452c8a726369d4b2ecdd322fc7447bbf0a57032a3e"
+      "sha256": "ae4254956a7c06138ec33e9b540508180a71466b98140c32afa5c702af5923c6"
     },
     {
       "file": "apps/mobile/src/components/routine-card.tsx",
@@ -318,7 +318,7 @@
     {
       "file": "apps/mobile/src/screens/owner-home.tsx",
       "current": true,
-      "sha256": "f0759d629fdb148b982f750458b85cecf871ed9c44e7415983d3a5627c4b4fa3"
+      "sha256": "c5f5c6f81d927892ed866ad4b7170da88f98fbd5095daff91d053efcf8081ce7"
     },
     {
       "file": "apps/mobile/src/screens/cars.tsx",
@@ -388,7 +388,7 @@
     {
       "file": "apps/mobile/src/screens/add-car.tsx",
       "current": true,
-      "sha256": "aeedeb61e8aace884ff379bede9e088082ca6de23009a935950dc07f1c2cc984"
+      "sha256": "aa1a403791caca1b861356577edf411ea3b8de41b11f87f1031f97cdbc4c9e92"
     },
     {
       "file": "apps/mobile/src/components/vehicle-configuration.tsx",

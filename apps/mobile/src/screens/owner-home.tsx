@@ -716,9 +716,9 @@ export function OwnerHomeScreen({ navigation, route }: ScreenProps<"Home">) {
                               `${due.length} पैकी ${done} पूर्ण`,
                             )
                           : tr(
-                              "Assign opening, yard care & closing checks",
-                              "यार्ड खोलने, देखभाल और बंद करने के काम",
-                              "यार्ड उघडणे, देखभाल व बंद करण्याची कामे",
+                              "Assign opening, showroom care & closing checks",
+                              "शोरूम खोलने, देखभाल और बंद करने के काम",
+                              "शोरूम उघडणे, देखभाल व बंद करण्याची कामे",
                             )
                       }
                       icon="repeat-outline"

@@ -108,7 +108,7 @@ Repeating routines include unstarted, partly completed, completed and previous-
 day activity. Assigned inspections remain independent linked work in the same
 employee queue. Seller/buyer enquiries include follow-up, negotiation, scheduled
 viewing, completed test drive with licence acknowledgement, won and lost history.
-Stock has yard, workshop and customer custody, source movements, an active safety
+Stock has showroom, workshop and customer custody, source movements, an active safety
 hold and a resolved hold. The inbox and Decisions contain actionable sample work.
 
 A source-linked assistant example is stored with **`demo-fixture-no-model-call`**,

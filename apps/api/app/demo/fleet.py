@@ -89,7 +89,7 @@ def purchase(b, car, task):
     receipt = None
     if received:
         receipt = PurchaseReceipt(
-            location="Arihant yard · Demo",
+            location="Arihant showroom · Demo",
             odometer_km=b.odometers[car.key],
             fuel="half",
             key_count=2,
@@ -646,7 +646,7 @@ def fleet(b):
             if custody == "workshop"
             else "Customer · Demo"
             if sold
-            else "Arihant yard · Demo"
+            else "Arihant showroom · Demo"
         )
         insert(
             c,
@@ -720,7 +720,7 @@ def fleet(b):
             company_id=uid("company"),
             cycle_id=id,
             from_kind="yard",
-            from_location="Arihant yard · Demo",
+            from_location="Arihant showroom · Demo",
             to_kind=custody,
             to_location=location,
             custodian_id=uid("service")

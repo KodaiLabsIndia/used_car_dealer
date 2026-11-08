@@ -395,7 +395,7 @@ def routines(b):
         (
             "yard",
             "employee",
-            "Yard opening",
+            "Showroom opening",
             [
                 "Count the vehicle keys in the cabinet",
                 "Walk the parked-car row and report any damage",

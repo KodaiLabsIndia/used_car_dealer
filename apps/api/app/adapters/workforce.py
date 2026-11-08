@@ -646,7 +646,7 @@ class WorkforceStore:
                     if loc.low_accuracy:
                         flags.append("Location unavailable or imprecise")
                     if loc.outside_geofence:
-                        flags.append("Outside the saved yard location")
+                        flags.append("Outside the saved showroom location")
                     if punch.mocked:
                         flags.append("Device reported a mock location")
                 if has_clock_skew(punch.client_time, now):

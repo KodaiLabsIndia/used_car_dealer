@@ -194,7 +194,7 @@ def test_night_shift_saved_window_and_location_warnings(workspace, clock):
             punch={"latitude": 12.0, "longitude": 77.0, "accuracyM": 5, "mocked": True},
         )
     )["attendance"][0]
-    assert s["workDate"] == "2026-11-02" and "Outside the saved yard location" in s["flags"]
+    assert s["workDate"] == "2026-11-02" and "Outside the saved showroom location" in s["flags"]
     checked(
         policy(client, owner, schedule={"start": "09:00", "end": "18:00", "weekdays": [0, 1, 2, 3, 4, 5]})
     )

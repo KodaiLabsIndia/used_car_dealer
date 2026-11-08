@@ -29,7 +29,7 @@ const empty = {
   registration: "",
   year: "",
   odometer: "",
-  location: "Arihant yard",
+  location: "Arihant showroom",
   assignedTo: "",
   templateId: "",
   catalogueModelId: "",

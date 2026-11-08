@@ -58,7 +58,7 @@ export function StockScreen({ route }: ScreenProps<"Stock">) {
     ...(options ? { options } : {}),
   });
   const kinds = [
-    { id: "yard", label: tr("Dealership / yard", "डीलरशिप / यार्ड") },
+    { id: "yard", label: tr("Showroom", "शोरूम") },
     { id: "workshop", label: tr("Workshop", "वर्कशॉप") },
     { id: "test_drive", label: tr("Test drive", "टेस्ट ड्राइव") },
     {

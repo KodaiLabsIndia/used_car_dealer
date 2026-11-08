@@ -80,3 +80,13 @@ signed in to their respective Owner/Ravi accounts. The
 bundled app/shared-package runtime sources; the [artifact manifest](../android/build-manifest.json)
 records the matching APK. These are emulator checks, not physical-device or native
 iOS/iPad acceptance.
+
+## Showroom terminology
+
+App labels, Hindi/Marathi wording, new-car defaults, attendance location warnings
+and the reusable demo now use **Showroom**. The current demo's five showroom
+location labels were updated, and the opening routine received a new named
+revision. Existing started routine snapshots, work events and finances remain
+intact. The internal custody identifier retains its compatible value; its visible
+label is Showroom. Lint/types/unit checks and the existing attendance-location
+integration test passed.
