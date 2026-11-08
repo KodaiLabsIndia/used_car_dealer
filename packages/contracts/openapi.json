@@ -1016,6 +1016,168 @@
         }
       }
     },
+    "/v1/routines": {
+      "get": {
+        "summary": "Board",
+        "operationId": "board_v1_routines_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "day",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Day"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoutineBoard"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/routines/{id}": {
+      "post": {
+        "summary": "Save",
+        "operationId": "save_v1_routines__id__post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaveRoutine"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoutineBoard"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/routines/{id}/steps": {
+      "post": {
+        "summary": "Step",
+        "operationId": "step_v1_routines__id__steps_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RoutineStepCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoutineBoard"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/checklists/manage": {
       "get": {
         "summary": "Managed Checklists",
@@ -11513,6 +11675,270 @@
         "required": ["commandId", "expectedVersion", "action", "terms"],
         "title": "RevisePurchase"
       },
+      "RoutineBoard": {
+        "properties": {
+          "today": {
+            "type": "string",
+            "format": "date",
+            "title": "Today"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/RoutineItem"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["today", "items"],
+        "title": "RoutineBoard"
+      },
+      "RoutineDefinition-Input": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 3,
+            "title": "Title"
+          },
+          "assignedTo": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Assignedto"
+          },
+          "weekdays": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "maxItems": 7,
+            "minItems": 1,
+            "title": "Weekdays"
+          },
+          "steps": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 20,
+            "minItems": 1,
+            "title": "Steps"
+          },
+          "active": {
+            "type": "boolean",
+            "title": "Active",
+            "default": true
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["title", "assignedTo", "weekdays", "steps"],
+        "title": "RoutineDefinition"
+      },
+      "RoutineDefinition-Output": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 3,
+            "title": "Title"
+          },
+          "assignedTo": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Assignedto"
+          },
+          "weekdays": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "maxItems": 7,
+            "minItems": 1,
+            "title": "Weekdays"
+          },
+          "steps": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 20,
+            "minItems": 1,
+            "title": "Steps"
+          },
+          "active": {
+            "type": "boolean",
+            "title": "Active",
+            "default": true
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["title", "assignedTo", "weekdays", "steps", "active"],
+        "title": "RoutineDefinition"
+      },
+      "RoutineEvent": {
+        "properties": {
+          "version": {
+            "type": "integer",
+            "title": "Version"
+          },
+          "step": {
+            "type": "integer",
+            "title": "Step"
+          },
+          "done": {
+            "type": "boolean",
+            "title": "Done"
+          },
+          "note": {
+            "type": "string",
+            "title": "Note"
+          },
+          "byName": {
+            "type": "string",
+            "title": "Byname"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Createdat"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["version", "step", "done", "note", "byName", "createdAt"],
+        "title": "RoutineEvent"
+      },
+      "RoutineItem": {
+        "properties": {
+          "templateVersion": {
+            "type": "integer",
+            "title": "Templateversion"
+          },
+          "currentDefinition": {
+            "$ref": "#/components/schemas/RoutineDefinition-Output"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "version": {
+            "type": "integer",
+            "title": "Version"
+          },
+          "definition": {
+            "$ref": "#/components/schemas/RoutineDefinition-Output"
+          },
+          "assigneeName": {
+            "type": "string",
+            "title": "Assigneename"
+          },
+          "workDate": {
+            "type": "string",
+            "format": "date",
+            "title": "Workdate"
+          },
+          "runVersion": {
+            "type": "integer",
+            "title": "Runversion"
+          },
+          "completedSteps": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Completedsteps"
+          },
+          "events": {
+            "items": {
+              "$ref": "#/components/schemas/RoutineEvent"
+            },
+            "type": "array",
+            "title": "Events"
+          },
+          "started": {
+            "type": "boolean",
+            "title": "Started"
+          },
+          "dueToday": {
+            "type": "boolean",
+            "title": "Duetoday"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "templateVersion",
+          "currentDefinition",
+          "id",
+          "version",
+          "definition",
+          "assigneeName",
+          "workDate",
+          "runVersion",
+          "completedSteps",
+          "events",
+          "started",
+          "dueToday"
+        ],
+        "title": "RoutineItem"
+      },
+      "RoutineStepCommand": {
+        "properties": {
+          "commandId": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Commandid"
+          },
+          "expectedVersion": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Expectedversion"
+          },
+          "definitionVersion": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Definitionversion"
+          },
+          "workDate": {
+            "type": "string",
+            "format": "date",
+            "title": "Workdate"
+          },
+          "step": {
+            "type": "integer",
+            "maximum": 19.0,
+            "minimum": 0.0,
+            "title": "Step"
+          },
+          "action": {
+            "type": "string",
+            "enum": ["done", "reopen"],
+            "title": "Action"
+          },
+          "note": {
+            "type": "string",
+            "maxLength": 500,
+            "title": "Note",
+            "default": ""
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "commandId",
+          "expectedVersion",
+          "definitionVersion",
+          "workDate",
+          "step",
+          "action"
+        ],
+        "title": "RoutineStepCommand"
+      },
       "SalaryPreview": {
         "properties": {
           "userId": {
@@ -11914,6 +12340,33 @@
           "occurredAt"
         ],
         "title": "SaleMoney"
+      },
+      "SaveRoutine": {
+        "properties": {
+          "commandId": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Commandid"
+          },
+          "expectedVersion": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Expectedversion"
+          },
+          "definition": {
+            "$ref": "#/components/schemas/RoutineDefinition-Input"
+          },
+          "reason": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 3,
+            "title": "Reason"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["commandId", "expectedVersion", "definition", "reason"],
+        "title": "SaveRoutine"
       },
       "Schedule-Input": {
         "properties": {

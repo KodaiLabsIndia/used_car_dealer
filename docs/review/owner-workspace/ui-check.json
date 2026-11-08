@@ -1,0 +1,16 @@
+{
+  "ownerPrimaryAreasVerified": true,
+  "dealershipLanesVerified": [
+    "garage",
+    "buying",
+    "preparation",
+    "selling",
+    "after-sales"
+  ],
+  "attendanceAndPayrollOpenFromPeople": true,
+  "employeeCannotManageRoutines": true,
+  "employeeLoggedTrainingStep": true,
+  "ownerObservedRoutineProgress": true,
+  "moneyPosted": false,
+  "companyOrPayPolicyChanged": false
+}

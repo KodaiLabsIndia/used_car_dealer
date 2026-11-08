@@ -122,12 +122,16 @@ export function SettingsScreen({ navigation }: ScreenProps<"Settings">) {
           <>
             <Button
               label={tr(
-                "Attendance & pay",
-                "हाज़िरी और वेतन",
-                "हजेरी आणि पगार",
+                supervisor ? "Employee management" : "Attendance & pay",
+                supervisor ? "कर्मचारी प्रबंधन" : "हाज़िरी और वेतन",
+                supervisor ? "कर्मचारी व्यवस्थापन" : "हजेरी आणि पगार",
               )}
               icon="time-outline"
-              onPress={() => navigation.navigate("Workforce")}
+              onPress={() =>
+                supervisor
+                  ? navigation.navigate("Home", { area: "people" })
+                  : navigation.navigate("Workforce")
+              }
             />
             {supervisor ? (
               <Button
@@ -190,12 +194,14 @@ export function SettingsScreen({ navigation }: ScreenProps<"Settings">) {
               <>
                 <Button
                   label={tr(
-                    "People & access",
-                    "लोग और प्रवेश",
-                    "लोक आणि प्रवेश",
+                    "Employee management",
+                    "कर्मचारी प्रबंधन",
+                    "कर्मचारी व्यवस्थापन",
                   )}
                   icon="people-outline"
-                  onPress={() => navigation.navigate("Team")}
+                  onPress={() =>
+                    navigation.navigate("Home", { area: "people" })
+                  }
                 />
                 <Button
                   secondary

@@ -424,7 +424,7 @@ export function StepHeader({
   );
 }
 
-function ChoiceModal({
+export function ChoiceModal({
   visible,
   title,
   onClose,

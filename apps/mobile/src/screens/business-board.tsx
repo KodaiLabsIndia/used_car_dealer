@@ -27,12 +27,13 @@ import { stageKeys } from "../components/garage-motion";
 
 export function BusinessBoardScreen({
   navigation,
+  route,
 }: ScreenProps<"BusinessBoard">) {
   const { api, language, t } = useApp(),
     hi = language === "hi";
   const [scope, setScope] = useState<
       "all" | "booked" | "support" | "attention"
-    >("attention"),
+    >(route.params?.scope ?? "attention"),
     [search, setSearch] = useState(""),
     [query, setQuery] = useState(""),
     [offset, setOffset] = useState(0);

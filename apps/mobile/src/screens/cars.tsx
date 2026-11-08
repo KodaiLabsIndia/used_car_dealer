@@ -26,11 +26,14 @@ import { useResource } from "../state/use-resource";
 import { stageKeys } from "../components/garage-motion";
 import { CardGrid } from "../components/layout";
 import { Button } from "../components/ui";
-export function CarsScreen({ navigation }: ScreenProps<"Cars">) {
+export function CarsScreen({ navigation, route }: ScreenProps<"Cars">) {
   const { api, t, language, session } = useApp(),
     [search, setSearch] = useState(""),
     [query, setQuery] = useState(""),
-    resource = useResource(`cars:${query}`, () => api.cars(query));
+    resource = useResource(
+      `cars:${query}:${route.params?.stage ?? "all"}`,
+      () => api.cars(query, route.params?.stage),
+    );
   return (
     <View style={{ flex: 1, backgroundColor: colors.surface }}>
       <GarageHeader back title={t("cars")} />
@@ -44,7 +47,9 @@ export function CarsScreen({ navigation }: ScreenProps<"Cars">) {
           />
         }
       >
-        <Text style={s.title}>{t("cars")}</Text>
+        <Text style={s.title}>
+          {route.params?.stage ? t(stageKeys[route.params.stage]) : t("cars")}
+        </Text>
         {session && can(session.actor, "intake") ? (
           <Button
             label={language === "hi" ? "गाड़ी जोड़ें" : "Bring a car in"}

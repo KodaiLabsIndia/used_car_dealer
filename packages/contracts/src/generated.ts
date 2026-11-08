@@ -328,6 +328,57 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  "/v1/routines": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Board */
+    get: operations["board_v1_routines_get"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/v1/routines/{id}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** Save */
+    post: operations["save_v1_routines__id__post"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/v1/routines/{id}/steps": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** Step */
+    post: operations["step_v1_routines__id__steps_post"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   "/v1/checklists/manage": {
     parameters: {
       query?: never;
@@ -4826,6 +4877,132 @@ export interface components {
       action: "revise";
       terms: components["schemas"]["PurchaseTerms-Input"];
     };
+    /** RoutineBoard */
+    RoutineBoard: {
+      /**
+       * Today
+       * Format: date
+       */
+      today: string;
+      /** Items */
+      items: components["schemas"]["RoutineItem"][];
+    };
+    /** RoutineDefinition */
+    "RoutineDefinition-Input": {
+      /** Title */
+      title: string;
+      /**
+       * Assignedto
+       * Format: uuid
+       */
+      assignedTo: string;
+      /** Weekdays */
+      weekdays: number[];
+      /** Steps */
+      steps: string[];
+      /**
+       * Active
+       * @default true
+       */
+      active: boolean;
+    };
+    /** RoutineDefinition */
+    "RoutineDefinition-Output": {
+      /** Title */
+      title: string;
+      /**
+       * Assignedto
+       * Format: uuid
+       */
+      assignedTo: string;
+      /** Weekdays */
+      weekdays: number[];
+      /** Steps */
+      steps: string[];
+      /**
+       * Active
+       * @default true
+       */
+      active: boolean;
+    };
+    /** RoutineEvent */
+    RoutineEvent: {
+      /** Version */
+      version: number;
+      /** Step */
+      step: number;
+      /** Done */
+      done: boolean;
+      /** Note */
+      note: string;
+      /** Byname */
+      byName: string;
+      /**
+       * Createdat
+       * Format: date-time
+       */
+      createdAt: string;
+    };
+    /** RoutineItem */
+    RoutineItem: {
+      /** Templateversion */
+      templateVersion: number;
+      currentDefinition: components["schemas"]["RoutineDefinition-Output"];
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
+      /** Version */
+      version: number;
+      definition: components["schemas"]["RoutineDefinition-Output"];
+      /** Assigneename */
+      assigneeName: string;
+      /**
+       * Workdate
+       * Format: date
+       */
+      workDate: string;
+      /** Runversion */
+      runVersion: number;
+      /** Completedsteps */
+      completedSteps: number[];
+      /** Events */
+      events: components["schemas"]["RoutineEvent"][];
+      /** Started */
+      started: boolean;
+      /** Duetoday */
+      dueToday: boolean;
+    };
+    /** RoutineStepCommand */
+    RoutineStepCommand: {
+      /**
+       * Commandid
+       * Format: uuid
+       */
+      commandId: string;
+      /** Expectedversion */
+      expectedVersion: number;
+      /** Definitionversion */
+      definitionVersion: number;
+      /**
+       * Workdate
+       * Format: date
+       */
+      workDate: string;
+      /** Step */
+      step: number;
+      /**
+       * Action
+       * @enum {string}
+       */
+      action: "done" | "reopen";
+      /**
+       * Note
+       * @default
+       */
+      note: string;
+    };
     /** SalaryPreview */
     SalaryPreview: {
       /**
@@ -5018,6 +5195,19 @@ export interface components {
        * Format: date-time
        */
       occurredAt: string;
+    };
+    /** SaveRoutine */
+    SaveRoutine: {
+      /**
+       * Commandid
+       * Format: uuid
+       */
+      commandId: string;
+      /** Expectedversion */
+      expectedVersion: number;
+      definition: components["schemas"]["RoutineDefinition-Input"];
+      /** Reason */
+      reason: string;
     };
     /** Schedule */
     "Schedule-Input": {
@@ -6872,6 +7062,107 @@ export interface operations {
           [name: string]: unknown;
         };
         content?: never;
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  board_v1_routines_get: {
+    parameters: {
+      query?: {
+        day?: string | null;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["RoutineBoard"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  save_v1_routines__id__post: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["SaveRoutine"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["RoutineBoard"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  step_v1_routines__id__steps_post: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["RoutineStepCommand"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["RoutineBoard"];
+        };
       };
       /** @description Validation Error */
       422: {

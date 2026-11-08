@@ -4,9 +4,17 @@ import type {
 } from "@react-navigation/native-stack";
 export type RootStack = {
   Workforce:
-    { userId?: string; section?: "attendance" | "leave" | "pay" } | undefined;
-  Home: { scope?: "all" | "mine" | "decisions" } | undefined;
-  Cars: undefined;
+    | { userId?: string; section?: "attendance" | "leave" | "pay" | "rules" }
+    | undefined;
+  Home:
+    | {
+        scope?: "all" | "mine" | "decisions" | undefined;
+        area?: "today" | "dealership" | "people" | "decisions" | undefined;
+      }
+    | undefined;
+  Work: { mine?: boolean } | undefined;
+  Routines: undefined;
+  Cars: { stage?: import("@arihant/contracts").Stage } | undefined;
   Car: { id: string };
   Task: { id: string };
   Scan: undefined;
@@ -20,9 +28,10 @@ export type RootStack = {
   Purchases: undefined;
   Purchase: { carId: string };
   Business: { carId: string };
-  BusinessBoard: undefined;
+  BusinessBoard:
+    { scope?: "all" | "booked" | "support" | "attention" } | undefined;
   ServiceFinance: { jobId: string };
-  Enquiries: undefined;
+  Enquiries: { kind?: "buyer" | "seller" } | undefined;
   Enquiry: { id: string };
   Stock: { carId: string };
   Clips: { taskId: string; itemId: string; initialView?: "saved" | "add" };

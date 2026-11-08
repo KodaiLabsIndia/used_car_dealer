@@ -153,3 +153,7 @@ export type SalaryPreviewParity = Assert<
 export type DecisionItemParity = Assert<
   Equal<import("./index").DecisionItem, Schema["DecisionItem"]>
 >;
+
+export type RoutineBoardParity = Assert<
+  Equal<import("./routines").RoutineBoard, Schema["RoutineBoard"]>
+>;

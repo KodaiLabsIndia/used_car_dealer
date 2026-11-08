@@ -8,6 +8,8 @@ The responsive review now covers shared actions, forms, cards, tabs, full-check 
 
 ## Working implementation
 
+The [owner workspace](docs/OWNER_WORKSPACE.md) groups Today, Dealership, People and Decisions, with attendance/payroll/routines inside employee management and focused buying/preparation/selling/support destinations. Daily routines have named assignment, repeat days, immutable started-day snapshots and logged completion/reopening.
+
 The [SBOSS attendance/payroll port](docs/SBOSS_IMPORT.md) adds team attendance, saved shifts, optional foreground location/photos, paid-time review, leave/holidays, effective-dated pay, salary advances/recovery, issued statements, payments/corrections and workforce items in the shared Decisions queue. Owners must configure agreed pay and company rules before operational use. The new mobile workspace has English/Hindi/Marathi labels; wider app translation and device acceptance remain open.
 
 The [company configuration batch](docs/review/company-configuration/README.md) adds the confirmed two-tier approval policy, rich owner checklist rules, reviewed-document requirements and per-sale warranty configuration. Marathi foundations are connected; complete translation and voice/staff acceptance remain open.

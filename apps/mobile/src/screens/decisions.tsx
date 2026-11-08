@@ -2,7 +2,7 @@ import { formatDateTime } from "../components/date-format";
 import React, { useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import type { DecisionItem } from "@arihant/contracts";
-import type { ScreenProps } from "../navigation";
+import type { Navigation, ScreenProps } from "../navigation";
 import { useApp } from "../state/app-context";
 import { useResource } from "../state/use-resource";
 import { Workspace, FocusPage } from "../components/workspace";
@@ -32,29 +32,7 @@ export function DecisionsScreen({ navigation }: ScreenProps<"Decisions">) {
     hi = language === "hi",
     [offset, setOffset] = useState(0),
     resource = useResource(`decisions:${offset}`, () => api.decisions(offset));
-  function open(v: DecisionItem) {
-    if (v.targetType === "workforce")
-      navigation.navigate("Workforce", {
-        userId: v.targetId,
-        section:
-          v.kind === "workforce_leave"
-            ? "leave"
-            : v.kind === "workforce_advance"
-              ? "pay"
-              : "attendance",
-      });
-    else if (v.targetType === "task")
-      navigation.navigate("Task", { id: v.targetId });
-    else if (v.targetType === "purchase")
-      navigation.navigate("Purchase", { carId: v.targetId });
-    else if (v.targetType === "service_finance")
-      navigation.navigate("ServiceFinance", { jobId: v.targetId });
-    else if (v.targetType === "documents")
-      navigation.navigate("Documents", { carId: v.targetId });
-    else if (v.targetType === "stock")
-      navigation.navigate("Stock", { carId: v.targetId });
-    else navigation.navigate("Business", { carId: v.targetId });
-  }
+
   return (
     <Workspace
       title={hi ? "सभी बाकी फैसले" : "All pending decisions"}
@@ -105,7 +83,7 @@ export function DecisionsScreen({ navigation }: ScreenProps<"Decisions">) {
             <Text style={s.muted}>{formatDateTime(v.createdAt, language)}</Text>
             <Button
               label={hi ? "देखें और फैसला लें" : "Open & review"}
-              onPress={() => open(v)}
+              onPress={() => openDecision(navigation, v)}
             />
           </Panel>
         ))}
@@ -121,4 +99,31 @@ export function DecisionsScreen({ navigation }: ScreenProps<"Decisions">) {
       </FocusPage>
     </Workspace>
   );
+}
+
+export function openDecision(
+  navigation: Pick<Navigation, "navigate">,
+  v: DecisionItem,
+) {
+  if (v.targetType === "workforce")
+    navigation.navigate("Workforce", {
+      userId: v.targetId,
+      section:
+        v.kind === "workforce_leave"
+          ? "leave"
+          : v.kind === "workforce_advance"
+            ? "pay"
+            : "attendance",
+    });
+  else if (v.targetType === "task")
+    navigation.navigate("Task", { id: v.targetId });
+  else if (v.targetType === "purchase")
+    navigation.navigate("Purchase", { carId: v.targetId });
+  else if (v.targetType === "service_finance")
+    navigation.navigate("ServiceFinance", { jobId: v.targetId });
+  else if (v.targetType === "documents")
+    navigation.navigate("Documents", { carId: v.targetId });
+  else if (v.targetType === "stock")
+    navigation.navigate("Stock", { carId: v.targetId });
+  else navigation.navigate("Business", { carId: v.targetId });
 }

@@ -94,13 +94,14 @@ This creates artifacts/ArihantCars-internal-preview.apk with JavaScript included
 ## Attendance and payroll
 
 The [SBOSS-derived workforce module](docs/SBOSS_IMPORT.md) uses existing Arihant
-accounts. Open **Attendance & pay** from Home or Settings → Work tools. Owner
+accounts. Owners open **People → Attendance / Payroll**; employees open
+**My attendance & pay** from Home or Settings → Work tools. Owner
 configures company shifts, holidays, photo/location rules and each person’s agreed
 pay. Employees punch and view their own leave/pay; Owner/Supervisor reviews team
 requests and salary. The management website includes the same workforce records
 and financial workflows. New workforce decisions appear in the existing queue.
 
-Apply all migrations (through **0023**) and rebuild the native preview/development
+Apply all migrations (through **0024**) and rebuild the native preview/development
 client for the foreground location module. Attendance uses server time and stays
 online; uncertain departures are reviewed rather than assigned invented hours.
 The app records external salary payments and does not initiate transfers.
@@ -135,3 +136,11 @@ apps/api/.venv/bin/python scripts/rehearse-restore.py --synthetic
 It needs Docker/PostgreSQL and creates private dump/media output in .data/backups. It does not configure production backup scheduling or retention.
 
 The header logo's optional five-tap Night Drive is an owner Easter egg. Essential actions use visible controls. Reduced motion is respected. The first spatial inspection interaction is implemented inside the real task flow; further service/review interactions remain on the checklist.
+
+
+The [owner workspace](docs/OWNER_WORKSPACE.md) groups Today, Dealership, People
+and Decisions. Open **People** for employee management, attendance, payroll,
+leave and daily routines. Buying, preparation, selling and after-sales sit within
+**Dealership**. Daily routines support named assignment, repeat-day presets,
+logged steps, reasoned reopening and saved history; no routine is silently
+completed or converted into a salary deduction.

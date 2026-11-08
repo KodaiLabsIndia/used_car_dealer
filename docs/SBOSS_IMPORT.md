@@ -99,7 +99,8 @@ silently charged to one car's cost ledger.
 
 ## Where to use it
 
-Mobile: **Home → Attendance & pay**, or **Settings → Work tools → Attendance & pay**.
+Owner mobile: **Home → People → Attendance / Payroll / Daily routines**.
+Employee mobile: **Home → My attendance & pay / My daily routines**.
 Tabs are Attendance, Leave, Pay, and owner-only Rules. Owners select a person or
 use the team attendance cards. Rules configure the standard shift, holidays,
 leave allowance and optional GPS/photo requirements. Pay configures the selected
@@ -116,16 +117,17 @@ remains a release dependency.
 
 ## Other SBOSS features that fit Arihant
 
-These are follow-up candidates, rather than additions bundled into this port.
+The [owner workspace follow-up](OWNER_WORKSPACE.md) now adds initial daily routines.
+The remaining candidates and extensions are listed below.
 
 | Priority | Feature | Dealer use and integration |
 | --- | --- | --- |
 | 1 | Field visits | Seller inspections, workshop visits and RTO/document runs. Link arrival/finish evidence to a car/job; visits stay separate from attendance and salary. |
-| 2 | Recurring and quick tasks | Yard opening/closing, cleaning, battery/tyre checks and ageing-stock care. Reuse Arihant's tasks, proof capture and owner decision queue. |
+| 2 | Recurring and quick tasks | Initial assigned daily routines and saved step history are implemented. Extend with scheduled missed-work history, evidence capture, ad-hoc requests and additional cadence types. |
 | 3 | Employee expenses/reimbursements | Fuel, tolls, parts pickup and document fees. Attach the car/job and reviewed receipt, then feed the existing exact-paise expense/payment trail without double-counting payroll. |
 | 4 | QR work points and asset expiry | Yard bays, key cabinet, inspection stations and workshop equipment. Combine with current car QR and document/reminder infrastructure. |
 | 5 | Guided help and audio | Reuse the patterns for short visual steps and spoken help, restricted to Arihant's English/Hindi/Marathi scope. Validate with the representative employees. |
 
-The strongest next import is field visits plus recurring yard work. These directly
+The strongest next import is field visits plus the remaining yard-work extensions. These directly
 fill Arihant's outside-work and ongoing-stock-care gaps without adding another
 account tier or a marketing dependency.

@@ -32,6 +32,7 @@ from app.adapters.notifications import NotificationStore
 from app.adapters.operations import OperationsStore, rows
 from app.adapters.purchases import PurchaseStore
 from app.adapters.reports import ReportStore
+from app.adapters.routines import RoutineStore
 from app.adapters.service_finance import ServiceFinanceStore
 from app.adapters.stock import StockStore
 from app.adapters.video import VideoStore
@@ -71,6 +72,7 @@ from app.http.identity import mount_identity
 from app.http.notifications import mount_notifications
 from app.http.purchases import mount_purchases
 from app.http.reports import mount_reports
+from app.http.routines import mount_routines
 from app.http.service_finance import mount_service_finance
 from app.http.stock import mount_stock
 from app.http.video import mount_video
@@ -197,6 +199,7 @@ def create_app(settings: Settings | None = None, engine: Engine | None = None) -
     mount_notifications(app, authenticated, NotificationStore(database))
     workflow_store = WorkflowStore(store)
     mount_workforce(app, authenticated, WorkforceStore(workflow_store, settings.media_path))
+    mount_routines(app, authenticated, RoutineStore(workflow_store))
     mount_checklists(app, authenticated, ChecklistStore(store))
     mount_catalogue(app, authenticated, CatalogueStore(database))
     mount_workflows(app, authenticated, workflow_store, WorkshopService(workflow_store))

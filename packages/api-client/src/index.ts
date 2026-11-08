@@ -84,7 +84,35 @@ export class ApiError extends Error {
     super(message);
   }
 }
+import {
+  routineBoardSchema,
+  type SaveRoutine,
+  type RoutineStepCommand,
+} from "@arihant/contracts";
 export class ApiClient {
+  async routines(day?: string) {
+    return routineBoardSchema.parse(
+      await this.request(
+        `/routines${day ? `?day=${encodeURIComponent(day)}` : ""}`,
+      ),
+    );
+  }
+  async saveRoutine(id: string, body: SaveRoutine) {
+    return routineBoardSchema.parse(
+      await this.request(`/routines/${id}`, {
+        method: "POST",
+        body: JSON.stringify(body),
+      }),
+    );
+  }
+  async routineStep(id: string, body: RoutineStepCommand) {
+    return routineBoardSchema.parse(
+      await this.request(`/routines/${id}/steps`, {
+        method: "POST",
+        body: JSON.stringify(body),
+      }),
+    );
+  }
   async vehicleCatalogue(query = "", offset = 0) {
     return cataloguePageSchema.parse(
       await this.request(
@@ -259,10 +287,15 @@ export class ApiClient {
       }),
     );
   }
-  async enquiries(scope: "all" | "mine" | "due", search = "", offset = 0) {
+  async enquiries(
+    scope: "all" | "mine" | "due",
+    search = "",
+    offset = 0,
+    kind?: "buyer" | "seller",
+  ) {
     return enquiriesSchema.parse(
       await this.request(
-        `/enquiries?scope=${scope}&search=${encodeURIComponent(search)}&limit=30&offset=${offset}`,
+        `/enquiries?scope=${scope}&search=${encodeURIComponent(search)}&limit=30&offset=${offset}${kind ? `&kind=${kind}` : ""}`,
       ),
     );
   }

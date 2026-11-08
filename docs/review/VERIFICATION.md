@@ -5,12 +5,12 @@ These are local development results, not full-release acceptance. The initial re
 | Check | Latest result |
 | --- | --- |
 | npm run check | Passed: Ruff, native literal-text placement lint, TypeScript in all client workspaces, 14 Python domain/architecture tests and 13 mobile logic tests |
-| npm run test:integration | **105 passed** against real PostgreSQL in isolated random schemas; includes the existing car workflows and 25 new attendance/payroll API and calculation cases |
+| npm run test:integration | **110 passed** against real PostgreSQL in isolated random schemas; includes the existing car workflows 25 attendance/payroll API and calculation cases, and five staff-routine scenarios |
 | Contracts | Python OpenAPI regenerated; shared validators/generated types pass compile-time parity |
 | Android native | Development and bundled internal-preview APKs built/installed; local Media3 module compiles; camera/mic/import/720p preparation, native document upload and verified video upload exercised |
 | iOS source | Swift syntax parses; no native compile/device run because full Xcode is absent |
 | JavaScript/web bundles | Android/iOS Expo exports and Vite build passed, including final mobile source changes |
-| Migration | Local Alembic schema is at 0023; clean-schema integration tests apply all 23 SQL migrations |
+| Migration | Local Alembic schema is at 0024; clean-schema integration tests apply all 24 SQL migrations |
 | Restore rehearsal | Source left intact; isolated restored DB dropped; 18 table content digests and 32 referenced private files matched |
 | Dependency advisory check | 8 findings: 5 low, 3 high, through Expo/development tooling; none critical; no forced incompatible override applied |
 
@@ -46,7 +46,7 @@ The [internal preview](../../artifacts/ArihantCars-internal-preview.apk) include
 
 Native spatial integration exposed two compatibility defects that were corrected: Metro now resolves Three's browser ESM entry instead of its Node-oriented CommonJS entry, and a reproducible Expo config plugin keeps Expo GL's native constructors in optimized Android builds. R8 remains enabled. These fixes were exercised in an installed bundled preview; a JavaScript-only export would not catch the constructor failure.
 
-Both APKs include the native Expo GL library. The latest preview also includes foreground location and the workforce workspace, with all 78 bundled mobile runtime sources matching the working tree. The development client loads JavaScript through Metro; its older artifact does not include attendance location. See the latest [source comparison](workforce/bundled-source-verification.json) and [artifact fingerprints](android/build-manifest.json).
+Both APKs include the native Expo GL library. The latest preview also includes foreground location and the workforce workspace, with all 80 bundled mobile runtime sources matching the working tree. The development client loads JavaScript through Metro; its older artifact does not include attendance location. See the latest [source comparison](owner-workspace/bundled-source-verification.json) and [artifact fingerprints](android/build-manifest.json).
 
 The selected date survived a development-to-preview APK update. [Build manifest](android/build-manifest.json) records artifact size, SHA-256, package/version, ARM64 architecture and minimum/target SDK. The [launcher](android/preview-launcher.png) and [corrected ready camera](android/preview-camera-ready.png) were checked in the installed preview. These APKs still need the configured development backend.
 
@@ -96,3 +96,23 @@ were reviewed. No pay terms, company policies or financial records were posted
 during this interface review. API tests exercise the financial workflows against
 isolated PostgreSQL schemas. This remains local development verification; native
 iOS/iPad, physical devices, actual business rules and staff acceptance are open.
+
+
+## 8 November: owner hierarchy and daily routines
+
+The Expo owner workspace now groups Today, Dealership, People and Decisions.
+Attendance, payroll, leave, accounts, staff rules and daily routines sit within
+employee management. Buying, preparation, selling and after-sales open focused
+workflows with their real queue filters. The existing animated car journey is
+confined to Garage. See [structure and scope](../OWNER_WORKSPACE.md) and
+[review evidence](owner-workspace/README.md).
+
+The full PostgreSQL suite passed **110 tests**, including five daily-routine
+scenarios. Existing lint/types, 14 Python and 13 mobile logic tests, formatting,
+web build and Android preview build passed. All 24 migrations were applied
+locally; 80 current mobile runtime sources match the final bundled preview.
+
+The owner hierarchy passed two-emulator interaction checks, with a real training
+step appearing in the owner view. Routine draft restoration and a training-only
+mobile revision save passed. Owner layouts were reviewed at normal/150%/200% text
+and tablet portrait/landscape sizes; original display settings were restored.

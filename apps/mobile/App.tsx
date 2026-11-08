@@ -22,7 +22,8 @@ import { colors } from "@arihant/design-tokens";
 import { AppProvider, useApp } from "./src/state/app-context";
 import type { RootStack } from "./src/navigation";
 import { LoginScreen } from "./src/screens/login";
-import { HomeScreen } from "./src/screens/home";
+import { RoutinesScreen } from "./src/screens/routines";
+import { HomeScreen, WorkScreen } from "./src/screens/home";
 import { CarsScreen } from "./src/screens/cars";
 import { CarScreen } from "./src/screens/car";
 import { TaskScreen } from "./src/screens/task";
@@ -101,6 +102,8 @@ function AuthenticatedRoutes({ ownerId }: { ownerId: string }) {
         />
         <Stack.Screen name="Checklists" component={ChecklistsScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Work" component={WorkScreen} />
+        <Stack.Screen name="Routines" component={RoutinesScreen} />
         <Stack.Screen name="Cars" component={CarsScreen} />
         <Stack.Screen name="Car" component={CarScreen} />
         <Stack.Screen name="Task" component={TaskScreen} />

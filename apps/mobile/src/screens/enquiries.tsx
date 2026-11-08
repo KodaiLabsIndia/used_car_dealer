@@ -41,19 +41,25 @@ type Payload = EnquiryCommand extends infer C
     ? Omit<C, "commandId" | "expectedVersion">
     : never
   : never;
-export function EnquiriesScreen({ navigation }: ScreenProps<"Enquiries">) {
+export function EnquiriesScreen({
+  navigation,
+  route,
+}: ScreenProps<"Enquiries">) {
   const { api, session, language, changed } = useApp(),
     hi = language === "hi",
     tr = (en: string, hindi: string) => (hi ? hindi : en),
     admin = can(session!.actor, "lead_admin");
-  const [scope, setScope] = useState<"due" | "mine" | "all">("due"),
+  const [scope, setScope] = useState<"due" | "mine" | "all">(
+      route.params?.kind ? "all" : "due",
+    ),
     [query, setQuery] = useState(""),
     [search, setSearch] = useState(""),
     [offset, setOffset] = useState(0),
     [adding, setAdding] = useState(false),
     [busy, setBusy] = useState(false);
-  const resource = useResource(`enquiries:${scope}:${search}:${offset}`, () =>
-      api.enquiries(scope, search, offset),
+  const resource = useResource(
+      `enquiries:${scope}:${search}:${offset}:${route.params?.kind ?? "any"}`,
+      () => api.enquiries(scope, search, offset, route.params?.kind),
     ),
     people = useResource(`lead-people:${admin}`, () =>
       admin ? api.people() : Promise.resolve([]),
@@ -61,7 +67,7 @@ export function EnquiriesScreen({ navigation }: ScreenProps<"Enquiries">) {
   const personOptions =
     people.data?.map((p) => ({ id: p.id, label: p.name })) ?? [];
   const spec: BusinessFormSpec = {
-    key: "new-enquiry",
+    key: `new-enquiry:${route.params?.kind ?? "any"}`,
     title: tr("New enquiry", "नई पूछताछ"),
     submitLabel: tr("Save enquiry", "पूछताछ सेव करें"),
     steps: [
@@ -72,7 +78,7 @@ export function EnquiriesScreen({ navigation }: ScreenProps<"Enquiries">) {
             key: "kind",
             label: tr("Buying or selling?", "खरीदना या बेचना?"),
             kind: "select",
-            initial: "buyer",
+            initial: route.params?.kind ?? "buyer",
             options: [
               { id: "buyer", label: tr("Wants to buy", "खरीदना चाहते हैं") },
               { id: "seller", label: tr("Wants to sell", "बेचना चाहते हैं") },
@@ -121,7 +127,13 @@ export function EnquiriesScreen({ navigation }: ScreenProps<"Enquiries">) {
   };
   return (
     <Workspace
-      title={tr("Buyer & seller enquiries", "खरीदार और विक्रेता पूछताछ")}
+      title={
+        route.params?.kind === "seller"
+          ? tr("Seller enquiries", "विक्रेता पूछताछ")
+          : route.params?.kind === "buyer"
+            ? tr("Buyer enquiries", "खरीदार पूछताछ")
+            : tr("Buyer & seller enquiries", "खरीदार और विक्रेता पूछताछ")
+      }
       selected={scope}
       busy={busy || adding}
       onChange={(v) => {

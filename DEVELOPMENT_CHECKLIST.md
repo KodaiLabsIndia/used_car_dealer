@@ -428,3 +428,12 @@ translation, voice coverage and staff acceptance remain open. See the
 
 See [the port and further reuse candidates](docs/SBOSS_IMPORT.md) and workforce
 review evidence. This implementation does not close the existing full-release gates.
+
+### 8 November — owner workspace and staff routines
+
+- [x] OWN-01 Group owner navigation into Today, Dealership, People and Decisions, with adaptive tablet sidebar.
+- [x] OWN-02 Put attendance, payroll, leave, accounts, rules and daily routines within employee management.
+- [x] OWN-03 Group buying, preparation, selling and after-sales; pass real queue filters to focused pages.
+- [x] OWN-04 Add assigned daily routine templates, repeat-day presets, pause/edit revisions, self-only completion and append-only started-day history.
+- [ ] OWN-05 Extend routine scheduling to historical unstarted occurrences, media proofs, ad-hoc work and more cadences.
+- [ ] OWN-06 Owner/staff comprehension and physical phone/tablet/iOS acceptance of the reorganized app.
