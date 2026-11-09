@@ -1,3 +1,4 @@
+import { uxText } from "../state/ux-copy";
 import { formatDateTime } from "../components/date-format";
 import React, { useState } from "react";
 import { ActivityIndicator, Alert, View } from "react-native";
@@ -23,7 +24,7 @@ type Payload = StockCommand extends infer C
 export function StockScreen({ route }: ScreenProps<"Stock">) {
   const { api, session, language, changed } = useApp(),
     hi = language === "hi",
-    tr = (en: string, hindi: string) => (hi ? hindi : en),
+    tr = (en: string, hindi: string) => uxText(language, en, hindi),
     coordinator = can(session!.actor, "service"),
     reviewer = can(session!.actor, "review_inspection");
   const resource = useResource(`stock:${route.params.carId}`, () =>
@@ -254,7 +255,9 @@ export function StockScreen({ route }: ScreenProps<"Stock">) {
         { ...payload, expectedVersion: version },
         (body) => api.stockCommand(route.params.carId, body as StockCommand),
       );
-      changed();
+      changed(
+        uxText(language, "Car record updated", "गाड़ी की नोंद अपडेट हुई"),
+      );
       setForm(null);
       return true;
     } catch (e) {
@@ -272,7 +275,8 @@ export function StockScreen({ route }: ScreenProps<"Stock">) {
         ) : undefined
       }
       selected={section}
-      busy={busy || !!form}
+      busy={busy}
+      sectionLocked={!!form}
       onChange={setSection}
       items={[
         {

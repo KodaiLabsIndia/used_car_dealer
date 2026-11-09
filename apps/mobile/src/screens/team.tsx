@@ -1,3 +1,4 @@
+import { uxText } from "../state/ux-copy";
 import { workingLevel } from "../application/access";
 import React, { useState } from "react";
 import { ActivityIndicator, Alert, View } from "react-native";
@@ -17,6 +18,7 @@ export function TeamScreen({ navigation }: ScreenProps<"Team">) {
     hi = language === "hi";
   const resource = useResource("team", () => api.team());
   const [section, setSection] = useState<"people" | "add" | "login">("people"),
+    [search, setSearch] = useState(""),
     [name, setName] = useState(""),
     [username, setUsername] = useState(""),
     [secret, setSecret] = useState(""),
@@ -27,7 +29,7 @@ export function TeamScreen({ navigation }: ScreenProps<"Team">) {
   const [roles, setRoles] = useState<StaffLevel[]>(["inspector"]);
   const [rolesFor, setRolesFor] = useState<Member | null>(null);
   const [resetFor, setResetFor] = useState<Member | null>(null);
-  const tr = (en: string, hindi: string) => (hi ? hindi : en);
+  const tr = (en: string, hindi: string) => uxText(language, en, hindi);
   async function create() {
     setBusy(true);
     setError("");
@@ -72,7 +74,7 @@ export function TeamScreen({ navigation }: ScreenProps<"Team">) {
           "पहचान सेव हुई। अस्थायी पासवर्ड उस व्यक्ति को सीधे बताएँ; पहले प्रवेश पर इसे बदलना होगा।",
         ),
       );
-      changed();
+      changed(uxText(language, "Staff account saved", "कर्मचारी खाता सेव हुआ"));
     } catch (e) {
       setError((e as Error).message);
     } finally {
@@ -100,7 +102,15 @@ export function TeamScreen({ navigation }: ScreenProps<"Team">) {
                 name: member.name,
                 active: !member.active,
               })
-              .then(() => changed())
+              .then(() =>
+                changed(
+                  uxText(
+                    language,
+                    "Staff access updated",
+                    "कर्मचारी की पहुँच अपडेट हुई",
+                  ),
+                ),
+              )
               .catch((e) => setError((e as Error).message))
               .finally(() => setBusy(false));
           },
@@ -224,83 +234,119 @@ export function TeamScreen({ navigation }: ScreenProps<"Team">) {
             />
           </>
         ) : section === "people" ? (
-          <CardGrid>
-            {resource.data?.items.map((member) => (
-              <Panel key={member.id} style={{ gap: 12 }}>
-                <View style={[s.row, { justifyContent: "space-between" }]}>
-                  <Text style={{ fontSize: 20, fontWeight: "600", flex: 1 }}>
-                    {member.name}
-                  </Text>
-                  <Pill
-                    label={
-                      member.role === "owner"
-                        ? tr("Owner", "मालिक")
-                        : member.active
-                          ? tr("Active", "सक्रिय")
-                          : tr("Inactive", "बंद")
-                    }
-                    warning={!member.active}
-                  />
-                </View>
-                <Text style={s.muted}>
-                  {member.username ??
-                    tr(
-                      "Training identity · no individual login",
-                      "ट्रेनिंग पहचान · व्यक्तिगत प्रवेश नहीं",
-                    )}
-                  {member.mustChangeSecret
-                    ? ` · ${tr("Password change required", "पासवर्ड बदलना होगा")}`
-                    : ""}
-                </Text>
-                {member.role !== "owner" ? (
-                  <>
-                    <Text style={s.muted}>
-                      {workingLevel(member) === "supervisor"
-                        ? tr("Supervisor", "सुपरवाइज़र")
-                        : tr("Employee", "कर्मचारी")}
-                    </Text>
-                    <Button
-                      secondary
-                      disabled={busy}
-                      label={tr("Responsibilities", "ज़िम्मेदारियाँ")}
-                      onPress={() => {
-                        setRolesFor(member);
-                        setRoles([
-                          workingLevel(member) === "supervisor"
-                            ? "supervisor"
-                            : "inspector",
-                        ]);
-                        setCommandId(randomUUID());
-                        setSecret("");
-                      }}
-                    />
-                    <Button
-                      secondary
-                      disabled={busy}
-                      label={
-                        member.active
-                          ? tr("Deactivate", "बंद करें")
-                          : tr("Reactivate", "फिर खोलें")
-                      }
-                      onPress={() => setActive(member)}
-                    />
-                    {member.username ? (
-                      <Button
-                        secondary
-                        disabled={busy}
-                        label={tr("Reset password", "पासवर्ड बदलें")}
-                        onPress={() => {
-                          setResetFor(member);
-                          setSecret("");
-                          setCommandId(randomUUID());
-                        }}
+          <>
+            <Field
+              label={
+                language === "mr"
+                  ? "कर्मचारी शोधा"
+                  : hi
+                    ? "कर्मचारी खोजें"
+                    : "Find staff"
+              }
+              value={search}
+              onChangeText={setSearch}
+              autoCorrect={false}
+            />
+            <CardGrid>
+              {resource.data?.items
+                .filter((member) =>
+                  `${member.name} ${member.username ?? ""}`
+                    .toLocaleLowerCase()
+                    .includes(search.trim().toLocaleLowerCase()),
+                )
+                .map((member) => (
+                  <Panel key={member.id} style={{ gap: 12 }}>
+                    <View style={[s.row, { justifyContent: "space-between" }]}>
+                      <Text
+                        style={{ fontSize: 20, fontWeight: "600", flex: 1 }}
+                      >
+                        {member.name}
+                      </Text>
+                      <Pill
+                        label={
+                          member.role === "owner"
+                            ? tr("Owner", "मालिक")
+                            : member.active
+                              ? tr("Active", "सक्रिय")
+                              : tr("Inactive", "बंद")
+                        }
+                        warning={!member.active}
                       />
+                    </View>
+                    <Text style={s.muted}>
+                      {member.username ??
+                        tr(
+                          "Training identity · no individual login",
+                          "ट्रेनिंग पहचान · व्यक्तिगत प्रवेश नहीं",
+                        )}
+                      {member.mustChangeSecret
+                        ? ` · ${tr("Password change required", "पासवर्ड बदलना होगा")}`
+                        : ""}
+                    </Text>
+                    {member.role !== "owner" ? (
+                      <>
+                        <Text style={s.muted}>
+                          {workingLevel(member) === "supervisor"
+                            ? tr("Supervisor", "सुपरवाइज़र")
+                            : tr("Employee", "कर्मचारी")}
+                        </Text>
+                        <Button
+                          secondary
+                          disabled={busy}
+                          label={tr("Responsibilities", "ज़िम्मेदारियाँ")}
+                          onPress={() => {
+                            setRolesFor(member);
+                            setRoles([
+                              workingLevel(member) === "supervisor"
+                                ? "supervisor"
+                                : "inspector",
+                            ]);
+                            setCommandId(randomUUID());
+                            setSecret("");
+                          }}
+                        />
+                        <Button
+                          secondary
+                          disabled={busy}
+                          label={
+                            member.active
+                              ? tr("Deactivate", "बंद करें")
+                              : tr("Reactivate", "फिर खोलें")
+                          }
+                          onPress={() => setActive(member)}
+                        />
+                        {member.username ? (
+                          <Button
+                            secondary
+                            disabled={busy}
+                            label={tr("Reset password", "पासवर्ड बदलें")}
+                            onPress={() => {
+                              setResetFor(member);
+                              setSecret("");
+                              setCommandId(randomUUID());
+                            }}
+                          />
+                        ) : null}
+                      </>
                     ) : null}
-                  </>
-                ) : null}
-              </Panel>
-            ))}
-          </CardGrid>
+                  </Panel>
+                ))}
+            </CardGrid>
+            {resource.data &&
+            !resource.data.items.some((member) =>
+              `${member.name} ${member.username ?? ""}`
+                .toLocaleLowerCase()
+                .includes(search.trim().toLocaleLowerCase()),
+            ) ? (
+              <Text style={s.muted}>
+                {language === "mr"
+                  ? "जुळणारा कर्मचारी नाही. शोध बदला."
+                  : hi
+                    ? "कर्मचारी नहीं मिला। खोज बदलें।"
+                    : "No matching staff. Try another search."}
+              </Text>
+            ) : null}
+          </>
         ) : section === "login" && own?.username ? (
           <Panel style={{ gap: 15 }}>
             <Text>{own.username}</Text>

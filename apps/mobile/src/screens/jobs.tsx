@@ -1,10 +1,11 @@
+import { uxText } from "../state/ux-copy";
 import { can } from "../application/access";
 import React, { useState } from "react";
 import { ActivityIndicator, RefreshControl, View } from "react-native";
 import type { ScreenProps } from "../navigation";
 import { ContentScroll, CardGrid } from "../components/layout";
 import { GarageHeader } from "../components/header";
-import { Choice } from "../components/forms";
+import { Choice, Field } from "../components/forms";
 import { JobCard } from "../components/job-card";
 import { Button, ErrorNotice, Text, s } from "../components/ui";
 import { useApp } from "../state/app-context";
@@ -13,10 +14,27 @@ export function JobsScreen({ navigation }: ScreenProps<"Jobs">) {
   const { api, language, session } = useApp(),
     hi = language === "hi",
     resource = useResource("jobs", () => api.jobs());
-  const [showDone, setShowDone] = useState(false);
+  const [showDone, setShowDone] = useState(false),
+    [search, setSearch] = useState("");
+  const visible = resource.data?.filter(
+    (job) =>
+      (showDone || job.status !== "completed") &&
+      [
+        job.car.make,
+        job.car.model,
+        job.car.registration,
+        job.title,
+        job.assigneeName,
+        job.workshopName,
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .toLocaleLowerCase()
+        .includes(search.trim().toLocaleLowerCase()),
+  );
   return (
     <View style={{ flex: 1 }}>
-      <GarageHeader back title={hi ? "सर्विस" : "Service bay"} />
+      <GarageHeader back title={uxText(language, "Service bay", "सर्विस")} />
       <ContentScroll
         refreshControl={
           <RefreshControl
@@ -29,20 +47,34 @@ export function JobsScreen({ navigation }: ScreenProps<"Jobs">) {
         <Text style={s.title}>
           {language === "mr"
             ? "दुरुस्तीची कामे"
-            : hi
-              ? "मरम्मत के काम"
-              : "Repair work"}
+            : uxText(language, "Repair work", "मरम्मत के काम")}
         </Text>
         {session && can(session.actor, "service") ? (
           <Button
-            label={hi ? "वर्कशॉप" : "Workshops"}
+            label={uxText(language, "Workshops", "वर्कशॉप")}
             icon="construct-outline"
             secondary
             onPress={() => navigation.navigate("Workshops")}
           />
         ) : null}
+        <Field
+          label={
+            language === "mr"
+              ? "गाडी, कर्मचारी किंवा वर्कशॉप शोधा"
+              : hi
+                ? "गाड़ी, कर्मचारी या वर्कशॉप खोजें"
+                : "Find car, person or workshop"
+          }
+          value={search}
+          onChangeText={setSearch}
+          autoCorrect={false}
+        />
         <Choice
-          label={hi ? "पूरे हुए काम भी दिखाएँ" : "Include completed work"}
+          label={uxText(
+            language,
+            "Include completed work",
+            "पूरे हुए काम भी दिखाएँ",
+          )}
           selected={showDone}
           onPress={() => setShowDone((v) => !v)}
           icon="checkmark-done-outline"
@@ -51,9 +83,11 @@ export function JobsScreen({ navigation }: ScreenProps<"Jobs">) {
           <ErrorNotice
             message={
               resource.offline
-                ? hi
-                  ? "सहेजा हुआ डेटा · ऑफ़लाइन"
-                  : "Saved data · offline"
+                ? uxText(
+                    language,
+                    "Saved data · offline",
+                    "सहेजा हुआ डेटा · ऑफ़लाइन",
+                  )
                 : resource.error
             }
             retry={resource.refresh}
@@ -63,21 +97,28 @@ export function JobsScreen({ navigation }: ScreenProps<"Jobs">) {
           <ActivityIndicator color="#fff" />
         ) : null}
         <CardGrid>
-          {resource.data
-            ?.filter((j) => showDone || j.status !== "completed")
-            .map((j) => (
-              <JobCard
-                key={j.id}
-                job={j}
-                hi={hi}
-                onPress={() => navigation.navigate("Job", { id: j.id })}
-              />
-            ))}
+          {visible?.map((j) => (
+            <JobCard
+              key={j.id}
+              job={j}
+              hi={hi}
+              onPress={() => navigation.navigate("Job", { id: j.id })}
+            />
+          ))}
         </CardGrid>
-        {!resource.loading &&
-        !resource.data?.some((j) => showDone || j.status !== "completed") ? (
+        {!resource.loading && !resource.error && !visible?.length ? (
           <Text style={s.muted}>
-            {hi ? "कोई काम बाकी नहीं है।" : "No repair jobs here yet."}
+            {search.trim()
+              ? language === "mr"
+                ? "जुळणारे काम नाही. शोध बदला."
+                : hi
+                  ? "कोई काम नहीं मिला। खोज बदलें।"
+                  : "No matching work. Try another search."
+              : uxText(
+                  language,
+                  "No repair jobs here yet.",
+                  "कोई काम बाकी नहीं है।",
+                )}
           </Text>
         ) : null}
       </ContentScroll>

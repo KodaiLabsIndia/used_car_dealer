@@ -1,0 +1,22 @@
+{
+  "checks": [
+    {
+      "role": "owner",
+      "homeVisible": true,
+      "language": "en",
+      "displayOverridesRestored": true,
+      "fontScale": "1.0",
+      "apiReversePresent": true,
+      "fatalRuntimeErrors": false
+    },
+    {
+      "role": "employee",
+      "homeVisible": true,
+      "language": "en",
+      "displayOverridesRestored": true,
+      "fontScale": "1.0",
+      "apiReversePresent": true,
+      "fatalRuntimeErrors": false
+    }
+  ]
+}

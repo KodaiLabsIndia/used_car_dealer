@@ -1,3 +1,4 @@
+import { uxText } from "../state/ux-copy";
 import React, { useCallback, useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -88,7 +89,7 @@ export function RoutinesScreen({ navigation, route }: ScreenProps<"Routines">) {
   useEffect(() => {
     if (!focused || edit || reopen) return;
     const timer = setInterval(() => {
-      if (AppState.currentState === "active") resource.refresh();
+      if (AppState.currentState === "active") resource.refreshQuiet();
     }, 30000);
     return () => clearInterval(timer);
   }, [focused, edit, reopen]);
@@ -248,7 +249,7 @@ export function RoutinesScreen({ navigation, route }: ScreenProps<"Routines">) {
         },
         (b) => api.routineStep(i.id, b),
       );
-      changed();
+      changed(uxText(language, "Routine step updated", "काम का चरण दर्ज हुआ"));
       resource.refresh();
       return true;
     } catch (e) {
@@ -286,7 +287,8 @@ export function RoutinesScreen({ navigation, route }: ScreenProps<"Routines">) {
           : tr("My daily routines", "मेरे रोज़ के काम", "माझी रोजची कामे")
       }
       selected={section}
-      busy={busy || !!edit || !!reopen}
+      busy={busy}
+      sectionLocked={!!edit || !!reopen}
       onChange={(v) => {
         setSection(v);
         setError("");
@@ -359,7 +361,7 @@ export function RoutinesScreen({ navigation, route }: ScreenProps<"Routines">) {
                   api.saveRoutine(routineId, body as SaveRoutine),
               );
               setEdit(null);
-              changed();
+              changed(uxText(language, "Routine saved", "रोज़ का काम सेव हुआ"));
               resource.refresh();
               return true;
             } catch (e) {

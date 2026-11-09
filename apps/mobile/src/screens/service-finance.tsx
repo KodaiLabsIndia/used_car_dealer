@@ -1,3 +1,5 @@
+import { actionSuccessMessage } from "../application/action-success";
+import { uxText } from "../state/ux-copy";
 import { can } from "../application/access";
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, Alert, View } from "react-native";
@@ -47,7 +49,7 @@ export function ServiceFinanceScreen({ route }: ScreenProps<"ServiceFinance">) {
   const { api, session, language, changed } = useApp(),
     hi = language === "hi",
     reviewer = can(session!.actor, "finance"),
-    tr = (en: string, hindi: string) => (hi ? hindi : en);
+    tr = (en: string, hindi: string) => uxText(language, en, hindi);
   const resource = useResource(`job-finance:${route.params.jobId}`, () =>
       api.serviceFinance(route.params.jobId),
     ),
@@ -72,7 +74,13 @@ export function ServiceFinanceScreen({ route }: ScreenProps<"ServiceFinance">) {
             body as ServiceFinanceCommand,
           ),
       );
-      changed();
+      changed(
+        actionSuccessMessage(
+          payload.action,
+          language,
+          uxText(language, "Workshop record saved", "वर्कशॉप की नोंद सेव हुई"),
+        ),
+      );
       setForm(null);
       setCorrecting(null);
       return true;
@@ -160,7 +168,8 @@ export function ServiceFinanceScreen({ route }: ScreenProps<"ServiceFinance">) {
     <Workspace
       title={tr("Repair spending", "मरम्मत खर्च")}
       selected={section}
-      busy={busy || !!form || !!correcting}
+      busy={busy}
+      sectionLocked={!!form || !!correcting}
       onChange={setSection}
       context={
         data ? (
@@ -533,7 +542,7 @@ function QuoteEditor({
   const { session, language } = useApp(),
     hi = language === "hi",
     reviewer = can(session!.actor, "finance"),
-    tr = (en: string, hindi: string) => (hi ? hindi : en),
+    tr = (en: string, hindi: string) => uxText(language, en, hindi),
     key = `quote-draft:${jobId}`;
   const [draft, setDraft] = useState<QuoteDraft | null>(null),
     [step, setStep] = useState(0),

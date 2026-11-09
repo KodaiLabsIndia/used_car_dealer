@@ -1,8 +1,10 @@
+import { uxText } from "../state/ux-copy";
 import React, { useState } from "react";
 import { View } from "react-native";
 import { FocusPage } from "../components/workspace";
 import { Field } from "../components/forms";
 import { Button, ErrorNotice, Text, s } from "../components/ui";
+import { useInteractionLock } from "../state/use-interaction-lock";
 import { useApp } from "../state/app-context";
 
 export function ChangePasswordScreen({
@@ -10,12 +12,16 @@ export function ChangePasswordScreen({
   onCancel,
 }: { onComplete?: () => void; onCancel?: () => void } = {}) {
   const { session, language, changePassword, signOut } = useApp(),
-    hi = language === "hi";
+    hi = language === "hi",
+    tr = (en: string, h: string, mr: string) =>
+      language === "mr" ? mr : hi ? h : en,
+    minimum = session!.actor.role === "owner" ? 12 : 8;
   const [current, setCurrent] = useState(""),
     [next, setNext] = useState(""),
     [repeat, setRepeat] = useState(""),
     [busy, setBusy] = useState(false),
     [error, setError] = useState("");
+  useInteractionLock(busy);
   async function save() {
     if (next !== repeat) {
       setError(
@@ -40,25 +46,27 @@ export function ChangePasswordScreen({
         footer={
           <Button
             label={
-              hi ? "पासवर्ड बदलकर काम खोलें" : "Change password & open work"
+              session!.mustChangeSecret
+                ? tr(
+                    "Save password & open work",
+                    "पासवर्ड सेव कर काम खोलें",
+                    "पासवर्ड जतन करून काम उघडा",
+                  )
+                : tr("Save password", "पासवर्ड सेव करें", "पासवर्ड जतन करा")
             }
             busy={busy}
-            disabled={
-              !current ||
-              next.length < (session!.actor.role === "owner" ? 12 : 8) ||
-              !repeat
-            }
+            disabled={!current || next.length < minimum || !repeat}
             onPress={() => void save()}
           />
         }
       >
         <Text style={s.title}>
-          {hi ? "अपना पासवर्ड चुनें।" : "Make this account yours."}
+          {tr("Change password", "पासवर्ड बदलें", "पासवर्ड बदला")}
         </Text>
         {onCancel ? (
           <Button
             secondary
-            label={hi ? "वापस जाएँ" : "Back"}
+            label={uxText(language, "Back", "वापस जाएँ")}
             disabled={busy}
             onPress={onCancel}
           />
@@ -77,22 +85,44 @@ export function ChangePasswordScreen({
           value={current}
           onChangeText={setCurrent}
           secureTextEntry
+          editable={!busy}
           autoCapitalize="none"
           autoCorrect={false}
         />
         <Field
-          label={hi ? "नया पासवर्ड" : "New password"}
+          label={tr("New password", "नया पासवर्ड", "नवीन पासवर्ड")}
+          helper={tr(
+            `At least ${minimum} characters.`,
+            `कम से कम ${minimum} अक्षर।`,
+            `किमान ${minimum} अक्षरे.`,
+          )}
+          autoComplete="new-password"
           value={next}
           onChangeText={setNext}
           secureTextEntry
+          editable={!busy}
           autoCapitalize="none"
           autoCorrect={false}
         />
         <Field
-          label={hi ? "नया पासवर्ड फिर लिखें" : "Repeat new password"}
+          label={tr(
+            "Repeat new password",
+            "नया पासवर्ड फिर लिखें",
+            "नवीन पासवर्ड पुन्हा लिहा",
+          )}
+          error={
+            repeat && next !== repeat
+              ? tr(
+                  "Passwords do not match yet.",
+                  "पासवर्ड अभी मेल नहीं खाते।",
+                  "पासवर्ड जुळत नाहीत.",
+                )
+              : undefined
+          }
           value={repeat}
           onChangeText={setRepeat}
           secureTextEntry
+          editable={!busy}
           autoCapitalize="none"
           autoCorrect={false}
         />

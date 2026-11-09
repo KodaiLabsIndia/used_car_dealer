@@ -1,6 +1,13 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import * as Speech from "expo-speech";
-import { SectionList, Modal, Pressable, TextInput, View } from "react-native";
+import {
+  SectionList,
+  Modal,
+  Keyboard,
+  Pressable,
+  TextInput,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import type { Task } from "@arihant/contracts";
 import { colors } from "@arihant/design-tokens";
@@ -195,6 +202,7 @@ export function AllChecks({
                 accessibilityRole="button"
                 accessibilityState={{ selected: i === index }}
                 onPress={() => {
+                  Keyboard.dismiss();
                   onSelect(i);
                   onClose();
                 }}

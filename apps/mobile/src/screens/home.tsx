@@ -75,7 +75,12 @@ export function WorkScreen({ navigation, route }: ScreenProps<"Work">) {
     jobs.refresh();
     people.refresh();
   };
-  useLiveRefresh(refresh);
+  useLiveRefresh(() => {
+    dashboard.refreshQuiet();
+    routines.refreshQuiet();
+    jobs.refreshQuiet();
+    people.refreshQuiet();
+  });
   const all = dashboard.data?.tasks ?? [],
     now = new Date().toISOString();
   const portions =

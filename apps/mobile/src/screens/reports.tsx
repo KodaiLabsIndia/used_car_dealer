@@ -1,3 +1,4 @@
+import { uxText } from "../state/ux-copy";
 import { stageKeys } from "../components/garage-motion";
 import { formatDateTime } from "../components/date-format";
 import React, { useState } from "react";
@@ -21,7 +22,7 @@ import { formatMoney } from "../application/money";
 export function ReportsScreen({ navigation }: ScreenProps<"Reports">) {
   const { api, language, t } = useApp(),
     hi = language === "hi",
-    tr = (en: string, hn: string) => (hi ? hn : en);
+    tr = (en: string, hn: string) => uxText(language, en, hn);
   const stageLabel = (stage: string) => {
     const key = stageKeys[stage as keyof typeof stageKeys];
     return key ? t(key) : tr("Stage needs review", "चरण की जाँच करें");

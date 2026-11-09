@@ -1,3 +1,4 @@
+import { uxText } from "../state/ux-copy";
 import { can } from "../application/access";
 import React, { useState } from "react";
 import { ActivityIndicator, Alert, Pressable, View } from "react-native";
@@ -123,7 +124,9 @@ export function PurchaseScreen({ route, navigation }: ScreenProps<"Purchase">) {
       setReason("");
       setReturning(false);
       setNotice(hi ? "रिकॉर्ड सेव हुआ।" : "Record saved.");
-      changed();
+      changed(
+        uxText(language, "Purchase record saved", "खरीद का रिकॉर्ड सेव हुआ"),
+      );
       return true;
     } catch (e) {
       setError((e as Error).message);
@@ -138,9 +141,9 @@ export function PurchaseScreen({ route, navigation }: ScreenProps<"Purchase">) {
     const self = purchase.submittedBy === session!.actor.id;
     Alert.alert(
       hi ? "खरीद प्रस्ताव मंज़ूर करें?" : "Approve this purchase?",
-      `${purchase.terms.sellerName}\n${hi ? "खरीद" : "Purchase"}: ${formatMoney(purchase.terms.purchasePricePaise, hi)}\n${hi ? "मरम्मत बजट" : "Repair budget"}: ${formatMoney(purchase.terms.repairBudgetPaise, hi)}\n${hi ? "अनुमानित योगदान" : "Expected contribution"}: ${formatMoney(purchase.expectedContributionPaise, hi)}${self ? `\n${hi ? "आप अपने भेजे प्रस्ताव की मंज़ूरी दे रहे हैं। यह रिकॉर्ड में दिखेगा।" : "You are approving your own submitted proposal. This will be recorded as a self-review."}` : ""}`,
+      `${purchase.terms.sellerName}\n${uxText(language, "Purchase", "खरीद")}: ${formatMoney(purchase.terms.purchasePricePaise, hi)}\n${hi ? "मरम्मत बजट" : "Repair budget"}: ${formatMoney(purchase.terms.repairBudgetPaise, hi)}\n${hi ? "अनुमानित योगदान" : "Expected contribution"}: ${formatMoney(purchase.expectedContributionPaise, hi)}${self ? `\n${hi ? "आप अपने भेजे प्रस्ताव की मंज़ूरी दे रहे हैं। यह रिकॉर्ड में दिखेगा।" : "You are approving your own submitted proposal. This will be recorded as a self-review."}` : ""}`,
       [
-        { text: hi ? "रद्द करें" : "Cancel", style: "cancel" },
+        { text: uxText(language, "Cancel", "रद्द करें"), style: "cancel" },
         {
           text: hi ? "मंज़ूर करें" : "Approve",
           onPress: () =>
@@ -161,7 +164,7 @@ export function PurchaseScreen({ route, navigation }: ScreenProps<"Purchase">) {
       hi ? "खरीद समझौता दर्ज करें?" : "Record the purchase agreement?",
       `${agreement}\n${formatMoney(purchase.terms.purchasePricePaise, hi)}\n${hi ? "हस्ताक्षर किया हुआ समझौता दर्ज करें। इसके बाद तय शर्तें यहाँ नहीं बदली जाएँगी। भुगतान और गाड़ी की प्राप्ति अलग रहेंगे।" : "Record the signed agreement. Agreed terms are retained after this step. Payments and physical receipt remain separate."}`,
       [
-        { text: hi ? "रद्द करें" : "Cancel", style: "cancel" },
+        { text: uxText(language, "Cancel", "रद्द करें"), style: "cancel" },
         {
           text: hi ? "समझौता दर्ज करें" : "Record agreement",
           onPress: () =>
@@ -211,11 +214,15 @@ export function PurchaseScreen({ route, navigation }: ScreenProps<"Purchase">) {
       label: hi ? "प्राप्ति" : "Handover",
       icon: "key-outline",
     },
-    { id: "history", label: hi ? "इतिहास" : "History", icon: "time-outline" },
+    {
+      id: "history",
+      label: uxText(language, "History", "इतिहास"),
+      icon: "time-outline",
+    },
   ] as const;
   return (
     <Workspace
-      title={hi ? "खरीद" : "Purchase"}
+      title={uxText(language, "Purchase", "खरीद")}
       items={
         purchase
           ? items.filter((item) => owner || item.id !== "payments")
@@ -284,7 +291,13 @@ export function PurchaseScreen({ route, navigation }: ScreenProps<"Purchase">) {
           onSaved={() => {
             setTab("review");
             setNotice(hi ? "प्रस्ताव सेव हुआ।" : "Purchase proposal saved.");
-            changed();
+            changed(
+              uxText(
+                language,
+                "Purchase proposal created",
+                "खरीद प्रस्ताव बना",
+              ),
+            );
           }}
         />
       ) : tab === "review" ? (
@@ -299,9 +312,7 @@ export function PurchaseScreen({ route, navigation }: ScreenProps<"Purchase">) {
                       ? hi
                         ? "जाँच खोलें"
                         : "Complete inspection"
-                      : hi
-                        ? "जाँच सौंपें"
-                        : "Assign inspection"
+                      : uxText(language, "Assign inspection", "जाँच सौंपें")
                     : hi
                       ? "मंज़ूरी के लिए भेजें"
                       : "Send for approval"
@@ -322,9 +333,7 @@ export function PurchaseScreen({ route, navigation }: ScreenProps<"Purchase">) {
                 <Button
                   label={
                     returning
-                      ? hi
-                        ? "रद्द करें"
-                        : "Cancel"
+                      ? uxText(language, "Cancel", "रद्द करें")
                       : hi
                         ? "बदलाव माँगें"
                         : "Request changes"
@@ -713,9 +722,7 @@ export function PurchaseScreen({ route, navigation }: ScreenProps<"Purchase">) {
                   >
                     <Text style={{ fontWeight: "600" }}>
                       {a.decision === "approve"
-                        ? hi
-                          ? "मंज़ूर"
-                          : "Approved"
+                        ? uxText(language, "Approved", "मंज़ूर")
                         : hi
                           ? "बदलाव माँगा"
                           : "Changes requested"}{" "}

@@ -1,3 +1,4 @@
+import { uxText } from "../state/ux-copy";
 import React, { useEffect, useRef, useState } from "react";
 import { ActivityIndicator, Alert, View } from "react-native";
 import { randomUUID } from "expo-crypto";
@@ -101,7 +102,13 @@ export function CompanySettingsScreen() {
       await deleteLocal(session!.actor.id, "company-document-policy-draft");
       setDraft(null);
       setSection("policy");
-      changed();
+      changed(
+        uxText(
+          language,
+          "Document rules published",
+          "कागज़ात के नियम लागू हुए",
+        ),
+      );
     } catch (e) {
       setError((e as Error).message);
     } finally {

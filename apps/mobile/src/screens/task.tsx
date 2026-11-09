@@ -1,3 +1,4 @@
+import { uxText } from "../state/ux-copy";
 import { useLayout } from "../components/layout";
 import { InspectionSections } from "../components/inspection-sections";
 import { useIsFocused } from "@react-navigation/native";
@@ -17,7 +18,6 @@ import {
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import * as Speech from "expo-speech";
-import * as Haptics from "expo-haptics";
 import {
   inspectionPortion,
   allocationFor,
@@ -43,7 +43,10 @@ import {
   CheckStepper,
   InspectionNavigation,
 } from "../components/inspection-navigation";
-import { inspectionProgress } from "../application/inspection-index";
+import {
+  inspectionProgress,
+  nextInspectionCheck,
+} from "../application/inspection-index";
 import { useApp } from "../state/app-context";
 import { useResource } from "../state/use-resource";
 import { loadLocal, saveLocal, type PhotoDraft } from "../adapters/local-store";
@@ -123,7 +126,7 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
   useEffect(() => {
     if (!focused || busy || camera || (draft && !draft.synced)) return;
     const tick = () => {
-      if (AppState.currentState === "active") resource.refresh();
+      if (AppState.currentState === "active") resource.refreshQuiet();
     };
     tick();
     const timer = setInterval(tick, 15000);
@@ -283,18 +286,27 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
       );
       setTask(updated.task);
       setDraft(updated.draft);
-      setMessage(t("received"));
-      void Haptics.notificationAsync(
-        Haptics.NotificationFeedbackType.Success,
-      ).catch(() => {});
-      changed();
-      if (index < task.items.length - 1) {
+      setMessage(
+        uxText(
+          language,
+          "Check saved. Send ready checks for review.",
+          "जाँच सेव हुई। तैयार जाँच समीक्षा को भेजें।",
+        ),
+      );
+      changed(uxText(language, "Check saved", "जाँच सेव हुई"));
+      const scoped =
+        updated.task.collaborative && !owner
+          ? inspectionPortion(updated.task, ownerId)
+          : updated.task;
+      const next = nextInspectionCheck(scoped, ownerId, index);
+      if (next === null) setPhase("sections");
+      else if (scoped.items[next]?.id !== item.id) {
+        setIndex(next);
         setPhase("photo");
-        setIndex(index + 1);
-        void saveLocal(ownerId, `step:${route.params.id}`, index + 1).catch(
+        void saveLocal(ownerId, `step:${route.params.id}`, next).catch(
           () => {},
         );
-      }
+      } else setPhase("result");
     } catch (e) {
       const err = e as { code?: string; message: string };
       setMessage(
@@ -353,7 +365,17 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
               : { action };
       const updated = await sendTaskCommand(api, ownerId, masterTask!, payload);
       setTask(updated);
-      changed();
+      changed(
+        action === "submit"
+          ? t("submitted")
+          : action === "accept"
+            ? t("completed")
+            : action === "recheck"
+              ? t("recheck")
+              : action === "help"
+                ? t("helpSent")
+                : t("received"),
+      );
       setMessage(
         action === "help"
           ? t("helpSent")
@@ -365,9 +387,6 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
                 ? t("recheck")
                 : t("received"),
       );
-      void Haptics.notificationAsync(
-        Haptics.NotificationFeedbackType.Success,
-      ).catch(() => {});
     } catch (e) {
       setMessage((e as Error).message);
       resource.refresh();
@@ -447,24 +466,38 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
     : [];
   const readyToSubmit =
     (task?.collaborative ? readyChecks.length > 0 : complete) &&
-    (!draft || draft.synced);
+    (!draft || draft.synced === true);
   const sendLabel = task?.collaborative
     ? `${language === "mr" ? "तयार तपासण्या पाठवा" : language === "hi" ? "तैयार जाँच भेजें" : "Send ready checks"} · ${readyChecks.length}`
     : t("send");
+  const nextWork = task
+    ? nextInspectionCheck(task, ownerId, index, !!draft && !draft.synced)
+    : null;
   const footer =
     task && item ? (
       phase === "map" || phase === "sections" ? (
-        <Button
-          label={
-            language === "mr"
-              ? "तपासणी पुढे करा"
-              : language === "hi"
-                ? "जाँच जारी रखें"
-                : "Continue inspection"
-          }
-          icon="camera-outline"
-          onPress={() => setPhase("photo")}
-        />
+        <ActionRow>
+          <Button
+            label={uxText(
+              language,
+              nextWork === null ? "View checks" : "Continue inspection",
+              nextWork === null ? "जाँच देखें" : "जाँच जारी रखें",
+            )}
+            icon="clipboard-outline"
+            secondary={nextWork === null && !!own && readyToSubmit}
+            disabled={busy}
+            onPress={() => chooseStep(nextWork ?? index)}
+          />
+          {own && readyToSubmit ? (
+            <Button
+              label={sendLabel}
+              secondary={nextWork !== null}
+              icon="arrow-forward-outline"
+              busy={busy}
+              onPress={submit}
+            />
+          ) : null}
+        </ActionRow>
       ) : phase === "photo" ? (
         <ActionRow>
           {!readOnly ? (
@@ -472,9 +505,7 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
               label={
                 language === "mr"
                   ? "गॅलरी"
-                  : language === "hi"
-                    ? "गैलरी"
-                    : "Gallery"
+                  : uxText(language, "Gallery", "गैलरी")
               }
               accessibilityLabel={t("choosePhoto")}
               icon="images-outline"
@@ -501,7 +532,7 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
       ) : !readOnly ? (
         <ActionRow>
           <Button
-            label={language === "hi" ? "फोटो" : "Photo"}
+            label={uxText(language, "Photo", "फोटो")}
             secondary
             disabled={busy}
             onPress={() => setPhase("photo")}
@@ -831,7 +862,7 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
                   <ActionRow>
                     <Button
                       icon="camera-outline"
-                      label={language === "hi" ? "फोटो" : "Photo"}
+                      label={uxText(language, "Photo", "फोटो")}
                       accessibilityLabel={
                         readOnly
                           ? language === "hi"
@@ -849,7 +880,7 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
                     />
                     <Button
                       icon="videocam-outline"
-                      label={language === "hi" ? "वीडियो" : "Video"}
+                      label={uxText(language, "Video", "वीडियो")}
                       accessibilityLabel={
                         language === "hi"
                           ? readOnly
@@ -1374,11 +1405,11 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
               owner &&
               !["submitted", "completed"].includes(task.status) ? (
                 <Button
-                  label={
-                    language === "hi"
-                      ? "ज़िम्मेदारी बदलें"
-                      : "Assign inspection"
-                  }
+                  label={uxText(
+                    language,
+                    "Assign inspection",
+                    "ज़िम्मेदारी बदलें",
+                  )}
                   secondary
                   icon="people-outline"
                   disabled={busy}

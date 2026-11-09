@@ -1,3 +1,5 @@
+import { actionSuccessMessage } from "../application/action-success";
+import { uxText } from "../state/ux-copy";
 import { can } from "../application/access";
 import React, { useState } from "react";
 import {
@@ -139,7 +141,7 @@ export function BusinessScreen({ route, navigation }: ScreenProps<"Business">) {
       data?.bookings.find((b) => b.status === "booked") ??
       data?.bookings.find((b) => b.status === "delivered") ??
       data?.bookings[0];
-  const tr = (en: string, hindi: string) => (hi ? hindi : en);
+  const tr = (en: string, hindi: string) => uxText(language, en, hindi);
   const date = (value: string) =>
     new Date(value).toLocaleDateString(hi ? "hi-IN" : "en-IN");
   const labels = {
@@ -184,8 +186,14 @@ export function BusinessScreen({ route, navigation }: ScreenProps<"Business">) {
         (body) => api.businessCommand(carId, body as BusinessCommand),
       );
       setForm(null);
-      setNotice(tr("Record saved on the server.", "रिकॉर्ड सर्वर पर सेव हुआ।"));
-      changed();
+      setNotice(tr("Record saved.", "रिकॉर्ड सेव हुआ।"));
+      changed(
+        actionSuccessMessage(
+          payload.action,
+          language,
+          uxText(language, "Record saved", "रिकॉर्ड सेव हुआ"),
+        ),
+      );
       return true;
     } catch (e) {
       setError((e as Error).message);

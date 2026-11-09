@@ -1,3 +1,5 @@
+import { actionSuccessMessage } from "../application/action-success";
+import { uxText } from "../state/ux-copy";
 import { useIsFocused } from "@react-navigation/native";
 import { salaryStatementText } from "@arihant/contracts";
 import React, { useEffect, useState } from "react";
@@ -87,8 +89,8 @@ export function WorkforceScreen({ route }: ScreenProps<"Workforce">) {
     if (!focused || form) return;
     const refresh = () => {
       if (AppState.currentState === "active") {
-        resource.refresh();
-        payroll.refresh();
+        resource.refreshQuiet();
+        payroll.refreshQuiet();
       }
     };
     const timer = setInterval(refresh, 30000);
@@ -206,7 +208,17 @@ export function WorkforceScreen({ route }: ScreenProps<"Workforce">) {
         payload,
         (b) => api.workforceCommand(person, b),
       );
-      changed();
+      changed(
+        actionSuccessMessage(
+          payload.action,
+          language,
+          uxText(
+            language,
+            "Attendance/pay record saved",
+            "हाज़िरी या वेतन की नोंद सेव हुई",
+          ),
+        ),
+      );
       return true;
     } catch (e) {
       if ((e as { status?: number }).status === 409) {
@@ -344,7 +356,7 @@ export function WorkforceScreen({ route }: ScreenProps<"Workforce">) {
           { expectedVersion: version, policy, reason: v.reason ?? "" },
           (b) => api.publishWorkforcePolicy(b),
         );
-        changed();
+        changed(uxText(language, "Staff rules saved", "कर्मचारी नियम सेव हुए"));
         setForm(null);
         return true;
       } catch (e) {
@@ -550,7 +562,8 @@ export function WorkforceScreen({ route }: ScreenProps<"Workforce">) {
         setForm(null);
         setError("");
       }}
-      busy={busy || !!form}
+      busy={busy}
+      sectionLocked={!!form}
       items={[
         { id: "attendance", label: labels.attendance!, icon: "time-outline" },
         {

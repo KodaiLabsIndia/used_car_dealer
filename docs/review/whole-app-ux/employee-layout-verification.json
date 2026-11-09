@@ -1,0 +1,76 @@
+{
+  "role": "employee",
+  "checks": [
+    {
+      "profile": "home-large-text",
+      "navigationWithinViewport": [
+        {
+          "label": "Home",
+          "bounds": "[18,2166][359,2343]"
+        },
+        {
+          "label": "My work",
+          "bounds": "[370,2166][710,2343]"
+        },
+        {
+          "label": "Me",
+          "bounds": "[721,2166][1062,2343]"
+        }
+      ]
+    },
+    {
+      "profile": "home-tablet-portrait",
+      "navigationWithinViewport": [
+        {
+          "label": "Home",
+          "bounds": "[7,1179][266,1241]"
+        },
+        {
+          "label": "My work",
+          "bounds": "[270,1179][530,1241]"
+        },
+        {
+          "label": "Me",
+          "bounds": "[534,1179][793,1241]"
+        }
+      ]
+    },
+    {
+      "profile": "home-hi",
+      "navigationWithinViewport": [
+        {
+          "label": "होम",
+          "bounds": "[18,2181][359,2343]"
+        },
+        {
+          "label": "मेरा काम",
+          "bounds": "[370,2181][710,2343]"
+        },
+        {
+          "label": "मैं",
+          "bounds": "[721,2181][1062,2343]"
+        }
+      ]
+    },
+    {
+      "profile": "home-mr",
+      "navigationWithinViewport": [
+        {
+          "label": "मुख्य",
+          "bounds": "[18,2181][359,2343]"
+        },
+        {
+          "label": "माझे काम",
+          "bounds": "[370,2181][710,2343]"
+        },
+        {
+          "label": "मी",
+          "bounds": "[721,2181][1062,2343]"
+        }
+      ]
+    }
+  ],
+  "originalDisplaySettingsRestored": true,
+  "languageRestored": "en",
+  "physicalDeviceAcceptance": false
+}

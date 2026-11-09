@@ -1,6 +1,8 @@
+import { uxText } from "../state/ux-copy";
 import React, { useState } from "react";
 import {
   ActivityIndicator,
+  Keyboard,
   Pressable,
   RefreshControl,
   View,
@@ -43,7 +45,7 @@ export function BusinessBoardScreen({
   );
   return (
     <Workspace
-      title={hi ? "बिक्री और सहायता" : "Sales & support"}
+      title={uxText(language, "Sales & support", "बिक्री और सहायता")}
       selected={scope}
       onChange={(value) => {
         setScope(value);
@@ -52,18 +54,22 @@ export function BusinessBoardScreen({
       items={[
         {
           id: "attention",
-          label: hi ? "ध्यान दें" : "Attention",
+          label: uxText(language, "Attention", "ध्यान दें"),
           icon: "alert-circle-outline",
         },
         {
           id: "all",
-          label: hi ? "सभी गाड़ियाँ" : "All cars",
+          label: uxText(language, "All cars", "सभी गाड़ियाँ"),
           icon: "car-sport-outline",
         },
-        { id: "booked", label: hi ? "बुकिंग" : "Booked", icon: "key-outline" },
+        {
+          id: "booked",
+          label: uxText(language, "Booked", "बुकिंग"),
+          icon: "key-outline",
+        },
         {
           id: "support",
-          label: hi ? "बिक्री के बाद" : "After sales",
+          label: uxText(language, "After sales", "बिक्री के बाद"),
           icon: "shield-checkmark-outline",
         },
       ]}
@@ -74,12 +80,15 @@ export function BusinessBoardScreen({
           <FormRow>
             <View style={{ flex: 1 }}>
               <Field
-                label={
-                  hi ? "नंबर या मॉडल खोजें" : "Search registration or model"
-                }
+                label={uxText(
+                  language,
+                  "Search registration or model",
+                  "नंबर या मॉडल खोजें",
+                )}
                 value={search}
                 onChangeText={setSearch}
                 onSubmitEditing={() => {
+                  Keyboard.dismiss();
                   setOffset(0);
                   setQuery(search.trim());
                 }}
@@ -87,9 +96,10 @@ export function BusinessBoardScreen({
               />
             </View>
             <Button
-              label={hi ? "खोजें" : "Search"}
+              label={uxText(language, "Search", "खोजें")}
               icon="search-outline"
               onPress={() => {
+                Keyboard.dismiss();
                 setOffset(0);
                 setQuery(search.trim());
               }}
@@ -107,7 +117,7 @@ export function BusinessBoardScreen({
           <ActionRow>
             <Button
               secondary
-              label={hi ? "पिछला पेज" : "Previous"}
+              label={uxText(language, "Previous", "पिछला पेज")}
               disabled={offset === 0 || resource.loading}
               onPress={() => setOffset((n) => Math.max(0, n - 30))}
               style={{ flex: 1 }}
@@ -115,7 +125,7 @@ export function BusinessBoardScreen({
             <Text style={s.muted}>{Math.floor(offset / 30) + 1}</Text>
             <Button
               secondary
-              label={hi ? "अगला पेज" : "Next"}
+              label={uxText(language, "Next", "अगला पेज")}
               disabled={
                 !resource.data ||
                 resource.data.items.length < 30 ||
@@ -159,11 +169,15 @@ export function BusinessBoardScreen({
                 <View style={[s.row, { flexWrap: "wrap" }]}>
                   <Pill label={t(stageKeys[item.car.stage])} />
                   {item.car.commercialStatus === "booked" ? (
-                    <Pill label={hi ? "बुकिंग" : "Booked"} />
+                    <Pill label={uxText(language, "Booked", "बुकिंग")} />
                   ) : null}
                   {item.expiredBooking ? (
                     <Pill
-                      label={hi ? "बुकिंग समय समाप्त" : "Booking expired"}
+                      label={uxText(
+                        language,
+                        "Booking expired",
+                        "बुकिंग समय समाप्त",
+                      )}
                       warning
                     />
                   ) : null}
@@ -171,7 +185,7 @@ export function BusinessBoardScreen({
                 {item.customerName ? <Text>{item.customerName}</Text> : null}
                 {item.refundDuePaise > 0 ? (
                   <Text>
-                    {hi ? "वापसी बाकी" : "Refund due"} ·{" "}
+                    {uxText(language, "Refund due", "वापसी बाकी")} ·{" "}
                     {formatMoney(item.refundDuePaise, hi)}
                   </Text>
                 ) : null}

@@ -1,3 +1,4 @@
+import { uxText } from "../state/ux-copy";
 import React, { useState } from "react";
 import {
   ActivityIndicator,
@@ -54,7 +55,7 @@ const labels: Record<string, [string, string]> = {
 export function InboxScreen({ navigation }: ScreenProps<"Inbox">) {
   const { api, language, changed } = useApp(),
     hi = language === "hi",
-    tr = (en: string, hindi: string) => (hi ? hindi : en);
+    tr = (en: string, hindi: string) => uxText(language, en, hindi);
   const [view, setView] = useState<"unread" | "all">("unread"),
     [offset, setOffset] = useState(0),
     [busy, setBusy] = useState(false),

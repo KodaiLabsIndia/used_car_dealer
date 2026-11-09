@@ -1,3 +1,4 @@
+import { uxText } from "../state/ux-copy";
 import React, { useEffect, useRef, useState } from "react";
 import { Modal, View } from "react-native";
 import {
@@ -141,7 +142,7 @@ export function VideoCamera({
               )}
               <Button
                 secondary
-                label={hi ? "बंद करें" : "Close"}
+                label={uxText(language, "Close", "बंद करें")}
                 disabled={recording}
                 onPress={onClose}
               />

@@ -1,3 +1,4 @@
+import { uxText } from "../state/ux-copy";
 import React, { useEffect, useRef, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import {
@@ -49,7 +50,9 @@ export function AddCarScreen({ navigation }: ScreenProps<"AddCar">) {
     [ready, setReady] = useState(false),
     [busy, setBusy] = useState(false),
     [error, setError] = useState("");
-  const [picker, setPicker] = useState(false);
+  const [picker, setPicker] = useState(false),
+    [draftSaved, setDraftSaved] = useState(false);
+  const draftWrites = useRef(Promise.resolve());
   const steps = ["car", "configuration", "arrival", "assign"] as const;
   const [step, setStep] = useSection("intake", "car", steps);
   const formRef = useRef(form);
@@ -78,10 +81,29 @@ export function AddCarScreen({ navigation }: ScreenProps<"AddCar">) {
   }, [ownerId]);
   useEffect(() => {
     if (!ready) return;
-    const timer = setTimeout(() => {
-      void saveLocal(ownerId, "intake-draft", formRef.current);
-    }, 250);
-    return () => clearTimeout(timer);
+    let active = true;
+    setDraftSaved(false);
+    const snapshot = formRef.current;
+    draftWrites.current = draftWrites.current
+      .catch(() => {})
+      .then(() => saveLocal(ownerId, "intake-draft", snapshot));
+    void draftWrites.current
+      .then(() => {
+        if (active) setDraftSaved(true);
+      })
+      .catch(() => {
+        if (active)
+          setError(
+            uxText(
+              language,
+              "Could not save the draft. Keep this screen open and try again.",
+              "मसौदा सेव नहीं हुआ। स्क्रीन खुली रखें और फिर कोशिश करें।",
+            ),
+          );
+      });
+    return () => {
+      active = false;
+    };
   }, [form, ready, ownerId]);
   const edit = (
     key: Exclude<keyof typeof empty, "configuration">,
@@ -123,13 +145,14 @@ export function AddCarScreen({ navigation }: ScreenProps<"AddCar">) {
     }
     setBusy(true);
     try {
+      await draftWrites.current;
       const { commandId: _id, ...payload } = parsed.data;
       const result = await sendCommand(ownerId, "create-car", payload, (body) =>
         api.createCar(body),
       );
       await deleteLocal(ownerId, "intake-draft");
       setStep("car");
-      changed();
+      changed(uxText(language, "Car added", "गाड़ी जुड़ गई"));
       navigation.replace("Car", { id: result.car.id });
     } catch (e) {
       setError((e as Error).message);
@@ -182,7 +205,7 @@ export function AddCarScreen({ navigation }: ScreenProps<"AddCar">) {
   return (
     <>
       <Workspace
-        title={hi ? "गाड़ी जोड़ें" : "Bring a car in"}
+        title={uxText(language, "Bring a car in", "गाड़ी जोड़ें")}
         items={[
           {
             id: "car",
@@ -201,7 +224,11 @@ export function AddCarScreen({ navigation }: ScreenProps<"AddCar">) {
           },
           {
             id: "assign",
-            label: hi ? "4 · जाँच" : "4 · Assign",
+            label: uxText(
+              language,
+              "4 · Review & assign",
+              "4 · जाँचें और सौंपें",
+            ),
             icon: "person-outline",
           },
         ]}
@@ -215,7 +242,7 @@ export function AddCarScreen({ navigation }: ScreenProps<"AddCar">) {
             <ActionRow>
               {current > 0 ? (
                 <Button
-                  label={hi ? "पीछे" : "Back"}
+                  label={uxText(language, "Back", "पीछे")}
                   secondary
                   disabled={busy}
                   onPress={() => go(steps[current - 1]!)}
@@ -224,7 +251,7 @@ export function AddCarScreen({ navigation }: ScreenProps<"AddCar">) {
               ) : null}
               {current < steps.length - 1 ? (
                 <Button
-                  label={hi ? "आगे" : "Next"}
+                  label={uxText(language, "Next", "आगे")}
                   icon="arrow-forward-outline"
                   disabled={!ready || busy}
                   onPress={() => go(steps[current + 1]!)}
@@ -232,7 +259,11 @@ export function AddCarScreen({ navigation }: ScreenProps<"AddCar">) {
                 />
               ) : (
                 <Button
-                  label={hi ? "गाड़ी और जाँच बनाएँ" : "Create car & inspection"}
+                  label={uxText(
+                    language,
+                    "Create car & inspection",
+                    "गाड़ी और जाँच बनाएँ",
+                  )}
                   icon="checkmark-outline"
                   busy={busy}
                   disabled={!ready || !catalog.data}
@@ -252,17 +283,26 @@ export function AddCarScreen({ navigation }: ScreenProps<"AddCar">) {
           {!ready || (catalog.loading && !catalog.data) ? (
             <ActivityIndicator color="#fff" />
           ) : null}
+          {draftSaved ? (
+            <Text style={{ fontSize: 12, color: "#A9C4B1" }}>
+              {uxText(language, "Saved on this phone", "इस फोन पर सेव है")}
+            </Text>
+          ) : null}
           {step === "car" ? (
             <Panel style={{ gap: 14 }}>
               <Button
-                label={hi ? "ब्रांड और मॉडल ढूँढें" : "Find make & model"}
+                label={uxText(
+                  language,
+                  "Find make & model",
+                  "ब्रांड और मॉडल ढूँढें",
+                )}
                 icon="search-outline"
                 secondary
                 onPress={() => setPicker(true)}
                 disabled={busy || !ready}
               />
               <Field
-                label={hi ? "कंपनी" : "Make"}
+                label={uxText(language, "Make", "कंपनी")}
                 value={form.make}
                 onChangeText={(v) => edit("make", v)}
                 maxLength={60}
@@ -270,7 +310,7 @@ export function AddCarScreen({ navigation }: ScreenProps<"AddCar">) {
                 editable={!busy && ready}
               />
               <Field
-                label={hi ? "मॉडल" : "Model"}
+                label={uxText(language, "Model", "मॉडल")}
                 value={form.model}
                 onChangeText={(v) => edit("model", v)}
                 maxLength={80}
@@ -278,7 +318,7 @@ export function AddCarScreen({ navigation }: ScreenProps<"AddCar">) {
                 editable={!busy && ready}
               />
               <Field
-                label={hi ? "नंबर प्लेट" : "Registration"}
+                label={uxText(language, "Registration", "नंबर प्लेट")}
                 value={form.registration}
                 onChangeText={(v) => edit("registration", v.toUpperCase())}
                 autoCapitalize="characters"
@@ -288,7 +328,7 @@ export function AddCarScreen({ navigation }: ScreenProps<"AddCar">) {
                 editable={!busy && ready}
               />
               <Field
-                label={hi ? "साल" : "Year"}
+                label={uxText(language, "Year", "साल")}
                 value={form.year}
                 onChangeText={(v) => edit("year", v)}
                 keyboardType="number-pad"
@@ -341,6 +381,11 @@ export function AddCarScreen({ navigation }: ScreenProps<"AddCar">) {
                 <Text style={s.muted}>
                   {form.registration} · {form.location}
                 </Text>
+                <Text style={s.muted}>
+                  {uxText(language, "Kilometres", "किलोमीटर")} ·{" "}
+                  {form.odometer ||
+                    uxText(language, "Not provided", "नहीं दिया")}
+                </Text>
               </Panel>
               <SelectField
                 label={hi ? "पहली जाँच" : "First inspection"}
@@ -349,7 +394,7 @@ export function AddCarScreen({ navigation }: ScreenProps<"AddCar">) {
                   catalog.data?.templates.map((t) => ({
                     id: t.id,
                     label: t.name,
-                    detail: `v${t.version} · ${t.items.length} ${hi ? "फोटो" : "photos"} · ${t.approved ? (hi ? "स्वीकृत" : "Approved") : hi ? "ड्राफ्ट · प्रशिक्षण" : "Draft · training"}`,
+                    detail: `v${t.version} · ${t.items.length} ${hi ? "फोटो" : "photos"} · ${t.approved ? uxText(language, "Approved", "स्वीकृत") : hi ? "ड्राफ्ट · प्रशिक्षण" : "Draft · training"}`,
                     icon: "clipboard-outline",
                   })) || []
                 }
@@ -357,7 +402,11 @@ export function AddCarScreen({ navigation }: ScreenProps<"AddCar">) {
                 disabled={busy || !catalog.data}
               />
               <SelectField
-                label={hi ? "कौन जाँच करेगा?" : "Who will inspect?"}
+                label={uxText(
+                  language,
+                  "Who starts this inspection?",
+                  "जाँच शुरू कौन करेगा?",
+                )}
                 value={form.assignedTo}
                 options={
                   catalog.data?.people.map((p) => ({
@@ -375,7 +424,7 @@ export function AddCarScreen({ navigation }: ScreenProps<"AddCar">) {
               <Text style={s.muted}>
                 {hi
                   ? "ड्राफ्ट चेकलिस्ट को इस्तेमाल से पहले Arihant की मंज़ूरी चाहिए।"
-                  : "Draft checklists need Arihant’s approval before operational use."}
+                  : "The inspection can be split between employees after this car is created. Draft checklists need approval before use."}
               </Text>
             </>
           ) : null}

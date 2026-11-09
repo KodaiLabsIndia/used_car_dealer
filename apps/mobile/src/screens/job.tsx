@@ -1,3 +1,5 @@
+import { actionSuccessMessage } from "../application/action-success";
+import { uxText } from "../state/ux-copy";
 import { can } from "../application/access";
 import React, { useState } from "react";
 import { ActivityIndicator, Alert, View } from "react-native";
@@ -65,7 +67,13 @@ export function JobScreen({ route, navigation }: ScreenProps<"Job">) {
       setPart("");
       setAddingPart(false);
       if (payload.action === "assign") setSection("work");
-      changed();
+      changed(
+        actionSuccessMessage(
+          payload.action,
+          language,
+          uxText(language, "Repair updated", "मरम्मत अपडेट हुई"),
+        ),
+      );
     } catch (e) {
       setError((e as Error).message);
       resource.refresh();
@@ -80,7 +88,7 @@ export function JobScreen({ route, navigation }: ScreenProps<"Job">) {
         ? "अगला कदम फोटो के साथ क्वालिटी जाँच और मालिक की मंज़ूरी है।"
         : "Non-financial work can continue during review. Spending needs an approved quote; repair completion still needs photo QC.",
       [
-        { text: hi ? "रद्द करें" : "Cancel", style: "cancel" },
+        { text: uxText(language, "Cancel", "रद्द करें"), style: "cancel" },
         {
           text: hi ? "जाँच बनाएँ" : "Create quality check",
           onPress: () => void run({ action: "submit_repair" }),
@@ -95,7 +103,7 @@ export function JobScreen({ route, navigation }: ScreenProps<"Job">) {
         ? "पुरानी जाँच और मंज़ूरी रिकॉर्ड में रहेंगी।"
         : "Previous checks and approvals stay in the history.",
       [
-        { text: hi ? "रद्द करें" : "Cancel", style: "cancel" },
+        { text: uxText(language, "Cancel", "रद्द करें"), style: "cancel" },
         {
           text: hi ? "फिर खोलें" : "Reopen",
           onPress: () => void run({ action: "reopen" }),
@@ -162,7 +170,11 @@ export function JobScreen({ route, navigation }: ScreenProps<"Job">) {
         ) : undefined
       }
       items={[
-        { id: "work", label: hi ? "काम" : "Work", icon: "build-outline" },
+        {
+          id: "work",
+          label: uxText(language, "Work", "काम"),
+          icon: "build-outline",
+        },
         {
           id: "parts",
           label: hi ? "पार्ट" : "Parts",
@@ -197,7 +209,7 @@ export function JobScreen({ route, navigation }: ScreenProps<"Job">) {
             addingPart ? (
               <ActionRow>
                 <Button
-                  label={hi ? "रद्द करें" : "Cancel"}
+                  label={uxText(language, "Cancel", "रद्द करें")}
                   secondary
                   disabled={busy}
                   onPress={() => setAddingPart(false)}
@@ -394,7 +406,11 @@ export function JobScreen({ route, navigation }: ScreenProps<"Job">) {
               ) : null}
               {owner && job.status !== "completed" ? (
                 <SelectField
-                  label={hi ? "ज़िम्मेदार व्यक्ति" : "Responsible person"}
+                  label={uxText(
+                    language,
+                    "Responsible person",
+                    "ज़िम्मेदार व्यक्ति",
+                  )}
                   value={person || job.assignedTo}
                   options={
                     people.data?.map((p) => ({

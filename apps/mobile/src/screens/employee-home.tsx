@@ -46,7 +46,12 @@ export function EmployeeHomeScreen({ navigation, route }: ScreenProps<"Home">) {
     routines.refresh();
     repairs.refresh();
   };
-  useLiveRefresh(refresh);
+  useLiveRefresh(() => {
+    dashboard.refreshQuiet();
+    attendance.refreshQuiet();
+    routines.refreshQuiet();
+    repairs.refreshQuiet();
+  });
   const wf = attendance.data,
     status = wf?.people.find((p) => p.id === actor.id)?.attendanceStatus,
     atWork = ["open", "at_work"].includes(status ?? ""),
@@ -312,7 +317,7 @@ export function EmployeeHomeScreen({ navigation, route }: ScreenProps<"Home">) {
                   "तपासणीसाठी पाठवले",
                 )}
                 detail={tr(
-                  `${tasks.review.length} inspections with your supervisor`,
+                  `${tasks.review.length} waiting with your supervisor`,
                   `${tasks.review.length} जाँच सुपरवाइज़र के पास`,
                   `${tasks.review.length} तपासण्या पर्यवेक्षकाकडे`,
                 )}

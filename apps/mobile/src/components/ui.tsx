@@ -13,6 +13,8 @@ import {
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { colors } from "@arihant/design-tokens";
+import { useApp } from "../state/app-context";
+import { uxText } from "../state/ux-copy";
 import type { Car } from "@arihant/contracts";
 export const stockImages = {
   sonet: require("../../assets/sonet.jpg"),
@@ -111,7 +113,9 @@ export function Button({
       ) : icon ? (
         <Icon name={icon} />
       ) : null}
-      <Text style={s.buttonText}>{label}</Text>
+      <Text style={s.buttonText}>
+        {busy && !/[.…]$/.test(label) ? `${label}…` : label}
+      </Text>
     </Pressable>
   );
 }
@@ -185,17 +189,27 @@ export function Panel({
 export function ErrorNotice({
   message,
   retry,
+  retryLabel: suppliedLabel,
 }: {
   message: string;
   retry?: () => void;
+  retryLabel?: string;
 }) {
+  const { language } = useApp();
+  const retryLabel =
+    suppliedLabel ?? uxText(language, "Try again", "फिर कोशिश करें");
   return (
     <Panel style={{ borderColor: "#995058", gap: 10 }}>
-      <Text style={{ color: "#ffd4d7" }}>{message}</Text>
+      <View style={{ flexDirection: "row", alignItems: "flex-start", gap: 10 }}>
+        <Icon name="alert-circle-outline" color="#F4A9AF" />
+        <Text accessibilityRole="alert" style={{ color: "#ffd4d7", flex: 1 }}>
+          {message}
+        </Text>
+      </View>
       {retry ? (
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel="Try again"
+          accessibilityLabel={retryLabel}
           onPress={retry}
           style={{
             minHeight: 44,
@@ -205,7 +219,7 @@ export function ErrorNotice({
           }}
         >
           <Icon name="refresh-outline" />
-          <Text>Try again</Text>
+          <Text>{retryLabel}</Text>
         </Pressable>
       ) : null}
     </Panel>

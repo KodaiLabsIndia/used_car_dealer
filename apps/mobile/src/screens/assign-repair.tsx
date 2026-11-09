@@ -1,3 +1,4 @@
+import { uxText } from "../state/ux-copy";
 import React, { useState } from "react";
 import { ActivityIndicator } from "react-native";
 import type { ScreenProps } from "../navigation";
@@ -38,7 +39,7 @@ export function AssignRepairScreen({
         },
         (body) => api.createJob(issueId, body),
       );
-      changed();
+      changed(uxText(language, "Repair assigned", "मरम्मत सौंपी गई"));
       navigation.replace("Job", { id: job.id });
     } catch (e) {
       setError((e as Error).message);
@@ -48,11 +49,14 @@ export function AssignRepairScreen({
     }
   }
   return (
-    <FocusScreen title={hi ? "मरम्मत सौंपें" : "Assign a repair"}>
+    <FocusScreen
+      busy={busy}
+      title={uxText(language, "Assign a repair", "मरम्मत सौंपें")}
+    >
       <FocusPage
         footer={
           <Button
-            label={hi ? "मरम्मत शुरू कराएँ" : "Create repair job"}
+            label={uxText(language, "Create repair job", "मरम्मत शुरू कराएँ")}
             icon="build-outline"
             busy={busy}
             disabled={!resource.data?.issue}
@@ -75,7 +79,7 @@ export function AssignRepairScreen({
           </Panel>
         ) : null}
         <SelectField
-          label={hi ? "ज़िम्मेदार व्यक्ति" : "Responsible person"}
+          label={uxText(language, "Responsible person", "ज़िम्मेदार व्यक्ति")}
           value={person}
           options={
             resource.data?.people.map((p) => ({
@@ -88,14 +92,16 @@ export function AssignRepairScreen({
           disabled={busy || !resource.data}
         />
         <SelectField
-          label={hi ? "वर्कशॉप" : "Workshop"}
+          label={uxText(language, "Workshop", "वर्कशॉप")}
           value={workshop || "in_house"}
           options={[
             {
               id: "in_house",
-              label: hi
-                ? "अपनी सर्विस टीम / बाद में चुनें"
-                : "In-house / choose later",
+              label: uxText(
+                language,
+                "In-house / choose later",
+                "अपनी सर्विस टीम / बाद में चुनें",
+              ),
               icon: "build-outline",
             },
             ...(resource.data?.workshops.map((w) => ({
@@ -108,7 +114,7 @@ export function AssignRepairScreen({
           disabled={busy || !resource.data}
         />
         <Button
-          label={hi ? "वर्कशॉप जोड़ें" : "Add a workshop"}
+          label={uxText(language, "Add a workshop", "वर्कशॉप जोड़ें")}
           secondary
           icon="add-outline"
           onPress={() => navigation.navigate("Workshops")}

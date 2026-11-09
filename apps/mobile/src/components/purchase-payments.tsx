@@ -1,3 +1,4 @@
+import { uxText } from "../state/ux-copy";
 import { FormRow } from "./layout";
 import React, { useEffect, useState } from "react";
 import { Alert, Pressable, View } from "react-native";
@@ -95,7 +96,7 @@ export function PurchasePayments({
       hi ? "भुगतान दर्ज करें?" : "Record this payment?",
       `${formatMoney(amountPaise, hi)} · ${draft.reference}\n${hi ? "केवल पहले से किया गया भुगतान दर्ज करें। ऐप पैसे नहीं भेजता।" : "Record a payment already made. The app does not transfer money."}`,
       [
-        { text: hi ? "रद्द करें" : "Cancel", style: "cancel" },
+        { text: uxText(language, "Cancel", "रद्द करें"), style: "cancel" },
         {
           text: hi ? "दर्ज करें" : "Record payment",
           onPress: () => {
@@ -131,7 +132,7 @@ export function PurchasePayments({
         ? "पुराना रिकॉर्ड रहेगा। यह पैसे वापस नहीं भेजता। सही भुगतान अलग से दर्ज करें।"
         : "The original entry is retained. This does not refund money. Record the correct payment afterward.",
       [
-        { text: hi ? "रद्द करें" : "Cancel", style: "cancel" },
+        { text: uxText(language, "Cancel", "रद्द करें"), style: "cancel" },
         {
           text: hi ? "रिकॉर्ड सुधारें" : "Correct entry",
           onPress: () => {
@@ -159,7 +160,7 @@ export function PurchasePayments({
         <StepHeader
           labels={[
             hi ? "भुगतान दर्ज" : "Record payment",
-            hi ? "इतिहास" : "History",
+            uxText(language, "History", "इतिहास"),
           ]}
           current={mode === "record" ? 0 : 1}
           onSelect={(i) => {
@@ -201,7 +202,9 @@ export function PurchasePayments({
                 </Text>
               </View>
               <View style={{ flex: 1 }}>
-                <Text style={s.muted}>{hi ? "बाकी" : "Balance"}</Text>
+                <Text style={s.muted}>
+                  {uxText(language, "Balance", "बाकी")}
+                </Text>
                 <Text
                   style={{ fontSize: 22, lineHeight: 30, fontWeight: "600" }}
                 >
@@ -348,7 +351,7 @@ export function PurchasePayments({
                         onPress={() => void correct(p.id)}
                       />
                       <Button
-                        label={hi ? "रद्द करें" : "Cancel"}
+                        label={uxText(language, "Cancel", "रद्द करें")}
                         secondary
                         disabled={busy}
                         onPress={() => setCorrecting("")}

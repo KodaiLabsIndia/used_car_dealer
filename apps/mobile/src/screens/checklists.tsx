@@ -1,3 +1,4 @@
+import { uxText } from "../state/ux-copy";
 import { formatDateTime } from "../components/date-format";
 import { ChecklistRulesEditor } from "../components/checklist-rules-editor";
 import React, { useEffect, useState } from "react";
@@ -50,7 +51,7 @@ export function ChecklistsScreen(_: ScreenProps<"Checklists">) {
   const { api, session, language, changed } = useApp(),
     owner = session!.actor.id,
     hi = language === "hi",
-    tr = (en: string, hn: string) => (hi ? hn : en);
+    tr = (en: string, hn: string) => uxText(language, en, hn);
   const resource = useResource("managed-checklists", () =>
     api.managedChecklists(),
   );
@@ -132,7 +133,9 @@ export function ChecklistsScreen(_: ScreenProps<"Checklists">) {
       setReason("");
       setReviewed(false);
       setSection("versions");
-      changed();
+      changed(
+        uxText(language, "Checklist draft saved", "जाँच सूची का मसौदा सेव हुआ"),
+      );
       resource.refresh();
     } catch (e) {
       setError(
@@ -179,7 +182,7 @@ export function ChecklistsScreen(_: ScreenProps<"Checklists">) {
         (body) => api.approveChecklist(selected.template.id, body),
       );
       setSelected(record);
-      changed();
+      changed(uxText(language, "Checklist approved", "जाँच सूची मंज़ूर हुई"));
       resource.refresh();
     } catch (e) {
       setError((e as Error).message);
@@ -199,6 +202,7 @@ export function ChecklistsScreen(_: ScreenProps<"Checklists">) {
   return (
     <Workspace
       title={tr("Inspection checklists", "जाँच की सूचियाँ")}
+      busy={busy}
       selected={section}
       onChange={(value) => {
         if (!busy) setSection(value);

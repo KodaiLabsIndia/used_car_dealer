@@ -1,3 +1,4 @@
+import { uxText } from "../state/ux-copy";
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, Alert, Pressable, View } from "react-native";
 import type { Purchase, PurchaseReceipt } from "@arihant/contracts";
@@ -116,7 +117,7 @@ export function PurchaseHandover({
         ? "दर्ज जानकारी सेव होगी और चुने व्यक्ति को इनटेक जाँच मिलेगी। भुगतान का बाकी अलग रहेगा।"
         : "Save this handover and assign the intake check. Any payment balance stays outstanding.",
       [
-        { text: hi ? "रद्द करें" : "Cancel", style: "cancel" },
+        { text: uxText(language, "Cancel", "रद्द करें"), style: "cancel" },
         {
           text: hi ? "हस्तांतरण दर्ज करें" : "Record handover",
           onPress: () => {
@@ -241,7 +242,7 @@ export function PurchaseHandover({
         <ActionRow>
           {current > 0 ? (
             <Button
-              label={hi ? "पीछे" : "Back"}
+              label={uxText(language, "Back", "पीछे")}
               secondary
               disabled={busy}
               onPress={() => go(current - 1)}
@@ -250,7 +251,7 @@ export function PurchaseHandover({
           ) : null}
           {current < 2 ? (
             <Button
-              label={hi ? "आगे" : "Next"}
+              label={uxText(language, "Next", "आगे")}
               icon="arrow-forward-outline"
               disabled={!ready || busy}
               onPress={() => go(current + 1)}
@@ -276,7 +277,11 @@ export function PurchaseHandover({
       {step === "car" ? (
         <Panel style={{ gap: 14 }}>
           <Field
-            label={hi ? "गाड़ी कहाँ प्राप्त हुई?" : "Receiving location"}
+            label={uxText(
+              language,
+              "Receiving location",
+              "गाड़ी कहाँ प्राप्त हुई?",
+            )}
             value={draft.location}
             onChangeText={(v) => edit("location", v)}
             maxLength={120}
@@ -385,7 +390,7 @@ export function PurchaseHandover({
               options.data?.templates.map((t) => ({
                 id: t.id,
                 label: t.name,
-                detail: `v${t.version} · ${t.items.length} ${hi ? "फोटो" : "photos"} · ${t.approved ? (hi ? "स्वीकृत" : "Approved") : hi ? "ड्राफ्ट" : "Draft"}`,
+                detail: `v${t.version} · ${t.items.length} ${hi ? "फोटो" : "photos"} · ${t.approved ? uxText(language, "Approved", "स्वीकृत") : uxText(language, "Draft", "ड्राफ्ट")}`,
                 icon: "clipboard-outline",
               })) || []
             }
@@ -393,7 +398,7 @@ export function PurchaseHandover({
             disabled={busy || !options.data}
           />
           <SelectField
-            label={hi ? "कौन जाँच करेगा?" : "Who will inspect?"}
+            label={uxText(language, "Who will inspect?", "कौन जाँच करेगा?")}
             value={draft.assignedTo}
             options={
               options.data?.people.map((p) => ({

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
+  Keyboard,
   Pressable,
   RefreshControl,
   TextInput,
@@ -36,7 +37,13 @@ export function OwnerHomeScreen({ navigation, route }: ScreenProps<"Home">) {
     decisions.refresh();
     jobs.refresh();
   };
-  useLiveRefresh(refresh);
+  useLiveRefresh(() => {
+    dashboard.refreshQuiet();
+    workforce.refreshQuiet();
+    routines.refreshQuiet();
+    decisions.refreshQuiet();
+    jobs.refreshQuiet();
+  });
   useEffect(() => {
     if (route.params?.area === "dealership") navigation.replace("Cars");
     else if (
@@ -78,6 +85,11 @@ export function OwnerHomeScreen({ navigation, route }: ScreenProps<"Home">) {
     actor.id,
     workforce.data?.serverNow ?? "",
   );
+  const todayRoutines =
+      routines.data?.items.filter((item) => item.dueToday) ?? [],
+    completedRoutines = todayRoutines.filter(
+      (item) => item.completedSteps.length === item.definition.steps.length,
+    ).length;
   return (
     <View style={{ flex: 1, backgroundColor: "#181817" }}>
       <GarageHeader
@@ -101,7 +113,11 @@ export function OwnerHomeScreen({ navigation, route }: ScreenProps<"Home">) {
           title={
             staffPage
               ? tr("Your staff", "आपके कर्मचारी", "तुमचे कर्मचारी")
-              : tr("Today", "आज", "आज")
+              : tr(
+                  `Hello, ${actor.name.split(" ")[0]}`,
+                  `नमस्ते, ${actor.name.split(" ")[0]}`,
+                  `नमस्कार, ${actor.name.split(" ")[0]}`,
+                )
           }
           action={
             staffPage
@@ -138,8 +154,10 @@ export function OwnerHomeScreen({ navigation, route }: ScreenProps<"Home">) {
             value={search}
             onChangeText={setSearch}
             onSubmitEditing={() => {
-              if (!staffPage)
+              if (!staffPage) {
+                Keyboard.dismiss();
                 navigation.navigate("Cars", { query: search.trim() });
+              }
             }}
             returnKeyType="search"
             style={[s.input, { flex: 1, minWidth: 0 }]}
@@ -148,9 +166,10 @@ export function OwnerHomeScreen({ navigation, route }: ScreenProps<"Home">) {
             <Pressable
               accessibilityRole="button"
               accessibilityLabel={tr("Find car", "गाड़ी खोजें", "गाडी शोधा")}
-              onPress={() =>
-                navigation.navigate("Cars", { query: search.trim() })
-              }
+              onPress={() => {
+                Keyboard.dismiss();
+                navigation.navigate("Cars", { query: search.trim() });
+              }}
               style={s.iconButton}
             >
               <Icon name="search-outline" />
@@ -389,7 +408,7 @@ export function OwnerHomeScreen({ navigation, route }: ScreenProps<"Home">) {
                 <Icon name="chevron-forward-outline" />
               </Pressable>
             ))}
-            {!dashboard.loading && !d?.attention.length ? (
+            {!dashboard.loading && d && !d.attention.length ? (
               <Text style={{ color: "#AAA7A2" }}>
                 {tr(
                   "No flagged car work.",
@@ -398,30 +417,40 @@ export function OwnerHomeScreen({ navigation, route }: ScreenProps<"Home">) {
                 )}
               </Text>
             ) : null}
-            <WorkRow
-              title={tr(
-                "My assigned work",
-                "मेरे सौंपे काम",
-                "माझी नेमलेली कामे",
-              )}
-              detail={tr(
-                `${mine.todo.length} inspections to continue`,
-                `${mine.todo.length} जाँच आगे करनी हैं`,
-                `${mine.todo.length} तपासण्या करायच्या आहेत`,
-              )}
-              icon="person-outline"
-              onPress={() =>
-                navigation.navigate("Work", { mine: true, phase: "todo" })
-              }
-            />
+            {mine.todo.length > 0 ? (
+              <WorkRow
+                title={tr(
+                  "My assigned work",
+                  "मेरे सौंपे काम",
+                  "माझी नेमलेली कामे",
+                )}
+                detail={tr(
+                  `${mine.todo.length} inspections to continue`,
+                  `${mine.todo.length} जाँच आगे करनी हैं`,
+                  `${mine.todo.length} तपासण्या करायच्या आहेत`,
+                )}
+                icon="person-outline"
+                onPress={() =>
+                  navigation.navigate("Work", { mine: true, phase: "todo" })
+                }
+              />
+            ) : null}
             <WorkGrid>
               <WorkRow
                 title={tr("Daily routines", "रोज़ के काम", "रोजची कामे")}
-                detail={tr(
-                  "See and assign daily tasks",
-                  "रोज़ के काम देखें और सौंपें",
-                  "रोजची कामे पाहा व नेमा",
-                )}
+                detail={
+                  todayRoutines.length
+                    ? tr(
+                        `${completedRoutines}/${todayRoutines.length} finished today`,
+                        `${completedRoutines}/${todayRoutines.length} आज पूरे`,
+                        `${completedRoutines}/${todayRoutines.length} आज पूर्ण`,
+                      )
+                    : tr(
+                        "See and assign daily tasks",
+                        "रोज़ के काम देखें और सौंपें",
+                        "रोजची कामे पाहा व नेमा",
+                      )
+                }
                 icon="repeat-outline"
                 onPress={() => navigation.navigate("Routines")}
               />

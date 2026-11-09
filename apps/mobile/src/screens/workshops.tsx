@@ -1,3 +1,4 @@
+import { uxText } from "../state/ux-copy";
 import React, { useState } from "react";
 import { ActivityIndicator } from "react-native";
 import type { ScreenProps } from "../navigation";
@@ -16,6 +17,12 @@ export function WorkshopsScreen(_props: ScreenProps<"Workshops">) {
     "directory",
     "add",
   ] as const);
+  const [search, setSearch] = useState("");
+  const visible = resource.data?.filter((w) =>
+    `${w.name} ${w.phone ?? ""}`
+      .toLocaleLowerCase()
+      .includes(search.trim().toLocaleLowerCase()),
+  );
   const [name, setName] = useState(""),
     [phone, setPhone] = useState(""),
     [busy, setBusy] = useState(false),
@@ -33,7 +40,7 @@ export function WorkshopsScreen(_props: ScreenProps<"Workshops">) {
       setName("");
       setPhone("");
       setSection("directory");
-      changed();
+      changed(uxText(language, "Workshop saved", "वर्कशॉप सेव हुई"));
     } catch (e) {
       setError((e as Error).message);
     } finally {
@@ -42,16 +49,16 @@ export function WorkshopsScreen(_props: ScreenProps<"Workshops">) {
   }
   return (
     <Workspace
-      title={hi ? "वर्कशॉप" : "Workshops"}
+      title={uxText(language, "Workshops", "वर्कशॉप")}
       items={[
         {
           id: "directory",
-          label: hi ? "साथी" : "Partners",
+          label: uxText(language, "Partners", "साथी"),
           icon: "business-outline",
         },
         {
           id: "add",
-          label: hi ? "नया साथी" : "Add partner",
+          label: uxText(language, "Add partner", "नया साथी"),
           icon: "add-outline",
         },
       ]}
@@ -64,7 +71,7 @@ export function WorkshopsScreen(_props: ScreenProps<"Workshops">) {
         footer={
           section === "add" ? (
             <Button
-              label={hi ? "सेव करें" : "Save workshop"}
+              label={uxText(language, "Save workshop", "सेव करें")}
               icon="checkmark-outline"
               busy={busy}
               disabled={!name.trim()}
@@ -82,14 +89,14 @@ export function WorkshopsScreen(_props: ScreenProps<"Workshops">) {
         {section === "add" ? (
           <>
             <Field
-              label={hi ? "नाम" : "Name"}
+              label={uxText(language, "Name", "नाम")}
               value={name}
               onChangeText={setName}
               maxLength={120}
               editable={!busy}
             />
             <Field
-              label={hi ? "फ़ोन (वैकल्पिक)" : "Phone (optional)"}
+              label={uxText(language, "Phone (optional)", "फ़ोन (वैकल्पिक)")}
               value={phone}
               onChangeText={setPhone}
               keyboardType="phone-pad"
@@ -102,7 +109,19 @@ export function WorkshopsScreen(_props: ScreenProps<"Workshops">) {
             {resource.loading && !resource.data ? (
               <ActivityIndicator color="#fff" />
             ) : null}
-            {resource.data?.map((w) => (
+            <Field
+              label={
+                language === "mr"
+                  ? "नाव किंवा फोन शोधा"
+                  : hi
+                    ? "नाम या फ़ोन खोजें"
+                    : "Find name or phone"
+              }
+              value={search}
+              onChangeText={setSearch}
+              autoCorrect={false}
+            />
+            {visible?.map((w) => (
               <Panel key={w.id} style={{ gap: 5 }}>
                 <Text style={{ fontSize: 17, fontWeight: "600" }}>
                   {w.name}
@@ -114,11 +133,19 @@ export function WorkshopsScreen(_props: ScreenProps<"Workshops">) {
                 ) : null}
               </Panel>
             ))}
-            {!resource.loading && !resource.data?.length ? (
+            {!resource.loading && !resource.error && !visible?.length ? (
               <Text style={s.muted}>
-                {hi
-                  ? "अभी कोई वर्कशॉप नहीं है।"
-                  : "Add your first service partner."}
+                {search.trim()
+                  ? language === "mr"
+                    ? "जुळणारा संपर्क नाही. शोध बदला."
+                    : hi
+                      ? "संपर्क नहीं मिला। खोज बदलें।"
+                      : "No matching contact. Try another search."
+                  : uxText(
+                      language,
+                      "Add your first service partner.",
+                      "अभी कोई वर्कशॉप नहीं है।",
+                    )}
               </Text>
             ) : null}
           </>

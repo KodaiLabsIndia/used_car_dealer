@@ -38,7 +38,7 @@ export function DecisionsScreen({ navigation }: ScreenProps<"Decisions">) {
   const resource = useResource(`decisions:${offset}`, () =>
     api.decisions(offset),
   );
-  useLiveRefresh(resource.refresh);
+  useLiveRefresh(resource.refreshQuiet);
   const moneyKinds = ["purchase", "quote", "workforce_advance"];
   const pending = [...(resource.data?.items ?? [])].sort(
     (a, b) =>

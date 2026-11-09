@@ -1,3 +1,4 @@
+import { uxText } from "../state/ux-copy";
 import { can } from "../application/access";
 import { randomUUID } from "expo-crypto";
 import { DocumentRequirements } from "../components/document-requirements";
@@ -53,7 +54,7 @@ const hindi = [
 export function DocumentsScreen({ route }: ScreenProps<"Documents">) {
   const { api, session, language, changed } = useApp(),
     hi = language === "hi",
-    tr = (en: string, h: string) => (hi ? h : en),
+    tr = (en: string, h: string) => uxText(language, en, h),
     key = `document-photo:${route.params.carId}`;
   const [section, setSection] = useState<"pages" | "add" | "requirements">(
       "pages",
@@ -83,7 +84,7 @@ export function DocumentsScreen({ route }: ScreenProps<"Documents">) {
         requirementId: ruleId,
         documentId,
       });
-      changed();
+      changed(uxText(language, "Document updated", "कागज़ अपडेट हुआ"));
     } catch (e) {
       setError((e as Error).message);
     } finally {
@@ -146,7 +147,8 @@ export function DocumentsScreen({ route }: ScreenProps<"Documents">) {
         resource.data ? <CarIdentity car={resource.data.car} /> : undefined
       }
       selected={section}
-      busy={busy || labeling || !!review}
+      busy={busy}
+      sectionLocked={labeling || !!review}
       onChange={setSection}
       items={[
         {
@@ -224,7 +226,13 @@ export function DocumentsScreen({ route }: ScreenProps<"Documents">) {
               (body) => api.reviewDocument(review.id, body),
             );
             setReview(null);
-            changed();
+            changed(
+              uxText(
+                language,
+                "Document review recorded",
+                "कागज़ की समीक्षा दर्ज हुई",
+              ),
+            );
             return true;
           }}
         />
@@ -311,7 +319,7 @@ export function DocumentsScreen({ route }: ScreenProps<"Documents">) {
             setPhoto(null);
             setLabeling(false);
             setSection("pages");
-            changed();
+            changed(uxText(language, "Page uploaded", "पेज अपलोड हुआ"));
             return true;
           }}
         />
@@ -389,7 +397,13 @@ export function DocumentsScreen({ route }: ScreenProps<"Documents">) {
                       commandId: randomUUID(),
                       stage,
                     });
-                    changed();
+                    changed(
+                      uxText(
+                        language,
+                        "Document checklist assigned",
+                        "कागज़ात की सूची सौंपी गई",
+                      ),
+                    );
                   } catch (e) {
                     setError((e as Error).message);
                   } finally {
@@ -408,10 +422,7 @@ export function DocumentsScreen({ route }: ScreenProps<"Documents">) {
           ) : section === "add" ? (
             <>
               <Text style={s.title}>
-                {tr(
-                  "One page. Clear and readable.",
-                  "एक पेज। साफ़ और पढ़ने योग्य।",
-                )}
+                {tr("Add a document page", "दस्तावेज़ का पेज जोड़ें")}
               </Text>
               <Text style={s.muted}>
                 {tr(

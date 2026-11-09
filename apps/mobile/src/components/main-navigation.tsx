@@ -1,9 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { Keyboard, Pressable, View } from "react-native";
+import React, { useEffect, useRef } from "react";
+import {
+  ActivityIndicator,
+  Animated,
+  AppState,
+  Keyboard,
+  Pressable,
+  View,
+} from "react-native";
 import {
   StackActions,
   type NavigationContainerRefWithCurrent,
 } from "@react-navigation/native";
+import { useResource } from "../state/use-resource";
+import { useReducedMotion } from "./garage-motion";
+import { uxText } from "../state/ux-copy";
 import { useLayout } from "./layout";
 import { Icon, Text, type IconName } from "./ui";
 import { useApp } from "../state/app-context";
@@ -24,25 +34,57 @@ export function MainNavigation({
   screen: CurrentScreen;
   rail: boolean;
 }) {
-  const { session, language } = useApp(),
+  const {
+      session,
+      language,
+      api,
+      working,
+      keyboardVisible: keyboard,
+    } = useApp(),
     { fontScale, width } = useLayout();
   const oversight = can(session!.actor, "overview");
   const tr = (en: string, hi: string, mr: string) =>
     language === "mr" ? mr : language === "hi" ? hi : en;
   const selected = mainSection(screen, oversight);
-  const [keyboard, setKeyboard] = useState(false);
+  const reviews = useResource<Awaited<ReturnType<typeof api.decisions>> | null>(
+    `navigation:reviews:${oversight}`,
+    () => (oversight ? api.decisions(0) : Promise.resolve(null)),
+  );
+  const reduced = useReducedMotion(),
+    scale = useRef(new Animated.Value(1)).current,
+    previousCount = useRef<number | null>(null);
+  const reviewCount = reviews.data?.total ?? 0;
   useEffect(() => {
-    const show = Keyboard.addListener("keyboardDidShow", () =>
-      setKeyboard(true),
-    );
-    const hide = Keyboard.addListener("keyboardDidHide", () =>
-      setKeyboard(false),
-    );
+    if (!oversight) return;
+    const timer = setInterval(() => {
+      if (AppState.currentState === "active") reviews.refreshQuiet();
+    }, 30000);
+    return () => clearInterval(timer);
+  }, [oversight, session?.actor.id]);
+  useEffect(() => {
+    if (!reviews.data) return;
+    scale.setValue(1);
+    const before = previousCount.current;
+    previousCount.current = reviewCount;
+    if (reduced || before === null || reviewCount <= before) return;
+    const animation = Animated.sequence([
+      Animated.timing(scale, {
+        toValue: 1.15,
+        duration: 130,
+        useNativeDriver: true,
+      }),
+      Animated.timing(scale, {
+        toValue: 1,
+        duration: 190,
+        useNativeDriver: true,
+      }),
+    ]);
+    animation.start();
     return () => {
-      show.remove();
-      hide.remove();
+      animation.stop();
+      scale.setValue(1);
     };
-  }, []);
+  }, [reviewCount, reduced]);
 
   const entries: { id: MainSection; label: string; icon: IconName }[] =
     oversight
@@ -108,7 +150,20 @@ export function MainNavigation({
           key={entry.id}
           accessibilityRole="tab"
           accessibilityLabel={entry.label}
-          accessibilityState={{ selected: selected === entry.id }}
+          accessibilityState={{
+            selected: selected === entry.id,
+            disabled: working,
+          }}
+          accessibilityHint={
+            entry.id === "review"
+              ? tr(
+                  `${reviewCount} requests waiting`,
+                  `${reviewCount} अनुरोध बाकी`,
+                  `${reviewCount} विनंत्या बाकी`,
+                )
+              : undefined
+          }
+          disabled={working}
           onPress={() => {
             const destination = mainDestination(entry.id);
             if (!navigation.isReady()) return;
@@ -142,11 +197,43 @@ export function MainNavigation({
             backgroundColor: selected === entry.id ? "#392327" : "transparent",
           }}
         >
-          <Icon
-            name={entry.icon}
-            size={22}
-            color={selected === entry.id ? "#FF9FA4" : "#AAA7A2"}
-          />
+          <View style={{ position: "relative" }}>
+            {working && selected === entry.id ? (
+              <ActivityIndicator color="#FFC2C9" size="small" />
+            ) : (
+              <Icon
+                name={entry.icon}
+                size={22}
+                color={selected === entry.id ? "#FF9FA4" : "#AAA7A2"}
+              />
+            )}
+            {entry.id === "review" && reviewCount > 0 ? (
+              <Animated.View
+                style={{
+                  position: "absolute",
+                  right: -14,
+                  top: -7,
+                  minWidth: 19,
+                  paddingHorizontal: 4,
+                  borderRadius: 9,
+                  backgroundColor: "#B92F3C",
+                  alignItems: "center",
+                  transform: [{ scale }],
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 10,
+                    lineHeight: 16,
+                    color: "#FFF",
+                    fontWeight: "600",
+                  }}
+                >
+                  {reviewCount > 99 ? "99+" : reviewCount}
+                </Text>
+              </Animated.View>
+            ) : null}
+          </View>
           <Text
             style={{
               fontSize: width < 380 && oversight ? 11 : 12,
@@ -156,7 +243,9 @@ export function MainNavigation({
               color: selected === entry.id ? "#FFF" : "#AAA7A2",
             }}
           >
-            {entry.label}
+            {working && selected === entry.id
+              ? uxText(language, "Please wait", "कृपया रुकें")
+              : entry.label}
           </Text>
         </Pressable>
       ))}

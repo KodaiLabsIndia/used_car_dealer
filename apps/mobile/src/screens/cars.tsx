@@ -1,9 +1,11 @@
+import { uxText } from "../state/ux-copy";
 import { RecordRow } from "../components/layout";
 import { can } from "../application/access";
 import { ContentScroll } from "../components/layout";
 import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
+  Keyboard,
   Pressable,
   RefreshControl,
   TextInput,
@@ -72,7 +74,10 @@ export function CarsScreen({ navigation, route }: ScreenProps<"Cars">) {
             accessibilityLabel={t("search")}
             value={search}
             onChangeText={setSearch}
-            onSubmitEditing={() => setQuery(search.trim())}
+            onSubmitEditing={() => {
+              Keyboard.dismiss();
+              setQuery(search.trim());
+            }}
             returnKeyType="search"
             placeholder={t("search")}
             placeholderTextColor="#999"
@@ -81,7 +86,10 @@ export function CarsScreen({ navigation, route }: ScreenProps<"Cars">) {
           <Pressable
             accessibilityRole="button"
             accessibilityLabel={t("search")}
-            onPress={() => setQuery(search.trim())}
+            onPress={() => {
+              Keyboard.dismiss();
+              setQuery(search.trim());
+            }}
             style={s.iconButton}
           >
             <Icon name="search-outline" />
@@ -195,11 +203,11 @@ export function CarsScreen({ navigation, route }: ScreenProps<"Cars">) {
                   ) : null}
                   {car.serviceStatus === "waiting_parts" ? (
                     <Pill
-                      label={
-                        language === "hi"
-                          ? "पार्ट का इंतज़ार"
-                          : "Waiting for parts"
-                      }
+                      label={uxText(
+                        language,
+                        "Waiting for parts",
+                        "पार्ट का इंतज़ार",
+                      )}
                       warning
                     />
                   ) : null}
@@ -218,9 +226,34 @@ export function CarsScreen({ navigation, route }: ScreenProps<"Cars">) {
               : "Search by registration or model to find more cars."}
           </Text>
         ) : null}
-        {!resource.loading && !resource.data?.items.length ? (
+        {!resource.loading &&
+        !resource.error &&
+        !resource.data?.items.length ? (
           <Panel>
-            <Text>{t("empty")}</Text>
+            <Text>
+              {query
+                ? tr(
+                    "No matching cars. Try a different number or model.",
+                    "गाड़ी नहीं मिली। दूसरा नंबर या मॉडल खोजें।",
+                    "जुळणारी गाडी नाही. दुसरा क्रमांक किंवा मॉडेल शोधा.",
+                  )
+                : t("empty")}
+            </Text>
+            {query || route.params?.stage ? (
+              <Button
+                secondary
+                label={tr(
+                  "Show all cars",
+                  "सभी गाड़ियाँ दिखाएँ",
+                  "सर्व गाड्या दाखवा",
+                )}
+                onPress={() => {
+                  setSearch("");
+                  setQuery("");
+                  navigation.setParams({ query: "", stage: undefined });
+                }}
+              />
+            ) : null}
           </Panel>
         ) : null}
       </ContentScroll>

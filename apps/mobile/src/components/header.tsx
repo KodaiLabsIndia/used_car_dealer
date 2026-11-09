@@ -16,7 +16,7 @@ export function GarageHeader({
   title?: string;
   onBack?: (() => void) | undefined;
 }) {
-  const { session, t } = useApp(),
+  const { session, t, working } = useApp(),
     nav = useNavigation<Navigation>(),
     taps = useRef<number[]>([]),
     [night, setNight] = useState(false);
@@ -50,6 +50,8 @@ export function GarageHeader({
           <Pressable
             accessibilityRole="button"
             accessibilityLabel={t("back")}
+            disabled={working}
+            accessibilityState={{ disabled: working }}
             onPress={() =>
               onBack
                 ? onBack()
@@ -86,6 +88,8 @@ export function GarageHeader({
           <Pressable
             accessibilityRole="button"
             accessibilityLabel={t("help")}
+            disabled={working}
+            accessibilityState={{ disabled: working }}
             onPress={() => nav.navigate("Help")}
             style={{
               minHeight: 44,
@@ -102,6 +106,8 @@ export function GarageHeader({
         <Pressable
           accessibilityRole="button"
           accessibilityLabel={t("settings")}
+          disabled={working}
+          accessibilityState={{ disabled: working }}
           onPress={() => nav.navigate("Settings")}
           style={s.iconButton}
         >

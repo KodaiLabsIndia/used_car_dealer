@@ -1,3 +1,4 @@
+import { uxText } from "../state/ux-copy";
 import React, { useState, useEffect } from "react";
 import { ActivityIndicator } from "react-native";
 import type { ScreenProps } from "../navigation";
@@ -62,7 +63,7 @@ export function AssignInspectionScreen({
             },
             (body) => api.createInspection(carId, body),
           );
-      changed();
+      changed(uxText(language, "Inspection saved", "जाँच सेव हुई"));
       navigation.replace("InspectionAllocation", { taskId: result.id });
     } catch (e) {
       setError((e as Error).message);
@@ -73,20 +74,17 @@ export function AssignInspectionScreen({
   }
   return (
     <FocusScreen
+      busy={busy}
       title={
         taskId
-          ? hi
-            ? "ज़िम्मेदारी बदलें"
-            : "Assign inspection"
-          : hi
-            ? "नई जाँच"
-            : "New inspection"
+          ? uxText(language, "Assign inspection", "ज़िम्मेदारी बदलें")
+          : uxText(language, "New inspection", "नई जाँच")
       }
     >
       <FocusPage
         footer={
           <Button
-            label={hi ? "ज़िम्मेदारी दें" : "Assign inspection"}
+            label={uxText(language, "Assign inspection", "ज़िम्मेदारी दें")}
             icon="checkmark-outline"
             busy={busy}
             disabled={!catalog.data || (!taskId && !template)}
@@ -109,7 +107,7 @@ export function AssignInspectionScreen({
           </Text>
         ) : null}
         <SelectField
-          label={hi ? "कौन जाँच करेगा?" : "Who will inspect?"}
+          label={hi ? "कौन जाँच करेगा?" : "Who starts this inspection?"}
           value={person}
           options={
             catalog.data?.people.map((p) => ({
@@ -123,13 +121,13 @@ export function AssignInspectionScreen({
         />
         {!taskId ? (
           <SelectField
-            label={hi ? "चेकलिस्ट" : "Checklist"}
+            label={uxText(language, "Checklist", "चेकलिस्ट")}
             value={template}
             options={
               catalog.data?.templates.map((t) => ({
                 id: t.id,
                 label: t.name,
-                detail: `v${t.version} · ${t.items.length} ${hi ? "फोटो" : "photos"} · ${t.approved ? (hi ? "स्वीकृत" : "Approved") : hi ? "ड्राफ्ट" : "Draft"}`,
+                detail: `v${t.version} · ${t.items.length} ${hi ? "फोटो" : "photos"} · ${t.approved ? uxText(language, "Approved", "स्वीकृत") : uxText(language, "Draft", "ड्राफ्ट")}`,
                 icon: "clipboard-outline",
               })) || []
             }

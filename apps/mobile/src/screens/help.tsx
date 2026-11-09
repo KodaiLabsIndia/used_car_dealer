@@ -1,9 +1,11 @@
+import { uxText } from "../state/ux-copy";
 import React, { useCallback, useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import * as Speech from "expo-speech";
 import type { Task } from "@arihant/contracts";
 import type { ScreenProps } from "../navigation";
+import { useInteractionLock } from "../state/use-interaction-lock";
 import { useApp } from "../state/app-context";
 import { useResource } from "../state/use-resource";
 import { useLiveRefresh } from "../state/use-live-refresh";
@@ -25,13 +27,14 @@ export function HelpScreen({ navigation, route }: ScreenProps<"Help">) {
     [busy, setBusy] = useState(false),
     [error, setError] = useState(""),
     [sent, setSent] = useState(false);
+  useInteractionLock(busy);
   const dashboard = useResource("dashboard", () => api.dashboard());
   const task = useResource(`help:task:${selected}`, () =>
     selected ? api.task(selected) : Promise.resolve(null),
   );
   useLiveRefresh(() => {
-    dashboard.refresh();
-    task.refresh();
+    dashboard.refreshQuiet();
+    task.refreshQuiet();
   });
   const own = personalInspectionWork(
     dashboard.data?.tasks ?? [],
@@ -71,7 +74,7 @@ export function HelpScreen({ navigation, route }: ScreenProps<"Help">) {
           ),
         );
       await sendTaskCommand(api, actor.id, master, payload);
-      changed();
+      changed(uxText(language, "Help request sent", "मदद का अनुरोध भेज दिया"));
       setSent(true);
     } catch (e) {
       setError((e as Error).message);

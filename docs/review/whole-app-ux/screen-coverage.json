@@ -1,0 +1,302 @@
+{
+  "screenFiles": 36,
+  "nativeSmokeReviewOnly": true,
+  "allBranchesExhaustivelyTested": false,
+  "businessCommandsPosted": false,
+  "financialCommandsPosted": false,
+  "localDraftRoundTrip": {
+    "testName": "UXQA",
+    "serverRecordCreated": false,
+    "createdDraftRemoved": true
+  },
+  "checks": [
+    {
+      "screenFile": "add-car",
+      "nativeEvidence": "owner-intake.xml",
+      "verifiedLabels": [
+        "Bring a car in",
+        "Make"
+      ]
+    },
+    {
+      "screenFile": "assign-inspection",
+      "nativeEvidence": "owner-assign-inspection.xml",
+      "verifiedLabels": [
+        "Who starts this inspection?"
+      ]
+    },
+    {
+      "screenFile": "assign-repair",
+      "nativeEvidence": "owner-assign-repair.xml",
+      "verifiedLabels": [
+        "Assign a repair",
+        "Responsible person"
+      ]
+    },
+    {
+      "screenFile": "assistant",
+      "nativeEvidence": "owner-assistant-request.xml",
+      "verifiedLabels": [
+        "Draft assistant",
+        "Ask"
+      ]
+    },
+    {
+      "screenFile": "business-board",
+      "nativeEvidence": "owner-business-board.xml",
+      "verifiedLabels": [
+        "Sales & support",
+        "All cars"
+      ]
+    },
+    {
+      "screenFile": "business",
+      "nativeEvidence": "owner-business-readiness.xml",
+      "verifiedLabels": [
+        "Stock, sale & support",
+        "Readiness"
+      ]
+    },
+    {
+      "screenFile": "car",
+      "nativeEvidence": "owner-car.xml",
+      "verifiedLabels": [
+        "Overview",
+        "Records"
+      ]
+    },
+    {
+      "screenFile": "cars",
+      "nativeEvidence": "employee-cars.xml",
+      "verifiedLabels": [
+        "Search registration or car",
+        "All car records"
+      ]
+    },
+    {
+      "screenFile": "change-password",
+      "nativeEvidence": "owner-password.xml",
+      "verifiedLabels": [
+        "Change password",
+        "At least 12 characters."
+      ]
+    },
+    {
+      "screenFile": "checklists",
+      "nativeEvidence": "owner-checklists.xml",
+      "verifiedLabels": [
+        "Versions",
+        "Checks"
+      ]
+    },
+    {
+      "screenFile": "clips",
+      "nativeEvidence": "employee-clip-add.xml",
+      "verifiedLabels": [
+        "Add check video",
+        "Record a clip"
+      ]
+    },
+    {
+      "screenFile": "company-settings",
+      "nativeEvidence": "owner-document-rules.xml",
+      "verifiedLabels": [
+        "Company documents"
+      ]
+    },
+    {
+      "screenFile": "decisions",
+      "nativeEvidence": "owner-review.xml",
+      "verifiedLabels": [
+        "Needs review"
+      ]
+    },
+    {
+      "screenFile": "documents",
+      "nativeEvidence": "owner-document-pages.xml",
+      "verifiedLabels": [
+        "Pages",
+        "Checklist"
+      ]
+    },
+    {
+      "screenFile": "employee-home",
+      "nativeEvidence": "employee-home.xml",
+      "verifiedLabels": [
+        "Your next work",
+        "Ravi"
+      ]
+    },
+    {
+      "screenFile": "enquiries",
+      "nativeEvidence": "owner-enquiry-form-review.xml",
+      "verifiedLabels": [
+        "Review before saving",
+        "UXQA"
+      ]
+    },
+    {
+      "screenFile": "help",
+      "nativeEvidence": "employee-help.xml",
+      "verifiedLabels": [
+        "Ask your supervisor",
+        "Which car?"
+      ]
+    },
+    {
+      "screenFile": "home",
+      "nativeEvidence": "owner-work.xml",
+      "verifiedLabels": [
+        "Team work",
+        "All staff"
+      ]
+    },
+    {
+      "screenFile": "inbox",
+      "nativeEvidence": "owner-inbox-all.xml",
+      "verifiedLabels": [
+        "Updates & reminders",
+        "All updates"
+      ]
+    },
+    {
+      "screenFile": "inspection-allocation",
+      "nativeEvidence": "owner-inspection-coverage.xml",
+      "verifiedLabels": [
+        "Coverage",
+        "Allocate"
+      ]
+    },
+    {
+      "screenFile": "job",
+      "nativeEvidence": "owner-job.xml",
+      "verifiedLabels": [
+        "Repair job",
+        "Parts"
+      ]
+    },
+    {
+      "screenFile": "jobs",
+      "nativeEvidence": "owner-jobs.xml",
+      "verifiedLabels": [
+        "Repair work",
+        "Find car, person or workshop"
+      ]
+    },
+    {
+      "screenFile": "login",
+      "nativeEvidence": "employee-login.xml",
+      "verifiedLabels": [
+        "Username",
+        "Password",
+        "हिन्दी",
+        "मराठी"
+      ]
+    },
+    {
+      "screenFile": "owner-home",
+      "nativeEvidence": "owner-home.xml",
+      "verifiedLabels": [
+        "Needs review",
+        "Hello, Owner"
+      ]
+    },
+    {
+      "screenFile": "purchase",
+      "nativeEvidence": "owner-purchase-approval.xml",
+      "verifiedLabels": [
+        "Purchase",
+        "Approval"
+      ]
+    },
+    {
+      "screenFile": "purchases",
+      "nativeEvidence": "owner-purchases.xml",
+      "verifiedLabels": [
+        "Purchase records",
+        "Search registration or model"
+      ]
+    },
+    {
+      "screenFile": "reports",
+      "nativeEvidence": "owner-reports-balances.xml",
+      "verifiedLabels": [
+        "Business reports",
+        "Balances"
+      ]
+    },
+    {
+      "screenFile": "routines",
+      "nativeEvidence": "owner-routines-manage.xml",
+      "verifiedLabels": [
+        "Manage routines",
+        "Saved history"
+      ]
+    },
+    {
+      "screenFile": "scan",
+      "nativeEvidence": "employee-scan-camera.xml",
+      "verifiedLabels": [
+        "Place the car’s QR inside the frame.",
+        "Find a car"
+      ]
+    },
+    {
+      "screenFile": "service-finance",
+      "nativeEvidence": "owner-service-payments.xml",
+      "verifiedLabels": [
+        "Repair spending",
+        "Payments"
+      ]
+    },
+    {
+      "screenFile": "settings",
+      "nativeEvidence": "owner-settings-account.xml",
+      "verifiedLabels": [
+        "Account",
+        "English"
+      ]
+    },
+    {
+      "screenFile": "stock",
+      "nativeEvidence": "owner-stock.xml",
+      "verifiedLabels": [
+        "Location & custody",
+        "Location"
+      ]
+    },
+    {
+      "screenFile": "task",
+      "nativeEvidence": "employee-unfinished-check-proof.xml",
+      "verifiedLabels": [
+        "Coolant leakage traces",
+        "Photo",
+        "Video"
+      ]
+    },
+    {
+      "screenFile": "team",
+      "nativeEvidence": "owner-team.xml",
+      "verifiedLabels": [
+        "People & access",
+        "Find staff"
+      ]
+    },
+    {
+      "screenFile": "workforce",
+      "nativeEvidence": "owner-pay.xml",
+      "verifiedLabels": [
+        "Attendance & pay",
+        "Pay"
+      ]
+    },
+    {
+      "screenFile": "workshops",
+      "nativeEvidence": "owner-workshops.xml",
+      "verifiedLabels": [
+        "Workshops",
+        "Find name or phone"
+      ]
+    }
+  ]
+}

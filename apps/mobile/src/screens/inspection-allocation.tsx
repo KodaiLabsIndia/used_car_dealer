@@ -1,3 +1,4 @@
+import { uxText } from "../state/ux-copy";
 import { Field } from "../components/forms";
 import React, { useEffect, useState } from "react";
 import { useIsFocused } from "@react-navigation/native";
@@ -70,7 +71,7 @@ export function InspectionAllocationScreen({
   useEffect(() => {
     if (!focused || busy || selected.length || reason.trim()) return;
     const tick = () => {
-      if (AppState.currentState === "active") resource.refresh();
+      if (AppState.currentState === "active") resource.refreshQuiet();
     };
     tick();
     const timer = setInterval(tick, 15000);
@@ -158,7 +159,7 @@ export function InspectionAllocationScreen({
         },
         (body) => api.allocateChecks(task.id, body),
       );
-      changed();
+      changed(uxText(language, "Checks assigned", "जाँच सौंपी गई"));
       resource.refresh();
       setSelected([]);
       setReason("");
@@ -198,7 +199,7 @@ export function InspectionAllocationScreen({
         },
         (body) => api.command(task.id, body),
       );
-      changed();
+      changed(uxText(language, "Review recorded", "समीक्षा दर्ज हुई"));
       resource.refresh();
       setSelected([]);
       setReason("");

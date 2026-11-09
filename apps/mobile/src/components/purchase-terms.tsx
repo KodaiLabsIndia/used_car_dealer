@@ -1,3 +1,4 @@
+import { uxText } from "../state/ux-copy";
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import {
@@ -219,7 +220,7 @@ export function PurchaseTermsForm({
           labels={[
             hi ? "विक्रेता" : "Seller",
             hi ? "कीमत" : "Price",
-            hi ? "पुष्टि" : "Confirm",
+            uxText(language, "Confirm", "पुष्टि"),
           ]}
           current={current}
           onSelect={go}
@@ -230,7 +231,7 @@ export function PurchaseTermsForm({
         <ActionRow>
           {current > 0 ? (
             <Button
-              label={hi ? "पीछे" : "Back"}
+              label={uxText(language, "Back", "पीछे")}
               secondary
               disabled={busy}
               onPress={() => go(current - 1)}
@@ -239,7 +240,7 @@ export function PurchaseTermsForm({
           ) : null}
           {current < 2 ? (
             <Button
-              label={hi ? "आगे" : "Next"}
+              label={uxText(language, "Next", "आगे")}
               icon="arrow-forward-outline"
               disabled={!draft || busy}
               onPress={() => go(current + 1)}
@@ -291,7 +292,7 @@ export function PurchaseTermsForm({
             maxLength={120}
           />
           <Field
-            label={hi ? "फ़ोन (वैकल्पिक)" : "Phone (optional)"}
+            label={uxText(language, "Phone (optional)", "फ़ोन (वैकल्पिक)")}
             value={f.sellerPhone}
             onChangeText={(v) => edit("sellerPhone", v)}
             editable={editable && !busy}
@@ -394,7 +395,7 @@ export function PurchaseTermsForm({
               <Text style={s.muted}>{f.sellerPhone}</Text>
             ) : null}
             {[
-              [hi ? "खरीद" : "Purchase", f.price],
+              [uxText(language, "Purchase", "खरीद"), f.price],
               [hi ? "बिक्री अनुमान" : "Expected resale", f.resale],
               [hi ? "मरम्मत बजट" : "Repair budget", f.repair],
               [hi ? "सीधे खर्च" : "Direct expenses", f.expenses],

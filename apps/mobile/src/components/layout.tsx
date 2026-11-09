@@ -10,15 +10,18 @@ import {
   type ViewStyle,
 } from "react-native";
 import { colors } from "@arihant/design-tokens";
+import { useApp } from "../state/app-context";
 import { GarageHeader } from "./header";
 
 // Width, rather than device model, also handles rotation and tablet split view.
 export function useLayout() {
   const { width, height, fontScale } = useWindowDimensions();
+  const { keyboardVisible } = useApp();
   const tablet = width >= 768;
   return {
     width,
     height,
+    keyboardVisible,
     fontScale,
     tablet,
     split: width >= 900 && fontScale < 1.5,
@@ -93,9 +96,18 @@ export function FormRow({ children }: { children: ReactNode }) {
             flexGrow: 1,
             maxWidth: "100%",
             minWidth: 0,
+            justifyContent: "flex-end",
           }}
         >
-          {child}
+          {React.isValidElement<{ style?: StyleProp<ViewStyle> }>(child) &&
+          child.type === View
+            ? React.cloneElement(child, {
+                style: [
+                  child.props.style,
+                  { flex: 0, width: "100%", minWidth: 0 },
+                ],
+              })
+            : child}
         </View>
       ))}
     </View>
@@ -199,7 +211,7 @@ export function WorkScreen({
   return (
     <KeyboardAvoidingView
       style={{ flex: 1, backgroundColor: colors.surface }}
-      behavior={Platform.OS === "ios" ? "padding" : undefined}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <GarageHeader back title={title} />
       <ContentScroll narrow={narrow}>{children}</ContentScroll>

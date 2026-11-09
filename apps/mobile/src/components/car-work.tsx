@@ -1,3 +1,5 @@
+import { uxText } from "../state/ux-copy";
+import { useInteractionLock } from "../state/use-interaction-lock";
 import { can } from "../application/access";
 import React, { useState } from "react";
 import { ActivityIndicator, Image, Pressable, View } from "react-native";
@@ -45,6 +47,7 @@ export function CarWork({
     [urgent, setUrgent] = useState(false),
     [busy, setBusy] = useState(false),
     [error, setError] = useState("");
+  useInteractionLock(busy);
   const tasks = useResource(`car-tasks:${car.id}`, async () =>
     (await api.tasks()).filter((t) => t.carId === car.id),
   );
@@ -68,7 +71,7 @@ export function CarWork({
       setAdding(false);
       setDescription("");
       setUrgent(false);
-      changed();
+      changed(uxText(language, "Issue recorded", "समस्या दर्ज हुई"));
     } catch (e) {
       setError((e as Error).message);
       changed();
@@ -113,7 +116,7 @@ export function CarWork({
           adding ? (
             <ActionRow>
               <Button
-                label={hi ? "रद्द करें" : "Cancel"}
+                label={uxText(language, "Cancel", "रद्द करें")}
                 secondary
                 disabled={busy}
                 onPress={() => setAdding(false)}
@@ -171,9 +174,7 @@ export function CarWork({
                   <Pill
                     label={
                       task.status === "completed"
-                        ? hi
-                          ? "पूरा हुआ"
-                          : "Completed"
+                        ? uxText(language, "Completed", "पूरा हुआ")
                         : task.status === "submitted"
                           ? hi
                             ? "मंज़ूरी बाकी"

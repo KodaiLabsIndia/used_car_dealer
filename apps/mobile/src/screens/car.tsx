@@ -1,3 +1,4 @@
+import { uxText } from "../state/ux-copy";
 import { can } from "../application/access";
 import React from "react";
 import { ActivityIndicator, Image, RefreshControl, View } from "react-native";
@@ -44,23 +45,27 @@ export function CarScreen({ route, navigation }: ScreenProps<"Car">) {
       items={[
         {
           id: "overview",
-          label: hi ? "सारांश" : "Overview",
+          label: uxText(language, "Overview", "सारांश"),
           icon: "speedometer-outline",
         },
-        { id: "work", label: hi ? "काम" : "Work", icon: "clipboard-outline" },
+        {
+          id: "work",
+          label: uxText(language, "Work", "काम"),
+          icon: "clipboard-outline",
+        },
         {
           id: "issues",
-          label: hi ? "समस्याएँ" : "Issues",
+          label: uxText(language, "Issues", "समस्याएँ"),
           icon: "alert-circle-outline",
         },
         {
           id: "records",
-          label: hi ? "रिकॉर्ड" : "Records",
+          label: uxText(language, "Records", "रिकॉर्ड"),
           icon: "folder-open-outline",
         },
         {
           id: "history",
-          label: hi ? "इतिहास" : "History",
+          label: uxText(language, "History", "इतिहास"),
           icon: "time-outline",
         },
       ]}
@@ -87,18 +92,20 @@ export function CarScreen({ route, navigation }: ScreenProps<"Car">) {
           }
           footer={
             <ActionRow>
-              <Button
-                label={hi ? "खरीद" : "Purchase"}
-                secondary
-                icon="wallet-outline"
-                onPress={() =>
-                  navigation.navigate("Purchase", { carId: car.id })
-                }
-                style={{ flex: 1 }}
-              />
+              {owner ? (
+                <Button
+                  label={uxText(language, "Purchase", "खरीद")}
+                  secondary
+                  icon="wallet-outline"
+                  onPress={() =>
+                    navigation.navigate("Purchase", { carId: car.id })
+                  }
+                  style={{ flex: 1 }}
+                />
+              ) : null}
 
               <Button
-                label={hi ? "काम खोलें" : "Open work"}
+                label={uxText(language, "Open work", "काम खोलें")}
                 icon="clipboard-outline"
                 onPress={() => setSection("work")}
                 style={{ flex: 1 }}
@@ -119,7 +126,7 @@ export function CarScreen({ route, navigation }: ScreenProps<"Car">) {
                   style={{
                     borderRadius: 14,
                     overflow: "hidden",
-                    height: 140,
+                    height: car.imageKey === "generic" ? 0 : 120,
                     backgroundColor: "#272727",
                   }}
                 >
@@ -141,7 +148,11 @@ export function CarScreen({ route, navigation }: ScreenProps<"Car">) {
                   ) : null}
                   {car.serviceStatus === "waiting_parts" ? (
                     <Pill
-                      label={hi ? "पार्ट का इंतज़ार" : "Waiting for parts"}
+                      label={uxText(
+                        language,
+                        "Waiting for parts",
+                        "पार्ट का इंतज़ार",
+                      )}
                       warning
                     />
                   ) : null}
@@ -162,9 +173,11 @@ export function CarScreen({ route, navigation }: ScreenProps<"Car">) {
                 {owner ? (
                   <Button
                     secondary
-                    label={
-                      hi ? "खर्च, बिक्री और सहायता" : "Costs, sale & support"
-                    }
+                    label={uxText(
+                      language,
+                      "Costs, sale & support",
+                      "खर्च, बिक्री और सहायता",
+                    )}
                     icon="briefcase-outline"
                     onPress={() =>
                       navigation.navigate("Business", { carId: car.id })
@@ -192,17 +205,25 @@ export function CarScreen({ route, navigation }: ScreenProps<"Car">) {
       ) : section === "records" ? (
         <FocusPage scrollKey="records">
           <Text style={s.title}>
-            {hi ? "इस कार के रिकॉर्ड" : "This car’s records"}
+            {uxText(language, "This car’s records", "इस कार के रिकॉर्ड")}
           </Text>
           <Button
             secondary
-            label={hi ? "कार की जगह, चाबी और रोक" : "Custody, keys & holds"}
+            label={uxText(
+              language,
+              "Custody, keys & holds",
+              "कार की जगह, चाबी और रोक",
+            )}
             icon="key-outline"
             onPress={() => navigation.navigate("Stock", { carId: car.id })}
           />
           <Button
             secondary
-            label={hi ? "निजी कागज़ात और बिल" : "Private documents & bills"}
+            label={uxText(
+              language,
+              "Private documents & bills",
+              "निजी कागज़ात और बिल",
+            )}
             icon="documents-outline"
             onPress={() => navigation.navigate("Documents", { carId: car.id })}
           />
@@ -210,9 +231,11 @@ export function CarScreen({ route, navigation }: ScreenProps<"Car">) {
             <>
               <Button
                 secondary
-                label={
-                  hi ? "खरीद और विक्रेता भुगतान" : "Purchase & seller payments"
-                }
+                label={uxText(
+                  language,
+                  "Purchase & seller payments",
+                  "खरीद और विक्रेता भुगतान",
+                )}
                 icon="wallet-outline"
                 onPress={() =>
                   navigation.navigate("Purchase", { carId: car.id })
@@ -220,7 +243,11 @@ export function CarScreen({ route, navigation }: ScreenProps<"Car">) {
               />
               <Button
                 secondary
-                label={hi ? "खर्च, बिक्री और सहायता" : "Costs, sale & support"}
+                label={uxText(
+                  language,
+                  "Costs, sale & support",
+                  "खर्च, बिक्री और सहायता",
+                )}
                 icon="briefcase-outline"
                 onPress={() =>
                   navigation.navigate("Business", { carId: car.id })

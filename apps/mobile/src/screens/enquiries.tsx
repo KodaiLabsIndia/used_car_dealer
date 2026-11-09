@@ -1,7 +1,9 @@
+import { uxText } from "../state/ux-copy";
 import { formatDateTime } from "../components/date-format";
 import React, { useState } from "react";
 import {
   ActivityIndicator,
+  Keyboard,
   Alert,
   Linking,
   Pressable,
@@ -47,7 +49,7 @@ export function EnquiriesScreen({
 }: ScreenProps<"Enquiries">) {
   const { api, session, language, changed } = useApp(),
     hi = language === "hi",
-    tr = (en: string, hindi: string) => (hi ? hindi : en),
+    tr = (en: string, hindi: string) => uxText(language, en, hindi),
     admin = can(session!.actor, "lead_admin");
   const [scope, setScope] = useState<"due" | "mine" | "all">(
       route.params?.kind ? "all" : "due",
@@ -135,7 +137,8 @@ export function EnquiriesScreen({
             : tr("Buyer & seller enquiries", "खरीदार और विक्रेता पूछताछ")
       }
       selected={scope}
-      busy={busy || adding}
+      busy={busy}
+      sectionLocked={adding}
       onChange={(v) => {
         setScope(v);
         setOffset(0);
@@ -189,7 +192,7 @@ export function EnquiriesScreen({
               (body) => api.createEnquiry(body),
             );
             setAdding(false);
-            changed();
+            changed(uxText(language, "Enquiry saved", "पूछताछ सेव हुई"));
             navigation.navigate("Enquiry", { id: result.enquiry.id });
             return true;
           }}
@@ -231,6 +234,7 @@ export function EnquiriesScreen({
                 value={query}
                 onChangeText={setQuery}
                 onSubmitEditing={() => {
+                  Keyboard.dismiss();
                   setSearch(query.trim());
                   setOffset(0);
                 }}
@@ -241,6 +245,7 @@ export function EnquiriesScreen({
               secondary
               label={tr("Search", "खोजें")}
               onPress={() => {
+                Keyboard.dismiss();
                 setSearch(query.trim());
                 setOffset(0);
               }}
@@ -312,7 +317,7 @@ export function EnquiriesScreen({
 export function EnquiryScreen({ route, navigation }: ScreenProps<"Enquiry">) {
   const { api, session, language, changed } = useApp(),
     hi = language === "hi",
-    tr = (en: string, hindi: string) => (hi ? hindi : en),
+    tr = (en: string, hindi: string) => uxText(language, en, hindi),
     admin = can(session!.actor, "lead_admin");
   const resource = useResource(`enquiry:${route.params.id}`, () =>
       api.enquiry(route.params.id),
@@ -516,7 +521,7 @@ export function EnquiryScreen({ route, navigation }: ScreenProps<"Enquiry">) {
         { ...payload, expectedVersion: version },
         (body) => api.enquiryCommand(route.params.id, body as EnquiryCommand),
       );
-      changed();
+      changed(uxText(language, "Enquiry updated", "पूछताछ अपडेट हुई"));
       setForm(null);
       return true;
     } catch (err) {
@@ -529,7 +534,8 @@ export function EnquiryScreen({ route, navigation }: ScreenProps<"Enquiry">) {
     <Workspace
       title={e?.name ?? tr("Enquiry", "पूछताछ")}
       selected={section}
-      busy={busy || !!form}
+      busy={busy}
+      sectionLocked={!!form}
       onChange={setSection}
       items={[
         {

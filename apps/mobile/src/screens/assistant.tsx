@@ -1,3 +1,4 @@
+import { uxText } from "../state/ux-copy";
 import { formatDateTime } from "../components/date-format";
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, Image, View } from "react-native";
@@ -75,7 +76,7 @@ export function AssistantScreen({
   const { api, session, language, changed } = useApp(),
     user = session!.actor,
     hi = language === "hi",
-    tr = (en: string, hn: string) => (hi ? hn : en);
+    tr = (en: string, hn: string) => uxText(language, en, hn);
   const params = route.params,
     focused = useIsFocused(),
     key = `assistant:${params?.taskId ?? params?.carId ?? "company"}:${params?.itemId ?? "all"}`;
@@ -204,7 +205,9 @@ export function AssistantScreen({
     setError("");
     try {
       setDraft(await api.reviewAssistant(draft.id, decision, confirmed));
-      changed();
+      changed(
+        uxText(language, "Draft review recorded", "मसौदे की समीक्षा दर्ज हुई"),
+      );
     } catch (e) {
       setError((e as Error).message);
     } finally {

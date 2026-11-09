@@ -47,12 +47,13 @@ export function RoutineFocus({
     };
   }, [next, section]);
   return (
-    <FocusScreen title={item.definition.title} onBack={onBack}>
+    <FocusScreen busy={busy} title={item.definition.title} onBack={onBack}>
       <FocusPage
         scrollKey={`${item.id}:${section}`}
         widthLimit={1000}
         top={
           <SectionTabs
+            disabled={busy}
             selected={section}
             onChange={setSection}
             items={[

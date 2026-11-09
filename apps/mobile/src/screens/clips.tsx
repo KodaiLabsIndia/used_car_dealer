@@ -1,3 +1,4 @@
+import { uxText } from "../state/ux-copy";
 import { allocationFor } from "@arihant/contracts";
 import { formatDateTime } from "../components/date-format";
 import React, { useEffect, useState, useRef } from "react";
@@ -45,7 +46,7 @@ export function ClipsScreen({ route }: ScreenProps<"Clips">) {
   const { api, session, language, changed } = useApp(),
     user = session!.actor,
     hi = language === "hi",
-    tr = (en: string, hn: string) => (hi ? hn : en),
+    tr = (en: string, hn: string) => uxText(language, en, hn),
     { taskId, itemId } = route.params,
     key = `clip-draft:${taskId}:${itemId}`;
   const [draft, setDraft] = useState<ClipDraft | null>(null),
@@ -244,7 +245,7 @@ export function ClipsScreen({ route }: ScreenProps<"Clips">) {
       ]);
       setDraft(null);
       setView("saved");
-      changed();
+      changed(uxText(language, "Video uploaded", "वीडियो अपलोड हुआ"));
     } catch (e) {
       setError((e as Error).message);
     } finally {
@@ -301,7 +302,7 @@ export function ClipsScreen({ route }: ScreenProps<"Clips">) {
         {view === "add" ? (
           <>
             <Text style={s.title}>
-              {tr("Show it. Explain it.", "दिखाएँ। समझाएँ।")}
+              {tr("Add check video", "जाँच का वीडियो जोड़ें")}
             </Text>
             <Text>
               {tr(
@@ -430,7 +431,7 @@ export function ClipsScreen({ route }: ScreenProps<"Clips">) {
                 <Panel key={c.id}>
                   <Player source={api.clipUri(c.id)} />
                   <View style={s.row}>
-                    <Pill label={tr("Server verified", "सर्वर पर जाँचा")} />
+                    <Pill label={tr("Uploaded · 720p", "भेजा गया · 720p")} />
                     <Text>{(c.durationMs / 1000).toFixed(1)} s</Text>
                   </View>
                   <Text style={s.muted}>

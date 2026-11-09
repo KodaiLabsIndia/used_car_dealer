@@ -1,5 +1,7 @@
+import { Keyboard } from "react-native";
 import React, {
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useMemo,
@@ -23,7 +25,12 @@ type AppState = {
   changePassword: (current: string, next: string) => Promise<void>;
   signOut: () => Promise<void>;
   revision: number;
-  changed: () => void;
+  keyboardVisible: boolean;
+  working: boolean;
+  setWorking: (key: string, value: boolean) => void;
+  changed: (message?: string) => void;
+  announce: (message: string) => void;
+  feedback: { id: number; message: string } | null;
 };
 const Context = createContext<AppState | null>(null);
 let sessionWrite: Promise<void> = Promise.resolve();
@@ -42,6 +49,36 @@ export function AppProvider({ children }: { children: ReactNode }) {
     [booting, setBooting] = useState(true),
     [language, setLanguageState] = useState<Language>("en"),
     [revision, setRevision] = useState(0);
+  const [feedback, setFeedback] = useState<{
+    id: number;
+    message: string;
+  } | null>(null);
+  const [keyboardVisible, setKeyboardVisible] = useState(false);
+  useEffect(() => {
+    const show = Keyboard.addListener("keyboardDidShow", () =>
+      setKeyboardVisible(true),
+    );
+    const hide = Keyboard.addListener("keyboardDidHide", () =>
+      setKeyboardVisible(false),
+    );
+    return () => {
+      show.remove();
+      hide.remove();
+    };
+  }, []);
+  const feedbackId = useRef(0);
+  useEffect(() => {
+    if (!feedback) return;
+    const timer = setTimeout(() => setFeedback(null), 5000);
+    return () => clearTimeout(timer);
+  }, [feedback?.id]);
+  const workingKeys = useRef(new Set<string>());
+  const [workingCount, setWorkingCount] = useState(0);
+  const setWorking = useCallback((key: string, value: boolean) => {
+    if (value) workingKeys.current.add(key);
+    else workingKeys.current.delete(key);
+    setWorkingCount(workingKeys.current.size);
+  }, []);
   const activeToken = useRef<string | null>(null);
   const api = useMemo(() => {
     const token = session?.token || null;
@@ -116,6 +153,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
     await acceptSession(next);
   }
   async function acceptSession(next: Session) {
+    Keyboard.dismiss();
+    setKeyboardVisible(false);
+    setFeedback(null);
     activeToken.current = next.token;
     try {
       await persistSession(next);
@@ -139,6 +179,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     await acceptSession(await api.changeSecret(current, next));
   }
   async function signOut() {
+    setFeedback(null);
     await api.logout().catch(() => {});
     activeToken.current = null;
     await persistSession(null);
@@ -165,7 +206,16 @@ export function AppProvider({ children }: { children: ReactNode }) {
         changePassword,
         signOut,
         revision,
-        changed: () => setRevision((n) => n + 1),
+        keyboardVisible,
+        working: workingCount > 0,
+        setWorking,
+        feedback,
+        announce: (message) =>
+          setFeedback({ id: ++feedbackId.current, message }),
+        changed: (message) => {
+          setRevision((n) => n + 1);
+          if (message) setFeedback({ id: ++feedbackId.current, message });
+        },
       }}
     >
       {children}

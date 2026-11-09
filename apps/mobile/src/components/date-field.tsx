@@ -1,3 +1,4 @@
+import { uxText } from "../state/ux-copy";
 import React, { useState } from "react";
 import { Keyboard, Modal, Pressable, ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -255,7 +256,7 @@ export function DateField({
             ) : null}
             <Button
               secondary
-              label={hi ? "बंद करें" : "Close"}
+              label={uxText(language, "Close", "बंद करें")}
               onPress={() => setOpen(false)}
             />
           </ScrollView>

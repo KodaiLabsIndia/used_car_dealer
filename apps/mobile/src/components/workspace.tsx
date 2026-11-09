@@ -20,6 +20,8 @@ import type { Car } from "@arihant/contracts";
 import { GarageHeader } from "./header";
 import { ContentScroll, useLayout } from "./layout";
 import { CarThumb, Icon, Text, s, type IconName } from "./ui";
+import { useInteractionLock } from "../state/use-interaction-lock";
+import { uxText } from "../state/ux-copy";
 import { useApp } from "../state/app-context";
 
 export type Section<T extends string = string> = {
@@ -33,15 +35,18 @@ export function FocusScreen({
   title,
   children,
   onBack,
+  busy = false,
 }: {
   title: string;
+  busy?: boolean;
   onBack?: (() => void) | undefined;
   children: ReactNode;
 }) {
+  useInteractionLock(busy);
   return (
     <KeyboardAvoidingView
       style={{ flex: 1, backgroundColor: colors.surface }}
-      behavior={Platform.OS === "ios" ? "padding" : undefined}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <GarageHeader back title={title} onBack={onBack} />
       <View
@@ -92,27 +97,31 @@ export function SectionTabs<T extends string>({
             flexShrink: 0,
             maxWidth: "100%",
             minWidth: vertical ? undefined : 56,
-            minHeight: vertical ? 60 : 56,
+            minHeight: vertical ? 52 : 46,
             paddingHorizontal: 8,
-            paddingVertical: 9,
+            paddingVertical: 8,
             borderRadius: 12,
-            flexDirection: vertical ? "row" : "column",
+            flexDirection: "row",
             alignItems: "center",
             justifyContent: vertical ? "flex-start" : "center",
-            gap: vertical ? 12 : 2,
-            backgroundColor: item.id === selected ? colors.red : colors.card,
+            gap: 7,
+            backgroundColor: item.id === selected ? "#3E252C" : colors.card,
             borderWidth: 1,
-            borderColor: item.id === selected ? colors.red : colors.line,
+            borderColor: item.id === selected ? "#CC7985" : colors.line,
           }}
         >
-          <Icon name={item.icon} size={20} />
+          <Icon
+            name={item.icon}
+            size={18}
+            color={item.id === selected ? "#FFC2C9" : "#B9B1AB"}
+          />
           <Text
             style={{
               fontSize: vertical ? 14 : 12,
               lineHeight: vertical ? 22 : 18,
               fontWeight: "600",
               textAlign: vertical ? "left" : "center",
-              flexShrink: vertical ? 1 : 0,
+              flexShrink: 1,
             }}
           >
             {item.label}
@@ -130,6 +139,7 @@ export function Workspace<T extends string>({
   selected,
   onChange,
   busy = false,
+  sectionLocked = false,
   children,
 }: {
   title: string;
@@ -138,19 +148,24 @@ export function Workspace<T extends string>({
   selected: T;
   onChange: (value: T) => void;
   busy?: boolean;
+  sectionLocked?: boolean;
   children: ReactNode;
 }) {
-  const { width, height, fontScale } = useLayout();
+  useInteractionLock(busy);
+  const { width, height, fontScale, keyboardVisible } = useLayout();
   const { language } = useApp(),
     hi = language === "hi";
-  const rail = width >= 900 && height >= 600 && fontScale < 1.5;
   const compact =
-    height < 600 || fontScale >= 1.3 || (width < 360 && items.length > 3);
+    items.length > 1 &&
+    (keyboardVisible ||
+      height < 600 ||
+      fontScale >= 1.3 ||
+      (width < 360 && items.length > 3));
   const [menu, setMenu] = useState(false);
   return (
     <KeyboardAvoidingView
       style={{ flex: 1, backgroundColor: colors.surface }}
-      behavior={Platform.OS === "ios" ? "padding" : undefined}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <GarageHeader back title={title} />
       <View
@@ -168,30 +183,16 @@ export function Workspace<T extends string>({
             {context}
           </View>
         ) : null}
-        <View style={{ flex: 1, flexDirection: rail ? "row" : "column" }}>
-          {rail ? (
-            <View
-              style={{
-                width: 196,
-                padding: 14,
-                gap: 8,
-                borderRightWidth: 1,
-                borderColor: colors.line,
-              }}
-            >
-              <SectionTabs
-                items={items}
-                selected={selected}
-                onChange={onChange}
-                disabled={busy}
-                vertical
-              />
-            </View>
-          ) : compact ? (
+        <View style={{ flex: 1 }}>
+          {items.length < 2 ? null : compact ? (
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel={hi ? "सभी हिस्से खोलें" : "Choose section"}
-              disabled={busy}
+              accessibilityLabel={uxText(
+                language,
+                "Choose section",
+                "हिस्सा चुनें",
+              )}
+              disabled={busy || sectionLocked}
               onPress={() => {
                 Keyboard.dismiss();
                 setMenu(true);
@@ -213,6 +214,10 @@ export function Workspace<T extends string>({
               <Text style={{ flex: 1, fontWeight: "600" }}>
                 {items.find((i) => i.id === selected)?.label}
               </Text>
+              <Text style={{ fontSize: 12, color: colors.muted }}>
+                {items.findIndex((item) => item.id === selected) + 1}/
+                {items.length}
+              </Text>
               <Icon name="chevron-down-outline" />
             </Pressable>
           ) : (
@@ -221,7 +226,7 @@ export function Workspace<T extends string>({
                 items={items}
                 selected={selected}
                 onChange={onChange}
-                disabled={busy}
+                disabled={busy || sectionLocked}
               />
             </View>
           )}
@@ -234,7 +239,7 @@ export function Workspace<T extends string>({
       </View>
       <ChoiceModal
         visible={menu}
-        title={hi ? "कहाँ जाना है?" : "Choose section"}
+        title={uxText(language, "Choose section", "हिस्सा चुनें")}
         onClose={() => setMenu(false)}
       >
         <SectionTabs
@@ -266,9 +271,11 @@ export function FocusPage({
   scrollKey?: string;
   widthLimit?: number;
 } & ScrollViewProps) {
-  const { width, height, fontScale } = useLayout();
+  const { width, height, fontScale, keyboardVisible } = useLayout();
   const context = useContext(ScrollingContext);
+  // Keep top inputs mounted when the keyboard opens; reparenting loses focus.
   const flowTop = width < 380 || height < 600 || fontScale >= 1.3;
+  const flowFooter = flowTop || keyboardVisible;
   return (
     <View style={{ flex: 1, minHeight: 0 }}>
       {top && !flowTop ? (
@@ -299,9 +306,9 @@ export function FocusPage({
         {context}
         {flowTop ? top : null}
         {children}
-        {flowTop ? footer : null}
+        {flowFooter ? footer : null}
       </ContentScroll>
-      {footer && !flowTop ? (
+      {footer && !flowFooter ? (
         <View
           style={{
             borderTopWidth: 1,
@@ -383,7 +390,7 @@ export function StepHeader({
     <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 6 }}>
       {labels.map((label, index) => (
         <Pressable
-          key={label}
+          key={`${index}:${label}`}
           accessibilityRole="tab"
           accessibilityLabel={`${index + 1}. ${label}`}
           accessibilityState={{ selected: current === index, disabled }}
@@ -401,12 +408,7 @@ export function StepHeader({
             padding: 8,
             gap: 4,
             borderBottomWidth: 3,
-            borderColor:
-              current === index
-                ? colors.red
-                : index < current
-                  ? "#799e88"
-                  : colors.line,
+            borderColor: current === index ? colors.red : colors.line,
           }}
         >
           <Text
@@ -533,7 +535,7 @@ export function SelectField({
         <Text style={{ fontWeight: "600" }}>{label}</Text>
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel={`${label}: ${current?.label || placeholder || (hi ? "चुनें" : "Choose")}`}
+          accessibilityLabel={`${label}: ${current?.label || placeholder || uxText(language, "Choose", "चुनें")}`}
           accessibilityState={{ disabled, expanded: open }}
           disabled={disabled}
           onPress={() => {
@@ -556,7 +558,9 @@ export function SelectField({
           <Icon name={current?.icon || "list-outline"} />
           <View style={{ flex: 1 }}>
             <Text>
-              {current?.label || placeholder || (hi ? "चुनें" : "Choose")}
+              {current?.label ||
+                placeholder ||
+                uxText(language, "Choose", "चुनें")}
             </Text>
             {current?.detail ? (
               <Text
@@ -572,8 +576,12 @@ export function SelectField({
       <ChoiceModal visible={open} title={label} onClose={() => setOpen(false)}>
         {options.length > 7 ? (
           <TextInput
-            accessibilityLabel={hi ? "सूची में खोजें" : "Search choices"}
-            placeholder={hi ? "खोजें" : "Search"}
+            accessibilityLabel={uxText(
+              language,
+              "Search choices",
+              "सूची में खोजें",
+            )}
+            placeholder={uxText(language, "Search", "खोजें")}
             placeholderTextColor="#999"
             value={search}
             onChangeText={setSearch}
@@ -587,6 +595,7 @@ export function SelectField({
             accessibilityLabel={option.label}
             accessibilityState={{ selected: value === option.id }}
             onPress={() => {
+              Keyboard.dismiss();
               onChange(option.id);
               setOpen(false);
             }}
@@ -623,7 +632,7 @@ export function SelectField({
         ))}
         {!filtered.length ? (
           <Text style={s.muted}>
-            {hi ? "कोई विकल्प नहीं मिला।" : "No matching choices."}
+            {uxText(language, "No matching choices.", "कोई विकल्प नहीं मिला।")}
           </Text>
         ) : null}
       </ChoiceModal>

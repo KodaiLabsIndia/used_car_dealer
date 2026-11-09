@@ -47,6 +47,7 @@ import { BusinessBoardScreen } from "./src/screens/business-board";
 import { ChangePasswordScreen } from "./src/screens/change-password";
 import { TeamScreen } from "./src/screens/team";
 import { loadLocal, saveLocal } from "./src/adapters/local-store";
+import { ActionFeedback } from "./src/components/action-feedback";
 import { MainNavigation } from "./src/components/main-navigation";
 import { useLayout } from "./src/components/layout";
 import { HelpScreen } from "./src/screens/help";
@@ -183,6 +184,7 @@ function AuthenticatedRoutes({ ownerId }: { ownerId: string }) {
               )}
             </Stack.Screen>
           </Stack.Navigator>
+          <ActionFeedback />
         </View>
         {!rail ? chrome : null}
       </View>

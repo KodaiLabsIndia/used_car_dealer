@@ -1,0 +1,6 @@
+{
+  "passwordGoSignsIn": true,
+  "keyboardDismissedOnSuccess": true,
+  "credentialsChanged": false,
+  "literalAdbInput": true
+}

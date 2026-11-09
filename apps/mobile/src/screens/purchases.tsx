@@ -1,3 +1,4 @@
+import { uxText } from "../state/ux-copy";
 import { RecordRow } from "../components/layout";
 import React, { useState } from "react";
 import {
@@ -9,7 +10,7 @@ import {
 import type { ScreenProps } from "../navigation";
 import { ContentScroll, CardGrid } from "../components/layout";
 import { GarageHeader } from "../components/header";
-import { Choice } from "../components/forms";
+import { Choice, Field } from "../components/forms";
 import {
   Button,
   CarThumb,
@@ -27,13 +28,19 @@ import { useResource } from "../state/use-resource";
 export function PurchasesScreen({ navigation }: ScreenProps<"Purchases">) {
   const { api, language, session } = useApp(),
     hi = language === "hi",
-    [decisions, setDecisions] = useState(false);
+    [decisions, setDecisions] = useState(false),
+    [search, setSearch] = useState("");
   const resource = useResource(`purchases:${decisions}`, () =>
     api.purchases(decisions),
   );
+  const visible = resource.data?.filter((p) =>
+    `${p.car.make} ${p.car.model} ${p.car.registration} ${p.car.stockNumber}`
+      .toLocaleLowerCase()
+      .includes(search.trim().toLocaleLowerCase()),
+  );
   return (
     <View style={{ flex: 1 }}>
-      <GarageHeader back title={hi ? "खरीद" : "Purchases"} />
+      <GarageHeader back title={uxText(language, "Purchases", "खरीद")} />
       <ContentScroll
         refreshControl={
           <RefreshControl
@@ -44,16 +51,30 @@ export function PurchasesScreen({ navigation }: ScreenProps<"Purchases">) {
         }
       >
         <Text style={s.title}>
-          {hi ? "खरीद का रिकॉर्ड" : "Purchase records"}
+          {uxText(language, "Purchase records", "खरीद का रिकॉर्ड")}
         </Text>
         {session?.actor.role === "owner" ? (
           <>
-            <Choice
+            <Field
               label={
-                hi
-                  ? "केवल मंज़ूरी के लिए आए प्रस्ताव"
-                  : "Awaiting approval only"
+                language === "mr"
+                  ? "गाडी क्रमांक किंवा मॉडेल शोधा"
+                  : uxText(
+                      language,
+                      "Search registration or model",
+                      "नंबर या मॉडल खोजें",
+                    )
               }
+              value={search}
+              onChangeText={setSearch}
+              autoCorrect={false}
+            />
+            <Choice
+              label={uxText(
+                language,
+                "Awaiting approval only",
+                "केवल मंज़ूरी के लिए आए प्रस्ताव",
+              )}
               selected={decisions}
               onPress={() => setDecisions((v) => !v)}
               icon="checkmark-done-outline"
@@ -65,7 +86,7 @@ export function PurchasesScreen({ navigation }: ScreenProps<"Purchases">) {
               <ActivityIndicator color="#fff" />
             ) : null}
             <CardGrid>
-              {resource.data?.map((p) => (
+              {visible?.map((p) => (
                 <Pressable
                   key={p.id}
                   accessibilityRole="button"
@@ -73,9 +94,9 @@ export function PurchasesScreen({ navigation }: ScreenProps<"Purchases">) {
                     navigation.navigate("Purchase", { carId: p.carId })
                   }
                 >
-                  <Panel style={{ gap: 14 }}>
+                  <Panel style={{ gap: 10 }}>
                     <RecordRow>
-                      <CarThumb car={p.car} />
+                      <CarThumb car={p.car} size={48} />
                       <View style={{ flex: 1 }}>
                         <Text style={{ fontSize: 18, fontWeight: "600" }}>
                           {p.car.make} {p.car.model}
@@ -90,30 +111,48 @@ export function PurchasesScreen({ navigation }: ScreenProps<"Purchases">) {
                     />
                     <Text
                       style={{
-                        fontSize: 24,
-                        lineHeight: 32,
+                        fontSize: 20,
+                        lineHeight: 28,
                         fontWeight: "600",
                       }}
                     >
                       {formatMoney(p.terms.purchasePricePaise, hi)}
                     </Text>
                     <Text style={s.muted}>
-                      {hi ? "बाकी" : "Balance"}{" "}
+                      {language === "mr"
+                        ? "विक्रेत्याची बाकी"
+                        : hi
+                          ? "विक्रेता का बाकी"
+                          : "Seller balance"}{" "}
                       {formatMoney(p.balancePaise, hi)}
                     </Text>
                   </Panel>
                 </Pressable>
               ))}
             </CardGrid>
-            {!resource.loading && !resource.data?.length ? (
-              <Panel style={{ gap: 14 }}>
+            {!resource.loading && !resource.error && !visible?.length ? (
+              <Panel style={{ gap: 10 }}>
                 <Text>
-                  {hi
-                    ? "अभी कोई खरीद प्रस्ताव नहीं है। गाड़ी के रिकॉर्ड से शुरू करें।"
-                    : "No purchase proposals here yet. Start from a car record."}
+                  {search.trim()
+                    ? language === "mr"
+                      ? "जुळणारी गाडी नाही. शोध बदला."
+                      : hi
+                        ? "गाड़ी नहीं मिली। खोज बदलें।"
+                        : "No matching car. Try another search."
+                    : decisions
+                      ? language === "mr"
+                        ? "मंजुरीसाठी खरेदी प्रस्ताव बाकी नाहीत."
+                        : hi
+                          ? "खरीद मंज़ूरी बाकी नहीं है।"
+                          : "No purchases awaiting approval."
+                      : uxText(
+                          language,
+                          "No purchase proposals here yet. Start from a car record.",
+                          "अभी कोई खरीद प्रस्ताव नहीं है। गाड़ी के रिकॉर्ड से शुरू करें।",
+                        )}
                 </Text>
                 <Button
-                  label={hi ? "गाड़ियाँ खोलें" : "Open cars"}
+                  label={uxText(language, "Open cars", "गाड़ियाँ खोलें")}
                   secondary
                   icon="car-sport-outline"
                   onPress={() => navigation.navigate("Cars")}
@@ -122,7 +161,13 @@ export function PurchasesScreen({ navigation }: ScreenProps<"Purchases">) {
             ) : null}
           </>
         ) : (
-          <Text>{hi ? "मालिक की पहुँच चाहिए।" : "Owner access required."}</Text>
+          <Text>
+            {uxText(
+              language,
+              "Owner access required.",
+              "मालिक की पहुँच चाहिए।",
+            )}
+          </Text>
         )}
       </ContentScroll>
     </View>
