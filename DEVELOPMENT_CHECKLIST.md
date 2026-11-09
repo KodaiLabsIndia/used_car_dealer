@@ -470,3 +470,12 @@ release acceptance remain open.
 - [x] AUTH-01 Use username/password only on mobile and web; resolve the single Arihant workspace on the server and remove dealer-code prompts.
 
 See [demo commands, accounts and walkthrough](docs/DEMO_DATA.md).
+
+
+### 9 November — home and navigation usability
+
+The [navigation checklist](docs/NAVIGATION_CHECKLIST.md) replaces nested owner
+menus with Home / Cars / Work / Staff / Review and employee Home / My work / Me.
+Shared primary navigation, compact work cards, named staff entry and an explicit
+check-linked Help request flow are implemented. Physical-device and actual staff
+usability acceptance remain open. See [review evidence](docs/review/navigation-home/README.md).

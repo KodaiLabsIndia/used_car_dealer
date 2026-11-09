@@ -9,10 +9,19 @@ export type RootStack = {
   Home:
     | {
         scope?: "all" | "mine" | "decisions" | undefined;
+        employeeArea?: "today" | "me";
         area?: "today" | "dealership" | "people" | "decisions" | undefined;
       }
     | undefined;
-  Work: { mine?: boolean } | undefined;
+  Work:
+    | {
+        mine?: boolean;
+        personId?: string;
+        phase?: "todo" | "review" | "finished";
+        category?: "all" | "inspections" | "routines" | "service";
+      }
+    | undefined;
+  Help: { taskId?: string; itemId?: string } | undefined;
   Routines:
     | {
         routineId?: string | undefined;
@@ -20,7 +29,9 @@ export type RootStack = {
         section?: "today" | "manage" | "history" | undefined;
       }
     | undefined;
-  Cars: { stage?: import("@arihant/contracts").Stage } | undefined;
+  Cars:
+    | { stage?: import("@arihant/contracts").Stage | undefined; query?: string }
+    | undefined;
   Car: { id: string };
   Task: { id: string; itemId?: string };
   InspectionAllocation: {

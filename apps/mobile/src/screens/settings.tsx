@@ -165,7 +165,7 @@ export function SettingsScreen({ navigation }: ScreenProps<"Settings">) {
                 onPress={() => navigation.navigate("Enquiries")}
               />
             ) : null}
-            {owner ? (
+            {session && can(session.actor, "finance") ? (
               <Button
                 secondary
                 label={tr(

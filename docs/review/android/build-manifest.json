@@ -1,5 +1,5 @@
 {
-  "recordedAt": "2026-11-08T17:48:34.600543+00:00",
+  "recordedAt": "2026-11-09T15:13:13.005656+00:00",
   "package": "com.arihantcars.operations",
   "version": "0.1.0",
   "versionCode": 1,
@@ -9,8 +9,8 @@
   "artifacts": [
     {
       "file": "artifacts/ArihantCars-internal-preview.apk",
-      "bytes": 41594587,
-      "sha256": "27d643d35a67d1fb5e9cfe81a0a125525087865fafc8ab3c38d6272091055cd8",
+      "bytes": 41584987,
+      "sha256": "a8e5f425eb7f950d212d4a44ce40224ab2ad5f9ef5bb8be37b5935d9e1cf581b",
       "bundledJavaScript": true,
       "requiresMetro": false,
       "productionDistribution": false,
@@ -54,5 +54,5 @@
     }
   ],
   "compileAndroidSdk": 37,
-  "previewBundledSources": "docs/review/demo-data/bundled-source-verification.json"
+  "previewBundledSources": "docs/review/navigation-home/bundled-source-verification.json"
 }

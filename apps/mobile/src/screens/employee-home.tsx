@@ -1,821 +1,329 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import {
   ActivityIndicator,
-  Animated,
-  AppState,
+  Pressable,
   RefreshControl,
   View,
 } from "react-native";
-import { useIsFocused } from "@react-navigation/native";
-import * as Speech from "expo-speech";
-import { colors } from "@arihant/design-tokens";
-import {
-  inspectionProgress,
-  type Task,
-  type RepairJob,
-} from "@arihant/contracts";
 import type { ScreenProps } from "../navigation";
 import { useApp } from "../state/app-context";
 import { useResource } from "../state/use-resource";
-import { useSection } from "../state/use-section";
+import { useLiveRefresh } from "../state/use-live-refresh";
 import {
   personalInspectionWork,
   routinePhase,
 } from "../application/work-overview";
 import { formatMoney } from "../application/money";
 import { GarageHeader } from "../components/header";
-import { useReducedMotion } from "../components/garage-motion";
-import { ContentScroll, useLayout } from "../components/layout";
-import { SectionTabs } from "../components/workspace";
-import { RoutineCard } from "../components/routine-card";
+import { FocusPage } from "../components/workspace";
 import {
   WorkHeading,
   WorkRow,
-  WorkGrid,
   WorkEmpty,
-  WorkNavigation,
-  operationColors as c,
+  WorkGrid,
 } from "../components/operations";
-import { Button, CarThumb, ErrorNotice, Icon, Text } from "../components/ui";
-
-type Area = "today" | "work" | "pay" | "help";
-export function EmployeeHomeScreen({ navigation }: ScreenProps<"Home">) {
-  const { api, session, language } = useApp();
-  const actor = session!.actor;
+import {
+  InspectionWorkItem,
+  RoutineWorkItem,
+  ServiceWorkItem,
+} from "../components/work-item";
+import { Button, ErrorNotice, Icon, Text } from "../components/ui";
+export function EmployeeHomeScreen({ navigation, route }: ScreenProps<"Home">) {
+  const { api, session, language } = useApp(),
+    actor = session!.actor,
+    me = route.params?.employeeArea === "me";
   const tr = (en: string, hi: string, mr: string) =>
     language === "mr" ? mr : language === "hi" ? hi : en;
-  const [area, setArea] = useSection<Area>("employee:area:v1", "today", [
-    "today",
-    "work",
-    "pay",
-    "help",
-  ]);
-  const [list, setList] = useSection("employee:work-list:v1", "todo", [
-    "todo",
-    "review",
-    "finished",
-  ] as const);
-  const dashboard = useResource("dashboard", () => api.dashboard());
-  const attendance = useResource("employee:personal-workforce", () =>
-    api.workforce(actor.id),
-  );
-  const routines = useResource("employee:personal-routines", () =>
-    api.routines(),
-  );
-  const repairs = useResource("employee:personal-jobs", () => api.jobs());
-  const focused = useIsFocused();
-  const reduced = useReducedMotion();
-  const opacity = useRef(new Animated.Value(1)).current;
-  const { width, height, fontScale } = useLayout();
-  const rail = width >= 900 && height >= 600 && fontScale < 1.5;
+  const dashboard = useResource("dashboard", () => api.dashboard()),
+    attendance = useResource("employee:personal-workforce", () =>
+      api.workforce(actor.id),
+    ),
+    routines = useResource("employee:personal-routines", () => api.routines()),
+    repairs = useResource("employee:personal-jobs", () => api.jobs());
   const refresh = () => {
     dashboard.refresh();
     attendance.refresh();
     routines.refresh();
     repairs.refresh();
   };
-  useEffect(() => {
-    if (!focused) return;
-    const tick = () => {
-      if (AppState.currentState === "active") refresh();
-    };
-    const timer = setInterval(tick, 30000);
-    const sub = AppState.addEventListener("change", (s) => {
-      if (s === "active") tick();
-    });
-    return () => {
-      clearInterval(timer);
-      sub.remove();
-      void Speech.stop();
-    };
-  }, [focused]);
-  useEffect(() => {
-    void Speech.stop();
-    if (reduced) {
-      opacity.setValue(1);
-      return;
-    }
-    opacity.setValue(0.6);
-    const animation = Animated.timing(opacity, {
-      toValue: 1,
-      duration: 180,
-      useNativeDriver: true,
-    });
-    animation.start();
-    return () => animation.stop();
-  }, [area, reduced]);
-  const wf = attendance.data;
-  const ownStatus = wf?.people.find((p) => p.id === actor.id)?.attendanceStatus;
-  const serverNow = wf?.serverNow ?? "";
-  const tasks = personalInspectionWork(
-    dashboard.data?.tasks ?? [],
-    actor.id,
-    serverNow,
-  );
-  const jobs = (repairs.data ?? []).filter((j) => j.assignedTo === actor.id);
-  const activeJobs = jobs.filter((j) => j.status !== "completed");
-  const due = (routines.data?.items ?? []).filter(
-    (i) => i.definition.assignedTo === actor.id && i.dueToday,
-  );
-  const routineTodo = due.filter((i) => routinePhase(i) !== "finished");
-  const routineDone = due.filter((i) => routinePhase(i) === "finished");
-  const nextTask = tasks.todo[0];
-  const nextRoutine = routineTodo.find((i) => i.started) ?? routineTodo[0];
-  const nextJob =
-    activeJobs.find((j) => j.status !== "waiting_parts") ?? activeJobs[0];
-  const featuredRoutine =
-    nextRoutine &&
-    (!nextTask ||
-      (nextRoutine.started &&
-        nextTask.status !== "recheck" &&
-        !nextTask.helpOpen));
-  const published = wf?.salaries.filter((s) => s.status !== "void") ?? [];
-  const latest = published[0];
-  const todayDate = wf?.today;
-  const dateLabel = todayDate
-    ? new Date(`${todayDate}T12:00:00+05:30`).toLocaleDateString(
-        language === "hi" ? "hi-IN" : language === "mr" ? "mr-IN" : "en-IN",
-        {
-          weekday: "long",
-          day: "numeric",
-          month: "long",
-          timeZone: "Asia/Kolkata",
-        },
-      )
-    : tr("Your working day", "आपका काम का दिन", "तुमचा कामाचा दिवस");
-  const statusLabel =
-    ownStatus === "open"
-      ? tr("You’re at work", "आप काम पर हैं", "तुम्ही कामावर आहात")
-      : ownStatus === "closed"
-        ? tr(
-            "Your day is recorded",
-            "आपका दिन दर्ज है",
-            "तुमचा दिवस नोंदवला आहे",
-          )
-        : ownStatus === "missed_out"
-          ? tr(
-              "A punch needs review",
-              "हाज़िरी की समीक्षा बाकी",
-              "हजेरीची तपासणी बाकी",
-            )
-          : ownStatus === "off_day"
-            ? tr(
-                "Today is an off day",
-                "आज छुट्टी का दिन है",
-                "आज सुट्टीचा दिवस आहे",
-              )
-            : tr("Ready for your day?", "काम शुरू करें?", "काम सुरू करूया?");
-  const taskCard = (task: Task) => {
-    const p = inspectionProgress(task);
-    const label =
-      task.status === "recheck"
-        ? tr("Changes requested", "बदलाव चाहिए", "बदल आवश्यक")
-        : task.status === "submitted"
-          ? tr("With supervisor", "सुपरवाइज़र के पास", "पर्यवेक्षकाकडे")
-          : task.status === "completed"
-            ? tr("Completed", "पूरा हुआ", "पूर्ण")
-            : task.helpOpen
-              ? tr("Help requested", "मदद माँगी गई", "मदत मागितली")
-              : tr("Open inspection", "जाँच खोलें", "तपासणी उघडा");
-    return (
-      <View
-        key={task.id}
-        style={{
-          borderRadius: 20,
-          backgroundColor: c.card,
-          padding: 18,
-          gap: 14,
-        }}
-      >
-        <View style={{ flexDirection: "row", alignItems: "center", gap: 12 }}>
-          <CarThumb car={task.car} size={60} />
-          <View style={{ flex: 1, minWidth: 0 }}>
-            <Text style={{ fontSize: 19, fontWeight: "600", width: "100%" }}>
-              {task.car.make} {task.car.model}
-            </Text>
-            <Text style={{ fontSize: 12, color: c.muted }}>
-              {task.car.registration}
-            </Text>
-          </View>
-        </View>
-        <Text style={{ fontSize: 15, width: "100%" }}>{task.title}</Text>
-        {task.collaborative ? (
-          <Text style={{ color: c.accent }}>
-            {tr(
-              "Your allocated checks",
-              "आपकी सौंपी जाँच",
-              "तुम्हाला नेमलेल्या तपासण्या",
-            )}{" "}
-            · {task.items.length}
-          </Text>
-        ) : null}
-        <View style={{ height: 4, backgroundColor: c.line, borderRadius: 4 }}>
-          <View
-            style={{
-              height: 4,
-              backgroundColor: colors.red,
-              borderRadius: 4,
-              width: `${p.total ? (p.completed / p.total) * 100 : 0}%`,
-            }}
-          />
-        </View>
-        <Text style={{ fontSize: 12, color: c.muted }}>
-          {p.completed}/{p.total}{" "}
-          {tr("checks recorded", "जाँच दर्ज", "तपासण्या नोंदवल्या")}
-        </Text>
-        {task.collaborative ? (
-          <Text style={{ fontSize: 12, color: c.muted }}>
-            {
-              task.allocations.filter(
-                (a) => a.assignedTo === actor.id && a.state === "submitted",
-              ).length
-            }{" "}
-            {tr("in review", "समीक्षा में", "तपासणीत")} ·{" "}
-            {
-              task.allocations.filter(
-                (a) =>
-                  a.assignedTo === actor.id &&
-                  ["accepted", "waived"].includes(a.state),
-              ).length
-            }{" "}
-            {tr("resolved", "पूरी", "पूर्ण")}
-          </Text>
-        ) : null}
-        <Button
-          secondary={task.status === "completed" || task.status === "submitted"}
-          label={label}
-          icon={
-            task.status === "completed"
-              ? "checkmark-outline"
-              : "arrow-forward-outline"
-          }
-          onPress={() => navigation.navigate("Task", { id: task.id })}
-        />
-      </View>
+  useLiveRefresh(refresh);
+  const wf = attendance.data,
+    status = wf?.people.find((p) => p.id === actor.id)?.attendanceStatus,
+    atWork = ["open", "at_work"].includes(status ?? ""),
+    tasks = personalInspectionWork(
+      dashboard.data?.tasks ?? [],
+      actor.id,
+      wf?.serverNow ?? "",
     );
-  };
-  const jobRow = (j: RepairJob) => (
-    <WorkRow
-      key={j.id}
-      title={`${j.car.make} ${j.car.model}`}
-      detail={j.title}
-      icon="build-outline"
-      stamp={
-        j.status === "waiting_parts"
-          ? tr("Waiting for parts", "पार्ट का इंतज़ार", "पार्टची प्रतीक्षा")
-          : j.status === "awaiting_qc"
-            ? tr(
-                "Ready for quality check",
-                "गुणवत्ता जाँच बाकी",
-                "गुणवत्ता तपासणी बाकी",
-              )
-            : j.status === "completed"
-              ? tr("Finished", "पूरा हुआ", "पूर्ण")
-              : tr("Service work", "सर्विस का काम", "सर्विसचे काम")
-      }
-      tone={
-        j.status === "waiting_parts"
-          ? "warning"
-          : j.status === "completed"
-            ? "success"
-            : "normal"
-      }
-      onPress={() => navigation.navigate("Job", { id: j.id })}
-    />
+  const daily = (routines.data?.items ?? []).filter(
+    (i) =>
+      i.dueToday &&
+      i.definition.assignedTo === actor.id &&
+      routinePhase(i) !== "finished",
   );
-  const nav = (
-    <WorkNavigation
-      rail={rail}
-      selected={area}
-      onChange={setArea}
-      items={[
-        { id: "today", label: tr("Today", "आज", "आज"), icon: "sunny-outline" },
-        {
-          id: "work",
-          label: tr("My work", "मेरा काम", "माझे काम"),
-          icon: "clipboard-outline",
-        },
-        {
-          id: "pay",
-          label: tr("My pay", "मेरा वेतन", "माझा पगार"),
-          icon: "wallet-outline",
-        },
-        {
-          id: "help",
-          label: tr("Help", "मदद", "मदत"),
-          icon: "help-circle-outline",
-        },
-      ]}
-    />
+  const jobs = (repairs.data ?? []).filter(
+    (j) => j.assignedTo === actor.id && j.status !== "completed",
   );
+  const error =
+    dashboard.error || attendance.error || routines.error || repairs.error;
+  const firstRoutine = daily.find((i) => i.started),
+    firstTask = tasks.todo[0],
+    firstJob = jobs[0];
+  const latest = wf?.salaries.find((s) => s.status !== "void");
   return (
     <View style={{ flex: 1, backgroundColor: "#181817" }}>
-      <GarageHeader />
-      <View
-        style={{
-          flex: 1,
-          flexDirection: rail ? "row" : "column",
-          width: "100%",
-          maxWidth: 1480,
-          alignSelf: "center",
-        }}
+      <GarageHeader title={me ? tr("Me", "मैं", "मी") : actor.name} />
+      <FocusPage
+        scrollKey={me ? "me" : "home"}
+        refreshControl={
+          <RefreshControl
+            refreshing={dashboard.loading || attendance.loading}
+            onRefresh={refresh}
+            tintColor="#fff"
+          />
+        }
       >
-        {rail ? nav : null}
-        <View style={{ flex: 1, minWidth: 0 }}>
-          <ContentScroll
-            key={area}
-            refreshControl={
-              <RefreshControl
-                refreshing={
-                  dashboard.loading ||
-                  attendance.loading ||
-                  routines.loading ||
-                  repairs.loading
-                }
-                onRefresh={refresh}
-                tintColor="#fff"
-              />
-            }
-            contentContainerStyle={{ padding: rail ? 28 : 18, gap: 22 }}
-          >
-            <Animated.View style={{ opacity, gap: 22 }}>
-              {dashboard.error ||
-              attendance.error ||
-              routines.error ||
-              repairs.error ? (
-                <ErrorNotice
-                  message={
-                    dashboard.error ||
-                    attendance.error ||
-                    routines.error ||
-                    repairs.error
-                  }
-                  retry={refresh}
-                />
-              ) : null}
-              {!dashboard.data && dashboard.loading ? (
-                <ActivityIndicator color="#fff" />
-              ) : null}
-              {area === "today" ? (
-                <>
-                  <View style={{ gap: 6 }}>
-                    <Text style={{ fontSize: 12, color: c.muted }}>
-                      {dateLabel}
-                    </Text>
-                    <Text
-                      style={{
-                        fontSize: 31,
-                        lineHeight: 40,
-                        fontWeight: "600",
-                        width: "100%",
-                      }}
-                    >
-                      {tr("Hello", "नमस्ते", "नमस्कार")}, {actor.name}.
-                    </Text>
-                    <Text style={{ fontSize: 14, color: c.muted }}>
-                      {tr(
-                        "Today’s attendance and assigned work",
-                        "आज की हाज़िरी और सौंपे काम",
-                        "आजची हजेरी व नेमलेली कामे",
-                      )}
-                    </Text>
-                  </View>
-                  <View
-                    style={{
-                      padding: 22,
-                      borderRadius: 24,
-                      backgroundColor:
-                        ownStatus === "open" ? "#263E31" : "#322326",
-                      borderWidth: 1,
-                      borderColor: ownStatus === "open" ? "#43634E" : "#63323A",
-                      gap: 14,
-                    }}
-                  >
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        gap: 12,
-                        alignItems: "center",
-                      }}
-                    >
-                      <Icon
-                        name="time-outline"
-                        color={ownStatus === "open" ? colors.green : "#FFB3B7"}
-                        size={27}
-                      />
-                      <Text
-                        style={{ fontSize: 20, fontWeight: "600", flex: 1 }}
-                      >
-                        {wf
-                          ? statusLabel
-                          : tr(
-                              "Checking your attendance…",
-                              "हाज़िरी देख रहे हैं…",
-                              "हजेरी तपासत आहोत…",
-                            )}
-                      </Text>
-                    </View>
-                    <Text style={{ fontSize: 13, color: c.muted }}>
-                      {tr(
-                        "Attendance, shift and leave",
-                        "हाज़िरी, शिफ्ट और छुट्टी",
-                        "हजेरी, शिफ्ट व रजा",
-                      )}
-                    </Text>
-                    <Button
-                      secondary
-                      label={
-                        ownStatus === "not_punched"
-                          ? tr("Mark attendance", "हाज़िरी लगाएँ", "हजेरी लावा")
-                          : tr(
-                              "View my attendance",
-                              "मेरी हाज़िरी देखें",
-                              "माझी हजेरी पाहा",
-                            )
-                      }
-                      icon="finger-print-outline"
-                      onPress={() =>
-                        navigation.navigate("Workforce", {
-                          userId: actor.id,
-                          section: "attendance",
-                        })
-                      }
-                    />
-                  </View>
-                  <WorkHeading
-                    kicker={tr("NEXT UP", "अगला काम", "पुढचे काम")}
-                    title={tr(
-                      "What to do next",
-                      "अब क्या करना है",
-                      "पुढे काय करायचे",
-                    )}
-                    action={tr("All work", "सभी काम", "सर्व कामे")}
-                    onPress={() => setArea("work")}
-                  />
-                  {featuredRoutine && nextRoutine ? (
-                    <RoutineCard
-                      item={nextRoutine}
-                      onPress={() =>
-                        navigation.navigate("Routines", {
-                          routineId: nextRoutine.id,
-                        })
-                      }
-                    />
-                  ) : nextTask ? (
-                    taskCard(nextTask)
-                  ) : nextJob ? (
-                    jobRow(nextJob)
-                  ) : dashboard.loading ||
-                    routines.loading ||
-                    repairs.loading ? (
-                    <ActivityIndicator color="#fff" />
-                  ) : (
-                    <WorkEmpty
-                      title={tr(
-                        "No unfinished work here",
-                        "अभी कोई अधूरा काम नहीं",
-                        "अपूर्ण काम नाही",
-                      )}
-                      detail={tr(
-                        "Assigned work will appear here. Attendance is recorded separately.",
-                        "आपको सौंपे काम यहाँ दिखेंगे। हाज़िरी अलग दर्ज होती है।",
-                        "नेमलेली कामे येथे दिसतील. हजेरी वेगळी नोंदवली जाते.",
-                      )}
-                    />
-                  )}
-                  <WorkGrid>
-                    <WorkRow
-                      title={tr("Daily routines", "रोज़ के काम", "रोजची कामे")}
-                      detail={`${routineDone.length}/${due.length} ${tr("finished today", "आज पूरे", "आज पूर्ण")}`}
-                      icon="repeat-outline"
-                      onPress={() => {
-                        setList("todo");
-                        setArea("work");
-                      }}
-                    />
-                    <WorkRow
-                      title={tr(
-                        "Scan a car",
-                        "गाड़ी स्कैन करें",
-                        "गाडी स्कॅन करा",
-                      )}
-                      detail={tr(
-                        "Open your car’s QR code",
-                        "गाड़ी का QR कोड खोलें",
-                        "गाडीचा QR कोड उघडा",
-                      )}
-                      icon="qr-code-outline"
-                      onPress={() => navigation.navigate("Scan")}
-                    />
-                  </WorkGrid>
-                </>
-              ) : area === "work" ? (
-                <>
-                  <WorkHeading
-                    kicker={tr("YOUR WORK", "आपके काम", "तुमची कामे")}
-                    title={tr("Assigned work", "सौंपे हुए काम", "नेमलेली कामे")}
-                    action={tr(
-                      "Scan car",
-                      "गाड़ी स्कैन करें",
-                      "गाडी स्कॅन करा",
-                    )}
-                    onPress={() => navigation.navigate("Scan")}
-                  />
-                  <SectionTabs
-                    items={[
-                      {
-                        id: "todo",
-                        label: tr("To do", "करना है", "करायचे"),
-                        icon: "ellipse-outline",
-                      },
-                      {
-                        id: "review",
-                        label: tr("In review", "समीक्षा में", "तपासणीत"),
-                        icon: "hourglass-outline",
-                      },
-                      {
-                        id: "finished",
-                        label: tr("Finished", "पूरा हुआ", "पूर्ण"),
-                        icon: "checkmark-done-outline",
-                      },
-                    ]}
-                    selected={list}
-                    onChange={setList}
-                  />
-                  <Text style={{ color: c.muted }}>
-                    {tr(
-                      "Your routine queue includes car checks, daily tasks and service work. Car assignments continue across days until reviewed.",
-                      "आपके कामों में गाड़ी की जाँच, रोज़ के काम और सर्विस साथ हैं। समीक्षा तक गाड़ी के काम अगले दिन भी रहेंगे।",
-                      "तुमच्या यादीत गाडीची तपासणी, रोजची कामे व सर्विस एकत्र आहेत. तपासणी होईपर्यंत गाडीची कामे पुढील दिवसाही राहतील.",
-                    )}
-                  </Text>
-                  <WorkGrid>
-                    {(list === "finished"
-                      ? tasks.finished
-                      : list === "review"
-                        ? tasks.review
-                        : tasks.todo
-                    ).map(taskCard)}
-                    {list !== "review"
-                      ? (list === "finished" ? routineDone : routineTodo).map(
-                          (i) => (
-                            <RoutineCard
-                              key={i.id}
-                              item={i}
-                              onPress={() =>
-                                navigation.navigate("Routines", {
-                                  routineId: i.id,
-                                })
-                              }
-                            />
-                          ),
-                        )
-                      : null}
-                    {list !== "review"
-                      ? (list === "finished"
-                          ? jobs.filter((j) => j.status === "completed")
-                          : activeJobs
-                        ).map(jobRow)
-                      : null}
-                  </WorkGrid>
-                  {!(list === "finished"
-                    ? tasks.finished.length +
-                      routineDone.length +
-                      jobs.filter((j) => j.status === "completed").length
-                    : list === "review"
-                      ? tasks.review.length
-                      : tasks.todo.length +
-                        routineTodo.length +
-                        activeJobs.length) ? (
-                    <WorkEmpty
-                      title={tr(
-                        "Nothing in this list",
-                        "इस सूची में काम नहीं",
-                        "या यादीत काम नाही",
-                      )}
-                      detail={tr(
-                        "Assigned work appears here automatically.",
-                        "सौंपे काम यहाँ अपने आप दिखेंगे।",
-                        "नेमलेली कामे येथे आपोआप दिसतील.",
-                      )}
-                    />
-                  ) : null}
-                  <WorkRow
-                    title={tr(
-                      "Saved routine history",
-                      "रोज़ के काम का रिकॉर्ड",
-                      "रोजच्या कामांची नोंद",
-                    )}
-                    detail={tr(
-                      "Choose a day and see recorded steps",
-                      "दिन चुनकर दर्ज चरण देखें",
-                      "दिवस निवडा व नोंदवलेले टप्पे पाहा",
-                    )}
-                    icon="calendar-outline"
-                    onPress={() =>
-                      navigation.navigate("Routines", { section: "history" })
-                    }
-                  />
-                </>
-              ) : area === "pay" ? (
-                <>
-                  <WorkHeading
-                    kicker={tr("MY PAY", "मेरा वेतन", "माझा पगार")}
-                    title={tr(
-                      "Salary and advances",
-                      "वेतन और अग्रिम",
-                      "पगार व आगाऊ रक्कम",
-                    )}
-                  />
-                  <View
-                    style={{
-                      padding: 24,
-                      borderRadius: 24,
-                      backgroundColor: "#322A21",
-                      gap: 12,
-                      borderWidth: 1,
-                      borderColor: "#51402C",
-                    }}
-                  >
-                    <Icon name="wallet-outline" color="#EAC795" size={30} />
-                    <Text style={{ fontSize: 12, color: "#D7BF9F" }}>
-                      {tr(
-                        "LATEST ISSUED SALARY",
-                        "आख़िरी जारी वेतन",
-                        "शेवटचा जारी पगार",
-                      )}
-                    </Text>
-                    <Text style={{ fontSize: 34, fontWeight: "600" }}>
-                      {latest
-                        ? formatMoney(
-                            latest.snapshot.netPaise,
-                            language === "hi",
-                          )
-                        : "—"}
-                    </Text>
-                    <Text style={{ fontSize: 13, color: c.muted }}>
-                      {latest
-                        ? `${latest.start} → ${latest.end}`
-                        : tr(
-                            "Your issued statement appears after the owner confirms it.",
-                            "मालिक की पुष्टि के बाद जारी वेतन यहाँ दिखेगा।",
-                            "मालकाने निश्चित केल्यावर जारी पगार येथे दिसेल.",
-                          )}
-                    </Text>
-                    {latest ? (
-                      <Text style={{ fontSize: 13, color: c.muted }}>
-                        {tr("Paid", "भुगतान हुआ", "दिलेले")}:{" "}
-                        {formatMoney(latest.paidPaise, language === "hi")}
-                      </Text>
-                    ) : null}
-                  </View>
-                  <WorkRow
-                    title={tr(
-                      "Salary & advances",
-                      "वेतन और एडवांस",
-                      "पगार व आगाऊ रक्कम",
-                    )}
-                    detail={tr(
-                      "Statements, payments and advance requests",
-                      "हिसाब, भुगतान और एडवांस अनुरोध",
-                      "हिशेब, देयके व आगाऊ रकमेच्या विनंत्या",
-                    )}
-                    icon="receipt-outline"
-                    onPress={() =>
-                      navigation.navigate("Workforce", {
-                        userId: actor.id,
-                        section: "pay",
-                      })
-                    }
-                  />
-                  <WorkRow
-                    title={tr(
-                      "Leave requests",
-                      "छुट्टी के अनुरोध",
-                      "रजेच्या विनंत्या",
-                    )}
-                    detail={tr(
-                      "Request leave and view its decision",
-                      "छुट्टी माँगें और फैसला देखें",
-                      "रजा मागा व निर्णय पाहा",
-                    )}
-                    icon="calendar-outline"
-                    onPress={() =>
-                      navigation.navigate("Workforce", {
-                        userId: actor.id,
-                        section: "leave",
-                      })
-                    }
-                  />
-                  <WorkRow
-                    title={tr(
-                      "Updates & decisions",
-                      "सूचनाएँ और फैसले",
-                      "सूचना व निर्णय",
-                    )}
-                    detail={tr(
-                      "Follow what the owner has reviewed",
-                      "मालिक की समीक्षा का हाल देखें",
-                      "मालकाच्या तपासणीची स्थिती पाहा",
-                    )}
-                    icon="notifications-outline"
-                    onPress={() => navigation.navigate("Inbox")}
-                  />
-                </>
-              ) : (
-                <>
-                  <WorkHeading
-                    kicker={tr("HELP", "मदद", "मदत")}
-                    title={tr(
-                      "Help and instructions",
-                      "मदद और निर्देश",
-                      "मदत व सूचना",
-                    )}
-                  />
-                  <WorkRow
-                    title={tr(
-                      "Hear how to use the app",
-                      "ऐप कैसे चलाएँ, सुनें",
-                      "ॲप कसे वापरायचे ते ऐका",
-                    )}
-                    detail={tr(
-                      "A short guide in your chosen language",
-                      "आपकी भाषा में छोटी मदद",
-                      "तुमच्या भाषेत थोडक्यात मदत",
-                    )}
-                    icon="volume-high-outline"
-                    onPress={() => {
-                      void Speech.stop();
-                      Speech.speak(
-                        tr(
-                          "Start with Today for attendance and your next task. My work has inspections, routines and service. Open a routine, hear its next step, do it and mark it done. My pay has salary and leave. Ask your supervisor whenever you are unsure.",
-                          "आज में हाज़िरी और अगला काम देखें। मेरा काम में जाँच, रोज़ के काम और सर्विस है। रोज़ का काम खोलें, चरण सुनें, काम करके पूरा चिह्नित करें। मेरा वेतन में वेतन और छुट्टी देखें। संदेह होने पर सुपरवाइज़र से पूछें।",
-                          "आज मध्ये हजेरी आणि पुढचे काम पाहा. माझे काम मध्ये तपासणी, रोजची कामे व सर्विस आहे. रोजचे काम उघडा, टप्पा ऐका, काम करून पूर्ण नोंदवा. माझा पगार मध्ये पगार व रजा पाहा. शंका असल्यास पर्यवेक्षकाला विचारा.",
-                        ),
-                        {
-                          language:
-                            language === "mr"
-                              ? "mr-IN"
-                              : language === "hi"
-                                ? "hi-IN"
-                                : "en-IN",
-                          rate: 0.85,
-                        },
-                      );
-                    }}
-                  />
-                  <WorkRow
-                    title={tr(
-                      "Help with car work",
-                      "गाड़ी के काम में मदद",
-                      "गाडीच्या कामात मदत",
-                    )}
-                    detail={tr(
-                      "Open an inspection, then use Need help",
-                      "जाँच खोलें, फिर मदद चाहिए दबाएँ",
-                      "तपासणी उघडा, मग मदत हवी दाबा",
-                    )}
-                    icon="hand-left-outline"
-                    onPress={() => {
-                      setArea("work");
-                      setList("todo");
-                    }}
-                  />
-                  <WorkRow
-                    title={tr(
-                      "Language & my account",
-                      "भाषा और मेरा खाता",
-                      "भाषा व माझे खाते",
-                    )}
-                    detail={tr(
-                      "English · हिन्दी · मराठी",
-                      "English · हिन्दी · मराठी",
-                      "English · हिन्दी · मराठी",
-                    )}
-                    icon="language-outline"
-                    onPress={() => navigation.navigate("Settings")}
-                  />
-                  <WorkRow
-                    title={tr(
-                      "Updates & reminders",
-                      "सूचनाएँ और रिमाइंडर",
-                      "सूचना व आठवणी",
-                    )}
-                    detail={tr(
-                      "Messages about your work and requests",
-                      "आपके काम और अनुरोध की सूचनाएँ",
-                      "तुमच्या कामाच्या व विनंत्यांच्या सूचना",
-                    )}
-                    icon="notifications-outline"
-                    onPress={() => navigation.navigate("Inbox")}
-                  />
-                </>
+        {me ? (
+          <>
+            <WorkHeading title={actor.name} />
+            <WorkRow
+              title={tr("Attendance", "हाज़िरी", "हजेरी")}
+              detail={tr(
+                "My punches, shifts and corrections",
+                "मेरी हाज़िरी, शिफ्ट और सुधार",
+                "माझी हजेरी, शिफ्ट व दुरुस्त्या",
               )}
-            </Animated.View>
-          </ContentScroll>
-        </View>
-        {!rail ? nav : null}
-      </View>
+              icon="time-outline"
+              onPress={() =>
+                navigation.navigate("Workforce", {
+                  userId: actor.id,
+                  section: "attendance",
+                })
+              }
+            />
+            <WorkRow
+              title={tr(
+                "Pay and advances",
+                "वेतन और एडवांस",
+                "पगार व आगाऊ रक्कम",
+              )}
+              detail={
+                latest
+                  ? tr(
+                      `Latest statement: ${formatMoney(latest.snapshot.netPaise, language === "hi")}`,
+                      `आख़िरी हिसाब: ${formatMoney(latest.snapshot.netPaise, true)}`,
+                      `शेवटचा हिशेब: ${formatMoney(latest.snapshot.netPaise, false)}`,
+                    )
+                  : tr(
+                      "Statements, payments and requests",
+                      "हिसाब, भुगतान और अनुरोध",
+                      "हिशेब, देयके व विनंत्या",
+                    )
+              }
+              icon="wallet-outline"
+              onPress={() =>
+                navigation.navigate("Workforce", {
+                  userId: actor.id,
+                  section: "pay",
+                })
+              }
+            />
+            <WorkRow
+              title={tr("Leave", "छुट्टी", "रजा")}
+              detail={tr(
+                "Request leave and see its status",
+                "छुट्टी माँगें और स्थिति देखें",
+                "रजा मागा व स्थिती पाहा",
+              )}
+              icon="calendar-outline"
+              onPress={() =>
+                navigation.navigate("Workforce", {
+                  userId: actor.id,
+                  section: "leave",
+                })
+              }
+            />
+            <WorkRow
+              title={tr(
+                "Routine history",
+                "रोज़ के काम का रिकॉर्ड",
+                "रोजच्या कामांचा इतिहास",
+              )}
+              detail={tr(
+                "Choose a day and see recorded work",
+                "दिन चुनकर दर्ज काम देखें",
+                "दिवस निवडून नोंदवलेली कामे पाहा",
+              )}
+              icon="calendar-outline"
+              onPress={() =>
+                navigation.navigate("Routines", { section: "history" })
+              }
+            />
+            <WorkRow
+              title={tr("Language and account", "भाषा और खाता", "भाषा व खाते")}
+              detail="English · हिन्दी · मराठी"
+              icon="language-outline"
+              onPress={() => navigation.navigate("Settings")}
+            />
+            <WorkRow
+              title={tr("Updates", "सूचनाएँ", "सूचना")}
+              detail={tr(
+                "Work and request updates",
+                "काम और अनुरोध की सूचनाएँ",
+                "काम व विनंतीच्या सूचना",
+              )}
+              icon="notifications-outline"
+              onPress={() => navigation.navigate("Inbox")}
+            />
+          </>
+        ) : (
+          <>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                gap: 12,
+                padding: 13,
+                borderRadius: 16,
+                backgroundColor: atWork ? "#24382C" : "#322326",
+              }}
+            >
+              <Icon
+                name="time-outline"
+                color={atWork ? "#92C9A6" : "#FFAFB4"}
+              />
+              <View style={{ flex: 1, gap: 3 }}>
+                <Text style={{ fontSize: 14, fontWeight: "600" }}>
+                  {wf
+                    ? atWork
+                      ? tr("At work", "काम पर हैं", "कामावर आहात")
+                      : status === "missed_out"
+                        ? tr(
+                            "Attendance needs review",
+                            "हाज़िरी जाँच बाकी",
+                            "हजेरी तपासणी बाकी",
+                          )
+                        : status === "closed"
+                          ? tr("Day recorded", "दिन दर्ज है", "दिवस नोंदवला")
+                          : status === "off_day"
+                            ? tr("Off day", "छुट्टी का दिन", "सुट्टीचा दिवस")
+                            : tr(
+                                "Mark your attendance",
+                                "हाज़िरी लगाएँ",
+                                "हजेरी लावा",
+                              )
+                    : tr(
+                        "Checking attendance…",
+                        "हाज़िरी देख रहे हैं…",
+                        "हजेरी पाहत आहोत…",
+                      )}
+                </Text>
+              </View>
+              <Pressable
+                accessibilityRole="button"
+                accessibilityLabel={
+                  status === "not_punched"
+                    ? tr("Mark attendance", "हाज़िरी लगाएँ", "हजेरी लावा")
+                    : tr("View attendance", "हाज़िरी देखें", "हजेरी पाहा")
+                }
+                onPress={() =>
+                  navigation.navigate("Workforce", {
+                    userId: actor.id,
+                    section: "attendance",
+                  })
+                }
+                style={{
+                  minHeight: 44,
+                  justifyContent: "center",
+                  paddingHorizontal: 6,
+                }}
+              >
+                <Text style={{ color: "#FFC5C8", fontWeight: "600" }}>
+                  {status === "not_punched"
+                    ? tr("Mark in", "हाज़िरी", "हजेरी")
+                    : tr("View", "देखें", "पाहा")}{" "}
+                  →
+                </Text>
+              </Pressable>
+            </View>
+            <WorkHeading
+              title={tr("Your next work", "आपका अगला काम", "तुमचे पुढचे काम")}
+              action={tr("All work", "सभी काम", "सर्व कामे")}
+              onPress={() => navigation.navigate("Work")}
+            />
+            {firstTask?.status === "recheck" ? (
+              <InspectionWorkItem task={firstTask} navigation={navigation} />
+            ) : firstRoutine ? (
+              <RoutineWorkItem item={firstRoutine} navigation={navigation} />
+            ) : firstTask ? (
+              <InspectionWorkItem task={firstTask} navigation={navigation} />
+            ) : daily[0] ? (
+              <RoutineWorkItem item={daily[0]} navigation={navigation} />
+            ) : firstJob ? (
+              <ServiceWorkItem job={firstJob} navigation={navigation} />
+            ) : dashboard.loading || routines.loading || repairs.loading ? (
+              <ActivityIndicator color="#fff" />
+            ) : (
+              <WorkEmpty
+                title={tr(
+                  "No unfinished work",
+                  "अधूरा काम नहीं",
+                  "अपूर्ण काम नाही",
+                )}
+                detail={tr(
+                  "New assignments appear here.",
+                  "नए सौंपे काम यहाँ दिखेंगे।",
+                  "नवीन नेमलेली कामे येथे दिसतील.",
+                )}
+              />
+            )}
+            <WorkGrid>
+              <WorkRow
+                title={tr("Daily routines", "रोज़ के काम", "रोजची कामे")}
+                detail={tr(
+                  `${daily.length} left today`,
+                  `${daily.length} आज बाकी`,
+                  `${daily.length} आज बाकी`,
+                )}
+                icon="repeat-outline"
+                onPress={() =>
+                  navigation.navigate("Work", {
+                    category: "routines",
+                    phase: "todo",
+                  })
+                }
+              />
+              <WorkRow
+                title={tr("Scan a car", "गाड़ी स्कैन करें", "गाडी स्कॅन करा")}
+                detail={tr(
+                  "Use the car QR code",
+                  "गाड़ी का QR कोड देखें",
+                  "गाडीचा QR कोड वापरा",
+                )}
+                icon="qr-code-outline"
+                onPress={() => navigation.navigate("Scan")}
+              />
+            </WorkGrid>
+            {tasks.review.length ? (
+              <WorkRow
+                title={tr(
+                  "Sent for review",
+                  "समीक्षा को भेजा",
+                  "तपासणीसाठी पाठवले",
+                )}
+                detail={tr(
+                  `${tasks.review.length} inspections with your supervisor`,
+                  `${tasks.review.length} जाँच सुपरवाइज़र के पास`,
+                  `${tasks.review.length} तपासण्या पर्यवेक्षकाकडे`,
+                )}
+                icon="hourglass-outline"
+                onPress={() => navigation.navigate("Work", { phase: "review" })}
+              />
+            ) : null}
+          </>
+        )}
+        {error ? <ErrorNotice message={error} retry={refresh} /> : null}
+      </FocusPage>
     </View>
   );
 }

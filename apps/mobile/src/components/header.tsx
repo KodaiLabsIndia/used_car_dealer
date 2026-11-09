@@ -1,10 +1,11 @@
 import React, { useRef, useState } from "react";
-import { Image, Pressable, View, useWindowDimensions } from "react-native";
+import { Image, Pressable, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { colors } from "@arihant/design-tokens";
 import { useApp } from "../state/app-context";
 import type { Navigation } from "../navigation";
 import { Icon, logo, Text, s } from "./ui";
+import { can } from "../application/access";
 import { NightDrive } from "./garage-motion";
 export function GarageHeader({
   back = false,
@@ -81,6 +82,23 @@ export function GarageHeader({
             {t(session?.actor.role === "owner" ? "all" : "work")}
           </Text>
         </View>
+        {session && !can(session.actor, "overview") ? (
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={t("help")}
+            onPress={() => nav.navigate("Help")}
+            style={{
+              minHeight: 44,
+              paddingHorizontal: 6,
+              justifyContent: "center",
+              alignItems: "center",
+              gap: 2,
+            }}
+          >
+            <Icon name="help-circle-outline" size={22} />
+            <Text style={{ fontSize: 11 }}>{t("help")}</Text>
+          </Pressable>
+        ) : null}
         <Pressable
           accessibilityRole="button"
           accessibilityLabel={t("settings")}
@@ -92,117 +110,5 @@ export function GarageHeader({
       </View>
       <NightDrive visible={night} onClose={() => setNight(false)} />
     </>
-  );
-}
-export function BottomNav({
-  owner,
-  onDecisions,
-  onHelp,
-  onGarage,
-  onWork,
-  active,
-}: {
-  owner: boolean;
-  onDecisions?: () => void;
-  onHelp?: () => void;
-  onGarage?: () => void;
-  onWork?: () => void;
-  active?: "garage" | "work" | "decisions";
-}) {
-  const nav = useNavigation<Navigation>(),
-    { t } = useApp();
-  const { fontScale } = useWindowDimensions();
-  const stacked = fontScale >= 1.3;
-  const entries = owner
-    ? [
-        {
-          name: "speedometer-outline" as const,
-          label: t("garage"),
-          selected: active === "garage",
-          go: () =>
-            onGarage ? onGarage() : nav.navigate("Home", { scope: "all" }),
-        },
-        {
-          name: "clipboard-outline" as const,
-          label: t("work"),
-          selected: active === "work",
-          go: () =>
-            onWork ? onWork() : nav.navigate("Home", { scope: "mine" }),
-        },
-        {
-          name: "car-sport-outline" as const,
-          label: t("cars"),
-          selected: false,
-          go: () => nav.navigate("Cars"),
-        },
-        {
-          name: "checkmark-done-circle-outline" as const,
-          label: t("decisions"),
-          selected: active === "decisions",
-          go: () =>
-            onDecisions
-              ? onDecisions()
-              : nav.navigate("Home", { scope: "decisions" }),
-        },
-      ]
-    : [
-        {
-          name: "home-outline" as const,
-          label: t("work"),
-          selected: true,
-          go: () => nav.navigate("Home"),
-        },
-        {
-          name: "qr-code-outline" as const,
-          label: t("scan"),
-          selected: false,
-          go: () => nav.navigate("Scan"),
-        },
-        {
-          name: "help-circle-outline" as const,
-          label: t("help"),
-          selected: false,
-          go: () => onHelp?.(),
-        },
-      ];
-  return (
-    <View
-      style={{
-        flexDirection: "row",
-        flexWrap: "wrap",
-        gap: 4,
-        backgroundColor: colors.black,
-        borderTopWidth: 1,
-        borderColor: colors.line,
-        padding: 7,
-      }}
-    >
-      {entries.map((e) => (
-        <Pressable
-          accessibilityRole="button"
-          key={e.label}
-          accessibilityState={{ selected: e.selected }}
-          onPress={e.go}
-          style={{
-            flex: 1,
-            flexBasis: stacked ? "45%" : "20%",
-            minWidth: 0,
-            minHeight: 55,
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 4,
-          }}
-        >
-          <Icon
-            name={e.name}
-            size={22}
-            color={e.selected ? "#ff7c83" : "#fff"}
-          />
-          <Text style={{ fontSize: 11, textAlign: "center", flexShrink: 1 }}>
-            {e.label}
-          </Text>
-        </Pressable>
-      ))}
-    </View>
   );
 }

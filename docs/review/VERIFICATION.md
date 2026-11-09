@@ -1,11 +1,11 @@
-# Development verification — 8 November 2026
+# Development verification — 9 November 2026
 
 These are local development results, not full-release acceptance. The initial repository and company configuration commits passed hosted CI. The review follow-up has local verification; no production deployment or physical iOS/tablet acceptance has occurred.
 
 | Check | Latest result |
 | --- | --- |
-| npm run check | Passed: Ruff, native literal-text placement lint, TypeScript in all client workspaces, 14 Python domain/architecture tests and 19 mobile logic tests |
-| npm run test:integration | **127 passed** against real PostgreSQL in isolated random schemas; includes car workflows, workforce/routines, shared inspections, six reusable-demo cases and single-company login |
+| npm run check | Passed: Ruff, native literal-text placement lint, TypeScript in all client workspaces, 14 Python domain/architecture tests and 25 mobile logic tests |
+| npm run test:integration | **127 passed** (last complete backend run: 8 November; the 9 November UI batch changes no API/schema rules) against real PostgreSQL in isolated random schemas; includes car workflows, workforce/routines, shared inspections, six reusable-demo cases and single-company login |
 | Contracts | Python OpenAPI regenerated; shared validators/generated types pass compile-time parity |
 | Android native | Development and bundled internal-preview APKs built/installed; local Media3 module compiles; camera/mic/import/720p preparation, native document upload and verified video upload exercised |
 | iOS source | Swift syntax parses; no native compile/device run because full Xcode is absent |
@@ -46,7 +46,7 @@ The [internal preview](../../artifacts/ArihantCars-internal-preview.apk) include
 
 Native spatial integration exposed two compatibility defects that were corrected: Metro now resolves Three's browser ESM entry instead of its Node-oriented CommonJS entry, and a reproducible Expo config plugin keeps Expo GL's native constructors in optimized Android builds. R8 remains enabled. These fixes were exercised in an installed bundled preview; a JavaScript-only export would not catch the constructor failure.
 
-Both APKs include the native Expo GL library. The latest preview also includes foreground location and the workforce workspace, with all 95 bundled app/shared-package runtime sources matching the working tree. The development client loads JavaScript through Metro; its older artifact does not include attendance location. See the latest [source comparison](demo-data/bundled-source-verification.json) and [artifact fingerprints](android/build-manifest.json).
+Both APKs include the native Expo GL library. The latest preview also includes foreground location and the workforce workspace, with all 101 bundled app/shared-package runtime sources matching the working tree. The development client loads JavaScript through Metro; its older artifact does not include attendance location. See the latest [source comparison](navigation-home/bundled-source-verification.json) and [artifact fingerprints](android/build-manifest.json).
 
 The selected date survived a development-to-preview APK update. [Build manifest](android/build-manifest.json) records artifact size, SHA-256, package/version, ARM64 architecture and minimum/target SDK. The [launcher](android/preview-launcher.png) and [corrected ready camera](android/preview-camera-ready.png) were checked in the installed preview. These APKs still need the configured development backend.
 
@@ -186,3 +186,26 @@ were renamed and the opening routine received a new revision; started snapshots
 and financial/work records were retained. `npm run check`, formatting and the
 existing night-shift/location-warning integration case passed. The Android
 preview was rebuilt; all 95 bundled runtime sources match its source comparison.
+
+
+## 9 November: home and navigation usability
+
+The [review record](navigation-home/README.md) and
+[checklist](../NAVIGATION_CHECKLIST.md) cover direct owner Home / Cars / Work /
+Staff / Review navigation, employee Home / My work / Me, shared navigation on
+ordinary details, compact assignments, named staff context, actual routine/status
+filters and an explicitly sent car/check Help flow. Existing financial, media
+and allocation authority remains on the API.
+
+Lint/types, 14 Python domain/architecture tests, **25 mobile logic tests**,
+formatting, Android/iOS JavaScript exports and the native bundled Android preview
+build passed. The last full backend suite is 127 tests; this batch changes no
+backend schema or business-rule implementation.
+
+The final preview passed owner/employee direct-navigation and one-tap Home
+journeys, a check-linked Help form, 150% text, owner tablet landscape and employee
+tablet portrait windows, plus Hindi/Marathi navigation. Original display settings
+and English were restored. Both installed APK checksums match the final artifact;
+all **101 bundled runtime sources** match the working tree. No business command
+was posted during the interface review. Representative users, physical devices
+and native iOS/iPad acceptance remain open.

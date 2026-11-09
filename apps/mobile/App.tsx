@@ -12,7 +12,11 @@ import { EnquiriesScreen, EnquiryScreen } from "./src/screens/enquiries";
 import { ServiceFinanceScreen } from "./src/screens/service-finance";
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
-import { NavigationContainer, DarkTheme } from "@react-navigation/native";
+import {
+  NavigationContainer,
+  DarkTheme,
+  useNavigationContainerRef,
+} from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
@@ -43,8 +47,19 @@ import { BusinessBoardScreen } from "./src/screens/business-board";
 import { ChangePasswordScreen } from "./src/screens/change-password";
 import { TeamScreen } from "./src/screens/team";
 import { loadLocal, saveLocal } from "./src/adapters/local-store";
+import { MainNavigation } from "./src/components/main-navigation";
+import { useLayout } from "./src/components/layout";
+import { HelpScreen } from "./src/screens/help";
+import type { CurrentScreen } from "./src/application/main-navigation";
 const Stack = createNativeStackNavigator<RootStack>();
 function AuthenticatedRoutes({ ownerId }: { ownerId: string }) {
+  const navigation = useNavigationContainerRef<RootStack>();
+  const [screen, setScreen] = useState<CurrentScreen>({ name: "Home" });
+  const { width, height, fontScale } = useLayout();
+  const rail = width >= 900 && height >= 600 && fontScale < 1.5;
+  const chrome = (
+    <MainNavigation navigation={navigation} screen={screen} rail={rail} />
+  );
   const [ready, setReady] = useState(false);
   const [initialState, setInitialState] =
     useState<
@@ -71,8 +86,23 @@ function AuthenticatedRoutes({ ownerId }: { ownerId: string }) {
   if (!ready) return <ActivityIndicator color="#fff" style={{ flex: 1 }} />;
   return (
     <NavigationContainer
+      ref={navigation}
+      onReady={() => {
+        const r = navigation.getCurrentRoute();
+        if (r)
+          setScreen({
+            name: r.name,
+            params: r.params as Record<string, unknown>,
+          });
+      }}
       {...(initialState ? { initialState } : {})}
       onStateChange={(state) => {
+        const r = navigation.getCurrentRoute();
+        if (r)
+          setScreen({
+            name: r.name,
+            params: r.params as Record<string, unknown>,
+          });
         void saveLocal(ownerId, "navigation:v1", state).catch(() => {});
       }}
       theme={{
@@ -85,64 +115,77 @@ function AuthenticatedRoutes({ ownerId }: { ownerId: string }) {
         },
       }}
     >
-      <Stack.Navigator
-        initialRouteName="Home"
-        screenOptions={{
-          headerShown: false,
-          contentStyle: { backgroundColor: colors.surface },
-        }}
-      >
-        <Stack.Screen name="Workforce" component={WorkforceScreen} />
-        <Stack.Screen name="Assistant" component={AssistantScreen} />
-        <Stack.Screen name="Clips" component={ClipsScreen} />
-        <Stack.Screen name="Decisions" component={DecisionsScreen} />
-        <Stack.Screen name="Reports" component={ReportsScreen} />
-        <Stack.Screen
-          name="CompanySettings"
-          component={CompanySettingsScreen}
-        />
-        <Stack.Screen name="Checklists" component={ChecklistsScreen} />
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Work" component={WorkScreen} />
-        <Stack.Screen name="Routines" component={RoutinesScreen} />
-        <Stack.Screen name="Cars" component={CarsScreen} />
-        <Stack.Screen name="Car" component={CarScreen} />
-        <Stack.Screen name="Task" component={TaskScreen} />
-        <Stack.Screen
-          name="InspectionAllocation"
-          component={InspectionAllocationScreen}
-        />
-        <Stack.Screen name="Scan" component={ScanScreen} />
-        <Stack.Screen name="Settings" component={SettingsScreen} />
-        <Stack.Screen name="AddCar" component={AddCarScreen} />
-        <Stack.Screen
-          name="AssignInspection"
-          component={AssignInspectionScreen}
-        />
-        <Stack.Screen name="Jobs" component={JobsScreen} />
-        <Stack.Screen name="Job" component={JobScreen} />
-        <Stack.Screen name="AssignRepair" component={AssignRepairScreen} />
-        <Stack.Screen name="Workshops" component={WorkshopsScreen} />
-        <Stack.Screen name="Purchases" component={PurchasesScreen} />
-        <Stack.Screen name="Purchase" component={PurchaseScreen} />
-        <Stack.Screen name="Business" component={BusinessScreen} />
-        <Stack.Screen name="BusinessBoard" component={BusinessBoardScreen} />
-        <Stack.Screen name="ServiceFinance" component={ServiceFinanceScreen} />
-        <Stack.Screen name="Enquiries" component={EnquiriesScreen} />
-        <Stack.Screen name="Enquiry" component={EnquiryScreen} />
-        <Stack.Screen name="Stock" component={StockScreen} />
-        <Stack.Screen name="Inbox" component={InboxScreen} />
-        <Stack.Screen name="Documents" component={DocumentsScreen} />
-        <Stack.Screen name="Team" component={TeamScreen} />
-        <Stack.Screen name="Security">
-          {({ navigation }) => (
-            <ChangePasswordScreen
-              onComplete={() => navigation.goBack()}
-              onCancel={() => navigation.goBack()}
+      <View style={{ flex: 1, flexDirection: rail ? "row" : "column" }}>
+        {rail ? chrome : null}
+        <View style={{ flex: 1, minWidth: 0 }}>
+          <Stack.Navigator
+            initialRouteName="Home"
+            screenOptions={{
+              headerShown: false,
+              contentStyle: { backgroundColor: colors.surface },
+            }}
+          >
+            <Stack.Screen name="Help" component={HelpScreen} />
+            <Stack.Screen name="Workforce" component={WorkforceScreen} />
+            <Stack.Screen name="Assistant" component={AssistantScreen} />
+            <Stack.Screen name="Clips" component={ClipsScreen} />
+            <Stack.Screen name="Decisions" component={DecisionsScreen} />
+            <Stack.Screen name="Reports" component={ReportsScreen} />
+            <Stack.Screen
+              name="CompanySettings"
+              component={CompanySettingsScreen}
             />
-          )}
-        </Stack.Screen>
-      </Stack.Navigator>
+            <Stack.Screen name="Checklists" component={ChecklistsScreen} />
+            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="Work" component={WorkScreen} />
+            <Stack.Screen name="Routines" component={RoutinesScreen} />
+            <Stack.Screen name="Cars" component={CarsScreen} />
+            <Stack.Screen name="Car" component={CarScreen} />
+            <Stack.Screen name="Task" component={TaskScreen} />
+            <Stack.Screen
+              name="InspectionAllocation"
+              component={InspectionAllocationScreen}
+            />
+            <Stack.Screen name="Scan" component={ScanScreen} />
+            <Stack.Screen name="Settings" component={SettingsScreen} />
+            <Stack.Screen name="AddCar" component={AddCarScreen} />
+            <Stack.Screen
+              name="AssignInspection"
+              component={AssignInspectionScreen}
+            />
+            <Stack.Screen name="Jobs" component={JobsScreen} />
+            <Stack.Screen name="Job" component={JobScreen} />
+            <Stack.Screen name="AssignRepair" component={AssignRepairScreen} />
+            <Stack.Screen name="Workshops" component={WorkshopsScreen} />
+            <Stack.Screen name="Purchases" component={PurchasesScreen} />
+            <Stack.Screen name="Purchase" component={PurchaseScreen} />
+            <Stack.Screen name="Business" component={BusinessScreen} />
+            <Stack.Screen
+              name="BusinessBoard"
+              component={BusinessBoardScreen}
+            />
+            <Stack.Screen
+              name="ServiceFinance"
+              component={ServiceFinanceScreen}
+            />
+            <Stack.Screen name="Enquiries" component={EnquiriesScreen} />
+            <Stack.Screen name="Enquiry" component={EnquiryScreen} />
+            <Stack.Screen name="Stock" component={StockScreen} />
+            <Stack.Screen name="Inbox" component={InboxScreen} />
+            <Stack.Screen name="Documents" component={DocumentsScreen} />
+            <Stack.Screen name="Team" component={TeamScreen} />
+            <Stack.Screen name="Security">
+              {({ navigation }) => (
+                <ChangePasswordScreen
+                  onComplete={() => navigation.goBack()}
+                  onCancel={() => navigation.goBack()}
+                />
+              )}
+            </Stack.Screen>
+          </Stack.Navigator>
+        </View>
+        {!rail ? chrome : null}
+      </View>
     </NavigationContainer>
   );
 }

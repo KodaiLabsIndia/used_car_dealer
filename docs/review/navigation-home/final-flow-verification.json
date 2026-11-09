@@ -1,0 +1,16 @@
+{
+  "homeCarSearchMatchesRegistration": true,
+  "reviewShortcutSelectsReview": true,
+  "routineShortcutResetsReviewToTodo": true,
+  "businessCommandsPosted": false,
+  "runtime": [
+    {
+      "role": "owner",
+      "fatalRuntimeErrors": false
+    },
+    {
+      "role": "employee",
+      "fatalRuntimeErrors": false
+    }
+  ]
+}

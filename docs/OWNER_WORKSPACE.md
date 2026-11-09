@@ -1,30 +1,33 @@
-# Owner workspace — 8 November 2026
+# Owner workspace — 9 November 2026
 
-The owner entry point now follows the business hierarchy. It replaces the old
-home page's independent attendance button, mixed action tiles and duplicated
-work/decision lists. Arihant's website logo, red, black and dark palette remain.
+The owner and supervisor now have **Home / Cars / Work / Staff / Review**.
+These destinations remain available on ordinary detail screens and become a left
+rail on wide tablet windows. Camera modals and scanning retain focused controls.
+Phone navigation reflows at large text sizes and makes room for the keyboard.
 
-| Primary area | Purpose and destinations |
+| Destination | What the user reaches |
 | --- | --- |
-| Today | Actual stock/workshop/booking/presence totals, decisions and blocked work, today's routine progress, personal work |
-| Dealership | Garage inventory and the existing animated journey; Buying (seller enquiries, intake, purchases); Preparation (service, inspection work, workshops); Selling (buyer enquiries, bookings/delivery, ready stock); After-sales (warranty/support, delivered records) |
-| People | Employee management: attendance, payroll, leave, daily routines, named live team, assigned car work; owner account administration and staff policy |
-| Decisions | The shared paginated queue of car and employee reviews, retained within the root navigation |
+| Home | Car search, bookings/repair/presence counts that open their records, pending review, specific blocked car work and the owner's personal work |
+| Cars | The searchable car list directly; stage selection, optional moving-car journey and permission-scoped buying/enquiry/selling/support actions |
+| Work | Shared inspections, daily routines and service work; all staff / a named person / myself, status and work-type filters |
+| Staff | Staff names and search before setup; named work, attendance and pay; routine/account/rule management in Manage |
+| Review | Compact paginated requests with record identity, dates, help/hold priority and explicit financial-approval wording; opens existing authoritative detail flows |
 
-Phone navigation stays visible on the root pages and reflows into two rows at
-large text sizes. On wider tablet windows it
-becomes a sidebar; focused working pages open underneath their parent area.
-Tabs, cards and text reflow instead of truncating names. A short crossfade
-respects system reduced motion. The moving-car journey appears only in Garage.
-The owner can use My work and their own attendance without switching accounts.
-Supervisors retain existing operational oversight; account and policy controls
-remain owner-only. The [employee workspace](EMPLOYEE_WORKSPACE.md) separates Today, My work, My pay
-and Help, with guided routine steps and shared named progress.
+Home is an explicit primary destination rather than a chain of Back presses.
+The owner can work personally without another account. Shared inspections retain
+per-check allocation and attributed actions. Staff account/policy administration
+remains owner-only; supervisors keep their permitted oversight and money review.
+Existing transaction commands and private API permissions remain unchanged.
 
-Buyer/seller, ready/delivered and booked/support shortcuts carry their filters
-into existing screens and API queries. The existing purchase, inspection,
-financial, document and warranty workflows remain their source of truth.
-Management web retains its current layout; this redesign targets the Expo app.
+The old Today / Dealership / People hierarchy is superseded. Rare setup tools
+remain in account/company settings. The selected Arihant logo, dark/red palette,
+generic 3D inspection cars and optional moving-car journey remain; the journey
+appears only in Cars and opens the selected car-stage list directly.
+
+See the [implementation checklist](NAVIGATION_CHECKLIST.md),
+[employee workspace](EMPLOYEE_WORKSPACE.md) and
+[review evidence](review/navigation-home/README.md). Management web retains its
+current layout; this batch targets Expo mobile/tablet navigation.
 
 ## Daily routines adapted from SBOSS
 

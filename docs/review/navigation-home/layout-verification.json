@@ -1,0 +1,135 @@
+{
+  "checks": [
+    {
+      "role": "owner",
+      "profile": "home-large-text",
+      "navigationWithinViewport": [
+        {
+          "label": "Home",
+          "bounds": "[18,1979][359,2156]"
+        },
+        {
+          "label": "Cars",
+          "bounds": "[370,1979][710,2156]"
+        },
+        {
+          "label": "Work",
+          "bounds": "[721,1979][1062,2156]"
+        },
+        {
+          "label": "Staff",
+          "bounds": "[18,2166][535,2343]"
+        },
+        {
+          "label": "Review",
+          "bounds": "[545,2166][1062,2343]"
+        }
+      ]
+    },
+    {
+      "role": "owner",
+      "profile": "home-tablet-landscape",
+      "navigationWithinViewport": [
+        {
+          "label": "Home",
+          "bounds": "[11,105][249,192]"
+        },
+        {
+          "label": "Cars",
+          "bounds": "[11,198][249,285]"
+        },
+        {
+          "label": "Work",
+          "bounds": "[11,291][249,378]"
+        },
+        {
+          "label": "Staff",
+          "bounds": "[11,384][249,471]"
+        },
+        {
+          "label": "Review",
+          "bounds": "[11,477][249,564]"
+        }
+      ]
+    },
+    {
+      "role": "employee",
+      "profile": "home-large-text",
+      "navigationWithinViewport": [
+        {
+          "label": "Home",
+          "bounds": "[18,2166][359,2343]"
+        },
+        {
+          "label": "My work",
+          "bounds": "[370,2166][710,2343]"
+        },
+        {
+          "label": "Me",
+          "bounds": "[721,2166][1062,2343]"
+        }
+      ]
+    },
+    {
+      "role": "employee",
+      "profile": "home-tablet-portrait",
+      "navigationWithinViewport": [
+        {
+          "label": "Home",
+          "bounds": "[11,161][249,248]"
+        },
+        {
+          "label": "My work",
+          "bounds": "[11,254][249,341]"
+        },
+        {
+          "label": "Me",
+          "bounds": "[11,347][249,434]"
+        }
+      ]
+    },
+    {
+      "role": "owner",
+      "profile": "home-hi",
+      "navigationLabels": [
+        "होम",
+        "गाड़ियाँ",
+        "काम",
+        "कर्मचारी",
+        "समीक्षा"
+      ]
+    },
+    {
+      "role": "owner",
+      "profile": "home-mr",
+      "navigationLabels": [
+        "मुख्य",
+        "गाड्या",
+        "काम",
+        "कर्मचारी",
+        "तपासा"
+      ]
+    },
+    {
+      "role": "employee",
+      "profile": "home-hi",
+      "navigationLabels": [
+        "होम",
+        "मेरा काम",
+        "मैं"
+      ]
+    },
+    {
+      "role": "employee",
+      "profile": "home-mr",
+      "navigationLabels": [
+        "मुख्य",
+        "माझे काम",
+        "मी"
+      ]
+    }
+  ],
+  "originalDisplaySettingsRestored": true,
+  "languageRestored": "en",
+  "physicalDeviceAcceptance": false
+}

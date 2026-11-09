@@ -1,0 +1,114 @@
+{
+  "checks": [
+    {
+      "role": "owner",
+      "screen": "cars",
+      "verified": [
+        "All car records",
+        "DEMO03"
+      ]
+    },
+    {
+      "role": "owner",
+      "screen": "home-from-car",
+      "verified": [
+        "Needs attention"
+      ]
+    },
+    {
+      "role": "owner",
+      "screen": "staff",
+      "verified": [
+        "Your staff",
+        "Find staff"
+      ]
+    },
+    {
+      "role": "owner",
+      "screen": "ravi-work",
+      "verified": [
+        "Ravi",
+        "Whose work?"
+      ]
+    },
+    {
+      "role": "owner",
+      "screen": "home-from-staff",
+      "verified": [
+        "Needs review"
+      ]
+    },
+    {
+      "role": "owner",
+      "screen": "review",
+      "verified": [
+        "Needs review",
+        "requests waiting"
+      ]
+    },
+    {
+      "role": "owner",
+      "screen": "work",
+      "verified": [
+        "Team work",
+        "All staff"
+      ]
+    },
+    {
+      "role": "employee",
+      "screen": "work",
+      "verified": [
+        "To do",
+        "Before delivery"
+      ]
+    },
+    {
+      "role": "employee",
+      "screen": "me",
+      "verified": [
+        "Pay and advances",
+        "Leave",
+        "Language and account"
+      ]
+    },
+    {
+      "role": "employee",
+      "screen": "home-from-me",
+      "verified": [
+        "Your next work"
+      ]
+    },
+    {
+      "role": "employee",
+      "screen": "routines-filter",
+      "verified": [
+        "Daily routines",
+        "Showroom opening"
+      ]
+    },
+    {
+      "role": "employee",
+      "screen": "home-from-routines",
+      "verified": [
+        "Your next work"
+      ]
+    },
+    {
+      "role": "employee",
+      "screen": "help",
+      "verified": [
+        "Ask your supervisor",
+        "Which car?"
+      ]
+    },
+    {
+      "role": "employee",
+      "screen": "home-final",
+      "verified": [
+        "Your next work"
+      ]
+    }
+  ],
+  "businessCommandsPosted": false,
+  "fatalRuntimeErrors": false
+}

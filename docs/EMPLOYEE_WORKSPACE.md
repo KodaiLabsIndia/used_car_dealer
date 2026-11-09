@@ -1,4 +1,4 @@
-# Employee work and routine views — 8 November 2026
+# Employee work and routine views — 9 November 2026
 
 The Expo employee workspace follows the SBOSS employee-day pattern: attendance
 and one useful next job first, personal money separate from operational work,
@@ -26,20 +26,29 @@ expense tools, QR work points or supplies screens are added.
 
 | Area | Working layout |
 | --- | --- |
-| Today | Server-date greeting, own attendance state and entry to its existing capture flow, one next work item, routines and car QR shortcut |
-| My work | Inspections / Routines / Service; To do / In review / Finished where those states exist; direct car or routine entry |
-| My pay | Actual latest issued salary and recorded paid amount; own statements/advances, leave and request updates |
-| Help | Short spoken guide in English/Hindi/Marathi, contextual inspection help, language/account and personal updates |
+| Home | Compact attendance entry, a useful next assignment with visible action, direct routines filter and QR scanning |
+| My work | Shared inspections / daily routines / repair work; To do / Sent for review / Done, with personal check portions |
+| Me | Own attendance history, issued pay/advances, leave, routine history, language/account and updates |
+| Help | A consistently labelled header action; car/check selection, optional note, explicit supervisor request and confirmation; spoken instructions |
 
-Root areas remain accessible while browsing, becoming a sidebar on wide tablet
-windows and two rows at large text. Work cards use one column on phones, clear
-instructions and full labels. The root crossfade respects reduced motion.
+Primary navigation remains visible on ordinary details, becomes a sidebar on wide
+tablet windows and reflows at large text. Assignment rows show the car, its
+registration, plain stage description, remaining work/status and one action.
+Attendance uses the existing proof/policy flow; it does not silently post a punch.
+Daily routines opens the routines work filter, with To do selected. Sent for
+review selects that actual work list. Pay and leave are separate entries in Me.
+
+The help page offers only the person's currently mutable checks. Requests retain
+the check/assignment revision and use existing retry-safe commands. Reassigned,
+submitted and accepted checks cannot become a different help target silently.
+No request is sent merely by opening Help. Other help still requires speaking
+to the owner/supervisor; a general support/ticket system is not invented here.
 
 The next inspection ordering is recheck, help request, actual overdue work,
 ongoing work and other assigned work, with deterministic ties. Due comparisons
 use the server clock when available. Work without a recorded deadline is not
 labelled overdue. A started routine can take the next-work slot ahead of an
-ordinary inspection; rechecks/help remain prominent. Neither attendance nor pay
+ordinary inspection; rechecks remain prominent. Neither attendance nor pay
 is inferred from completion of a routine.
 
 Salary shows saved issued figures, not an estimate. Attendance opens the shared
@@ -78,3 +87,8 @@ inspection/routine/service lists with one assigned-work queue. An inspection can
 be divided across employees by section or check. Its activity opens the real
 inspection workflow and persists across days; generic daily-step completion
 cannot replace check proof, submission or review.
+
+The [9 November checklist](NAVIGATION_CHECKLIST.md) and
+[review record](review/navigation-home/README.md) supersede earlier home layouts.
+Representative employee comprehension, spoken-language quality and physical
+phone/tablet/iOS acceptance remain open.

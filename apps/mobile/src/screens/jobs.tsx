@@ -27,7 +27,11 @@ export function JobsScreen({ navigation }: ScreenProps<"Jobs">) {
         }
       >
         <Text style={s.title}>
-          {hi ? "हर काम पर नज़र।" : "Keep things moving."}
+          {language === "mr"
+            ? "दुरुस्तीची कामे"
+            : hi
+              ? "मरम्मत के काम"
+              : "Repair work"}
         </Text>
         {session && can(session.actor, "service") ? (
           <Button

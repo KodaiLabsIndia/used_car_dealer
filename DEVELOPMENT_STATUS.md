@@ -1,6 +1,6 @@
 # Development status
 
-8 November 2026 · Internal development build · Production release gates remain open
+9 November 2026 · Internal development build · Production release gates remain open
 
 The selected **03 Garage** design uses Arihant's website logo, artwork, red/black/white palette and Plus Jakarta Sans. The product has a Python/FastAPI backend, PostgreSQL, adaptive Expo mobile and a React management website. Marketing integration remains excluded. The [spatial inspection plan](docs/SPATIAL_INSPECTION_PLAN.md) now has a working first implementation: vehicle-name search, a comprehensive unapproved inspection draft, section/part navigation and bundled generic 3D cars with drag rotation and red inspection points. Qualified SOP approval, verified India variants and physical-device acceptance remain open.
 
@@ -17,9 +17,16 @@ and status labels, without marketing slogans.
 
 The [reusable demo review](docs/review/demo-data/README.md) records date-based reingestion, username/password-only sign-in, 127 passing PostgreSQL tests and both role simulators.
 
-The [employee workspace](docs/EMPLOYEE_WORKSPACE.md) now has Today, My work, My pay and Help, a unified assigned-work queue and a guided spoken routine step view. Owners see person-grouped routine progress, active/paused libraries and search.
-
-The [owner workspace](docs/OWNER_WORKSPACE.md) groups Today, Dealership, People and Decisions, with attendance/payroll/routines inside employee management and focused buying/preparation/selling/support destinations. Daily routines have named assignment, repeat days, immutable started-day snapshots and logged completion/reopening.
+The [navigation usability update](docs/review/navigation-home/README.md) replaces
+the nested owner menus with **Home / Cars / Work / Staff / Review**, and employee
+entry with **Home / My work / Me** plus a persistent Help action. Cars opens the
+actual list, staff names lead their directory, named personal/team work is
+filterable, and ordinary detail screens keep primary navigation. Compact next-
+work cards put the actual action above introductory content. Pay/leave/history
+remain in Me; Help creates an explicitly sent, allocation-scoped request.
+The [owner](docs/OWNER_WORKSPACE.md) and [employee](docs/EMPLOYEE_WORKSPACE.md)
+guides describe current destinations. Actual staff and physical-device acceptance
+remain open.
 
 The [SBOSS attendance/payroll port](docs/SBOSS_IMPORT.md) adds team attendance, saved shifts, optional foreground location/photos, paid-time review, leave/holidays, effective-dated pay, salary advances/recovery, issued statements, payments/corrections and workforce items in the shared Decisions queue. Owners must configure agreed pay and company rules before operational use. The new mobile workspace has English/Hindi/Marathi labels; wider app translation and device acceptance remain open.
 

@@ -652,7 +652,12 @@ export function TaskScreen({ route, navigation }: ScreenProps<"Task">) {
                     accessibilityRole="button"
                     accessibilityLabel={t("requestHelp")}
                     disabled={busy}
-                    onPress={() => void run("help")}
+                    onPress={() =>
+                      navigation.navigate("Help", {
+                        taskId: task.id,
+                        ...(item ? { itemId: item.id } : {}),
+                      })
+                    }
                     style={{
                       minWidth: 52,
                       minHeight: 48,

@@ -108,9 +108,9 @@ export function RoutineBoard({
               "रोजच्या कामांची यादी",
             )}
             title={tr(
-              "Set it up once.\nKeep work consistent.",
-              "एक बार तय करें।\nरोज़ सही काम करें।",
-              "एकदा ठरवा.\nरोज योग्य काम करा.",
+              "Routine library",
+              "रोज़ के कामों की सूची",
+              "रोजच्या कामांची यादी",
             )}
           />
           <Button
